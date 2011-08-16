@@ -1,0 +1,28 @@
+{% extends "myadmin/base.html" %}
+{% block site_wrapper %}
+{% load myadmin_tags %}
+	{% menu request %}
+	<table cellpadding="0" cellspacing="0" border="0" id="client_edit_form_table" style="margin:20px auto">
+		<tr>
+			<td colspan="2" class="bottomborder order_fonts">	{{ order.title }}</td> {{ order.date }}
+		</tr>
+		<tr>
+			<td colspan="2" class="bottomborder order_fonts">	{{ order.order|safe }}</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="bottomborder order_fonts">	{{ order.tracking_number }}</td>
+		</tr>
+		<tr>
+			<td class="rightborder bottomborder order_fonts" style="padding:5px 10px">
+				{% if order.invoice %}
+					<a class="download_file" title="Скачать" href="{{ order.invoice.url }}" target="_blank">{{ order.invoice }}</a>
+				{% endif %}
+			</td>
+			<td  class="bottomborder order_fonts" style="padding:5px 10px">
+				{% if not order.is_done %}
+					<a href="is_done" class="alignright" style="color:#bc0d0d; vertical-align:bottom;">Доставлено</a>
+				{% endif %}
+			</td>
+		</tr>
+	</table>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load catalog_filters %}
+{% load cart_filters  %}
+{% block site_wrapper %}
+{% load archive %}
+<div id="page" class="fix">
+  <div id="wrapper" class="fix">
+
+    <div id="header" class="fix">
+		<a href="/" style="float:left"><img class="headerimage" src="{{ STATIC_URL }}res/img/my-spy-logo.png" alt="Магазин домашней безопасности"/></a>
+		<div class="basket" style="float:left">
+			{% cart_box request %}
+		</div>
+		<div class="icons">
+			<div>+7 (915) 122-52-91 <small>c 9:00 до 23:00 без выходных</small></div>
+			<a href='mailto:info@my-spy.ru'>info@my-spy.ru</a>
+		</div>
+	</div>
+
+	<div id="nav" class="fix">
+		<ul class="fix homebutton">
+			<li class="page_item navfirst">
+				<a class="home" href="/" title="Home" style="background-image: url('{{ STATIC_URL }}res/img/home-icon.png');">Home</a>
+			</li>
+		</ul>
+
+    {% category_list request.path %} <!-- Категории -->
+    </div>
+	<div class="clear"></div>
+	<div>
+		<div>
+			<div id="maincontent">
+				<div id="content">
+					<div class="postwrap fix">
+					<!-- /nav -->
+						<div id="blog_posts" class="alignleft">
+							{% for entry in entrys.object_list %}
+								<div class="blog_post">
+								    <a href="{{ entry.get_absolute_url }}" class="post_title"><h1>{{ entry.title }}</h1></a>
+								    <p class="date">{{ entry.date }}</p>
+								    {{ entry.thumbnail_entry|safe }}					
+									<div class="clr"></div>
+									
+								</div>
+							{% endfor %}
+							
+						</div>
+						<div class="blog_side alignleft">
+							Архив:<br>
+							{% archive %}<br><br>
+							Категории:<br>
+							{% categories %}
+						</div>
+						<div class="clr"></div>
+						<div class="pagination">
+						    <span class="step-links">
+						        {% if entrys.has_previous %}
+						            <a href="?page={{ entrys.previous_page_number }}">Сюда</a>
+						        {% endif %}
+						
+						        <span class="current">
+						            Страница {{ entrys.number }} из {{ entrys.paginator.num_pages }}.
+						        </span>
+						
+						        {% if entrys.has_next %}
+						            <a href="?page={{ entrys.next_page_number }}">Туда</a>
+						        {% endif %}
+						    </span>
+						 </div>
+					 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load catalog_filters %}
+{% load cart_filters  %}
+{% block site_wrapper %}
+    <div id="page" class="fix">
+  <div id="wrapper" class="fix" >
+	
+    <div id="header" class="fix">
+		<a href="/" style="float:left"><img class="headerimage" src="{{ STATIC_URL }}res/img/my-spy-logo.png" alt="Магазин домашней безопасности"/></a>
+		<div class="basket" style="float:left">
+			{% cart_box request %}
+		</div>
+		<div class="icons">
+			<div>+7 (915) 122-52-91 <small>c 9:00 до 23:00 без выходных</small></div>
+			<a href='mailto:info@my-spy.ru'>info@my-spy.ru</a>
+		</div>	
+	</div>
+	
+	<div id="nav" class="fix">
+		<ul class="fix homebutton">
+			<li class="page_item navfirst">
+				<a class="home" href="/" title="Home" style="background-image: url('{{ STATIC_URL }}res/img/home-icon.png');">Home</a>
+			</li>
+		</ul>
+
+    {% category_list request.path %} <!-- Категории -->
+ 	</div>
+		<div class="clear"></div>
+	<div><div><!-- /nav -->
+
+
+		
+			<div class="subnav2">
+        <a href="/cats">Каталог товара</a> {% if section %}»&nbsp;{{ section.name }}{% else %}{% if not category.section.slug == category.slug %}»&nbsp;<a href="/cats/{{ category.section.slug }}">{{ category.section.name }}</a>{% endif %} »&nbsp;{{ category.name }} {% endif %}
+				 <div class="clear"></div>
+			</div>
+		
+
+		<div id="maincontent">
+			<div id="content">
+				<div class="postwrap fix">
+					<table>
+						<tr>
+
+
+
+						
+						{% for product in products %}
+							<td style="width:50%;">
+								<table class="item-table"><tr>
+									<td class="item-img">
+									  <div style="min-height:200px;">  {% if product.thumbnail_image %}
+                                                 <a class="item-head" href="{{product.get_absolute_url}}"><img src="{{ product.thumbnail_image.thumb_url }}" title="{{ product.name }}" alt="{{ product.name }}" /></a>
+   										 {% else %}
+     								   Фотография товара отсутствует
+    									{% endif %}		</div>
+    									<div class="wpsc_product_price" style="width:100%"><br /><span id="product_price_26" class="pricedisplay">{{ product.price }} руб.</span><br/></p></div>
+                                        {% if product.in_stock %}
+											<form method="post" action="" class="cart"> {% csrf_token %}
+      											<input type="hidden" name="product_slug" value="{{ product.slug }}" id="{{ product.id }}" /> <br />
+      											<input type='image' src='{{ STATIC_URL }}res/img/atc.gif' id='product_26_submit_button' class='wpsc_buy_button' name='submit'  value="Купить" />
+  										    </form>
+                                        {% endif %}
+									</td>
+									<td class="item-desc">
+										<a class="item-head" href="{{product.get_absolute_url}}"><h2>{{ product.name }}</h2></a>
+										 {{ product.mini_html_description|safe }}
+										 <p>		
+																	Технические характеристики:<br /> 
+																 {% for feature in product.feature_set.all %}
+ 																	 - {{ feature.name }}: {{ feature.value|safe }} <br>
+																 {% endfor %}
+																
+
+											</p>
+										<a class="additional_description_span" href="{{product.get_absolute_url}}">Дополнительная информация</a>
+                                        {% for file in product.file_set.all %}
+                                        <p><a class="download_file" href="{{file.file.url}}" target="_blank">{{ file.name }}</a></p>
+                                        {% endfor %}
+
+                                        {% if not product.in_stock %}
+                                        <p><strong><em><span style="color: #ff0000">К сожалению данная модель закончилась, но вы можете сделать предзаказ по телефону.</span></em></strong></p>
+                                        {% endif %}
+
+									</td>
+								</tr></table>
+							</td>
+							{% if forloop.counter|div:2 == 0 %}
+								</tr><tr>
+							{% endif %}
+						{% endfor %}				
+					</tr>	
+				</table>
+				<div class="clear"/></div>
+				
+			</div>
+		</div>
+        {% if section.SEO_text %}
+		<div class="postwrap">
+		<div id="seocolum">
+            {{ section.SEO_text|safe }}
+        </div>
+        {% endif %}
+        {% if category.SEO_text %}
+        <div class="postwrap">
+        <div id="seocolum">
+            {{ category.SEO_text|safe }}
+        </div>
+        {% endif %}
+	</div>
+  </div>
+</div>
+{% endblock %}

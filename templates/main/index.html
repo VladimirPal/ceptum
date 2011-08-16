@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load catalog_filters %}
+{% load cart_filters  %}
+{% block site_wrapper %}
+Меню:<br>
+<a href="/">Главная</a><br>
+<a href="/delivery">Доставка и оплата</a><br>
+<a href="/about">О нас</a><br>
+<a href="/blog">Блог</a><br>
+<br>
+{% category_list request.path %}
+{% for cat in cats %}
+    <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+    <a href="{{ cat.get_absolute_url }}"><img src="{{ cat.image.thumb_url }}"/></a>
+{% endfor %}
+{% endblock %}

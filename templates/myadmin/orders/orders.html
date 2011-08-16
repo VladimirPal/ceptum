@@ -1,0 +1,35 @@
+{% extends "myadmin/base.html" %}
+{% block site_wrapper %}
+{% load myadmin_tags %}
+	{% menu request %}
+	<div class="chat_menu">
+		<a href="/myadmin/orders/add/" class="alignright">Добавить заказ</a>
+		<a href="/myadmin/orders/done/">Показать доставленные</a>
+	</div>
+	<table cellpadding="0" cellspacing="0" border="0" id="client_edit_form_table" style="margin:20px auto">
+		<tr>
+			<td style="width:70%;" class="rightborder bottomborder textcenter order_fonts">Заказ</td>
+			<td style="width:20%;" class="rightborder bottomborder textcenter order_fonts">Номер</td>
+			<td style="width:5%;" class="bottomborder">
+				
+			</td>
+		</tr>
+		{% for order in orders %}
+			<tr>
+				<td class="rightborder bottomborder textcenter order_fonts">
+					<a href="/myadmin/orders/{{ order.id }}/">{{ order.title }}</a> {{ order.date }}
+				</td>
+				<td class="rightborder bottomborder textcenter order_fonts">
+					{% if 'EE' in order.tracking_number %}
+					<a href="http://www.emspost.ru/tracking/{{ order.tracking_number }}" target="_blank">{{ order.tracking_number }}</a>
+					{% else %}
+						{{ order.tracking_number }}
+					{% endif %}
+				</td>
+				<td class="bottomborder textcenter">
+					<a href="/myadmin/orders/edit/{{ order.id }}/" target="_blank"><img src="/static/res/img/edit.png"/></a>
+				</td>				
+			</tr>
+		{% endfor %}
+	</table>
+{% endblock %}

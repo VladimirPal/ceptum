@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="ru-RU">
+<head>
+	<link rel="stylesheet" href="{{ STATIC_URL }}res/css/admin.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}js/anytimec.css" type="text/css" media="screen" />
+	<script type='text/javascript' src='{{ STATIC_URL }}res/js/jquery1.4.2.js'></script>
+		
+		<script type="text/javascript" src="{{ STATIC_URL }}js/anytimec.js"></script>
+		
+		
+	<script type='text/javascript'>
+		jQuery(document).ready(function(){
+			//alert('!');
+			jQuery('#allsales .clientinfo:even td, #client_edit_form_table tr:even td, #client_edit_form_table tr:even th, #task_chat_in tr:even td').css({background:'#ebf1fe'});
+			jQuery('#allsales .clientadress:even td, #client_edit_form_table tr:even td, #client_edit_form_table tr:even th').css({background:'#ebf1fe'});
+			jQuery('.all').click(function(){
+				if(jQuery(this).hasClass('active')){
+					jQuery('.'+(jQuery(this).attr('id'))).removeAttr("checked");
+					jQuery(this).removeClass('active');
+				}else{
+					jQuery('.'+(jQuery(this).attr('id'))).attr("checked","checked");
+					jQuery(this).addClass('active');
+				}
+			});
+			jQuery('#id_client-status, #id_client-status').ready(function(){
+				if(jQuery(this).find('option').eq('2').attr('selected')){
+					jQuery('#id_sms_status, #id_client-sms_status').parents('tr').show().end().find('option').eq('1').attr('selected','selected');
+				}else{
+					jQuery('#id_sms_status, #id_client-sms_status').parents('tr').hide();
+				}
+			});
+			jQuery('#id_status, #id_client-status').change(function(){
+				if(jQuery(this).val()=='POSTSENDED'){
+					jQuery('#id_sms_status, #id_client-sms_status').parents('tr').show().end().find('option').eq('1').attr('selected','selected');
+				} else{
+					jQuery('#id_sms_status, #id_client-sms_status').parents('tr').hide();
+				}
+			});
+			  jQuery("#id_execute_at, #id_client-execute_at").AnyTime_picker(
+			     { format: "%Y-%m-%d %H:%i:%s", firstDOW: 1 }
+			   );
+		});
+	</script>
+</head>
+<body>
+        {% block site_wrapper %}
+        {% endblock %}
+</body>
+</html>

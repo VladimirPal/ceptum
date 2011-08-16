@@ -1,0 +1,30 @@
+{% extends "myadmin/base.html" %}
+{% block site_wrapper %}
+{% load myadmin_tags %}
+	{% menu request %}
+	<div class="chat_menu">
+		<a href="/myadmin/tasks/add/" class="alignright">Добавить задание</a>
+		<a href="/myadmin/tasks/">Показать все активные</a> |&nbsp;
+		<a href="/myadmin/tasks/done/">Показать готовые</a> |&nbsp;
+		<a href="/myadmin/tasks/my/">Показать активные для меня</a> |&nbsp;
+		<a href="/myadmin/tasks/myown/">Показать задания созданные мною</a>
+	</div>
+	<table cellpadding="0" cellspacing="0" border="0" id="client_edit_form_table" style="margin:20px auto">
+		<tr class="head_row">
+			<td style="width:95%;" class="rightborder bottomborder order_fonts">Тема</td>
+			<td style="width:5%;" class="bottomborder">
+				
+			</td>
+		</tr>
+		{% for task in tasks %}
+		<tr>
+			<td class="rightborder bottomborder textcenter order_fonts">
+				<a href="/myadmin/tasks/{{ task.id }}/">{{ task.title }}</a> {{ task.date }}
+			</td>
+			<td class="bottomborder textcenter">
+				<a href="/myadmin/tasks/edit/{{ task.id }}/" target="_blank"><img src="/static/res/img/edit.png"/></a>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+{% endblock %}

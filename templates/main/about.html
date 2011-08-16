@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load catalog_filters %}
+{% load cart_filters  %}
+{% block site_wrapper %}
+<div id="page" class="fix">
+  <div id="wrapper" class="fix">
+
+    <div id="header" class="fix">
+		<a href="/" style="float:left"><img class="headerimage" src="{{ STATIC_URL }}res/img/my-spy-logo.png" alt="Магазин домашней безопасности"/></a>
+		<div class="basket" style="float:left">
+			{% cart_box request %}
+		</div>
+		<div class="icons">
+			<div>+7 (915) 122-52-91 <small>c 9:00 до 23:00 без выходных</small></div>
+			<a href='mailto:info@my-spy.ru'>info@my-spy.ru</a>
+		</div>
+	</div>
+
+	<div id="nav" class="fix">
+		<ul class="fix homebutton">
+			<li class="page_item navfirst">
+				<a class="home" href="/" title="Home" style="background-image: url('{{ STATIC_URL }}res/img/home-icon.png');">Home</a>
+			</li>
+		</ul>
+
+    {% category_list request.path %} <!-- Категории -->
+    	</div>
+		<div class="clear"></div>
+	<div><div><!-- /nav -->
+
+	<div id="container" class="fix ">
+		<div id="content">
+			<div class="postwrap fix">
+				<div class="post-51 page type-page hentry" id="post-51">
+					<div class="copy fix">
+						<div class="textcontent">
+							<p>ООО &laquo;БебиСкай&raquo;</p>
+							<p>Юридический адрес: 123244,  г. Москва, ул. Гризодубовой, д.1 кв.10.</p>
+							<p>ОГРН 1127646350113</p>
+							<p><strong>Тел:</strong>+7 (915) 122-52-91</p>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+  </div>
+</div>
+{% endblock %}

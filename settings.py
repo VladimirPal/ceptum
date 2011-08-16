@@ -83,7 +83,7 @@ MIDDLEWARE_CLASSES = (
 #    'myspy.ReferMiddleware.ReferMiddleware',
 )
 
-ROOT_URLCONF = 'myspy.urls'
+ROOT_URLCONF = 'cctvision.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'templates')
@@ -99,10 +99,10 @@ INSTALLED_APPS = (
     'grappelli',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    'myspy.catalog',
-    'myspy.cart',
-    'myspy.myadmin',
-    'myspy.blog',
+    'cctvision.catalog',
+    'cctvision.cart',
+    'cctvision.myadmin',
+    'cctvision.blog',
     'filebrowser',
     'tinymce',
     # Uncomment the next line to enable admin documentation:

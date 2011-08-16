@@ -1,0 +1,41 @@
+{% extends "myadmin/base.html" %}
+{% block site_wrapper %}
+{% load myadmin_tags %}
+	{% menu request %}
+	<table id="allsales" cellpadding="5px" cellspacing="0">
+		<tr style="background:#cccccc;" class="textcenter">
+			<td class="bottomborder rightborder">
+				Наименование
+			</td>
+	        <td class="bottomborder rightborder">
+	            Количество
+	        </td>
+	        <td class="bottomborder rightborder">
+	            Розничная цена
+	        </td>
+			<td class="bottomborder">
+				Цена закупки
+			</td>
+		<tr>
+		{% for product in products %}
+		<tr class="clientinfo">
+			<td class="bottomborder rightborder">
+				{{ product.name }}
+			</td>
+	        <td class="bottomborder rightborder textcenter">
+	            {{ product.quantity }}
+	        </td>
+			<td class="bottomborder rightborder textcenter">
+	            {{ product.price }}
+			</td>
+	        <td class="bottomborder textcenter">
+	            {{ product.wholesale_price }}
+	        </td>
+		</tr>
+		{% endfor %}
+	</table>
+	<div id="add_formstats">
+		Денег в рознице: <span class="orange">{{ money_in_retail }}</span> руб <br/><br/>
+		Денег в опте: <span class="orange">{{ money_in_wholesale }}</span> руб
+	</div>
+{% endblock %}

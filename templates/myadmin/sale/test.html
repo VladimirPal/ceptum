@@ -1,0 +1,398 @@
+{% load myadmin_tags %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>my-spy_admin</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link href="{{ STATIC_URL }}res/css/test.css" rel="stylesheet" type="text/css" />
+    <script src='{{ STATIC_URL }}res/js/jquery-1.5.1.js'></script>
+	<script src="{{ STATIC_URL }}js/ui/jquery.ui.core.js"></script>
+	<script src="{{ STATIC_URL }}js/ui/jquery.ui.widget.js"></script>
+	<script src="{{ STATIC_URL }}js/ui/jquery.ui.button.js"></script>
+	<script src="{{ STATIC_URL }}js/jquery.form.js"></script>
+    
+	<script type="text/javascript">
+    $(document).ajaxSend(function(event, xhr, settings) {
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        function sameOrigin(url) {
+            // url could be relative or scheme relative or absolute
+            var host = document.location.host; // host + port
+            var protocol = document.location.protocol;
+            var sr_origin = '//' + host;
+            var origin = protocol + sr_origin;
+            // Allow absolute or scheme relative URLs to same origin
+            return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+                (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+                // or any other URL that isn't scheme relative or absolute i.e relative.
+                !(/^(\/\/|http:|https:).*/.test(url));
+        }
+        function safeMethod(method) {
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    });
+	$(function() {
+		/*$( "#accordion" ).accordion({
+			autoHeight: false,
+			navigation: true
+		});*/
+		$( ".set" ).buttonset();
+		$( ".ch" ).button();
+	});
+    $(document).ready(function () {
+    lines();
+    var $create_edit = $('#create_edit');
+    var $create_edit_block = $('#create_edit_block');
+    var clid, url, $target_client;
+    var $create_bg = $('#create_bg');
+        $('.test_id').change(function () {
+            var value = $(this).val();
+            $.post("/myadmin/test_json/", {param: value});
+        });
+		$('.test_id').each(function(){
+			var $thisis = $(this).parents('.action');
+			$(this).find('option').each(function(){
+				var copy_wrap = $(this).clone().appendTo($thisis.find('.ps_selector')).wrap('<li></li>').wrapInner('<p class="'+$(this).val()+'"></p>').find('p').unwrap();
+				//copy_wrap.css({background:'red'});
+			});
+		});
+		$('.ps_selector li').live('click',function(){
+			var $this_li_p = $(this).parents('.action').children('span').children('p');
+			 var value = $(this).children('p').attr('class');
+			 $(this).parents('.action').children('span').children('p').text($(this).children('p').text());
+			  $.post("/myadmin/test_json/", {param: value}, function(){	
+			  		//alert('!');
+			  		invisible($this_li_p);
+			});
+		});
+		//редактирование кклиента
+		var isnew = false;
+		$('.items_list .name a').live('click',function(){
+			$('.clientedit').remove();
+			$target_client = $(this).parents('tr');
+			var oftop = $create_edit.fadeIn().css({position:'fixed',top:'0'}).children('#create_edit_block').html('<span class="load">Загруза...</span>').offset().top;
+			$create_bg.fadeIn();
+			clid = parseFloat($(this).parents('tr').find('.id').text(),10);
+			url = '../client/'+clid+' #client_edit_form';
+			//alert(url);
+			$create_edit_block.load(url,function(){
+				$create_edit.fadeIn().css({position:'absolute',top:oftop});
+				$create_edit_block.children('.load').hide().end().find('#client_edit_form').slideDown().attr('action','/myadmin/client/'+clid+'/');
+				$('#delite_client').attr('href','/myadmin/client/'+clid+'/delete');
+				$('#new_order').attr('href','/myadmin/client/'+clid+'/copy');
+				
+			});
+			isnew = false;
+			return false;
+		});
+		$('#create_edit .close').click(function(e){		
+				$('#create_edit').fadeOut();
+				$create_bg.fadeOut(100);
+		});
+		//удаление
+		$('#delite_client').live('click',function(){
+			$.get('/myadmin/client/'+clid+'/delete',function(){
+				
+			});
+			$create_edit.hide();
+				$create_bg.fadeOut(100,function(){
+					$target_client.fadeOut(1500,function(){
+						$(this).remove()
+					});
+				});
+			return false;
+		});
+		//добавление нового клиента
+		$('.lt_un .icon_man').live('click',function(){
+			$('.clientedit').remove();
+			$target_client = $(this).parents('tr');
+			var oftop = $create_edit.fadeIn().css({position:'fixed',top:'0'}).children('#create_edit_block').html('<span class="load">Загруза...</span>').offset().top;
+			$create_bg.fadeIn();
+			url = "/myadmin/client/add #client_edit_form"
+			$create_edit_block.load(url,function(){
+				$create_edit.fadeIn().css({position:'absolute',top:oftop});
+				$create_edit_block.children('.load').hide().end().find('#client_edit_form').slideDown().attr('action','/myadmin/client/add');
+				
+			});
+			isnew = true;
+			return false;
+		});
+		//Отправка данных
+		$('#client_edit_form .selectbutton').live('click',function(){
+			$('#client_edit_form').ajaxForm(function(msg){
+				if(isnew){
+					if($('#id_name').val() == ''){
+						$('#id_name').parents('tr').find('label').css({color:'red'});
+						window.scroll(0,0); 
+					}else if($('#id_phone').val() == ''){
+						$('#id_phone').parents('tr').find('label').css({color:'red'});
+						window.scroll(0,0); 
+					}else{
+						url = '../client/'+msg+'/get .item td';
+						$create_edit.hide();
+						$create_bg.fadeOut(100);
+						$('.items_list tbody').prepend('<tr class="item"></tr>').find('tr').eq(0).load(url,function(){
+							var $thisis = $target_client.find('.action');
+							$(this).css({opacity:0}).animate({opacity:1},2000);
+							$target_client.find('option').each(function(){
+									//$(this).clone().appendTo($thisis.find('.ps_selector')).wrap('<li></li>');
+									$(this).clone().appendTo($thisis.find('.ps_selector')).wrap('<li></li>').wrapInner('<p class="'+$(this).val()+'"></p>').find('p').unwrap();
+							});
+							invisible($thisis.children('span').children('p'));
+							lines();
+						});
+					}
+				}else{
+					if($('#id_name').val() == ''){
+						$('#id_client-name').parents('tr').find('label').css({color:'red'});
+						window.scroll(0,0); 
+					}else if($('#id_client-phone').val() == ''){
+						$('#id_phone').parents('tr').find('label').css({color:'red'});
+						window.scroll(0,0); 
+					}else{
+						url = '../client/'+clid+'/get .item td';
+						$create_edit.hide();
+						$create_bg.fadeOut(100);
+						//alert(url);
+						$target_client.load(url,function(){
+							var $thisis = $target_client.find('.action');
+							$target_client.find('option').each(function(){
+									//$(this).clone().appendTo($thisis.find('.ps_selector')).wrap('<li></li>');
+									$(this).clone().appendTo($thisis.find('.ps_selector')).wrap('<li></li>').wrapInner('<p class="'+$(this).val()+'"></p>').find('p').unwrap();
+							});
+							invisible($thisis.children('span').children('p'));
+							lines();
+						});
+					}
+				}
+				
+		       // window.location.reload("");
+		    });
+		});
+		function invisible($intarg){
+					var str = $intarg.text();
+							var regText = ""+str+".(\\d+).";
+							//alert(str);
+							var reg = new RegExp(regText);
+							//alert(reg);
+							$('#accordion .ui-button-text span').each(function(){
+								if(reg.test($(this).text())){
+									//alert($(this).parents('li').find('input').attr('checked'));
+									if(!($(this).parents('li').find('input').attr('checked'))){
+										$intarg.parents('tr').fadeOut(1000);
+									}
+								}
+							});
+			
+		}
+		var dsdfsfd;
+		
+		$('.action>span>p').live('click',function(){
+			$('.ps_selector').hide();
+			dsdfsfd = this;
+			$(this).parents('span').children('.ps_selector').show().addClass('active_selector_ps');
+		});
+		$('body').click(function(e){
+		//	alert(e.target);
+		//	alert(dsdfsfd);
+			if(e.target != dsdfsfd){
+				$('.active_selector_ps').hide();
+			}
+		});
+    });
+    function lines(){
+    	$('.items_list tr:even').css({background:'#fff'});
+    }
+	</script>
+<script src="{{ STATIC_URL }}js/init.js"></script>
+</head>
+<body>
+<div id="container">
+	<div id="create_bg"></div>
+	<div id="create_edit">
+		<div class="close">X</div>
+		<div id="create_edit_block"></div>
+	</div>
+	<div id="header">
+   		<!-- // -->
+		<div class="top_menu">
+			<ul>
+				<li class="current"><a href="/myadmin/sales/">Клиенты</a></li>
+				<li><a href="/myadmin/store/">Склад  </a></li>
+				<li><a href="/myadmin/cash/month/">Касса  </a></li>
+				<li><a href="/myadmin/tasks/">Задачи  </a></li>
+				<li><a href="/myadmin/orders/">Заказы  </a></li>
+				<li><a href="/myadmin/statistic/">Статистика</a></li>
+			</ul>
+
+			<!-- // -->
+			<div class="user">
+				<span>{{ request.user }}</span>
+				<a href="/myadmin/logout" class="logout"></a>
+			</div>
+		</div>
+        <!-- // -->
+		<div class="clear"></div>
+        <!-- // -->
+		<div class="lt_un">
+            <input type="submit" class="icon_man" value="&nbsp;" onclick="" />
+		</div>
+        <!-- // -->
+		<div class="search">
+			<form action="#">
+				<div class="input">
+					<input type="text" name="q" class="q" />
+					<input type="reset" value="&nbsp;" class="reset" />
+				</div>
+				<div class="btn">
+					<input type="submit" value="&nbsp;" />
+				</div>
+			</form>
+		</div>
+        <!-- // -->
+	</div>
+	<div id="wrapper">
+		<div id="content">
+			<table class="items_list" cellpadding="0" cellspacing="0" border="1">
+                {% for client in clients %}
+                <tr class="item">
+                	<td class="id">
+	  					{{ client.id }}
+	  				</td>
+	  				<td class="action">
+						
+	  					<span >
+						<p>{{ client.get_status_display }}</p>
+						<ul class="ps_selector">
+							
+						</ul>
+						</span>
+	  					{% select client %}
+	  				</td>
+	  				<td>
+	  					<span class="name">
+	  						<a href="/myadmin/client/{{ client.id }}" target="_blank">
+	  							{{ client.surname }} {{ client.name }} {{ client.patronymic }}
+	  						</a>
+	  					</span>
+	  				</td>
+	  				<td class="time"></td>
+	  				<td>
+	  					<span class="phone">{{ client.phone }}</span>
+	  				</td>
+	  				<td>
+	  					<span class="goods">
+	                            {{ client.get_order|safe }}
+	  						</span>
+	  				</td>
+	  				<td>
+	  					 {% if client.subtotal %}
+	  						<span class="price">
+	  							{{ client.subtotal }}&nbsp;руб </br>{% if client.discount %}<small>{{ client.discount }}&nbsp;руб</small>{% endif %}
+	  						</span>
+	                     {% endif %}
+	  				</td>
+	  				<td>
+	  					<div class="main_info">
+	  						
+	                        
+	  						
+	  						<span class="address">{% if client.city %}{{ client.city }};{% endif %} {{ client.address }}{% if client.postcode %} - Индекс: {{ client.postcode }} {% endif %}</span>
+	  						<div class="clear"></div>
+	  						<span class="comment">{{ client.comment }}</span>
+	  					</div>
+					</td>
+					<td>
+	  					{% if client.tracking_number %}<a href="http://www.emspost.ru/tracking/{{ client.tracking_number }}" target="_blank">{{ client.tracking_number }}</a> {{ client.tracking_status }}{% endif %}
+	  				</td>
+                </tr>
+                {% endfor %}
+			</table>
+		</div>
+	</div>
+	<div id="navigation">
+	    <form action="/myadmin/sales/" method="post" id="filter"> {% csrf_token %}
+			<div class="lt_un">
+				<input type="submit" class="icon_apply" value="&nbsp;" />
+			</div>
+
+			<div class="clear"></div>
+
+			<div id="accordion">
+				<h3><a href="javascript:void(0);" class="send_form1">Активные</a> <input type="checkbox" class="ch" id="hd1" /> <label for="hd1" class="maincheckbox1"></label> <!--<span class="corn"></span> --></h3>
+				<div>
+					<ul class="set">
+				        <li><input type="checkbox" id="ch1" class="group1" value="PROCESS" name='status'{% for i in statuses %}{% if i == "PROCESS" %} checked="checked" {% endif %}{% endfor %} /> <label for="ch1"><span>{% status_count "PROCESS" %}</span></label></li>
+						<li><input type="checkbox" id="ch2" class="group1" value="POSTSEND" name="status"{% for i in statuses %}{% if i == "POSTSEND" %} checked="checked" {% endif %}{% endfor %} /> <label for="ch2"><span>{% status_count "POSTSEND" %}</span></label></li>
+						<li><input type="checkbox" id="ch3" class="group1" value="COURIER_SEND" name="status"{% for i in statuses %}{% if i == "COURIER_SEND" %} checked="checked" {% endif %}{% endfor %} /> <label for="ch3"><span>{% status_count "COURIER_SEND" %}</span></label></li>
+						<li><input type="checkbox" id="ch4" class="group1" value="BACK" name="status"{% for i in statuses %}{% if i == "BACK" %} checked="checked" {% endif %}{% endfor %} /> <label for="ch4"><span>{% status_count "BACK" %}</span></label></li>
+						<li><input type="checkbox" id="ch5" class="group1" value="CONTACT_AT" name="status"{% for i in statuses %}{% if i == "CONTACT_AT" %} checked="checked" {% endif %}{% endfor %} /> <label for="ch5"><span>{% status_count "CONTACT_AT" %}</span></label></li>
+					</ul>
+				</div>
+				<h3><a href="javascript:void(0);" class="send_form2">Пассивные</a> <input type="checkbox" class="ch" id="hd2" /> <label for="hd2" class="maincheckbox2"></label>   <!--<span class="corn"></span> --></h3>
+				<div>
+					<ul class="set">
+						<li><input type="checkbox" id="ch6" class="group2" value="COURIER_TAKE" name="status"{% for i in statuses %}{% if i == "COURIER_TAKE" %} checked="checked" {% endif %}{% endfor %} /> <label for="ch6"><span>{% status_count "COURIER_TAKE" %}</span></label></li>
+						<li><input type="checkbox" id="ch7" class="group2" value="BUYER_TAKE" name="status"{% for i in statuses %}{% if i == "BUYER_TAKE" %} checked="checked" {% endif %}{% endfor %} /> <label for="ch7"><span>{% status_count "BUYER_TAKE" %}</span></label></li>
+						<li><input type="checkbox" id="ch8" class="group2" value="WAYT_PRODUCT" name="status"{% for i in statuses %}{% if i == "WAYT_PRODUCT" %} checked="checked" {% endif %}{% endfor %} /> <label for="ch8"><span>{% status_count "WAYT_PRODUCT" %}</span></label></li>
+						<li><input type="checkbox" id="ch9" class="group2" value="POSTSENDED" name="status"{% for i in statuses %}{% if i == "POSTSENDED" %} checked="checked" {% endif %}{% endfor %} /> <label for="ch9"><span>{% status_count "POSTSENDED" %}</span></label></li>
+					</ul>
+				</div>
+				<h3><a href="javascript:void(0);" class="send_form3">Закрытые</a> <input type="checkbox" class="ch" id="hd3" /> <label for="hd3" class="maincheckbox3"></label> <!--<span class="corn"></span> --></h3>
+				<div>
+					<ul class="set">
+						<li><input type="checkbox" id="ch11" class="group3" value="CASH_IN" name="status"{% for i in statuses %}{% if i == "CASH_IN" %} checked="checked" {% endif %}{% endfor %} /> <label for="ch11"><span>{% status_count "CASH_IN" %}</span></label></li>
+						<li><input type="checkbox" id="ch12" class="group3" value="REFUSED" name="status"{% for i in statuses %}{% if i == "REFUSED" %} checked="checked" {% endif %}{% endfor %} /> <label for="ch12"><span>{% status_count "REFUSED" %}</span></label></li>
+					</ul>
+				</div>
+				<h3 {% if 'sales/all' in request.path %} class="current"{% endif %}><a href="/myadmin/sales/all">Все клиенты</a></h3>
+				<div>
+					<ul class="set">
+					</ul>
+				</div>
+			</div>
+
+
+
+            {% date_tags request.path %}
+
+
+    	</form>
+
+	</div>
+	<div id="extra">
+    	<!-- // -->
+		<div class="ltime">
+			<ul>
+				{% if 'today' in request.path %}<li class="current">{% else %}<li>{% endif %}<a href="/myadmin/sales/today/">За сегодня</a></li>
+                {% if 'week' in request.path %}<li class="current">{% else %}<li>{% endif %}<a href="/myadmin/sales/week/">За неделю</a></li>
+                {% if 'month' in request.path %}<li class="current">{% else %}<li>{% endif %}<a href="/myadmin/sales/month/">За месяц</a></li>
+                {% if 'year' in request.path %}<li class="current">{% else %}<li>{% endif %}<a href="/myadmin/sales/year/">За год</a></li>
+			</ul>
+		</div>
+        <!-- // -->
+	</div>
+	<div id="footer">
+
+	</div>
+</div>
+
+</body>
+</html>

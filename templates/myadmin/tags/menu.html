@@ -1,0 +1,26 @@
+﻿<div id="menu_block">
+		<table cellpadding="0" cellspacing="0" border="0" class="menu">
+			<td rowspan="2">
+			    <a href="/myadmin/sales/" >Клиенты</a>
+			</td>
+			<td rowspan="2">
+			    <a href="/myadmin/store" >Склад</a>
+			</td>
+			<td rowspan="2">
+			    <a href="/myadmin/cash/month/" >Касса</a>
+			</td>
+            <td rowspan="2">
+			    <a href="/myadmin/tasks/" >Задачи</a>
+			</td>
+            <td rowspan="2">
+			    <a href="/myadmin/orders/" >Заказы</a>
+			</td>
+            <td rowspan="2">
+			    <a href="/myadmin/statistic/" >Статистика</a>
+			</td>
+		</table>
+		<div class="autent">
+		{{ request.user }}
+		    <a href="/myadmin/logout/">Выйти</a>
+		</div>
+	</div>

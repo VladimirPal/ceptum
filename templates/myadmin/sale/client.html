@@ -1,0 +1,50 @@
+{% load myadmin_tags %}
+<table>
+<tr class="item">
+	<td class="id">
+		{{ client.id }}
+	</td>
+	<td class="action">				
+	  	<span >
+		<p>{{ client.get_status_display }}</p>
+		<ul class="ps_selector">
+			
+		</ul>
+		</span>
+			{% select client %}
+	</td>
+	<td>
+		<span class="name">
+			<a href="/myadmin/client/{{ client.id }}" target="_blank">
+				{{ client.name }} {{ client.surname }} {{ client.patronymic }}
+			</a>
+		</span>
+	</td>
+	<td class="time"></td>
+	<td>
+		<span class="phone">{{ client.phone }}</span>
+	</td>
+	<td>
+		<span class="goods">
+            {{ client.get_order|safe }}
+		</span>
+	</td>
+	<td>
+		<span class="price">
+			{{ client.subtotal }}&nbsp;руб</br> <small>{{ client.discount }}&nbsp;руб</small>
+		</span>
+	</td>
+	<td>
+		<div class="main_info">
+			<span class="address">{% if client.city %}{{ client.city }};{% endif %} {{ client.address }}{% if client.postcode %} - Индекс: {{ client.postcode }} {% endif %}</span>
+			<div class="clear"></div>
+			<span class="comment">{{ client.comment }}</span>
+		</div>
+		
+	</td>
+	<td>
+		{% if client.tracking_number %}<a href="http://www.emspost.ru/tracking/{{ client.tracking_number }}" target="_blank">{{ client.tracking_number }}</a> {{ client.tracking_status }}{% endif %}
+	</td>
+</tr>
+</table>
+

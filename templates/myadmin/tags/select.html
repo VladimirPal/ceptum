@@ -1,0 +1,5 @@
+<select name="name_test" class="test_id">
+    {% for i in need_statuses %}
+        <option {% if client.status == i.0 %} selected="selected" {% endif %}value="{{ client.id }}.{{ i.0 }}">{{ i.1 }}</option>
+    {% endfor %}
+</select>

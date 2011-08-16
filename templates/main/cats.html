@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load catalog_filters %}
+{% load cart_filters  %}
+{% block site_wrapper %}
+    <div id="page" class="fix">
+  <div id="wrapper" class="fix" >
+
+    <div id="header" class="fix">
+		<a href="/" style="float:left"><img class="headerimage" src="{{ STATIC_URL }}res/img/my-spy-logo.png" alt="Магазин домашней безопасности"/></a>
+		<div class="basket" style="float:left">
+			{% cart_box request %}
+		</div>
+		<div class="icons">
+			<div>+7 (915) 122-52-91 <small>c 9:00 до 23:00 без выходных</small></div>
+			<a href='mailto:info@my-spy.ru'>info@my-spy.ru</a>
+		</div>
+	</div>
+
+	<div id="nav" class="fix">
+		<ul class="fix homebutton">
+			<li class="page_item navfirst">
+				<a class="home" href="/" title="Home" style="background-image: url('{{ STATIC_URL }}res/img/home-icon.png');">Home</a>
+			</li>
+		</ul>
+
+    {% category_list request.path %} <!-- Категории -->
+ 	</div>
+		<div class="clear"></div>
+	<div><div><!-- /nav -->
+    <div id="maincontent">
+		<div id="content">
+			<div class="postwrap fix" style="padding:30px;">
+		        <table cellpadding="0" cellspacing="0" border="0" style="vertical-align:top;">
+		        	<tr>
+			        {% for section in sections %}
+			        	
+	                        {% if not section.name == section.category_set.all.0.name %}
+	                       	<tr><td colspan="2"><center><a class="cats_discr" href="{{ section.get_absolute_url }}"> <h1>{{ section.name }}</h1></a><br></center></td></tr>
+	                        {% endif %}
+	                       
+	                       {% for cat in section.category_set.all %}
+			                   <td style="vertical-align:top; padding:20px;">
+						        	<table cellpadding="0" cellspacing="0" border="0" style="vertical-align:top;">
+						        		<tr>
+								        	<td style="vertical-align:top; padding:20px;">
+								        		<a href="{{ cat.get_absolute_url }}"><img width="150px" src="{{ cat.image.thumb_url }}"/></a>
+								        	</td>
+								        	<td style="vertical-align:top; padding:20px;">
+									        	<a class="item-head cats_discr" href="{{ cat.get_absolute_url }}">
+													<h2>{{ cat.name }}</h2>
+												</a>
+									            <p>{{ cat.description|safe }}</p>
+								            </td>
+								    	</tr>
+						        	</table>
+					        	</td>
+					        	{% if not section.name == section.category_set.all.0.name %}
+							        {% if forloop.counter|div:2 == 0 %}
+										</tr><tr>
+									{% endif %}
+								{% endif %}
+	                      	{% endfor %}
+						{% if forloop.counter|div:2 == 0 %}
+										</tr><tr>
+									{% endif %}
+				        {% if not section.name == section.category_set.all.0.name %}
+							</tr>
+							<tr><td colspan="2"  style="padding:20px; border-top: 5px solid #ccc;"></td></tr>	
+							<tr>
+						{% endif %}
+			        {% endfor %}
+			        </tr>
+				</table>
+        	</div>
+        </div>
+   </div>
+{% endblock %}

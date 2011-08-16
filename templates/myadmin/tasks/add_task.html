@@ -1,0 +1,21 @@
+{% extends "myadmin/base.html" %}
+{% block site_wrapper %}
+{% load myadmin_tags %}
+	{% menu request %}
+	{{ form.media }}
+	<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+	<table id="client_edit_form_table" class="margincenter">
+		{{ form.as_table }}
+		{{ formset }}
+				<tr>
+				<td style="padding:5px; text-align:center;">
+					<input type="submit" value="Подтвердить" class="selectbutton" />
+				</td>
+				<td  style="padding:5px;">
+					<a href="delete" class="alignright" style="color:#bc0d0d; vertical-align:bottom;">Удалить</a>
+				</td>
+			</tr>
+			</table>
+	
+	</form>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "myadmin/base.html" %}
+{% block site_wrapper %}
+{% load myadmin_tags %}
+	{% menu request %}
+	<div id="selector_block">
+		<div class="money_stat">
+			<table class="alignleft" cellspacing="0" cellpadding="0" border="0">
+				<tr><td>Всего чистой прибыли: </td><td><span class="orange">{{ all_profit }}</span></td></tr>
+				<tr><td>Всего расходов: </td><td><span class="orange">{{ all_costs }}</span></td></tr>
+				<tr><td>Всего прибыли: </td><td><span class="orange">{{ all_clean_profit }}</span></td></tr>
+                <tr><td>На отправку товара: </td><td><span class="orange">{{ all_sendgoods }}</span></td></tr>
+                <tr><td>На закупку товара: </td><td><span class="orange">{{ all_purchases }}</span></td></tr>
+                <tr><td>Взятки: </td><td><span class="orange">{{ all_bribes }}</span></td></tr>
+                <tr><td>Яндекс директ: </td><td><span class="orange">{{ all_yandex }}</span></td></tr>
+                <tr><td>На телефон: </td><td><span class="orange">{{ all_phones }}</span></td></tr>
+                <tr><td>Остальное: </td><td><span class="orange">{{ all_others }}</span></td></tr>
+                <tr><td>ЗП Владимиру: </td><td><span class="orange">{{ all_vladimir }}</span></td></tr>
+                <tr><td>ЗП Виктору: </td><td><span class="orange">{{ all_victor }}</span></td></tr>
+                <tr><td>ЗП курьеру: </td><td><span class="orange">{{ all_courier }}</span></td></tr>
+                <tr><td>Всего чистой прибыли за месяц: </td><td><span class="orange">{{ month_profit }}</span></td></tr>
+                <tr><td>Всего расходов за месяц: </td><td><span class="orange">{{ month_costs }}</span></td></tr>
+                <tr><td>На отправку товара за месяц: </td><td><span class="orange">{{ month_sendgoods }}</span></td></tr>
+                <tr><td>На закупку товара за месяц: </td><td><span class="orange">{{ month_purchases }}</span></td></tr>
+                <tr><td>Взятки за месяц: </td><td><span class="orange">{{ month_bribes }}</span></td></tr>
+                <tr><td>Яндекс директ за месяц: </td><td><span class="orange">{{ month_yandex }}</span></td></tr>
+                <tr><td>На телефон за месяц: </td><td><span class="orange">{{ month_phones }}</span></td></tr>
+                <tr><td>Остальное за месяц: </td><td><span class="orange">{{ month_others }}</span></td></tr>
+                <tr><td>ЗП Владимиру за месяц: </td><td><span class="orange">{{ month_vladimir }}</span></td></tr>
+                <tr><td>ЗП Виктору за месяц: </td><td><span class="orange">{{ month_victor }}</span></td></tr>
+                <tr><td>ЗП курьеру за месяц: </td><td><span class="orange">{{ month_courier }}</span></td></tr>
+                {% for product in products %}
+                    <tr><td>Продано {{ product.product.name }}: </td><td>{{ product.quantity }} шт, чистой прибыли: <span class="orange">{{ product.cash }}</span></td></tr>
+                {% endfor %}
+                {% for i in q %}
+                    <tr><td>{{ i.0 }}</td><td><span class="orange">{{ i.1 }}</span></td></tr>
+                {% endfor %}
+			</table>
+			<div class="clr"></div>
+	</div>
+{% endblock %}

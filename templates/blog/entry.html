@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load catalog_filters %}
+{% load cart_filters  %}
+{% block site_wrapper %}
+{% load archive %}
+<div id="page" class="fix">
+  <div id="wrapper" class="fix">
+
+    <div id="header" class="fix">
+		<a href="/" style="float:left"><img class="headerimage" src="{{ STATIC_URL }}res/img/my-spy-logo.png" alt="Магазин домашней безопасности"/></a>
+		<div class="basket" style="float:left">
+			{% cart_box request %}
+		</div>
+		<div class="icons">
+			<div>+7 (915) 122-52-91 <small>c 9:00 до 23:00 без выходных</small></div>
+			<a href='mailto:info@my-spy.ru'>info@my-spy.ru</a>
+		</div>
+	</div>
+
+	<div id="nav" class="fix">
+		<ul class="fix homebutton">
+			<li class="page_item navfirst">
+				<a class="home" href="/" title="Home" style="background-image: url('{{ STATIC_URL }}res/img/home-icon.png');">Home</a>
+			</li>
+		</ul>
+
+    {% category_list request.path %} <!-- Категории -->
+    </div>
+	<div class="clear"></div>
+	<div>
+		<div>
+			<div id="maincontent">
+				<div id="content">
+					<div class="postwrap fix">
+					<!-- /nav -->
+						<div id="blog_posts" class="alignleft">
+							<div class="blog_post">
+								<h1 class="post_title">{{ entry.title }}</h1>
+								<p class="date">{{ entry.date }}</p>
+								{{ entry.entry|safe }}
+								<div class="clr"></div>
+								
+							</div>
+						</div>
+						<div class="blog_side alignleft">
+							Архив:<br>
+							{% archive %}<br><br>
+							Категории:<br>
+							{% categories %}
+						</div>
+					 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+<div id="fb-root"></div>
+    <script src="http://connect.facebook.net/ru_RU/all.js#appId=198969033467498&amp;xfbml=1"></script>
+    <fb:comments href="my-spy.ru{{ request.path }}" num_posts="10" width="500"></fb:comments>
+<!--
+<script type="text/javascript">
+FB.Event.subscribe('comment.create', function(response) {
+alert('aaaa');
+});
+</script>
+-->
+
+<script type="text/javascript">
+		$j('.product_image').click(function()
+			{
+				$j('.fmedia>center>img').attr('src',$j(this).attr('src'));
+				return false;
+		});
+	</script>
+<!-- Put this script tag to the <head> of your page -->
+<script type="text/javascript" src="http://userapi.com/js/api/openapi.js?22"></script>
+
+<script type="text/javascript">
+  VK.init({apiId: 2246739, onlyWidgets: true});
+</script>
+
+<!-- Put this div tag to the place, where the Comments block will be -->
+<div id="vk_comments"></div>
+<script type="text/javascript">
+VK.Widgets.Comments("vk_comments", {limit: 10, width: "500", attach: false});
+</script>
+{% endblock %}
+

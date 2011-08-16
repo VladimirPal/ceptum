@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% load catalog_filters %}
+{% load cart_filters  %}
+{% block site_wrapper %}
+    <div id="page" class="fix">
+  <div id="wrapper" class="fix" >
+	
+    <div id="header" class="fix">
+		<a href="/" style="float:left"><img class="headerimage" src="{{ STATIC_URL }}res/img/my-spy-logo.png" alt="Магазин домашней безопасности"/></a>
+		<div class="basket" style="float:left">
+			{% cart_box request %}
+		</div>
+		<div class="icons">
+			<div>+7 (915) 122-52-91 <small>c 9:00 до 23:00 без выходных</small></div>
+			<a href='mailto:info@my-spy.ru'>info@my-spy.ru</a>
+		</div>	
+	</div>
+	
+	<div id="nav" class="fix">
+		<ul class="fix homebutton">
+			<li class="page_item navfirst">
+				<a class="home" href="/" title="Home" style="background-image: url('{{ STATIC_URL }}res/img/home-icon.png');">Home</a>
+			</li>
+		</ul>
+	
+					<center id="img_full">
+					<div id="img_full_in">
+						{% if product.productphoto_set.all.0.image.url %}
+                                            <img class="main_img_tov" class="marketfull_image" src="{{ product.productphoto_set.all.0.image.thumb_url }}" alt="{{ page_title }}" height="400px" />
+                                            {% else %}
+                                                Фото товара отсутствует
+                                            {% endif %}     
+                                            <div class="clr"></div>                                  
+					{% for item in product.productphoto_set.all %}
+						<img class="prew_img_tov" src="{{ item.image.thumb_url }}" title="{{ page_title }}" alt="{{ page_title }}" height="150px"/>
+					{% endfor %}
+					
+					</div>
+					</center>
+					<div id="opac_bg"></div>
+    {% category_list request.path %} 
+    	</div>		
+		<div class="clear"></div>
+	<div><div><!-- /nav -->
+    <div class="subnav2">
+        <a href="/cats">Каталог товара</a> »&nbsp;<a href="/cats/{{ product.category.all.0.section.slug }}">{{ product.category.all.0.section }}</a> »&nbsp;<a href="/cats/{{ product.category.all.0.slug }}">{{ product.category.all.0 }}</a> »&nbsp;{{ product }}
+	</div>
+
+	<div id="container" class="fix "> 
+		<div id="feature"> 
+			<div class="postwrap fix"> 
+				<div class="hentry fix"> 
+					<div id="cycle" class="fix">
+						<div id="{{ product.name }}" class="fcontainer" style="background:">
+							<div class="fcontent">
+								<div class="fheading">
+									<h3 class="sub">{{ product.name }}</h3><h1 class="ftitle"></h1></div>
+									<div class="ftext">
+										<p>{{ product.mini_html_description|safe }}</p>
+                                        {% if not product.in_stock %}
+                                        <p><strong><em><span style="color: #ff0000">К сожалению данная модель закончилась, но вы можете сделать предзаказ по телефону.</span></em></strong></p>
+                                        {% endif %}
+											<div class="wpsc_product_price alignleft"><br /><span id="product_price_26" class="pricedisplay">{{ product.price }} руб.</span><br/></p></div><br>
+
+
+                                            {% if product.in_stock %}
+										    <form method="post" action="" class="cart alignright"> {% csrf_token %}
+      											<input type="hidden" name="product_slug" value="{{ product.slug }}" id="{{ product.id }}" />
+      											<input type='image' src='{{ STATIC_URL }}res/img/atc.gif' id='product_26_submit_button' class='wpsc_buy_button' name='submit'  value="Купить" />
+  										    </form>
+                                            {% endif %}
+ 
+  										    <br/><br/>
+										</div>
+									</div>
+								</div> 
+								
+								<div class="fmedia">
+																<center>
+								<div>
+								 {% if product.productphoto_set.all %}
+     													 {% for item in product.productphoto_set.all %}
+     															 <div class="item-img-sm"><a href="#"><img class="product_image" src="{{ item.image.thumb_url }}" title="{{ page_title }}" alt="{{ page_title }}"/></a></div>
+     														 {% endfor %}
+   														 {% else %}
+   									
+   														 {% endif %}
+   									</div>
+   									</center>
+   									<div class="clr"></div>
+								<center><img src="{{ product.productphoto_set.all.0.image.thumb_url }}" title="{{ page_title }}" alt="{{ product.name }}"/></center>
+								
+
+   														
+   								</div> 
+								<div class="clear"></div> 
+							</div>
+						</div>
+					</div> 
+					<div class="hl"></div> 
+					<div id="feature-footer" class="fix">
+						<div id="featurenav" class=""></div>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="clear"></div> 
+			<div id="maincontent"> 
+				<div id="content">
+					<div class="postwrap fix">
+
+						<div class="copy fix">
+												<div class="textcol">
+													<table><tr>
+													<td>
+														<h2 class="prodtitles" style="font-size:18px;"><span>{{ product.name }}</span></h2>
+                                                        {% for file in product.file_set.all %}
+                                                        <p><a class="download_file" href="{{file.file.url}}" target="_blank">{{ file.name }}</a></p>
+                                                        {% endfor %}
+														<div class="wpsc_description">
+															<p> {{ product.html_description|safe }}</p>
+														</div>
+                                                    
+														<div class="single_additional_description">
+															<p>
+														<!--		Комплект поставки:<br /> 
+																- Глушитель TG-130<br /> 
+																- Автомобильное зарядное учтройство 12В<br /> 
+																- Сетевое зарядное устройство 220В<br /> 
+																- Упаковочная коробка -->
+															</p>
+															<p>		
+																	Технические характеристики:<br /> 
+																 {% for feature in product.feature_set.all %}
+ 																	 - {{ feature.name }}: {{ feature.value|safe }} <br>
+																 {% endfor %}
+																
+
+															</p>
+														
+													</td></tr></table>
+												</div>
+												
+						</div>
+					</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+<div id="fb-root"></div>
+    <script src="http://connect.facebook.net/ru_RU/all.js#appId=198969033467498&amp;xfbml=1"></script>
+    <fb:comments href="my-spy.ru{{ request.path }}" num_posts="10" width="500"></fb:comments>
+<!--
+<script type="text/javascript">
+FB.Event.subscribe('comment.create', function(response) {
+alert('aaaa');
+});
+</script>
+-->
+
+<script type="text/javascript">
+		$j('.product_image').click(function()
+			{
+				$j('.fmedia>center>img').attr('src',$j(this).attr('src'));		
+				return false;
+		});
+	</script>
+<!-- Put this script tag to the <head> of your page -->
+<script type="text/javascript" src="http://userapi.com/js/api/openapi.js?22"></script>
+
+<script type="text/javascript">
+  VK.init({apiId: 2246739, onlyWidgets: true});
+</script>
+
+<!-- Put this div tag to the place, where the Comments block will be -->
+<div id="vk_comments"></div>
+<script type="text/javascript">
+VK.Widgets.Comments("vk_comments", {limit: 10, width: "500", attach: false});
+</script>
+{% endblock %}
