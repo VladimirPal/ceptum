@@ -1,5 +1,6 @@
 # Django settings for cctvision project.
 import os
+test2
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
