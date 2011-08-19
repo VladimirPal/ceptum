@@ -6,31 +6,57 @@
 {% category_list request %} 
 <div id="content" class="alignleft clearfix">
 	<div id="Breadcrumbs">
+		<a href="#">Каталог товара</a> &gt;&gt; Охранные системы
 	</div>
 	<h1 id="page_title">Охранные системы</h1>
-	<div id="items">
-		{% for section in sections %}
-            {% if not section.category_set.all.0.name == section.name %}
+	<div id="items" class="clearfix">
+		{% for cat in cats %}
 			<div class="item">
-				<div class="img_block" style="background-image: url({{ section.image.thumb_url }})">
+				<div class="img_block" style="background-image: url({{ cat.image.thumb_url }})">
 					<i class="corns lt_corn"></i><i class="corns rt_corn"></i><i class="corns lb_corn"></i><i class="corns rb_corn"></i>
-					<a href="{{ section.get_absolute_url }}"></a>
+					<a href="{{ cat.get_absolute_url }}"></a>
 				</div>
-			    <a href="{{ section.get_absolute_url }}">{{ section.name }}</a>
+			    <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>	  
 			</div>
-            {% else %}
-            <div class="item">
-				<div class="img_block" style="background-image: url({{ section.image.thumb_url }})">
+		{% endfor %}
+		{% for cat in cats %}
+			<div class="item">
+				<div class="img_block" style="background-image: url({{ cat.image.thumb_url }})">
 					<i class="corns lt_corn"></i><i class="corns rt_corn"></i><i class="corns lb_corn"></i><i class="corns rb_corn"></i>
-					<a href="{{ section.category_set.all.0.get_absolute_url  }}"></a>
+					<a href="{{ cat.get_absolute_url }}"></a>
 				</div>
-			    <a href="{{ section.category_set.all.0.get_absolute_url }}">{{ section.name }}</a>
+			    <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>	  
 			</div>
-            {% endif %}
-
+		{% endfor %}
+		{% for cat in cats %}
+			<div class="item">
+				<div class="img_block" style="background-image: url({{ cat.image.thumb_url }})">
+					<i class="corns lt_corn"></i><i class="corns rt_corn"></i><i class="corns lb_corn"></i><i class="corns rb_corn"></i>
+					<a href="{{ cat.get_absolute_url }}"></a>
+				</div>
+			    <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>	  
+			</div>
+		{% endfor %}
+		{% for cat in cats %}
+			<div class="item">
+				<div class="img_block" style="background-image: url({{ cat.image.thumb_url }})">
+					<i class="corns lt_corn"></i><i class="corns rt_corn"></i><i class="corns lb_corn"></i><i class="corns rb_corn"></i>
+					<a href="{{ cat.get_absolute_url }}"></a>
+				</div>
+			    <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>	  
+			</div>
 		{% endfor %}
 	</div>
-	<div id="cont_discr">
+	<div id="cont_discr" class="clearfix">
+		Заботитесь о своей безопасности? Интересует шпионская техника и другие подобные устройства? Тогда вы попали по адресу.<br><br>
+
+		Наш магазин предлагает широкий выбор самых разнообразных шпионских примочек, которые будут незаменимы для тех, кто знает, как ими пользоваться. А также для тех, кто только собирается познать все тонкости обращения со шпионской техникой. Таким образом, шпионские штучки купить теперь проще простого. Необходимо лишь оформить заказ в нашем магазине.<br><br>
+		
+		Здесь вы можете купить прослушивающее устройство, системы скрытого наблюдения и много других полезных вещей. Большой ассортимент товара позволит выбрать наиболее оптимальный и подходящий конкретно для вашей ситуации товар. И совершенно не важно, нужна ли вам такая техника для работы или для личных целей. В любом случае вам будет предложен качественный товар, который успел оценить уже не один покупатель.<br><br>
+		
+		К нам постоянно приходят покупатели по таким запросам, как шпионская техника или шпионское оборудование продажа, а это означает, что на качество наших товаров можно положиться.<br><br>
+		
+		Вы все еще медлите и раздумываете, можно ли сэкономить на собственной безопасности? Не стоит. Ведь пока вы это делаете, кто-то другой уже может приобретать у нас товар.<br><br>
 	</div>
 </div>
 {% endblock %}
