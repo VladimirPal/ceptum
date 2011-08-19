@@ -2,58 +2,17 @@
 {% load catalog_filters %}
 {% load cart_filters  %}
 {% block site_wrapper %}
-    <div id="page" class="fix">
-  <div id="wrapper" class="fix" >
-	
-    <div id="header" class="fix">
-		<a href="/" style="float:left"><img class="headerimage" src="{{ STATIC_URL }}res/img/my-spy-logo.png" alt="Магазин домашней безопасности"/></a>
-		<div class="basket" style="float:left">
-			{% cart_box request %}
-		</div>
-		<div class="icons">
-			<div>+7 (915) 122-52-91 <small>c 9:00 до 23:00 без выходных</small></div>
-			<a href='mailto:info@my-spy.ru'>info@my-spy.ru</a>
-		</div>	
-	</div>
-	
-	<div id="nav" class="fix">
-		<ul class="fix homebutton">
-			<li class="page_item navfirst">
-				<a class="home" href="/" title="Home" style="background-image: url('{{ STATIC_URL }}res/img/home-icon.png');">Home</a>
-			</li>
-		</ul>
-
-    {% category_list request.path %} <!-- Категории -->
- 	</div>
-		<div class="clear"></div>
-	<div><div><!-- /nav -->
-
-
-		
-			<div class="subnav2">
-        <a href="/cats">Каталог товара</a> {% if section %}»&nbsp;{{ section.name }}{% else %}{% if not category.section.slug == category.slug %}»&nbsp;<a href="/cats/{{ category.section.slug }}">{{ category.section.name }}</a>{% endif %} »&nbsp;{{ category.name }} {% endif %}
+    {% category_list request %} <!-- Категории -->
+        <a href="/">Главная</a> {% if section %}»&nbsp;{{ section.name }}{% else %}{% if not category.section.slug == category.slug %}»&nbsp;<a href="/cats/{{ category.section.slug }}">{{ category.section.name }}</a>{% endif %} »&nbsp;{{ category.name }} {% endif %}
 				 <div class="clear"></div>
 			</div>
-		
 
-		<div id="maincontent">
-			<div id="content">
-				<div class="postwrap fix">
-					<table>
-						<tr>
-
-
-
-						
 						{% for product in products %}
-							<td style="width:50%;">
-								<table class="item-table"><tr>
-									<td class="item-img">
-									  <div style="min-height:200px;">  {% if product.thumbnail_image %}
+									     {% if product.thumbnail_image %}
                                                  <a class="item-head" href="{{product.get_absolute_url}}"><img src="{{ product.thumbnail_image.thumb_url }}" title="{{ product.name }}" alt="{{ product.name }}" /></a>
    										 {% else %}
      								   Фотография товара отсутствует
-    									{% endif %}		</div>
+    									{% endif %}
     									<div class="wpsc_product_price" style="width:100%"><br /><span id="product_price_26" class="pricedisplay">{{ product.price }} руб.</span><br/></p></div>
                                         {% if product.in_stock %}
 											<form method="post" action="" class="cart"> {% csrf_token %}
@@ -66,11 +25,8 @@
 										<a class="item-head" href="{{product.get_absolute_url}}"><h2>{{ product.name }}</h2></a>
 										 {{ product.mini_html_description|safe }}
 										 <p>		
-																	Технические характеристики:<br /> 
-																 {% for feature in product.feature_set.all %}
- 																	 - {{ feature.name }}: {{ feature.value|safe }} <br>
-																 {% endfor %}
-																
+																	Технические характеристики:<br />
+                                             {{ product.tech_details|safe }}
 
 											</p>
 										<a class="additional_description_span" href="{{product.get_absolute_url}}">Дополнительная информация</a>
