@@ -5,11 +5,12 @@ from cart import cart
 register = template.Library()
 
 @register.inclusion_tag("tags/sidebar.html")
-def category_list(request_path):
+def category_list(request):
     active_sections = Section.objects.all()
     return {
-        'request_path': request_path,
-        'sections': active_sections
+        'request_path': request.path,
+        'sections': active_sections,
+        'request': request,
 }
 
 @register.inclusion_tag("cart/cart_box.html")
