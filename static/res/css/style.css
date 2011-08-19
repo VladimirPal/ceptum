@@ -1,0 +1,285 @@
+ @import url(reset.css);
+
+body{font:13px/1.231 verdana, sans-serif; *font-size:small}
+body, select, input, textarea {color: #444}
+
+::-moz-selection{background:#FF5E99;color:#fff;text-shadow:none}
+::selection{background:#FF5E99;color:#fff;text-shadow:none}
+a:link{-webkit-tap-highlight-color:#FF5E99}
+a,a:active,a:visited{color:#607890}
+a:hover{color:#036}
+
+h1, h2, h3, h4, h5, h6 {font-weight:bold}
+input[type="text"]:focus { outline: none; }
+.hidden{display:none;visibility:hidden}
+.clearfix:before,.clearfix:after{content: "\0020"; display: block; height: 0; visibility: hidden} 
+.clearfix:after{clear: both}
+.clearfix {zoom: 1}
+.clr{clear:both}
+.alignleft{float: left}
+.alignright{float: right}
+html{
+	height: 100%;
+}
+body {
+	background:url(../img/body_bg.jpg) repeat top left;
+	height: 100%;
+}
+
+#wrapper{
+	width: 806px;
+	margin: 0 auto 30px;
+	height: 100%;
+}
+
+header {
+	width: 100%;
+	position: relative;
+}
+#header_title{
+	padding:41px 0 0 294px;
+}
+#logo_dscr{
+	text-align: center;
+	width: 380px;
+	font-size: 12px;
+	padding: 15px 0;
+}
+#cam_block{
+	position: absolute;
+	width: 296px;
+	height: 182px;
+	left: -58px;
+	bottom: -37px;
+	background: url(../img/head_cam.png) top left no-repeat;
+}
+#head_menu{
+	height: 30px;
+	padding: 0 30px 0 120px;
+}
+#head_menu .menu{
+	list-style: none;
+	padding-top: 6px;
+	margin: 0 70px;
+}
+#head_menu .menu li{
+	display: inline;
+}
+#head_menu .menu li a{
+	text-decoration: none;
+	text-transform: uppercase;
+	color: white;
+	font-weight: bold;
+	padding: 0 20px;
+	text-shadow: 2px 2px 2px #535353;
+}
+#head_menu .menu li a:hover{
+	text-shadow: none;
+}
+.menu_left{
+	border-left: 1px solid #5c5c5c;
+}
+.menu_right{
+	border-right: 1px solid #fff;
+}
+#main {
+	border: 3px #f0f0f0 solid;
+	background: white url('../img/top_main_bg.png') top left no-repeat;
+	box-shadow: 2px 2px 2px #898989;
+	-webkit-border-radius: 22px;
+	-moz-border-radius: 22px;
+	border-radius: 22px;
+}
+#sidebar{
+	width: 200px;
+	padding: 17px 0;
+}
+#sidebar #basket{
+	font-size: 10px;
+	padding-left: 17px;
+	padding-bottom: 3px;
+}
+#sidebar #basket a{
+	width: 102px;
+	height: 19px;
+	background: url(../img/paths.png) top left no-repeat;
+	display: block;
+	margin: 10px 0 0px 33px;
+}
+#sidebar #basket a:hover{
+	background-position: 0px -19px;
+}
+#sidebar #menu_block{
+	width: 213px;
+	min-height: 100px;
+	position: relative;
+	left: -13px;
+	background: url(../img/side_bg.png) top left repeat-y;
+	margin: 6px 0 20px;
+}
+#sidebar #menu_block .menu_sidebar{
+	padding: 20px 5px 20px 29px;
+	margin: 0;
+	list-style-image: url(../img/li_first.gif);
+	list-style-position: inside;
+}
+#sidebar #menu_block .menu_sidebar a{
+	color: #444;
+	text-decoration: none;	
+	font-size: 11px;
+}
+#sidebar #menu_block .menu_sidebar ul a{
+	color: #8d8d8d;
+	font-size: 10px;
+}
+#sidebar #menu_block .menu_sidebar ul{
+	list-style-image: url(../img/li_second.gif);
+	display: none;
+}
+#sidebar #menu_block .menu_sidebar li:hover ul{
+	display: block;
+}
+#sidebar #menu_block .bot_corn, #sidebar #menu_block .top_corn{
+	display: block;
+	position: absolute;
+	width: 48px;
+	left: -1px	;
+}
+#sidebar #menu_block .bot_corn{
+	height: 25px;
+	background: url(../img/sb_menu_corn.png) bottom left no-repeat;
+	top: 100%;
+}
+#sidebar #menu_block .top_corn{
+	height: 27px;
+	background: url(../img/sb_menu_corn.png) top left no-repeat;
+	bottom:100%;
+}
+#search{
+	border: 3px solid #ededed;
+	height: 28px;
+	width: 183px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	margin: 0 0 0 10px;
+	box-shadow: inset 2px 2px 2px 1px #666;
+}
+#search input{
+	border: none;
+}
+#search #s{
+	margin: 8px 0 5px 8px;
+	background: none;
+	color: #8d8d8d;
+	width: 155px;
+	display: block;
+	float: left;
+}
+#search .go{
+	background: url(../img/search.gif) 0px 1px no-repeat;
+	padding: none;
+	height: 12px;
+	width: 11px;
+	margin-top: 8px;
+	display: block;
+	float: left;
+}
+#content{
+	width: 600px;
+}
+#page_title{
+	text-align: center;
+	font-size: 16px;
+	margin: 10px 0;
+	color: #666666;
+}
+#items{
+	width: 100%;
+}
+#items .item{
+	float: left;
+	width: 130px;
+	margin: 10px;
+	text-align: center;
+}
+#items .item .img_block{
+	display: inline-block;
+	position: relative;
+	line-height: 1.2;
+	width:130px;
+	height: 130px;
+	vertical-align: middle;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+#items .item .img_block a{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+#items .item .corns{
+	position: absolute;
+	display: block;
+	width: 20px;
+	height: 20px;
+}
+#items .item .lt_corn{
+	border-left: 3px solid #ececec;
+	border-top: 3px solid #ececec;
+	top:0px;
+	left: 0px;
+	-webkit-border-top-left-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	border-top-left-radius: 10px;
+}
+#items .item .rt_corn{
+	border-right: 3px solid #ececec;
+	border-top: 3px solid #ececec;
+	top:0px;
+	right: 0px;
+	-webkit-border-top-right-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	border-top-right-radius: 10px;
+}
+#items .item .lb_corn{
+	border-left: 3px solid #ececec;
+	border-bottom: 3px solid #ececec;
+	left: 0px;
+	bottom: 0px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-left-radius: 10px;
+}
+#items .item .rb_corn{
+	border-right: 3px solid #ececec;
+	border-bottom: 3px solid #ececec;
+	right:0px;
+	bottom: 0px;
+	-webkit-border-bottom-right-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	border-bottom-right-radius: 10px;
+}
+#items .item img{
+	max-width: 120px;
+	max-height: 120px;
+	vertical-align: middle;
+}
+footer {
+
+}
+
+@media print{
+*{background:transparent !important;color:black !important;text-shadow:none !important;filter:none !important;-ms-filter:none !important}
+a, a:visited{color:#444 !important;text-decoration:underline}
+a[href]:after{content:" (" attr(href) ")"}
+abbr[title]:after{content:" (" attr(title) ")"}
+.ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after{content:""}
+pre, blockquote{border:1px solid #999;page-break-inside:avoid}
+thead{display:table-header-group}
+tr, img{page-break-inside:avoid}
+@page{margin:0.5cm}
+p, h2, h3{orphans:3; widows:3}
+h2, h3{page-break-after:avoid}
+}
