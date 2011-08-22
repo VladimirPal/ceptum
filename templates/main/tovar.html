@@ -2,27 +2,6 @@
 {% load catalog_filters %}
 {% load cart_filters  %}
 {% block site_wrapper %}
-    <div id="page" class="fix">
-  <div id="wrapper" class="fix" >
-	
-    <div id="header" class="fix">
-		<a href="/" style="float:left"><img class="headerimage" src="{{ STATIC_URL }}res/img/my-spy-logo.png" alt="Магазин домашней безопасности"/></a>
-		<div class="basket" style="float:left">
-			{% cart_box request %}
-		</div>
-		<div class="icons">
-			<div>+7 (915) 122-52-91 <small>c 9:00 до 23:00 без выходных</small></div>
-			<a href='mailto:info@my-spy.ru'>info@my-spy.ru</a>
-		</div>	
-	</div>
-	
-	<div id="nav" class="fix">
-		<ul class="fix homebutton">
-			<li class="page_item navfirst">
-				<a class="home" href="/" title="Home" style="background-image: url('{{ STATIC_URL }}res/img/home-icon.png');">Home</a>
-			</li>
-		</ul>
-	
 					<center id="img_full">
 					<div id="img_full_in">
 						{% if product.productphoto_set.all.0.image.url %}
@@ -38,13 +17,7 @@
 					</div>
 					</center>
 					<div id="opac_bg"></div>
-    {% category_list request.path %} 
-    	</div>		
-		<div class="clear"></div>
-	<div><div><!-- /nav -->
-    <div class="subnav2">
-        <a href="/cats">Каталог товара</a> »&nbsp;<a href="/cats/{{ product.category.all.0.section.slug }}">{{ product.category.all.0.section }}</a> »&nbsp;<a href="/cats/{{ product.category.all.0.slug }}">{{ product.category.all.0 }}</a> »&nbsp;{{ product }}
-	</div>
+    {% category_list request %}
 
 	<div id="container" class="fix "> 
 		<div id="feature"> 
@@ -130,11 +103,8 @@
 																- Упаковочная коробка -->
 															</p>
 															<p>		
-																	Технические характеристики:<br /> 
-																 {% for feature in product.feature_set.all %}
- 																	 - {{ feature.name }}: {{ feature.value|safe }} <br>
-																 {% endfor %}
-																
+																	Технические характеристики:<br />
+                                                                {{ product.tech_details|safe }}
 
 															</p>
 														
@@ -147,34 +117,4 @@
 			</div>
 		</div>
 	</div>
-<div id="fb-root"></div>
-    <script src="http://connect.facebook.net/ru_RU/all.js#appId=198969033467498&amp;xfbml=1"></script>
-    <fb:comments href="my-spy.ru{{ request.path }}" num_posts="10" width="500"></fb:comments>
-<!--
-<script type="text/javascript">
-FB.Event.subscribe('comment.create', function(response) {
-alert('aaaa');
-});
-</script>
--->
-
-<script type="text/javascript">
-		$j('.product_image').click(function()
-			{
-				$j('.fmedia>center>img').attr('src',$j(this).attr('src'));		
-				return false;
-		});
-	</script>
-<!-- Put this script tag to the <head> of your page -->
-<script type="text/javascript" src="http://userapi.com/js/api/openapi.js?22"></script>
-
-<script type="text/javascript">
-  VK.init({apiId: 2246739, onlyWidgets: true});
-</script>
-
-<!-- Put this div tag to the place, where the Comments block will be -->
-<div id="vk_comments"></div>
-<script type="text/javascript">
-VK.Widgets.Comments("vk_comments", {limit: 10, width: "500", attach: false});
-</script>
 {% endblock %}
