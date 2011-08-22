@@ -5,7 +5,7 @@ body, select, input, textarea {color: #444}
 
 ::-moz-selection{background:#FF5E99;color:#fff;text-shadow:none}
 ::selection{background:#FF5E99;color:#fff;text-shadow:none}
-a:link{-webkit-tap-highlight-color:#FF5E99}
+a:link{-webkit-tap-highlight-color:#666}
 a,a:active,a:visited{color:#607890}
 a:hover{color:#036}
 
@@ -27,9 +27,9 @@ body {
 }
 
 #wrapper{
-	width: 806px;
-	margin: 0 auto 30px;
-	height: 100%;
+	width: 90%;
+	min-width: 806px;
+	margin: 30px auto;
 }
 
 header {
@@ -38,10 +38,11 @@ header {
 }
 #header_title{
 	padding:41px 0 0 294px;
+	text-align: center;
 }
 #logo_dscr{
+	margin: 0 auto;
 	text-align: center;
-	width: 380px;
 	font-size: 12px;
 	padding: 15px 0;
 }
@@ -52,15 +53,18 @@ header {
 	left: -58px;
 	bottom: -37px;
 	background: url(../img/head_cam.png) top left no-repeat;
+	z-index: 600;
 }
 #head_menu{
-	height: 30px;
-	padding: 0 30px 0 120px;
+	height: 33px;
+	z-index: 999;
+	background: url(../img/head_bg.gif) 90px 0 repeat-x;
+	margin: 0px 167px;
 }
 #head_menu .menu{
 	list-style: none;
 	padding-top: 6px;
-	margin: 0 70px;
+	margin: 0 90px;
 }
 #head_menu .menu li{
 	display: inline;
@@ -84,15 +88,19 @@ header {
 }
 #main {
 	border: 3px #f0f0f0 solid;
-	background: white url('../img/top_main_bg.png') top left no-repeat;
+	background: white url('../img/top_main_bg.png') top right no-repeat;
 	box-shadow: 2px 2px 2px #898989;
 	-webkit-border-radius: 22px;
 	-moz-border-radius: 22px;
 	border-radius: 22px;
 }
+#main_block{
+	position: relative;
+}
 #sidebar{
 	width: 200px;
 	padding: 17px 0;
+	position: fixed;
 }
 #sidebar #basket{
 	font-size: 10px;
@@ -185,9 +193,24 @@ header {
 	display: block;
 	float: left;
 }
+#content_block{
+	padding-left: 200px;
+}
 #content{
-	width: 600px;
+	min-width: 600px;
+	width: 100%;
 	font-size: 11px;
+}
+#Breadcrumbs{
+	padding: 10px 10px 0 10px;
+	font-size: 10px;
+	color: #8d8d8d;
+}
+#Breadcrumbs a{
+	color: #666;
+}
+#Breadcrumbs a:hover{
+	text-decoration: none;
 }
 #page_title{
 	text-align: center;
