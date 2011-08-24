@@ -2,22 +2,22 @@
 {% load catalog_filters %}
 {% load cart_filters  %}
 {% block site_wrapper %}
-
-{% category_list request %}
-<div id="content_block" class="alignleft clearfix">
-	<div id="content">
 		<div id="Breadcrumbs">
 			<a href="#">Каталог товара</a> &gt;&gt; Охранные системы
 		</div>
 		<h1 id="page_title">Охранные системы</h1>
 		<div id="items" class="clearfix">
 			{% for cat in cats %}
-                {{ cat.name }} {{ cat.get_absolute_url }} {{ cat.image.url }}
+				<div class="item">
+					<div class="img_block" style="background-image: url({ cat.image.url }})">
+						<i class="corns lt_corn"></i><i class="corns rt_corn"></i><i class="corns lb_corn"></i><i class="corns rb_corn"></i>
+						<a href="{{ cat.get_absolute_url }}"></a>
+					</div>
+				    <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+				</div>
 			{% endfor %}
 		</div>
 		<div id="cont_discr" class="clearfix">
             {{ section.SEO_text }}
 		</div>
-	</div>
-</div>
 {% endblock %}

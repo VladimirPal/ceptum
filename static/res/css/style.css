@@ -28,8 +28,8 @@ body {
 
 #wrapper{
 	width: 90%;
-	min-width: 806px;
-	margin: 30px auto;
+	min-width: 990px;
+	margin: 3px auto;
 }
 
 header {
@@ -200,6 +200,7 @@ header {
 	min-width: 600px;
 	width: 100%;
 	font-size: 11px;
+	min-height: 250px;
 }
 #Breadcrumbs{
 	padding: 10px 10px 0 10px;
@@ -255,13 +256,13 @@ header {
 	width: 100%;
 	height: 100%;
 }
-#items .item .corns{
+.corns{
 	position: absolute;
 	display: block;
 	width: 20px;
 	height: 20px;
 }
-#items .item .lt_corn{
+.lt_corn{
 	border-left: 3px solid #ececec;
 	border-top: 3px solid #ececec;
 	top:0px;
@@ -270,7 +271,7 @@ header {
 	-moz-border-radius-topleft: 10px;
 	border-top-left-radius: 10px;
 }
-#items .item .rt_corn{
+.rt_corn{
 	border-right: 3px solid #ececec;
 	border-top: 3px solid #ececec;
 	top:0px;
@@ -279,7 +280,7 @@ header {
 	-moz-border-radius-topright: 10px;
 	border-top-right-radius: 10px;
 }
-#items .item .lb_corn{
+.lb_corn{
 	border-left: 3px solid #ececec;
 	border-bottom: 3px solid #ececec;
 	left: 0px;
@@ -288,7 +289,7 @@ header {
 	-moz-border-radius-bottomleft: 10px;
 	border-bottom-left-radius: 10px;
 }
-#items .item .rb_corn{
+.rb_corn{
 	border-right: 3px solid #ececec;
 	border-bottom: 3px solid #ececec;
 	right:0px;
@@ -306,11 +307,72 @@ header {
 	padding: 10px;
 	color: #666;
 }
+#tovar{
+	padding: 0 1.6%;
+	width: 96.8%;
+}
+#tovar .top{
+	width: 100%;
+	letter-spacing: -4px;
+	padding-bottom: 25px;
+	background: url(../img/bot_dots.gif) repeat-x left bottom;
+}
+#tovar .top .left{
+	width:45%;
+}
+#tovar .top .left .price{
+	font-size: 24px;
+	text-align: center;
+	color: #666;
+	margin-top: 15px;
+}
+#tovar .top .right{
+	width:55%;
+	vertical-align: top;	
+}
+#tovar .top>div{
+	display: inline-block;
+	letter-spacing: normal;
+}
+#tovar .button{
+	width: 140px;
+	font-size: 18px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: white;
+	padding: 6px 0;
+	line-height: 100%;
+	vertical-align: bottom;
+}
+#tovar form{
+	text-align: center;
+	margin-top: 10px;
+}
+#tovar .bottom{
+	padding: 20px 0;
+	color: #666;
+	font-size: 11px;
+}
+#tovar .bottom h3{
+	font-size: 18px;
+	font-weight: normal;
+	color: #666;
+	margin-bottom: 10px;
+}
 footer {
 	text-align: center;
 	padding: 15px;
 }
-
+.button{
+	background: #8d8d8d; /* Old browsers */
+	background: -moz-linear-gradient(top, #8d8d8d 0%, #444444 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8d8d8d), color-stop(100%,#444444)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #8d8d8d 0%,#444444 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #8d8d8d 0%,#444444 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #8d8d8d 0%,#444444 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8d8d8d', endColorstr='#444444',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #8d8d8d 0%,#444444 100%); /* W3C */
+}
 @media print{
 *{background:transparent !important;color:black !important;text-shadow:none !important;filter:none !important;-ms-filter:none !important}
 a, a:visited{color:#444 !important;text-decoration:underline}
