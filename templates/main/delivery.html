@@ -3,56 +3,15 @@
 {% load cart_filters  %}
 {% block site_wrapper %}
 <div id="page" class="fix">
-  <div id="wrapper" class="fix">
-	
-    <div id="header" class="fix">
-		<a href="/" style="float:left"><img class="headerimage" src="{{ STATIC_URL }}res/img/my-spy-logo.png" alt="Магазин домашней безопасности"/></a>
-		<div class="basket" style="float:left">
-			{% cart_box request %}
-		</div>
-		<div class="icons">
-			<div>+7 (915) 122-52-91 <small>c 9:00 до 23:00 без выходных</small></div>
-			<a href='mailto:info@my-spy.ru'>info@my-spy.ru</a>
-		</div>	
-	</div>
-	
-	<div id="nav" class="fix">
-		<ul class="fix homebutton">
-			<li class="page_item navfirst">
-				<a class="home" href="/" title="Home" style="background-image: url('{{ STATIC_URL }}res/img/home-icon.png');">Home</a>
-			</li>
-		</ul>
-	
-    <!-- Категории -->
-    	</div>
-		<div class="clear"></div>
-	<div><div><!-- /nav -->
+<h1>Доставка и оплата</h1>
+Доставка по <strong>Москве</strong> в пределах МКАД осуществляется <strong>бесплатно курьером в день заказа</strong>.(при заказе от 1000 рублей)<br>
+Стоимость доставки в <strong>ближайшее подмосковье</strong> 300 рублей.<br>
+<i>Оплата курьеру наличными.</i><br><br>
 
-	<div id="container" class="fix "> 
-		<div id="content"> 
-			<div class="postwrap fix"> 
-				<div class="post-51 page type-page hentry" id="post-51"> 
-					<div class="copy fix"> 
-						<div class="textcontent">
-							<p>Доставка по <b>Москве</b> в пределах МКАД осуществляется <b>бесплатно курьером в день заказа.</b>(при заказе от 1000 рублей)<br>
-                                Стоимость доставки в <b>ближайшее подмосковье</b> 300 рублей.<br>
-                                <i>Оплата курьеру наличными.</i>
-							</p>
-                            <p>
-                                Доставка <b>по регионам России</b> осуществляется <b>наложенным платежом</b> курьерской службой "EMS почта России".<br>
-                                К вам приходит курьер EMS и вы <b>оплачиваете посылку послее ее получения</b>, либо можете получить посылку на почтовом отделении, там же и оплатить.<br>
-                                Стоимость доставки не больше 500 рублей.<br>
-                                <i>Оплата курьеру наличными, либо на почтовом отделении.</i><br>
-                                <i>Время доставки зависит от вашего региона. Доставка может идти от 3х и до 14 дней.</i>
-                            </p>
-						</div>
-					</div> 
-				</div>
-			</div> 
-			<div class="clear"></div> 
-		</div> 
-	</div>	
-		
-  </div>
+Доставка <strong>по регионам России</strong> осуществляется <strong>наложенным платежом</strong> курьерской службой "EMS почта России".<br>
+К вам приходит курьер EMS и вы <strong>оплачиваете посылку послее ее получения</strong>, либо можете получить посылку на почтовом отделении, там же и оплатить.<br>
+Стоимость доставки не больше 500 рублей.<br>
+Оплата курьеру наличными, либо на почтовом отделении.<br>
+Время доставки зависит от вашего региона. Доставка может идти от 3х и до 14 дней.<br>
 </div>
 {% endblock %}
