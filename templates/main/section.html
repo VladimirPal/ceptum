@@ -9,7 +9,7 @@
 		<div id="items" class="clearfix">
 			{% for cat in cats %}
 				<div class="item">
-					<div class="img_block" style="background-image: url({ cat.image.url }})">
+					<div class="img_block" style="background-image: url({{ cat.image.url }})">
 						<i class="corns lt_corn"></i><i class="corns rt_corn"></i><i class="corns lb_corn"></i><i class="corns rb_corn"></i>
 						<a href="{{ cat.get_absolute_url }}"></a>
 					</div>
