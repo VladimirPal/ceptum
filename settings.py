@@ -1,4 +1,4 @@
-# Django settings for cctvision project.
+# Django settings for cctvision project
 import os
 
 DEBUG = False
