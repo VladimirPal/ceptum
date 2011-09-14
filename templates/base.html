@@ -24,7 +24,12 @@
 				<p class="phone">+7 (495)565-37-70</p>
 				<p class="mail">info@cctvision.ru</p>
 			</div>
-			<div id="cam_block"></div>
+			<div id="cam_block">
+				{% if request.path == '/' %}
+				{% else %}
+					<a href="/" title="На главную"></a>
+				{% endif %}	
+			</div>
 			<div id="header_title">
 				<a href="/">
 					<img src="{{ STATIC_URL }}res/img/loto_title.png"/>
