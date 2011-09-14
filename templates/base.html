@@ -12,6 +12,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#sidebar #menu_block .menu_sidebar .active').parents('ul').css({display:'block'});
+		$('#content_block').width($('#main_block').width()-200);
 	});
 </script>
 <body>
@@ -19,6 +20,10 @@
 {% load cart_filters  %}
 	<div id="wrapper">
 		<header>
+			<div id="contacts">
+				<p class="phone">+7 (495)565-37-70</p>
+				<p class="mail">info@cctvision.ru</p>
+			</div>
 			<div id="cam_block"></div>
 			<div id="header_title">
 				<a href="/">

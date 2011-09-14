@@ -37,13 +37,26 @@ header {
 	width: 100%;
 	position: relative;
 }
+header #contacts{
+	position: absolute;
+	top:30px;
+	right: 5px;
+	text-align: right;
+}
+header #contacts p{
+	text-align: right;
+}
+header #contacts p.phone{
+	font-size: 28px;
+}
+header #contacts p.mail{
+	font-size: 20px;
+}
 #header_title{
 	padding:41px 0 0 294px;
-	text-align: center;
 }
 #logo_dscr{
 	margin: 0 auto;
-	text-align: center;
 	font-size: 12px;
 	padding: 15px 0;
 }
@@ -227,6 +240,7 @@ header {
 #items{
 	width: 100%;
 	display: block;
+	text-align: center;
 }
 #items .item{
 	vertical-align: top;
