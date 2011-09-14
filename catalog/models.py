@@ -35,12 +35,13 @@ class Category(models.Model):
     description = tinymce_models.HTMLField()
     meta_keywords = models.TextField(blank=True)
     meta_descriotion = models.TextField(blank=True)
+    sort_number = models.IntegerField()
 
     def __unicode__(self):
         return self.name
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['sort_number']
         verbose_name_plural = 'Категории товара'
 
     @models.permalink

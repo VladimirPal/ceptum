@@ -8,27 +8,27 @@
 			{% for section in sections %}
    				{% if not section.category_set.all.0.name == section.name %}
    						{% if section.get_absolute_url == request_path %}
-		<li class="active"> <span>{{ section.name }}</span>
-		{% else %}
-		<li> <a href="{{ section.get_absolute_url }}" title="">{{ section.name }}</a>
-	{% endif %}
+                            <li class="active"> <span>{{ section.name }}</span>
+                        {% else %}
+                            <li> <a href="{{ section.get_absolute_url }}" title="">{{ section.name }}</a>
+                        {% endif %}
    						<ul>
-							 {% for category in section.category_set.all %}
-           					 {% if category.get_absolute_url == request_path %}
-<li class="active"><span>{{ category.name }}</span></li>
-{% else %}
-<li><a href="{{ category.get_absolute_url }}" title="">{{ category.name }}</a></li>
- {% endif %}
-       						 {% endfor %}
+                    {% for category in section.category_set.all %}
+                         {% if category.get_absolute_url == request_path %}
+                            <li class="active"><span>{{ category.name }}</span></li>
+                         {% else %}
+                            <li><a href="{{ category.get_absolute_url }}" title="">{{ category.name }}</a></li>
+                         {% endif %}
+                    {% endfor %}
        					</ul>
 				{% else %}
-			  	{% if section.get_absolute_url == request_path %}
-	<li class="active"> <span>{{ section.category_set.all.0.name }}</span></li>
-	{% else %}
-	<li> <a href="{{ section.category_set.all.0.get_absolute_url }}" title="">{{ section.category_set.all.0.name }}</a></li>
-{% endif %}
+                    {% if section.get_absolute_url == request_path %}
+                        <li class="active"> <span>{{ section.category_set.all.0.name }}</span></li>
+                    {% else %}
+                        <li> <a href="{{ section.category_set.all.0.get_absolute_url }}" title="">{{ section.category_set.all.0.name }}</a></li>
+                    {% endif %}
 			    {% endif %}
-			 {% endfor %}
+            {% endfor %}
 		</ul>
 	</div>
 	<div id="sub_slider">

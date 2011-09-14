@@ -7,7 +7,7 @@
             {% if product.category.all.0.section.slug == product.category.all.0.slug %}
                 <a href="/cats/{{ product.category.all.0.section.slug }}">{{ product.category.all.0.section }}</a> »&nbsp;
             {% else %}
-                <a href="/cats/{{ product.category.all.0.section.slug }}">{{ product.category.all.0.section }}</a> »&nbsp;
+                <a href="/section/{{ product.category.all.0.section.slug }}">{{ product.category.all.0.section }}</a> »&nbsp;
                 <a href="/cats/{{ product.category.all.0.slug }}">{{ product.category.all.0 }}</a> »&nbsp;
             {% endif %}
             {{ product }}
