@@ -13,6 +13,13 @@
 	$(document).ready(function(){
 		$('#sidebar #menu_block .menu_sidebar .active').parents('ul').css({display:'block'});
 		$('#content_block').width($('#main_block').width()-200);
+		$(window).resize(function(){
+			$('#content_block').width($('#main_block').width()-200);
+		});
+		$('.prew_img_tov').click(function(){
+		//	alert('!');
+			$(this).siblings('.img_block').children('img').attr('src', ($(this).attr('src')));
+		});
 	});
 </script>
 <body>

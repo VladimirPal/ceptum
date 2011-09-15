@@ -271,6 +271,9 @@ header #contacts p.mail{
 	height: 130px;
 	vertical-align: middle;
 	background-size: contain;
+	-moz-background-size: contain;
+	-webkit-background-size: contain;
+	-o-background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center center;
 	margin-bottom: 15px; 
@@ -279,6 +282,9 @@ header #contacts p.mail{
 	display: block;
 	width: 100%;
 	height: 100%;
+}
+.prew_img_tov{
+	cursor: pointer;
 }
 .corns{
 	position: absolute;
@@ -343,6 +349,7 @@ header #contacts p.mail{
 }
 #tovar .top .left{
 	width:45%;
+	text-align: center;
 }
 #tovar .top .left .price, #catalog .price{
 	font-size: 24px;
