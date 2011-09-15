@@ -71,6 +71,7 @@ class Product(models.Model):
     # Временные отметки
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    sort_number = models.IntegerField()
 
     def __unicode__(self):
         return self.name
@@ -80,7 +81,7 @@ class Product(models.Model):
         return ('product-page', [str(self.slug)])
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['sort_number']
         verbose_name_plural = 'Товар'
 
 class ProductPhoto(models.Model):
