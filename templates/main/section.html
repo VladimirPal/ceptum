@@ -5,7 +5,7 @@
 		<div id="Breadcrumbs">
                 <a href="/">Главная</a> {% if section %}»&nbsp;{{ section.name }}{% else %}{% if not category.section.slug == category.slug %}»&nbsp;<a href="/cats/{{ category.section.slug }}">{{ category.section.name }}</a>{% endif %} »&nbsp;{{ category.name }} {% endif %}
 		</div>
-		<h1 id="page_title">Охранные системы</h1>
+		<h1 id="page_title">{{ section.name }}</h1>
 		<div id="items" class="clearfix">
 			{% for cat in cats %}
 				<div class="item">
