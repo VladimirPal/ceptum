@@ -62,7 +62,7 @@ class Product(models.Model):
     mini_html_description = tinymce_models.HTMLField(validators=[validate_even], help_text='Максимальное количество символов: 140.',
                                         verbose_name='Мини описание в HTML')
     html_description = tinymce_models.HTMLField(blank=True, verbose_name='Описание', help_text='Описание в HTML')
-    tech_details = tinymce_models.HTMLField(blank=True, verbose_name='Технические детали', help_text='В html')
+    tech_details = models.TextField()
     thumbnail_image = ThumbnailImageField(upload_to='products_image', thumb_width=200, thumb_height=200, completion="thumb" )
     # Метаданные товара
     is_active = models.BooleanField(default=True, verbose_name='Активный')

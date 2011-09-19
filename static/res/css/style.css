@@ -429,6 +429,7 @@ footer {
 #catalog .right{
 	width: 30%;
 	background: url("../img/cat_line.gif") repeat-x scroll left bottom transparent;
+	line-height: 160%;
 }
 #catalog .additional_description_span{
 	padding: 10px 0;
@@ -526,6 +527,28 @@ footer {
 }
 #basket .wpsc_checkout_table td{
 	padding: 5px;
+}
+/*Всплывающие подсказоньки :D*/
+.hint{
+	position: relative;
+	color:#1f80a8;
+	cursor: pointer;
+	border-bottom: dotted 1px #1f80a8;
+}
+.hint .hint_dscr{
+	line-height: 120%;
+	position: absolute;
+	bottom: 100%;
+	background: white;
+	padding: 5px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 6px 3px #666;
+	left: 100%;
+	color: black;
+}
+.hint:hover .hint_dscr{
+	display: block;
+	visibility: visible;
 }
 @media print{
 *{background:transparent !important;color:black !important;text-shadow:none !important;filter:none !important;-ms-filter:none !important}
