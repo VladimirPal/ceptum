@@ -58,3 +58,64 @@
         {% endif %}
 	
 {% endblock %}
+=======
+{% extends "base.html" %}
+{% load catalog_filters %}
+{% load cart_filters  %}
+{% block site_wrapper %}
+   <!-- Категории -->
+   		<div id="Breadcrumbs">
+        	<a href="/">Главная</a> {% if section %}»&nbsp;{{ section.name }}{% else %}{% if not category.section.slug == category.slug %}»&nbsp;<a href="/section/{{ category.section.slug }}">{{ category.section.name }}</a>{% endif %} »&nbsp;{{ category.name }} {% endif %}
+        </div>
+	<table id="catalog" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		{% for product in products %}
+			<td class="left">
+			
+			<div class="img_block" style="position:relative">
+						<i class="corns lt_corn"></i><i class="corns rt_corn"></i><i class="corns lb_corn"></i><i class="corns rb_corn"></i>
+
+				
+				{% if product.thumbnail_image %}
+            		<a class="item-head" href="{{product.get_absolute_url}}"><img style="width:90%; margin:5%" src="{{ product.thumbnail_image.url }}" title="{{ product.name }}" alt="{{ product.name }}" /></a>
+				{% else %}
+                                                Фото товара отсутствует
+                {% endif %}  
+            </div> 
+            <br>
+			<p class="price">
+					<strong>{{ product.price }}</strong> руб.
+			</p>
+			<br>
+            {% if product.in_stock %}
+				<form method="post" action="" class="cart"> {% csrf_token %}
+					<input type="hidden" name="product_slug" value="{{ product.slug }}" id="{{ product.id }}" />
+      				<input type='image' src='{{ STATIC_URL }}res/img/buy.png' id='product_26_submit_button' class='wpsc_buy_button' name='submit'  value="Купить" />
+			    </form>
+			 {% else %}
+			 	 <p><strong><em><span style="color: #ff0000">К сожалению данная модель закончилась, но вы можете сделать предзаказ по телефону.</span></em></strong></p>
+             {% endif %}
+             </td><td class="right">
+			 <a class="item-head" href="{{product.get_absolute_url}}"><h2>{{ product.name }}</h2></a>
+			 <p>
+			 	{{ product.mini_html_description|safe }}
+			 </p><br>
+			 <p>		
+				Технические характеристики:<br />
+                {{ product.tech_details|safe }}
+			 </p>
+			<a class="additional_description_span" href="{{product.get_absolute_url}}"><img src="{{ STATIC_URL }}res/img/more_link.png" /></a>
+			</td>
+			{% if forloop.counter|div:2 == 0 %}
+				</tr><tr>
+			{% endif %}
+		{% endfor %}				
+	</tr>	
+	</table>
+        {% if section.SEO_text %}
+		<div id="cont_discr" class="clearfix">
+            {{ section.SEO_text|safe }}
+        </div>
+        {% endif %}
+	
+{% endblock %}
