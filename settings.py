@@ -80,7 +80,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-#    'myspy.ReferMiddleware.ReferMiddleware',
+    'cctvision.ReferMiddleware.ReferMiddleware',
 )
 
 ROOT_URLCONF = 'cctvision.urls'
