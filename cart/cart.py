@@ -168,7 +168,7 @@ class Subtotal:
 def send_admin_email(request, cart_items, form, cart_subtotal, discount):
     products_for_email = ""
     for item in cart_items:
-        products_for_email += u"%s:%s шт  http://my-spy.ru%s\n" % (item.product.name,
+        products_for_email += u"%s:%s шт  http://cctvision.ru%s\n" % (item.product.name,
                                           item.quantity, item.product.get_absolute_url())
     t = threading.Thread(target= send_mail, args=[
         u'Заказ от %s %s' % (form.cleaned_data['name'], form.cleaned_data['surname'] ),
@@ -184,10 +184,10 @@ def send_admin_email(request, cart_items, form, cart_subtotal, discount):
 def send_client_email(cart_items, form, cart_subtotal):
     products_for_email = ""
     for item in cart_items:
-        products_for_email += u"%s:%s шт  http://my-spy.ru%s\n" % (item.product.name,
+        products_for_email += u"%s:%s шт  http://cctvision.ru%s\n" % (item.product.name,
                                           item.quantity, item.product.get_absolute_url())
     t = threading.Thread(target= send_mail, args=[
-        u'Ваш заказ от my-spy',
+        u'Ваш заказ от cctvision',
         u'Здравствуйте %s,\n\nВы оформили у нас заказ на:\n%s\nВсего на сумму: %s руб\n\nВ ближайшее время наш менеджер с вами свяжется.\nС Уважением, my-spy.ru' %
         (form.cleaned_data['name'], products_for_email, cart_subtotal ),
         EMAIL_HOST_USER, [form.cleaned_data['email']], 'fail_silently=False'])
@@ -198,7 +198,7 @@ def send_client_email(cart_items, form, cart_subtotal):
 def send_sms(cart_items, form):
     login = 'palv1@yandex.ru'
     password = '97ajhJaj9zna'
-    phones = ["79151225291", "79267972292"]
+    phones = ["79267972292"]
     from_phone = re.sub("\D", "", form.cleaned_data['phone'])
     products = ""
     for item in cart_items:
