@@ -338,14 +338,20 @@ header #contacts p.mail{
 	color: #666;
 	font-size: 16px;
 	color: #333;
-	border: 1px solid #ccc;
-	background: #EEF9F9;
 	border-radius: 6px;
 	margin: 0 20px;
 	letter-spacing: 0.096ex;
     line-height: 1.4em;
     font-family: "DirectSemiCondensed","Direct",sans-serif;
     position: relative;
+}
+#cont_discr.main_page{
+	border: 1px solid #ccc;
+	background: #EEF9F9;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-o-border-radius: 6px;
 }
 #tovar{
 	padding: 0 1.6%;
