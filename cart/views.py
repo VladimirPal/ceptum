@@ -34,6 +34,7 @@ def show_cart(request):
             if SEND_SMS:
                 cart.send_sms(cart_items, form)
             # Отправляем админу email
+            SEND_ADMIN_EMAIL = True
             if SEND_ADMIN_EMAIL:
                 cart.send_admin_email(request, cart_items, form, cart_subtotal, discount)
             # Отправляем email клиенту

@@ -67,7 +67,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=9,decimal_places=2, verbose_name='Цена')
     wholesale_price = models.DecimalField(max_digits=9,decimal_places=2, verbose_name='Цена закупки')
     quantity = models.IntegerField(default=1, verbose_name='Количество')
-    mini_html_description = tinymce_models.HTMLField(validators=[validate_even], help_text='Максимальное количество символов: 140.',
+    mini_html_description = tinymce_models.HTMLField(help_text='Максимальное количество символов: 140.',
                                         verbose_name='Мини описание в HTML')
     html_description = tinymce_models.HTMLField(blank=True, verbose_name='Описание', help_text='Описание в HTML')
     tech_details = models.TextField()
