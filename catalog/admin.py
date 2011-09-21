@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from catalog.models import Product, ProductPhoto, Category, Section, Feature, FeatureName, File
+from catalog.models import Product, ProductPhoto, Category, Section, Feature, FeatureName, File, CategoryProduct
 from cart.models import Client
 
 class PhotoInline(admin.StackedInline):
@@ -14,8 +14,11 @@ class FilesInline(admin.StackedInline):
 
 admin.site.register(ProductPhoto)
 
+class CategoryProductinline(admin.TabularInline):
+    model = CategoryProduct
+
 class ProductsAdmin(admin.ModelAdmin):
-    inlines = [PhotoInline, FeaturesInline, FilesInline]
+    inlines = [PhotoInline, FeaturesInline, FilesInline, CategoryProductinline]
     list_display = ('name', 'price', 'quantity', 'created_at', 'updated_at',)
     list_display_links = ('name',)
     list_per_page = 50

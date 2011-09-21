@@ -23,6 +23,11 @@ class Section(models.Model):
     def get_absolute_url(self):
         return ('section-page', [str(self.slug)])
 
+class CategoryProduct(models.Model):
+    category = models.ForeignKey('Category')
+    product = models.ForeignKey('Product', verbose_name='Товар')
+    sort_number = models.IntegerField()
+
 class Category(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
@@ -53,7 +58,7 @@ def validate_even(value):
             raise ValidationError(u'Количество символов: %s. Максимально разрешенное: 500'% len(value) )
 
 class Product(models.Model):
-    category = models.ManyToManyField(Category, verbose_name='Категория')
+    category = models.ManyToManyField(Category, verbose_name='Категория', through=CategoryProduct)
     name = models.CharField(max_length=255, unique=True, verbose_name='Название')
     slug = models.SlugField(max_length=255, unique=True, verbose_name='Ссылка')
     price = models.DecimalField(max_digits=9,decimal_places=2, verbose_name='Цена')
@@ -71,7 +76,6 @@ class Product(models.Model):
     # Временные отметки
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    sort_number = models.IntegerField()
 
     def __unicode__(self):
         return self.name
@@ -81,7 +85,7 @@ class Product(models.Model):
         return ('product-page', [str(self.slug)])
 
     class Meta:
-        ordering = ['sort_number']
+        ordering = ['category__sort_number']
         verbose_name_plural = 'Товар'
 
 class ProductPhoto(models.Model):
