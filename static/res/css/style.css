@@ -334,8 +334,18 @@ header #contacts p.mail{
 	vertical-align: middle;
 }
 #cont_discr{
-	padding: 10px;
+	padding: 10px 20px 10px 40px;
 	color: #666;
+	font-size: 16px;
+	color: #333;
+	border: 1px solid #ccc;
+	background: #EEF9F9;
+	border-radius: 6px;
+	margin: 0 20px;
+	letter-spacing: 0.096ex;
+    line-height: 1.4em;
+    font-family: "DirectSemiCondensed","Direct",sans-serif;
+    position: relative;
 }
 #tovar{
 	padding: 0 1.6%;
@@ -559,6 +569,13 @@ footer {
 .hint:hover .hint_dscr{
 	display: block;
 	visibility: visible;
+}
+#sub_verticalline{
+	position: absolute;
+	height: 85%;
+	left:17px;
+	width: 3px;
+	background: #666;
 }
 @media print{
 *{background:transparent !important;color:black !important;text-shadow:none !important;filter:none !important;-ms-filter:none !important}
