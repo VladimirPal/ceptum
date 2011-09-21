@@ -28,6 +28,9 @@ class CategoryProduct(models.Model):
     product = models.ForeignKey('Product', verbose_name='Товар')
     sort_number = models.IntegerField()
 
+    class meta:
+        ordering = ['sort_number']
+
 class Category(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
@@ -45,7 +48,7 @@ class Category(models.Model):
     def __unicode__(self):
         return self.name
 
-    class Meta:
+    class meta:
         ordering = ['sort_number']
         verbose_name_plural = 'Категории товара'
 
@@ -85,7 +88,6 @@ class Product(models.Model):
         return ('product-page', [str(self.slug)])
 
     class Meta:
-        ordering = ['category__sort_number']
         verbose_name_plural = 'Товар'
 
 class ProductPhoto(models.Model):
