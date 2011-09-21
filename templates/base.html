@@ -20,6 +20,11 @@
 		//	alert('!');
 			$(this).siblings('.img_block').children('img').attr('src', ($(this).attr('src')));
 		});
+		$('span.word_about').hover(function(){
+			$(this).children('.dscr_word').fadeIn(500);
+		},function(){
+			$(this).children('.dscr_word').fadeOut(500);
+		});
 	});
 </script>
 <body>

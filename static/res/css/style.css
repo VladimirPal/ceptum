@@ -555,27 +555,33 @@ footer {
 	padding: 5px;
 }
 /*Всплывающие подсказоньки :D*/
-.hint{
+.word_about{
+	color: #1d539f;
+	text-decoration: underline;
 	position: relative;
-	color:#1f80a8;
 	cursor: pointer;
-	border-bottom: dotted 1px #1f80a8;
 }
-.hint .hint_dscr{
-	line-height: 120%;
+.word_about .dscr_word{
+	display: none;
 	position: absolute;
+	border: 1px solid #ccc;
+	background: #EEF9F9;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-o-border-radius: 6px;
+	padding: 15px 10px;
 	bottom: 100%;
-	background: white;
-	padding: 5px;
-	border-radius: 5px;
-	box-shadow: 0px 0px 6px 3px #666;
 	left: 100%;
+	float: left;
+	text-align: left;
+	width: 300px;
 	color: black;
 }
-.hint:hover .hint_dscr{
-	display: block;
-	visibility: visible;
+.word_about .dscr_word p{
+	display: inline-block;
 }
+/*Вертикальня линия в описании на главной странице*/
 #sub_verticalline{
 	position: absolute;
 	height: 85%;
