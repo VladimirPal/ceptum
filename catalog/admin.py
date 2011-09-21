@@ -29,6 +29,7 @@ class ProductsAdmin(admin.ModelAdmin):
 admin.site.register(Product, ProductsAdmin)
 
 class CategoriesAdmin(admin.ModelAdmin):
+    inlines = [CategoryProductinline]
     list_display = ('name', 'created_at', 'updated_at',)
     list_display_links = ('name',)
     list_per_page = 20
