@@ -557,7 +557,6 @@ footer {
 /*Всплывающие подсказоньки :D*/
 .word_about{
 	color: #1d539f;
-	text-decoration: underline;
 	position: relative;
 	cursor: pointer;
 }
@@ -576,7 +575,7 @@ footer {
 	float: left;
 	text-align: left;
 	width: 300px;
-	color: black;
+	color: black;	
 }
 .word_about .dscr_word p{
 	display: inline-block;
