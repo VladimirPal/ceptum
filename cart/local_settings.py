@@ -1,3 +1,0 @@
-SEND_SMS = False
-SEND_ADMIN_EMAIL = False
-SEND_CLIENT_EMAIL = False
