@@ -154,20 +154,24 @@ header #contacts p.mail{
 #sidebar #menu_block .menu_sidebar a, #sidebar #menu_block .menu_sidebar span{
 	color: #444;
 	text-decoration: none;	
-	font-size: 11px;
+	font-size: 12px;
 }
 #sidebar #menu_block .menu_sidebar ul a{
 	color: #8d8d8d;
-	font-size: 10px;
+	font-size: 12px;
+}
+#sidebar #menu_block .menu_sidebar li{
+	padding: 3px 0;
+}
+#sidebar #menu_block .menu_sidebar ul li{
+	padding: 2px 0;
 }
 #sidebar #menu_block .menu_sidebar ul{
 	list-style-image: url(../img/li_second.gif);
 	display: none;
+	padding: 2px 0;
 }
 #sidebar #menu_block .menu_sidebar .active ul{
-	display: block;
-}
-#sidebar #menu_block .menu_sidebar li:hover ul{
 	display: block;
 }
 #sidebar #menu_block .bot_corn, #sidebar #menu_block .top_corn{
