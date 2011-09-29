@@ -378,8 +378,9 @@ header #contacts p.mail{
 	margin-top: 15px;
 }
 #tovar .top .right{
+    font-size: 14px;
 	width:55%;
-	vertical-align: top;	
+	vertical-align: top;
 }
 #tovar .top>div{
 	display: inline-block;
@@ -402,7 +403,7 @@ header #contacts p.mail{
 #tovar .bottom{
 	padding: 20px 0;
 	color: #666;
-	font-size: 11px;
+	font-size: 14px;
 }
 #tovar .bottom h3{
 	font-size: 18px;
