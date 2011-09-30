@@ -585,6 +585,7 @@ footer {
 .word_about .dscr_word p{
 	display: inline-block;
 }
+i{font-style:italic}
 /*Вертикальня линия в описании на главной странице*/
 #sub_verticalline{
 	position: absolute;
