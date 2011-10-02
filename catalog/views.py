@@ -27,22 +27,21 @@ def show_category(request, category_slug):
         url = urlresolvers.reverse('show_cart')
         return HttpResponseRedirect(url)
     else:
-        try:
-            category = Category.objects.get(slug=category_slug)
-            products = category.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
-            if category.section.name == category.name:
-                page_title = "%s" % category.section
-            else:
-                page_title = "%s %s" % (category.section, category)
-            meta_keywords = category.meta_keywords
-            meta_description = category.meta_descriotion
-        except :
-            section = Section.objects.get(slug=category_slug)
-            category = section.category_set.filter(is_active=True)
-            page_title = "%s" % section
-            products = []
-            for cat in category:
-                products += cat.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
+        category = Category.objects.get(slug=category_slug)
+        products = category.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
+        if category.section.name == category.name:
+            page_title = "%s" % category.section
+        else:
+            page_title = "%s %s" % (category.section, category)
+        meta_keywords = category.meta_keywords
+        meta_description = category.meta_descriotion
+#        except :
+#            section = Section.objects.get(slug=category_slug)
+#            category = section.category_set.filter(is_active=True)
+#            page_title = "%s" % section
+#            products = []
+#            for cat in category:
+#                products += cat.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
     return render_to_response("main/catalog.html", locals(), context_instance=RequestContext(request))
 
 def show_section(request, section_slug):
