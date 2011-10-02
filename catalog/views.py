@@ -28,8 +28,7 @@ def show_category(request, category_slug):
         return HttpResponseRedirect(url)
     else:
         category = Category.objects.get(slug=category_slug)
-        all_features = Feature.objects.filter(item__category=category_slug).select_related()
-        print all_features
+        all_features = Feature.objects.filter(item__category__slug=category_slug)
         features_dict = {}
         for feature in all_features:
             values = features_dict.get(feature.name.name, [])
