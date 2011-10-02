@@ -28,8 +28,6 @@ def show_category(request, category_slug):
         return HttpResponseRedirect(url)
     else:
         category = Category.objects.get(slug=category_slug)
-        search_features = category.search_features.all()
-        # Все фичи относящиеся к категории
         try:
             all_features = Feature.objects.filter(item__category=category_slug).select_related()
             features_dict = {}
