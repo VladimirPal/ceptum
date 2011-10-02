@@ -2,7 +2,7 @@
 from django.shortcuts import get_object_or_404, render_to_response
 from django.core import urlresolvers
 from django.template import RequestContext
-from catalog.models import Category, Product, Section
+from catalog.models import Category, Product, Section, Feature, FeatureName, Value
 from django.http import HttpResponseRedirect
 from cart import cart
 
@@ -29,6 +29,17 @@ def show_category(request, category_slug):
     else:
         category = Category.objects.get(slug=category_slug)
         search_features = category.search_features.all()
+        # Все фичи относящиеся к категории
+        all_features = Feature.objects.filter(item__category=category_slug).select_related()
+        features_dict = {}
+        for feature in all_features:
+            values = features_dict.get(feature.name.name, [])
+            try:
+                if feature.value.value not in features_dict[feature.name.name]:
+                    features_dict[feature.name.name] = values + [feature.value.value]
+            except:
+                features_dict[feature.name.name] = values + [feature.value.value]
+        print features_dict
         products = category.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
         if category.section.name == category.name:
             page_title = "%s" % category.section
