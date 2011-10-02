@@ -44,6 +44,7 @@ class Category(models.Model):
     meta_keywords = models.TextField(blank=True)
     meta_descriotion = models.TextField(blank=True)
     sort_number = models.IntegerField()
+    search_features = models.ManyToManyField('FeatureName')
 
     def __unicode__(self):
         return self.name
