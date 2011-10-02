@@ -28,18 +28,16 @@ def show_category(request, category_slug):
         return HttpResponseRedirect(url)
     else:
         category = Category.objects.get(slug=category_slug)
-        try:
-            all_features = Feature.objects.filter(item__category=category_slug).select_related()
-            features_dict = {}
-            for feature in all_features:
-                values = features_dict.get(feature.name.name, [])
-                try:
-                    if feature.value.value not in features_dict[feature.name.name]:
-                        features_dict[feature.name.name] = values + [feature.value.value]
-                except:
+        all_features = Feature.objects.filter(item__category=category_slug).select_related()
+        print all_features
+        features_dict = {}
+        for feature in all_features:
+            values = features_dict.get(feature.name.name, [])
+            try:
+                if feature.value.value not in features_dict[feature.name.name]:
                     features_dict[feature.name.name] = values + [feature.value.value]
-        except :
-            pass
+            except:
+                features_dict[feature.name.name] = values + [feature.value.value]
         products = category.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
         if category.section.name == category.name:
             page_title = "%s" % category.section
