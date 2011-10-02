@@ -8,6 +8,12 @@
         </div>
 	<table id="catalog" cellpadding="0" cellspacing="0" border="0">
 	<tr>
+    {% for feature_name in search_features %}
+        {{ feature_name }}
+        {% for i in feature_name.feature_set.all %}
+            {{ i.value }}
+        {% endfor %}
+    {% endfor %}
 		{% for product in products %}
 			<td class="left">
 

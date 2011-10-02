@@ -28,6 +28,7 @@ def show_category(request, category_slug):
         return HttpResponseRedirect(url)
     else:
         category = Category.objects.get(slug=category_slug)
+        search_features = category.search_features.all()
         products = category.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
         if category.section.name == category.name:
             page_title = "%s" % category.section

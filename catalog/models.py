@@ -44,7 +44,7 @@ class Category(models.Model):
     meta_keywords = models.TextField(blank=True)
     meta_descriotion = models.TextField(blank=True)
     sort_number = models.IntegerField()
-    search_features = models.ManyToManyField('FeatureName')
+    search_features = models.ManyToManyField('FeatureName', blank=True)
 
     def __unicode__(self):
         return self.name
@@ -106,6 +106,12 @@ class ProductPhoto(models.Model):
     def get_absolute_url(self):
         return ('item_detail', None, {'object_id': self.id})
 
+
+class Value(models.Model):
+    value = models.CharField(max_length=50)
+    def __unicode__(self):
+        return self.value
+
 class FeatureName(models.Model):
     name = models.CharField(max_length=50)
 
@@ -118,11 +124,12 @@ class FeatureName(models.Model):
 
 class Feature(models.Model):
     name = models.ForeignKey(FeatureName, verbose_name='Характеристика')
-    value = models.CharField(max_length=100, verbose_name='Значение')
+    value = models.ForeignKey(Value)
+#    value = models.CharField(max_length=100, verbose_name='Значение')
     item = models.ForeignKey(Product)
     
     def __unicode__(self):
-        return "%s: %s" % (self.name.name, self.value)
+        return "%s: %s" % (self.name.name, self.name)
 
 class File(models.Model):
     product = models.ForeignKey(Product, verbose_name='Файл')
