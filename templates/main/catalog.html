@@ -10,9 +10,7 @@
 	<tr>
     {% for feature_name in search_features %}
         {{ feature_name }}
-        {% for i in feature_name.feature_set.all %}
-            {{ i.value }}
-        {% endfor %}
+        {{ feature_name.feature_set.value }}
     {% endfor %}
 		{% for product in products %}
 			<td class="left">
