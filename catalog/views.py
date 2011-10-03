@@ -29,11 +29,32 @@ def show_category(request, category_slug):
             url = urlresolvers.reverse('show_cart')
             return HttpResponseRedirect(url)
         else:
+            features_dict = {}
             category = Category.objects.get(slug=category_slug)
-            qs = Q()
             for option in request.POST.getlist('option'):
-                qs &= Q(feature__name__name = option.split(':')[0], feature__value__value = option.split(':')[1])
-            products = category.product_set.filter(qs)
+                values = features_dict.get(option.split(':')[0], [])
+                try:
+                    if option.split(':')[1] not in features_dict[option.split(':')[0]]:
+                        features_dict[option.split(':')[0]] = values + [option.split(':')[1]]
+                except:
+                    features_dict[option.split(':')[0]] = values + [option.split(':')[1]]
+
+            kwargs = {}
+            args = Q()
+            counter = 0
+            for name, values in features_dict.items():
+                kwargs['feature__name__name'] = name
+                kwargs['feature__value__value__in'] = values
+                if counter == 0:
+                    products = category.product_set.filter(**kwargs)
+                else :
+                    products = products.filter(**kwargs)
+                counter += 1
+                #for value in values:
+                #    args |= Q( feature__value__value = value )
+            #products = category.product_set.filter(Q(feature__value__value='Красный')|Q(feature__value__value='Синий'),
+            #feature__name__name='Цвет')
+
     else:
         category = Category.objects.get(slug=category_slug)
         all_features = Feature.objects.filter(item__category__slug=category_slug)
