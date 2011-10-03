@@ -32,7 +32,7 @@ def show_category(request, category_slug):
             category = Category.objects.get(slug=category_slug)
             qs = Q()
             for option in request.POST.getlist('option'):
-                qs |= Q(feature__name__name = option.split(':')[0], feature__value__value = option.split(':')[1])
+                qs &= Q(feature__name__name = option.split(':')[0], feature__value__value = option.split(':')[1])
             products = category.product_set.filter(qs)
     else:
         category = Category.objects.get(slug=category_slug)
