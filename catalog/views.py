@@ -5,6 +5,7 @@ from django.template import RequestContext
 from catalog.models import Category, Product, Section, Feature, FeatureName, Value
 from django.http import HttpResponseRedirect
 from cart import cart
+from django.db.models import Q
 
 def index(request):
     page_title = "Системы видеонаблюдения"
@@ -23,9 +24,16 @@ def cats(request):
 
 def show_category(request, category_slug):
     if request.method == 'POST':
-        cart.add_to_cart(request)
-        url = urlresolvers.reverse('show_cart')
-        return HttpResponseRedirect(url)
+        if 'product_slug' in request.POST:
+            cart.add_to_cart(request)
+            url = urlresolvers.reverse('show_cart')
+            return HttpResponseRedirect(url)
+        else:
+            category = Category.objects.get(slug=category_slug)
+            qs = Q()
+            for option in request.POST.getlist('option'):
+                qs |= Q(feature__name__name = option.split(':')[0], feature__value__value = option.split(':')[1])
+            products = category.product_set.filter(qs)
     else:
         category = Category.objects.get(slug=category_slug)
         all_features = Feature.objects.filter(item__category__slug=category_slug)
