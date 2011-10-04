@@ -118,7 +118,7 @@ class FeatureName(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['name']
+        ordering = ['id']
         verbose_name_plural = 'Характеристики товара'
 
 class Feature(models.Model):
@@ -129,6 +129,8 @@ class Feature(models.Model):
     
     def __unicode__(self):
         return "%s: %s" % (self.name.name, self.name)
+    class Meta:
+        ordering = ['name']
 
 class File(models.Model):
     product = models.ForeignKey(Product, verbose_name='Файл')
