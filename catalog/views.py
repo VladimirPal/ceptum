@@ -1,4 +1,5 @@
           # -*- coding: utf-8 -*-
+from collections import OrderedDict
 from django.shortcuts import get_object_or_404, render_to_response
 from django.core import urlresolvers
 from django.template import RequestContext
@@ -25,7 +26,7 @@ def cats(request):
 def show_category(request, category_slug):
     category = Category.objects.get(slug=category_slug)
     all_features = Feature.objects.filter(item__category__slug=category_slug)
-    features_dict = {}
+    features_dict = OrderedDict()
     for feature in all_features:
         values = features_dict.get(feature.name.name, [])
         try:
