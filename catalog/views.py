@@ -5,7 +5,6 @@ from django.template import RequestContext
 from catalog.models import Category, Product, Section, Feature, FeatureName, Value
 from django.http import HttpResponseRedirect
 from cart import cart
-from django.db.models import Q
 
 def index(request):
     page_title = "Системы видеонаблюдения"
@@ -40,20 +39,15 @@ def show_category(request, category_slug):
                     features_dict[option.split(':')[0]] = values + [option.split(':')[1]]
 
             kwargs = {}
-            args = Q()
             counter = 0
             for name, values in features_dict.items():
                 kwargs['feature__name__name'] = name
                 kwargs['feature__value__value__in'] = values
-                if counter == 0:
+                if not counter:
                     products = category.product_set.filter(**kwargs)
                 else :
                     products = products.filter(**kwargs)
                 counter += 1
-                #for value in values:
-                #    args |= Q( feature__value__value = value )
-            #products = category.product_set.filter(Q(feature__value__value='Красный')|Q(feature__value__value='Синий'),
-            #feature__name__name='Цвет')
 
     else:
         category = Category.objects.get(slug=category_slug)
