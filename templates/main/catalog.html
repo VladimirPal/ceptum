@@ -7,6 +7,7 @@
         	<a href="/">Главная</a> {% if section %}»&nbsp;{{ section.name }}{% else %}{% if not category.section.slug == category.slug %}»&nbsp;<a href="/section/{{ category.section.slug }}">{{ category.section.name }}</a>{% endif %} »&nbsp;{{ category.name }} {% endif %}
         </div>
         <br>
+        {% if features_dict %}
         <div id="cont_discr" class="main_page clearfix">
         	<b>Фильтровать</b><hr>
 	        <form method="post" action="">{% csrf_token %}
@@ -24,6 +25,7 @@
 	            <div class="clearfix buttonbox"><input type="submit" name='kkk' value="Выбрать" /></div>
 	        </form>
         </div>
+        {% endif %}
 	<table id="catalog" cellpadding="0" cellspacing="0" border="0">
 	<tr>
 		{% for product in products %}
