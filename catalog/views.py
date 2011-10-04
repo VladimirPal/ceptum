@@ -1,5 +1,5 @@
           # -*- coding: utf-8 -*-
-import ordereddict
+from ordereddict import OrderedDict
 from django.shortcuts import get_object_or_404, render_to_response
 from django.core import urlresolvers
 from django.template import RequestContext
