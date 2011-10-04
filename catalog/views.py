@@ -39,19 +39,19 @@ def show_category(request, category_slug):
             url = urlresolvers.reverse('show_cart')
             return HttpResponseRedirect(url)
         else:
-            features_dict = {}
+            features_dict2 = {}
             category = Category.objects.get(slug=category_slug)
             for option in request.POST.getlist('option'):
-                values = features_dict.get(option.split(':')[0], [])
+                values = features_dict2.get(option.split(':')[0], [])
                 try:
-                    if option.split(':')[1] not in features_dict[option.split(':')[0]]:
-                        features_dict[option.split(':')[0]] = values + [option.split(':')[1]]
+                    if option.split(':')[1] not in features_dict2[option.split(':')[0]]:
+                        features_dict2[option.split(':')[0]] = values + [option.split(':')[1]]
                 except:
-                    features_dict[option.split(':')[0]] = values + [option.split(':')[1]]
+                    features_dict2[option.split(':')[0]] = values + [option.split(':')[1]]
 
             kwargs = {}
             counter = 0
-            for name, values in features_dict.items():
+            for name, values in features_dict2.items():
                 kwargs['feature__name__name'] = name
                 kwargs['feature__value__value__in'] = values
                 if not counter:
@@ -62,7 +62,6 @@ def show_category(request, category_slug):
             products = list(set(products))
 
     else:
-
         products = category.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
         if category.section.name == category.name:
             page_title = "%s" % category.section
