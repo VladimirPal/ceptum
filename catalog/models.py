@@ -111,6 +111,9 @@ class Value(models.Model):
     def __unicode__(self):
         return self.value
 
+    class Meta:
+        ordering = ['id']
+
 class FeatureName(models.Model):
     name = models.CharField(max_length=50)
 
@@ -118,7 +121,7 @@ class FeatureName(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['id']
+        ordering = ['name']
         verbose_name_plural = 'Характеристики товара'
 
 class Feature(models.Model):
@@ -130,7 +133,7 @@ class Feature(models.Model):
     def __unicode__(self):
         return "%s: %s" % (self.name.name, self.name)
     class Meta:
-        ordering = ['name']
+        ordering = ['name__id']
 
 class File(models.Model):
     product = models.ForeignKey(Product, verbose_name='Файл')

@@ -2,6 +2,7 @@
 from django.shortcuts import get_object_or_404, render_to_response
 from django.core import urlresolvers
 from django.template import RequestContext
+import operator
 from catalog.models import Category, Product, Section, Feature, FeatureName, Value
 from django.http import HttpResponseRedirect
 from cart import cart
