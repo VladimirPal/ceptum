@@ -49,6 +49,7 @@ def show_category(request, category_slug):
                 else :
                     products = products.filter(**kwargs)
                 counter += 1
+            products = list(set(products))
 
     else:
         category = Category.objects.get(slug=category_slug)
