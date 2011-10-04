@@ -23,6 +23,16 @@ def cats(request):
     return render_to_response("main/cats.html", locals(), context_instance=RequestContext(request))
 
 def show_category(request, category_slug):
+    category = Category.objects.get(slug=category_slug)
+    all_features = Feature.objects.filter(item__category__slug=category_slug)
+    features_dict = {}
+    for feature in all_features:
+        values = features_dict.get(feature.name.name, [])
+        try:
+            if feature.value.value not in features_dict[feature.name.name]:
+                features_dict[feature.name.name] = values + [feature.value.value]
+        except:
+            features_dict[feature.name.name] = values + [feature.value.value]
     if request.method == 'POST':
         if 'product_slug' in request.POST:
             cart.add_to_cart(request)
@@ -52,16 +62,7 @@ def show_category(request, category_slug):
             products = list(set(products))
 
     else:
-        category = Category.objects.get(slug=category_slug)
-        all_features = Feature.objects.filter(item__category__slug=category_slug)
-        features_dict = {}
-        for feature in all_features:
-            values = features_dict.get(feature.name.name, [])
-            try:
-                if feature.value.value not in features_dict[feature.name.name]:
-                    features_dict[feature.name.name] = values + [feature.value.value]
-            except:
-                features_dict[feature.name.name] = values + [feature.value.value]
+
         products = category.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
         if category.section.name == category.name:
             page_title = "%s" % category.section
