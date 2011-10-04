@@ -52,4 +52,3 @@ class ClientsAdmin(admin.ModelAdmin):
 
 admin.site.register(Client, ClientsAdmin)
 admin.site.register(Value)
-
