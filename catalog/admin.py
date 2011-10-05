@@ -16,6 +16,7 @@ admin.site.register(ProductPhoto)
 
 class CategoryProductinline(admin.TabularInline):
     model = CategoryProduct
+    ordering = ['sort_number']
 
 class ProductsAdmin(admin.ModelAdmin):
     inlines = [PhotoInline, FeaturesInline, FilesInline, CategoryProductinline]
