@@ -15,7 +15,18 @@
 	        		<ul>	
 				        <p><b>Тип</b></p>
 				            {% for item in type_choices %}
-                                <li><input type="checkbox" name="option" value="type:{{ item.0 }}"><label>{{ item.1 }}</label></li>
+                                <li><input type="checkbox" name="option" value="type:{{ item.0 }}"
+                                {% for feature, values in features_dict2.items %}
+                                    {% if feature == 'type' %}
+                                        {% for value in values %}
+                                            {% if value == item.0 %}
+                                                checked="checked"
+                                            {% endif %}
+                                        {{ value }}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                                        ><label>{{ item.1 }}</label></li>
 				            {% endfor %}
                     </ul>
                 </div>
@@ -23,7 +34,18 @@
                     <ul>
                         <p><b>Объектив</b></p>
 				            {% for item in lens_choices %}
-                                <li><input type="checkbox" name="option" value="lens:{{ item.0 }}"><label>{{ item.1 }}</label></li>
+                                <li><input type="checkbox" name="option" value="lens:{{ item.0 }}"
+                                {% for feature, values in features_dict2.items %}
+                                    {% if feature == 'lens' %}
+                                        {% for value in values %}
+                                            {% if value == item.0 %}
+                                                checked="checked"
+                                            {% endif %}
+                                        {{ value }}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                                        ><label>{{ item.1 }}</label></li>
 				            {% endfor %}
                     </ul>
                 </div>
@@ -31,7 +53,18 @@
                     <ul>
                         <p><b>ИК подсветка</b></p>
 				            {% for item in ir_choices %}
-                                <li><input type="checkbox" name="option" value="ir:{{ item.0 }}"><label>{{ item.1 }}</label></li>
+                                <li><input type="checkbox" name="option" value="ir:{{ item.0 }}"
+                                {% for feature, values in features_dict2.items %}
+                                    {% if feature == 'ir' %}
+                                        {% for value in values %}
+                                            {% if value == item.0 %}
+                                                checked="checked"
+                                            {% endif %}
+                                        {{ value }}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                                        ><label>{{ item.1 }}</label></li>
 				            {% endfor %}
                     </ul>
                 </div>
@@ -39,15 +72,38 @@
                     <ul>
                         <p><b>Разрешение</b></p>
 				            {% for item in resolution_choices %}
-                                <li><input type="checkbox" name="option" value="resolution:{{ item.0 }}"><label>{{ item.1 }}</label></li>
+                                <li><input type="checkbox" name="option" value="resolution:{{ item.0 }}"
+                                {% for feature, values in features_dict2.items %}
+                                    {% if feature == 'resolution' %}
+                                        {% for value in values %}
+                                            {% if value == item.0 %}
+                                                checked="checked"
+                                            {% endif %}
+                                        {{ value }}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                                        ><label>{{ item.1 }}</label></li>
 				            {% endfor %}
+
                     </ul>
                 </div>
                 <div class="filtr_item alignleft">
                     <ul>
                         <p><b>Чувствительность</b></p>
 				            {% for item in sensevity_choices %}
-                                <li><input type="checkbox" name="option" value="sensitivity:{{ item.0 }}"><label>{{ item.1 }}</label></li>
+                                <li><input type="checkbox" name="option" value="sensitivity:{{ item.0 }}"
+                                {% for feature, values in features_dict2.items %}
+                                    {% if feature == 'sensitivity' %}
+                                        {% for value in values %}
+                                            {% if value == item.0 %}
+                                                checked="checked"
+                                            {% endif %}
+                                        {{ value }}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                                        ><label>{{ item.1 }}</label></li>
 				            {% endfor %}
 					</ul>
 			    </div>
