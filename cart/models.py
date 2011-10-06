@@ -112,6 +112,7 @@ class Client(models.Model):
 
     class Meta:
         ordering = ['-ordered_at']
+        verbose_name_plural = 'Клиенты'
 
     def __unicode__(self):
         return self.name

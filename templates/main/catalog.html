@@ -7,20 +7,50 @@
         	<a href="/">Главная</a> {% if section %}»&nbsp;{{ section.name }}{% else %}{% if not category.section.slug == category.slug %}»&nbsp;<a href="/section/{{ category.section.slug }}">{{ category.section.name }}</a>{% endif %} »&nbsp;{{ category.name }} {% endif %}
         </div>
         <br>
-        {% if features_dict %}
+        {% if filter %}
         <div id="cont_discr" class="main_page clearfix">
         	<b>Фильтровать</b><hr>
 	        <form method="post" action="">{% csrf_token %}
-	        {% for feature_name, value in features_dict.items %}
 	        	<div class="filtr_item alignleft">
 	        		<ul>	
-				        <p><b>{{ feature_name }}</b></p>
-				            {% for i in value %}
-				        		<li><input type="checkbox" name="option" value="{{ feature_name }}:{{ i }}"><label>{{ i }}</label></li>
+				        <p><b>Тип</b></p>
+				            {% for item in type_choices %}
+                                <li><input type="checkbox" name="option" value="type:{{ item.0 }}"><label>{{ item.1 }}</label></li>
+				            {% endfor %}
+                    </ul>
+                </div>
+                <div class="filtr_item alignleft">
+                    <ul>
+                        <p><b>Объектив</b></p>
+				            {% for item in lens_choices %}
+                                <li><input type="checkbox" name="option" value="lens:{{ item.0 }}"><label>{{ item.1 }}</label></li>
+				            {% endfor %}
+                    </ul>
+                </div>
+                <div class="filtr_item alignleft">
+                    <ul>
+                        <p><b>ИК подсветка</b></p>
+				            {% for item in ir_choices %}
+                                <li><input type="checkbox" name="option" value="ir:{{ item.0 }}"><label>{{ item.1 }}</label></li>
+				            {% endfor %}
+                    </ul>
+                </div>
+                <div class="filtr_item alignleft">
+                    <ul>
+                        <p><b>Разрешение</b></p>
+				            {% for item in resolution_choices %}
+                                <li><input type="checkbox" name="option" value="resolution:{{ item.0 }}"><label>{{ item.1 }}</label></li>
+				            {% endfor %}
+                    </ul>
+                </div>
+                <div class="filtr_item alignleft">
+                    <ul>
+                        <p><b>Чувствительность</b></p>
+				            {% for item in sensevity_choices %}
+                                <li><input type="checkbox" name="option" value="sensitivity:{{ item.0 }}"><label>{{ item.1 }}</label></li>
 				            {% endfor %}
 					</ul>
 			    </div>
-	        {% endfor %}
 	        	<div class="clr"></div>
 	            <div class="clearfix buttonbox"><input type="submit" name='kkk' value="Выбрать" /></div>
 	        </form>

@@ -1,9 +1,10 @@
           # -*- coding: utf-8 -*-
+from django.db.models.query_utils import Q
 from ordereddict import OrderedDict
 from django.shortcuts import get_object_or_404, render_to_response
 from django.core import urlresolvers
 from django.template import RequestContext
-from catalog.models import Category, Product, Section, Feature, FeatureName, Value
+from catalog.models import Category, Product, Section, TYPE_CHOICES, LENS_CHOICES, IR_CHOICES, RESOLUTION_CHOICES, SENSIVITY_CHOICES, CameraProduct
 from django.http import HttpResponseRedirect
 from cart import cart
 
@@ -23,47 +24,55 @@ def cats(request):
     return render_to_response("main/cats.html", locals(), context_instance=RequestContext(request))
 
 def show_category(request, category_slug):
+    if (category_slug == 'outdoor') or (category_slug == 'indoor'):
+        filter = True
+        type_choices = TYPE_CHOICES
+        lens_choices = LENS_CHOICES
+        ir_choices = IR_CHOICES
+        resolution_choices = RESOLUTION_CHOICES
+        sensevity_choices = SENSIVITY_CHOICES
     category = Category.objects.get(slug=category_slug)
-    all_features = Feature.objects.filter(item__category__slug=category_slug)
-    features_dict = OrderedDict()
-    for feature in all_features:
-        values = features_dict.get(feature.name.name, [])
-        try:
-            values.sort()
-        except :
-            pass
-        try:
-            if feature.value.value not in features_dict[feature.name.name]:
-                features_dict[feature.name.name] = values + [feature.value.value]
-        except:
-            features_dict[feature.name.name] = values + [feature.value.value]
+#    all_features = Feature.objects.filter(item__category__slug=category_slug)
+#    features_dict = OrderedDict()
+#    for feature in all_features:
+#        values = features_dict.get(feature.name.name, [])
+#        try:
+#            values.sort()
+#        except :
+#            pass
+#        try:
+#            if feature.value.value not in features_dict[feature.name.name]:
+#                features_dict[feature.name.name] = values + [feature.value.value]
+#        except:
+#            features_dict[feature.name.name] = values + [feature.value.value]
     if request.method == 'POST':
         if 'product_slug' in request.POST:
             cart.add_to_cart(request)
             url = urlresolvers.reverse('show_cart')
             return HttpResponseRedirect(url)
         else:
-            features_dict2 = {}
-            category = Category.objects.get(slug=category_slug)
             for option in request.POST.getlist('option'):
-                values = features_dict2.get(option.split(':')[0], [])
-                try:
-                    if option.split(':')[1] not in features_dict2[option.split(':')[0]]:
+                features_dict2 = {}
+                category = Category.objects.get(slug=category_slug)
+                for option in request.POST.getlist('option'):
+                    values = features_dict2.get(option.split(':')[0], [])
+                    try:
+                        if option.split(':')[1] not in features_dict2[option.split(':')[0]]:
+                            features_dict2[option.split(':')[0]] = values + [option.split(':')[1]]
+                    except:
                         features_dict2[option.split(':')[0]] = values + [option.split(':')[1]]
-                except:
-                    features_dict2[option.split(':')[0]] = values + [option.split(':')[1]]
-
             kwargs = {}
             counter = 0
+            args = Q()
             for name, values in features_dict2.items():
-                kwargs['feature__name__name'] = name
-                kwargs['feature__value__value__in'] = values
-                if not counter:
-                    products = category.product_set.filter(**kwargs)
-                else :
-                    products = products.filter(**kwargs)
-                counter += 1
-            products = list(set(products))
+                print name
+                if name == 'resolution':
+                    args &= ( Q( resolution1__in = values ) | Q( resolution2__in = values ) )
+                elif name == 'sensitivity':
+                    args &= ( Q( sensitivity1__in = values ) | Q( sensitivity2__in = values ) )
+                else:
+                    kwargs[name + '__in'] = values
+            products = CameraProduct.objects.filter(category=category).filter(args,**kwargs)
 
     else:
         products = category.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')

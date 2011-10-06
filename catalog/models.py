@@ -28,7 +28,7 @@ class CategoryProduct(models.Model):
     product = models.ForeignKey('Product', verbose_name='Товар')
     sort_number = models.IntegerField()
 
-    class meta:
+    class Meta:
         ordering = ['sort_number']
 
 class Category(models.Model):
@@ -48,7 +48,7 @@ class Category(models.Model):
     def __unicode__(self):
         return self.name
 
-    class meta:
+    class Meta:
         ordering = ['sort_number']
         verbose_name_plural = 'Категории товара'
 
@@ -88,7 +88,53 @@ class Product(models.Model):
         return ('product-page', [str(self.slug)])
 
     class Meta:
-        verbose_name_plural = 'Товар'
+        verbose_name_plural = 'Остальной товар'
+
+TYPE_CHOICES = (
+    ('day-night', 'День-Ночь'),
+    ('color', 'Цветная'),
+    ('black-and-white', 'Черно-Белая'),
+)
+
+LENS_CHOICES = (
+    ('changed', 'Вариофакальный'),
+    ('fixed', 'Фиксированный'),
+)
+
+IR_CHOICES = (
+    ('yes', 'Есть'),
+    ('no', 'Нет'),
+)
+
+RESOLUTION_CHOICES = (
+    ('380', '380 ТВЛ'),
+    ('420', '420 ТВЛ'),
+    ('520', '520 ТВЛ'),
+    ('530', '530 ТВЛ'),
+    ('550', '550 ТВЛ'),
+    ('600', '600 ТВЛ'),
+)
+
+SENSIVITY_CHOICES = (
+    ('0,001', '0,001 Люкс'),
+    ('0,0015', '0,0015 Люкс'),
+    ('0,015', '0,015 Люкс'),
+    ('0,025', '0,025 Люкс'),
+    ('0,05', '0,05 Люкс'),
+    ('0,5', '0,5 Люкс'),
+    ('0,1', '0,1 Люкс'),
+)
+class CameraProduct(Product):
+    type = models.CharField(choices=TYPE_CHOICES,max_length=255)
+    lens = models.CharField(choices=LENS_CHOICES,max_length=255)
+    ir = models.CharField(choices=IR_CHOICES,max_length=255)
+    resolution1 = models.CharField(choices=RESOLUTION_CHOICES,max_length=255)
+    resolution2 = models.CharField(choices=RESOLUTION_CHOICES,max_length=255, blank=True)
+    sensitivity1 = models.CharField(choices=SENSIVITY_CHOICES,max_length=255)
+    sensitivity2 = models.CharField(choices=SENSIVITY_CHOICES,max_length=255, blank=True)
+
+    class Meta:
+        verbose_name_plural = 'Аналоговые камеры'
 
 class ProductPhoto(models.Model):
     item = models.ForeignKey(Product)
@@ -104,36 +150,6 @@ class ProductPhoto(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('item_detail', None, {'object_id': self.id})
-
-
-class Value(models.Model):
-    value = models.CharField(max_length=50)
-    def __unicode__(self):
-        return self.value
-
-    class Meta:
-        ordering = ['id']
-
-class FeatureName(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        ordering = ['name']
-        verbose_name_plural = 'Характеристики товара'
-
-class Feature(models.Model):
-    name = models.ForeignKey(FeatureName, verbose_name='Характеристика')
-    value = models.ForeignKey(Value)
-#    value = models.CharField(max_length=100, verbose_name='Значение')
-    item = models.ForeignKey(Product)
-    
-    def __unicode__(self):
-        return "%s: %s" % (self.name.name, self.name)
-    class Meta:
-        ordering = ['name__id']
 
 class File(models.Model):
     product = models.ForeignKey(Product, verbose_name='Файл')

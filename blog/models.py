@@ -1,3 +1,4 @@
+          # -*- coding: utf-8 -*-
 from django.db import models
 from tinymce import models as tinymce_models
 
@@ -11,6 +12,9 @@ class Category(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('category-page', [str(self.slug)])
+
+    class Meta:
+        verbose_name_plural = 'Категории блога'
 
 class Entry(models.Model):
     title = models.CharField(max_length=100)
@@ -28,3 +32,6 @@ class Entry(models.Model):
 
     class Meta:
         ordering = ['-date']
+
+    class Meta:
+        verbose_name_plural = 'Записи в блоге'
