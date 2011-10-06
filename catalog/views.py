@@ -71,7 +71,7 @@ def show_category(request, category_slug):
                     args &= ( Q( sensitivity1__in = values ) | Q( sensitivity2__in = values ) )
                 else:
                     kwargs[name + '__in'] = values
-            products = CameraProduct.objects.filter(category=category).filter(args,**dict(kwargs))
+            products = CameraProduct.objects.filter(category=category).filter(args)
 
     else:
         products = category.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
