@@ -70,7 +70,7 @@ def show_category(request, category_slug):
                 elif name == 'sensitivity':
                     args &= ( Q( sensitivity1__in = values ) | Q( sensitivity2__in = values ) )
                 else:
-                    kwargs[name + '__in'] = values
+                    kwargs[str(name) + '__in'] = values
             products = CameraProduct.objects.filter(category=category).filter(args,**kwargs)
 
     else:
