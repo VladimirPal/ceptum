@@ -27,8 +27,6 @@ def show_category(request, category_slug):
     all_features = Feature.objects.filter(item__category__slug=category_slug)
     features_dict = OrderedDict()
     for feature in all_features:
-        print feature.name
-        print feature.value
         values = features_dict.get(feature.name.name, [])
         try:
             values.sort()
