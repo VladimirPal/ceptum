@@ -98,7 +98,6 @@ def show_section(request, section_slug):
 def show_product(request, product_slug):
     product = get_object_or_404(Product, slug=product_slug)
     photos = product.productphoto_set.all()
-    features = product.feature_set.all()
     if request.method == 'POST':
         postdata = request.POST.copy()
         if 'product_slug' in postdata:
