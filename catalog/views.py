@@ -27,7 +27,13 @@ def show_category(request, category_slug):
     all_features = Feature.objects.filter(item__category__slug=category_slug)
     features_dict = OrderedDict()
     for feature in all_features:
+        print feature.name
+        print feature.value
         values = features_dict.get(feature.name.name, [])
+        try:
+            values.sort()
+        except :
+            pass
         try:
             if feature.value.value not in features_dict[feature.name.name]:
                 features_dict[feature.name.name] = values + [feature.value.value]
