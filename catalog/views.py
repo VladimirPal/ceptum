@@ -65,7 +65,6 @@ def show_category(request, category_slug):
             counter = 0
             args = Q()
             for name, values in features_dict2.items():
-                print name
                 if name == 'resolution':
                     args &= ( Q( resolution1__in = values ) | Q( resolution2__in = values ) )
                 elif name == 'sensitivity':
