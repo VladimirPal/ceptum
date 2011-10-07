@@ -97,7 +97,7 @@ TYPE_CHOICES = (
 )
 
 LENS_CHOICES = (
-    ('changed', 'Вариофакальный'),
+    ('changed', 'Вариофокальный'),
     ('fixed', 'Фиксированный'),
 )
 
