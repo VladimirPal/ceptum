@@ -109,6 +109,9 @@
 			    </div>
 	        	<div class="clr"></div>
 	            <div class="clearfix buttonbox"><input type="submit" name='kkk' value="Выбрать" /></div>
+            {% if features_dict2 %}
+                <div class="clearfix clean_filter"><a href=".">Сбросить фильтр</a></div>
+            {% endif %}
 	        </form>
         </div>
         {% endif %}

@@ -69,6 +69,11 @@ def show_category(request, category_slug):
                     args &= ( Q( resolution1__in = values ) | Q( resolution2__in = values ) )
                 elif name == 'sensitivity':
                     args &= ( Q( sensitivity1__in = values ) | Q( sensitivity2__in = values ) )
+                elif name == 'type':
+                    for value in values:
+                        print value
+                        if value == 'color':
+                            args &= ( Q( type = value ) | Q( type = 'day-night' ) )
                 else:
                     kwargs[str(name) + '__in'] = values
             products = CameraProduct.objects.filter(category=category).filter(args,**kwargs)

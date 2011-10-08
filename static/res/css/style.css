@@ -384,6 +384,11 @@ header #contacts p.mail{
 #cont_discr.main_page .buttonbox{
 	text-align: left;
 	padding: 10px 0 5px;
+    float: left;
+    margin-right: 50px;
+}
+#cont_discr.main_page .clean_filter{
+    padding: 10px 0 5px;
 }
 #cont_discr.main_page .buttonbox input{
 	background: rgb(138,138,138); /* Old browsers */
