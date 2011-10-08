@@ -51,7 +51,8 @@ def show_category(request, category_slug):
             url = urlresolvers.reverse('show_cart')
             return HttpResponseRedirect(url)
         else:
-            for option in request.POST.getlist('option'):
+            options = request.POST.getlist('option')
+            for option in options:
                 features_dict2 = {}
                 category = Category.objects.get(slug=category_slug)
                 for option in request.POST.getlist('option'):
@@ -61,22 +62,23 @@ def show_category(request, category_slug):
                             features_dict2[option.split(':')[0]] = values + [option.split(':')[1]]
                     except:
                         features_dict2[option.split(':')[0]] = values + [option.split(':')[1]]
-            kwargs = {}
-            counter = 0
-            args = Q()
-            for name, values in features_dict2.items():
-                if name == 'resolution':
-                    args &= ( Q( resolution1__in = values ) | Q( resolution2__in = values ) )
-                elif name == 'sensitivity':
-                    args &= ( Q( sensitivity1__in = values ) | Q( sensitivity2__in = values ) )
-                elif name == 'type':
-                    for value in values:
-                        if value == 'color':
-                            args &= ( Q( type = value ) | Q( type = 'day-night' ) )
-                else:
-                    kwargs[str(name) + '__in'] = values
-            products = CameraProduct.objects.filter(category=category).filter(args,**kwargs)
-
+                kwargs = {}
+                counter = 0
+                args = Q()
+                for name, values in features_dict2.items():
+                    if name == 'resolution':
+                        args &= ( Q( resolution1__in = values ) | Q( resolution2__in = values ) )
+                    elif name == 'sensitivity':
+                        args &= ( Q( sensitivity1__in = values ) | Q( sensitivity2__in = values ) )
+                    elif name == 'type':
+                        for value in values:
+                            if value == 'color':
+                                args &= ( Q( type = value ) | Q( type = 'day-night' ) )
+                    else:
+                        kwargs[str(name) + '__in'] = values
+                products = CameraProduct.objects.filter(category=category).filter(args,**kwargs)
+            if not options:
+                products = category.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
     else:
         products = category.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
         if category.section.name == category.name:
