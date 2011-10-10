@@ -350,9 +350,8 @@ header #contacts p.mail{
     position: relative;
 }
 #cont_discr.main_page{
-/*	border: 1px solid #ccc;
+	border: 1px solid #ccc;
 	background: #EEF9F9;
-	*/
 	border-radius: 6px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
