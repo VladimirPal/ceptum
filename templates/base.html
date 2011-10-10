@@ -11,6 +11,9 @@
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		var checker = true,
+		$filter_help = $('.filt_title'),
+		$target_dscr;
 		$('#sidebar #menu_block .menu_sidebar .active').parents('ul').css({display:'block'});
 		$('#content_block').width($('#main_block').width()-200);
 		$(window).resize(function(){
@@ -25,6 +28,46 @@
 		},function(){
 			$(this).children('.dscr_word').fadeOut(500);
 		});
+		$('.subtitle').click(function(){
+			if(checker){
+				checker = false;
+				$thisis = $(this);
+				$target_ul = $(this).siblings('.sublvl');
+				//$(this).parents('ul').children('li').children('.subtitle').not(this).siblings('.sublvl').slideUp(300);
+				$target_ul.slideToggle(300, function(){
+					checker = true;
+					if($target_ul.is(':hidden')){
+						$thisis.css({backgroundPosition: '-26px -22px'});
+					}else{
+						$thisis.css({backgroundPosition: '0px 0px'});
+					}
+				});
+			}
+		});
+		$('.sublvl').each(function(){
+			$target_ul = $(this);
+			$thisis = $(this).siblings('.subtitle');
+			$target_input = $target_ul.children('li').children('input');
+			$target_input.each(function(){
+				if($(this).attr('checked')){
+					$target_ul.show();
+				}
+			});
+			if($target_ul.is(':hidden')){
+				$thisis.css({backgroundPosition: '-26px -22px'});
+			}else{
+				$thisis.css({backgroundPosition: '0px 0px'});
+			}
+		});
+		$filter_help.hover(function(){
+			//alert($(this).parents('.filtr_item').index());
+			$(this).css({color:'#607890'});
+			$target_dscr = $('#filtr_discription div').eq($(this).parents('.filtr_item').index()-2);
+			$target_dscr.fadeIn(300);
+		},function(){
+			$(this).css({color:'#333'});
+			$target_dscr.fadeOut(50);
+		});
 	});
 </script>
 <body>
@@ -33,7 +76,7 @@
 	<div id="wrapper">
 		<header>
 			<div id="contacts">
-				<p class="phone">+7 (495)565-37-70</p>
+				<p class="phone">+7 (495) 565-37-70</p>
 				<p class="mail">info@cctvision.ru</p>
 			</div>
 			<div id="cam_block">
