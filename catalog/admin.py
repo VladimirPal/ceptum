@@ -22,7 +22,7 @@ class ProductsAdmin(admin.ModelAdmin):
     inlines = [PhotoInline, FilesInline, CategoryProductinline]
     list_display = ('name', 'price', 'quantity', 'created_at', 'updated_at')
     list_per_page = 50
-    ordering = ['-created_at']
+    ordering = ['category__position']
     search_fields = ['name', 'description']
     prepopulated_fields = {'slug' : ('name',)}
 
@@ -31,6 +31,7 @@ class ProductsAdmin(admin.ModelAdmin):
 
 class CameraProductAdmin(admin.ModelAdmin):
     inlines = [PhotoInline, FilesInline, CategoryProductinline]
+    ordering = ['category__position']
 
     class Media:
         js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/grappelli/tinymce_setup/tinymce_setup.js',]
