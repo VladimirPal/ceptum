@@ -71,7 +71,7 @@ class Product(models.Model):
                                         verbose_name='Мини описание в HTML')
     html_description = models.TextField(blank=True, verbose_name='Описание', help_text='Описание в HTML')
     tech_details = models.TextField()
-    thumbnail_image = FileBrowseField("Image", max_length=200, directory="", extensions=[".jpg", ".png"], blank=True, null=True)
+    thumbnail_image = FileBrowseField("Image", max_length=200, directory="products_image/videocamers", extensions=[".jpg", ".jpeg", ".png"], blank=True, null=True)
     # Метаданные товара
     is_active = models.BooleanField(default=True, verbose_name='Активный')
     is_discount = models.BooleanField(default=True, verbose_name='Скидка')
@@ -138,7 +138,7 @@ class CameraProduct(Product):
 
 class ProductPhoto(models.Model):
     item = models.ForeignKey(Product)
-    image = FileBrowseField("Image", max_length=200, directory="", extensions=[".jpg", ".png"], blank=True, null=True)
+    image = FileBrowseField("Image", max_length=200, directory="products_image", extensions=[".jpg", ".jpeg", ".png"], blank=True, null=True)
 
     class Meta:
         ordering = ['item']
