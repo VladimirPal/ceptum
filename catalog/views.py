@@ -78,9 +78,9 @@ def show_category(request, category_slug):
                         kwargs[str(name) + '__in'] = values
                 products = CameraProduct.objects.filter(category=category).filter(args,**kwargs)
             if not options:
-                products = category.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
+                products = category.product_set.filter(is_active=True).order_by('categoryproduct__position')
     else:
-        products = category.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
+        products = category.product_set.filter(is_active=True).order_by('categoryproduct__position')
         if category.section.name == category.name:
             page_title = "%s" % category.section
         else:
