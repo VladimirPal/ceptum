@@ -31,9 +31,10 @@ class ProductsAdmin(admin.ModelAdmin):
 
 class CameraProductAdmin(admin.ModelAdmin):
     inlines = [PhotoInline, FilesInline, CategoryProductinline]
-    
+
     class Media:
         js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/grappelli/tinymce_setup/tinymce_setup.js',]
+
 
 admin.site.register(Product, ProductsAdmin)
 admin.site.register(CameraProduct, CameraProductAdmin)
