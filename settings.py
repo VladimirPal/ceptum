@@ -1,3 +1,4 @@
+          # -*- coding: utf-8 -*-
 # Django settings for cctvision project
 import os
 
@@ -56,8 +57,8 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-TINYMCE_JS_URL = STATIC_URL + 'js/tiny_mce/tiny_mce.js'
-TINYMCE_JS_ROOT = os.path.join(PROJECT_PATH, 'static/js/tiny_mce')
+#TINYMCE_JS_URL = STATIC_URL + 'js/tiny_mce/tiny_mce.js'
+#TINYMCE_JS_ROOT = os.path.join(PROJECT_PATH, 'static/js/tiny_mce')
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
@@ -104,21 +105,22 @@ INSTALLED_APPS = (
     'cctvision.myadmin',
     'cctvision.blog',
     'filebrowser',
-    'tinymce',
+#    'tinymce',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
 
-TINYMCE_DEFAULT_CONFIG = {
-    'theme': 'advanced',
-    'mode': 'textareas',
-    'plugins' : 'paste, fullscreen, legacyoutput, preview, style, media',
-    'theme_advanced_buttons3_add' : 'pastetext,pasteword,selectall,fullscreen,preview,styleprops,media',
-    'fullscreen_new_window' : 'true',
-    'fullscreen_settings' : {
-                'theme_advanced_path_location' : 'top'
-        }
+GRAPPELLI_ADMIN_TITLE = 'Видеонаблюдение'
+FILEBROWSER_DIRECTORY = './'
+FILEBROWSER_VERSIONS = {
+    'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop'},
+    'thumbnail': {'verbose_name': 'Thumbnail (1 col)', 'width': 60, 'height': 60, 'opts': 'crop'},
+    'small': {'verbose_name': 'Small (2 col)', 'width': 140, 'height': '', 'opts': ''},
+    'medium': {'verbose_name': 'Medium (4col )', 'width': 300, 'height': '', 'opts': ''},
+    'big': {'verbose_name': 'Big (6 col)', 'width': 460, 'height': '', 'opts': ''},
+    'large': {'verbose_name': 'Large (8 col)', 'width': 680, 'height': '', 'opts': ''},
 }
+
 try:
     from local_settings import *
 except ImportError:

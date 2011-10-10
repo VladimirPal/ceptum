@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from catalog.models import Product, ProductPhoto, Category, Section, File, CategoryProduct, CameraProduct
 from cart.models import Client
 
@@ -13,7 +12,7 @@ admin.site.register(ProductPhoto)
 
 class CategoryProductinline(admin.TabularInline):
     model = CategoryProduct
-    ordering = ['sort_number']
+    sortable_field_name = "position"
 
 class ProductsAdmin(admin.ModelAdmin):
     def queryset(self, request):
@@ -27,8 +26,14 @@ class ProductsAdmin(admin.ModelAdmin):
     search_fields = ['name', 'description']
     prepopulated_fields = {'slug' : ('name',)}
 
+    class Media:
+        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/grappelli/tinymce_setup/tinymce_setup.js',]
+
 class CameraProductAdmin(admin.ModelAdmin):
     inlines = [PhotoInline, FilesInline, CategoryProductinline]
+    
+    class Media:
+        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/grappelli/tinymce_setup/tinymce_setup.js',]
 
 admin.site.register(Product, ProductsAdmin)
 admin.site.register(CameraProduct, CameraProductAdmin)
@@ -42,10 +47,22 @@ class CategoriesAdmin(admin.ModelAdmin):
     search_fields = ['name', 'description',]
     prepopulated_fields = {'slug' : ('name',)}
 
+    class Media:
+        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/grappelli/tinymce_setup/tinymce_setup.js',]
+
 admin.site.register(Category, CategoriesAdmin)
 
+class CategoryInline(admin.TabularInline):
+    fields = ('name', 'position',)
+    model = Category
+    sortable_field_name = "position"
+
 class SectionsAdmin(admin.ModelAdmin):
+        inlines = [CategoryInline]
         prepopulated_fields = {'slug' : ('name',)}
+
+        class Media:
+            js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/grappelli/tinymce_setup/tinymce_setup.js',]
 
 admin.site.register(Section, SectionsAdmin)
 

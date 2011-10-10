@@ -1,16 +1,15 @@
           # -*- coding: utf-8 -*-
 from django.db import models
-from catalog.fields import ThumbnailImageField
+from filebrowser.fields import FileBrowseField
 from django.core.exceptions import ValidationError
-from tinymce import models as tinymce_models
 
 class Section(models.Model):
     name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=50, unique=True)
     is_active = models.BooleanField(default=True)
-    SEO_text = tinymce_models.HTMLField(null=True, blank=True)
+    SEO_text = models.TextField(null=True, blank=True)
     sort_number = models.IntegerField()
-    image = ThumbnailImageField(upload_to='sections_image', thumb_width=200, thumb_height=200, completion="resized" )
+    image = FileBrowseField("Image", max_length=200, directory="", extensions=[".jpg", ".png"], blank=True, null=True)
 
     class Meta:
         ordering = ['sort_number']
@@ -26,10 +25,10 @@ class Section(models.Model):
 class CategoryProduct(models.Model):
     category = models.ForeignKey('Category')
     product = models.ForeignKey('Product', verbose_name='Товар')
-    sort_number = models.IntegerField()
+    position = models.PositiveSmallIntegerField("Position")
 
     class Meta:
-        ordering = ['sort_number']
+        ordering = ['position']
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -38,18 +37,18 @@ class Category(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    SEO_text = tinymce_models.HTMLField(null=True, blank=True)
-    image = ThumbnailImageField(upload_to='category_image', thumb_width=200, thumb_height=200, completion="thumb" )
-    description = tinymce_models.HTMLField()
+    SEO_text = models.TextField(null=True, blank=True)
+    image = FileBrowseField("Image", max_length=200, directory="", extensions=[".jpg", ".png"], blank=True, null=True)
+    description = models.TextField()
     meta_keywords = models.TextField(blank=True)
     meta_descriotion = models.TextField(blank=True)
-    sort_number = models.IntegerField()
+    position = models.PositiveSmallIntegerField("Position")
 
     def __unicode__(self):
         return self.name
 
     class Meta:
-        ordering = ['sort_number']
+        ordering = ['position']
         verbose_name_plural = 'Категории товара'
 
     @models.permalink
@@ -67,11 +66,11 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=9,decimal_places=2, verbose_name='Цена')
     wholesale_price = models.DecimalField(max_digits=9,decimal_places=2, verbose_name='Цена закупки')
     quantity = models.IntegerField(default=1, verbose_name='Количество')
-    mini_html_description = tinymce_models.HTMLField(help_text='Максимальное количество символов: 140.',
+    mini_html_description = models.TextField(help_text='Максимальное количество символов: 140.',
                                         verbose_name='Мини описание в HTML')
-    html_description = tinymce_models.HTMLField(blank=True, verbose_name='Описание', help_text='Описание в HTML')
+    html_description = models.TextField(blank=True, verbose_name='Описание', help_text='Описание в HTML')
     tech_details = models.TextField()
-    thumbnail_image = ThumbnailImageField(upload_to='products_image', thumb_width=200, thumb_height=200, completion="thumb" )
+    thumbnail_image = FileBrowseField("Image", max_length=200, directory="", extensions=[".jpg", ".png"], blank=True, null=True)
     # Метаданные товара
     is_active = models.BooleanField(default=True, verbose_name='Активный')
     is_discount = models.BooleanField(default=True, verbose_name='Скидка')
@@ -138,14 +137,14 @@ class CameraProduct(Product):
 
 class ProductPhoto(models.Model):
     item = models.ForeignKey(Product)
-    image = ThumbnailImageField(upload_to='products_image', thumb_width=460, thumb_height=350, completion="resized" )
+    image = FileBrowseField("Image", max_length=200, directory="", extensions=[".jpg", ".png"], blank=True, null=True)
 
     class Meta:
         ordering = ['item']
         verbose_name_plural = 'Фото товара'
 
     def __unicode__(self):
-        return self.image.name
+        return self.image.url
 
     @models.permalink
     def get_absolute_url(self):
