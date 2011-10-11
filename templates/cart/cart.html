@@ -19,7 +19,7 @@
 		</tr>
 		{% for item in cart_items %}
 		<tr class="product_row">
-			<td class="firstcol"><img src='{{ item.product.image.url }}'  style="height:48px" /></td>
+			<td class="firstcol"><img src='{{ item.product.thumbnail_image.url }}'  style="height:48px" /></td>
 			<td class="firstcol"><a href='{{ item.product.get_absolute_url }}'>{{ item.product.name }}</a></td><td>
 				<form action="" method="post" class="adjustform">{% csrf_token %}
 					<input class="update_win" type="text" name="quantity" value="{{ item.quantity }}" id="quantity" size="2" />
