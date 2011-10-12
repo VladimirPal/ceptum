@@ -14,12 +14,15 @@ class CategoryProductinline(admin.TabularInline):
     model = CategoryProduct
     sortable_field_name = "position"
 
+class CategoryProductinline2(admin.TabularInline):
+    model = CategoryProduct
+
 class ProductsAdmin(admin.ModelAdmin):
     def queryset(self, request):
         qs = Product.objects.exclude(category__slug__in=['outdoor', 'indoor'])
         return qs
 
-    inlines = [PhotoInline, FilesInline, CategoryProductinline]
+    inlines = [PhotoInline, FilesInline, CategoryProductinline2]
     list_display = ('name', 'price', 'quantity', 'created_at', 'updated_at')
     list_per_page = 50
     ordering = ['name']
@@ -30,7 +33,7 @@ class ProductsAdmin(admin.ModelAdmin):
         js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/grappelli/tinymce_setup/tinymce_setup.js',]
 
 class CameraProductAdmin(admin.ModelAdmin):
-    inlines = [PhotoInline, FilesInline, CategoryProductinline]
+    inlines = [PhotoInline, FilesInline, CategoryProductinline2]
     ordering = ['category']
 
     class Media:
