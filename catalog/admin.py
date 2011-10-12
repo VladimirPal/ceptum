@@ -12,7 +12,6 @@ admin.site.register(ProductPhoto)
 
 class CategoryProductinline(admin.TabularInline):
     model = CategoryProduct
-    sortable_field_name = "position"
 
 class ProductsAdmin(admin.ModelAdmin):
     def queryset(self, request):
