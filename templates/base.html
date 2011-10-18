@@ -119,11 +119,9 @@
 				</ul>
 			</div>
 			<div id="main_block" class="clearfix">
-			
-			{% category_list request %} 
+                {% block site_wrapper %}
 				<div id="content_block" class="alignleft clearfix">
 					<div id="content">
-		        		{% block site_wrapper %}
 		        		{% endblock %}
 		    			{% include "metrika.html" %}
 		    		</div>

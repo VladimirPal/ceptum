@@ -5,7 +5,7 @@
 		<i class="top_corn"></i>
 		<i class="bot_corn"></i>
 		<ul class="menu_sidebar">
-			{% for section in sections %}
+        {% for section in sections %}
    				{% if not section.category_set.all.0.name == section.name %}
    						{% if section.get_absolute_url == request_path %}
                             <li class="active"> <span>{{ section.name }}</span>

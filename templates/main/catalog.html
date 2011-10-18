@@ -2,6 +2,9 @@
 {% load catalog_filters %}
 {% load cart_filters  %}
 {% block site_wrapper %}
+{% category_list request %}
+<div id="content_block" class="alignleft clearfix">
+        <div id="content">
    <!-- Категории -->
    		<div id="Breadcrumbs">
         	<a href="/">Главная</a> {% if section %}»&nbsp;{{ section.name }}{% else %}{% if not category.section.slug == category.slug %}»&nbsp;<a href="/section/{{ category.section.slug }}">{{ category.section.name }}</a>{% endif %} »&nbsp;{{ category.name }} {% endif %}
