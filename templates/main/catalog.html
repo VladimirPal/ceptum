@@ -96,7 +96,7 @@
                 <div class="filtr_item alignleft">
                     <ul>
                         <p class="filt_title"><b>Разрешение</b><sup>?</sup></p>
-                        	<li><p class="subtitle">Низкое</p><ul class="sublvl">
+                        	<li><p class="subtitle">Низкое <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
 				            {% for item in resolution_choices %}
                                 <li><input type="checkbox" name="option" value="resolution:{{ item.0 }}"
                                 {% for feature, values in features_dict2.items %}
@@ -111,7 +111,7 @@
                                 {% endfor %}
                                         ><label>{{ item.1 }}</label></li>
                                 {% if item.0 == '420' %}
-                                	</ul></li><li><p class="subtitle">Высокое</p><ul class="sublvl">
+                                	</ul></li><li><p class="subtitle">Высокое <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
                                 {% endif %} 
 				            {% endfor %}
 				        </ul></li>    
@@ -120,7 +120,7 @@
                 <div class="filtr_item alignleft">
                     <ul>
                         <p class="filt_title"><b>Чувствительность</b><sup>?</sup></p>
-                        	<li><p class="subtitle">Высокая</p><ul class="sublvl">
+                        	<li><p class="subtitle">Высокая <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
 				            {% for item in sensevity_choices %}
                                 <li><input type="checkbox" name="option" value="sensitivity:{{ item.0 }}"
                                 {% for feature, values in features_dict2.items %}
@@ -135,7 +135,7 @@
                                 {% endfor %}
                                         ><label>{{ item.1 }}</label></li>
                                 {% if item.0 == '0,025' %}
-                                	</ul></li><li><p class="subtitle">Низкая</p><ul class="sublvl">
+                                	</ul></li><li><p class="subtitle">Низкая <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
                                 {% endif %} 
 				            {% endfor %}
 				    	</ul></li> 

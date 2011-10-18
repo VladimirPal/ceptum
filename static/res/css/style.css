@@ -5,7 +5,7 @@ body, select, input, textarea {color: #444}
 
 ::-moz-selection{background:#a5a3b6;color:#fff;text-shadow:none}
 ::selection{background:#a5a3b6;color:#fff;text-shadow:none}
-a:link{-webkit-tap-highlight-color:#666}
+a:link{-webkit-tap-highlight-color:#222222}
 a,a:active,a:visited{color:#607890}
 a:hover{color:#036}
 
@@ -24,6 +24,9 @@ html{
 body {
 	background:url(../img/body_bg.jpg) repeat top left;
 	height: 100%;
+	letter-spacing: 0.096ex;
+	color: #222222;
+    font-family:Arial,Helvetica;
 }
 
 #wrapper{
@@ -198,7 +201,7 @@ header #contacts p.mail{
 	-moz-border-radius: 15px;
 	border-radius: 15px;
 	margin: 0 0 0 10px;
-	box-shadow: inset 2px 2px 2px 1px #666;
+	box-shadow: inset 2px 2px 2px 1px #222222;
 }
 #search input{
 	border: none;
@@ -225,18 +228,19 @@ header #contacts p.mail{
 }
 #content{
 	min-width: 600px;
-	width: 100%;
+	width: 96%;
 	font-size: 11px;
 	min-height: 450px;
 	padding-bottom: 20px;
+	padding: 0 2% 20px;
 }
 #Breadcrumbs{
-	padding: 10px 10px 0 10px;
+	padding: 10px 10px 0 5px;
 	font-size: 10px;
 	color: #8d8d8d;
 }
 #Breadcrumbs a{
-	color: #666;
+	color: #222222;
 }
 #Breadcrumbs a:hover{
 	text-decoration: none;
@@ -245,7 +249,7 @@ header #contacts p.mail{
 	text-align: center;
 	font-size: 16px;
 	margin: 10px 0;
-	color: #666666;
+	color: #222222;
 }
 #items{
 	width: 100%;
@@ -261,7 +265,7 @@ header #contacts p.mail{
 	padding-bottom: 15px;
 }
 #items .item a{
-	font-size: 11px;
+	font-size: 13px;
 	color: black;
 	text-decoration: none;
 }
@@ -339,11 +343,11 @@ header #contacts p.mail{
 	vertical-align: middle;
 }
 #cont_discr{
-	padding: 14px 0px 0px;
+	padding: 14px 20px 5px;
 	font-size: 14px;
 	color: #222;
 	border-radius: 6px;
-	margin: 0 20px;
+	margin: 0;
 	letter-spacing: 0.096ex;
     line-height: 23px;
     font: normal 14px Arial, Helvetica;
@@ -376,14 +380,21 @@ header #contacts p.mail{
 }
 #cont_discr.main_page ul p{
 	border-bottom: 1px solid #ccc;
+	font-size: 14px;
+}
+#cont_discr>b{
+	font-size: 16px;
 }
 #cont_discr.main_page ul label{
 	font-size: 12px;
 	margin-left: 7px;
 }
+#cont_discr.main_page hr{
+	margin-bottom: 5px;
+}
 #cont_discr.main_page .buttonbox{
 	text-align: left;
-	padding: 10px 0 5px;
+	padding: 0px 0 5px;
     float: left;
     margin-right: 50px;
 }
@@ -440,7 +451,7 @@ header #contacts p.mail{
 #tovar .top .left .price, #catalog .price{
 	font-size: 24px;
 	text-align: center;
-	color: #666;
+	color: #222222;
 	margin-top: 15px;
 }
 #tovar .top .right{
@@ -468,13 +479,13 @@ header #contacts p.mail{
 }
 #tovar .bottom{
 	padding: 20px 0;
-	color: #666;
+	color: #222222;
 	font-size: 14px;
 }
 #tovar .bottom h3{
 	font-size: 18px;
 	font-weight: normal;
-	color: #666;
+	color: #222222;
 	margin-bottom: 10px;
 }
 footer {
@@ -492,8 +503,7 @@ footer {
 	background: linear-gradient(top, #8d8d8d 0%,#444444 100%); /* W3C */
 }
 #catalog{
-	width: 99%;
-	margin-left: 10px;
+	width: 100%;
 }
 #catalog .img_block{
 	margin: 10px 10px 10px 0;
@@ -512,7 +522,7 @@ footer {
 }
 #catalog h2{
 	font-size: 16px;
-	color: #666;
+	color: #222222;
 	margin-bottom: 10px;
 }
 #catalog td{
