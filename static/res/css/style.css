@@ -345,8 +345,8 @@ header #contacts p.mail{
 	border-radius: 6px;
 	margin: 0 20px;
 	letter-spacing: 0.096ex;
-    line-height: 1.4em;
-    font-family: "DirectSemiCondensed","Direct",sans-serif;
+    line-height: 23px;
+    font: normal 14px Arial, Helvetica;
     position: relative;
 }
 #cont_discr.main_page{
