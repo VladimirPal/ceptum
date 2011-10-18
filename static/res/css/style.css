@@ -697,6 +697,27 @@ i{font-style:italic}
 .filt_title sup{
 	color: #aaa;
 }
+
+a#move_up {
+   position: fixed;
+   top: 10px;
+   display: none;
+   width: 90px;
+   height: 21px;
+   text-align: center;
+   font: 12px Verdana;
+   text-decoration: none;
+   color: #2b587a;
+   background: #e1e7ed;
+   padding-top:5px;
+   opacity:0.9;
+   filter: alpha(opacity=90);
+}
+a#move_up:hover {
+   color: #fff;
+   background: #597da3;
+}
+
 @media print{
 *{background:transparent !important;color:black !important;text-shadow:none !important;filter:none !important;-ms-filter:none !important}
 a, a:visited{color:#444 !important;text-decoration:underline}
