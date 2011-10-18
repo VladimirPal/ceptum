@@ -535,6 +535,7 @@ footer {
 }
 #catalog .right{
 	width: 30%;
+    font-size: 12px;
 	background: url("../img/cat_line.gif") repeat-x scroll left bottom transparent;
 	line-height: 160%;
 }
