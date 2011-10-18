@@ -71,6 +71,13 @@
 	});
 </script>
 <body>
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--[if lt IE 7 ]>
+	<script src="res/js/dd_belatedpng.js"></script>
+	<script>DD_belatedPNG.fix("img, .png_bg");</script>
+<![endif]-->
 {% load catalog_filters %}
 {% load cart_filters  %}
 	<div id="wrapper">
@@ -128,14 +135,5 @@
 			&copy; cctvision.ru, 2011
 		</footer>
 	</div>
-
-<!--[if IE]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-<!--[if lt IE 7 ]>
-	<script src="res/js/dd_belatedpng.js"></script>
-	<script>DD_belatedPNG.fix("img, .png_bg");</script>
-<![endif]-->
-
 </body>
 </html>
