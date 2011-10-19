@@ -101,6 +101,7 @@ def show_category(request, category_slug):
 def show_section(request, section_slug):
     section = Section.objects.get(slug=section_slug)
     cats = section.category_set.all()
+    page_title = section.name
     return render_to_response("main/section.html", locals(), context_instance=RequestContext(request))
 
 def show_product(request, product_slug):
