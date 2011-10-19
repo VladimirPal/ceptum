@@ -24,7 +24,7 @@ def cats(request):
     return render_to_response("main/cats.html", locals(), context_instance=RequestContext(request))
 
 def show_category(request, category_slug):
-    if (category_slug == 'street-analog') or (category_slug == 'domical-analog'):
+    if (category_slug == 'street-analog') or (category_slug == 'domical-analog') or (category_slug == 'mini-analog'):
         filter = True
         type_choices = TYPE_CHOICES
         lens_choices = LENS_CHOICES
