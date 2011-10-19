@@ -133,7 +133,7 @@ def about(request):
     return render_to_response('main/about.html', locals(), context_instance=RequestContext(request))
 
 def delivery(request):
-    page_title = "Доставка и оплата"
+    page_title = "Оплата и Монтаж"
     return render_to_response('main/delivery.html', locals(), context_instance=RequestContext(request))
 
 def internal_error(request):
