@@ -24,7 +24,7 @@ def cats(request):
     return render_to_response("main/cats.html", locals(), context_instance=RequestContext(request))
 
 def show_category(request, category_slug):
-    if (category_slug == 'street-analog') or (category_slug == 'domical-analog'):
+    if (category_slug == 'street-analog') or (category_slug == 'domical-analog') or (category_slug == 'mini-analog'):
         filter = True
         type_choices = TYPE_CHOICES
         lens_choices = LENS_CHOICES
@@ -100,7 +100,8 @@ def show_category(request, category_slug):
 
 def show_section(request, section_slug):
     section = Section.objects.get(slug=section_slug)
-    cats = section.category_set.all()
+    cats = section.category_set.filter(is_active=True)
+    page_title = section.name
     return render_to_response("main/section.html", locals(), context_instance=RequestContext(request))
 
 def show_product(request, product_slug):
@@ -133,7 +134,7 @@ def about(request):
     return render_to_response('main/about.html', locals(), context_instance=RequestContext(request))
 
 def delivery(request):
-    page_title = "Доставка и оплата"
+    page_title = "Оплата и Монтаж"
     return render_to_response('main/delivery.html', locals(), context_instance=RequestContext(request))
 
 def internal_error(request):

@@ -6,7 +6,7 @@ register = template.Library()
 
 @register.inclusion_tag("tags/sidebar.html")
 def category_list(request):
-    active_sections = Section.objects.all()
+    active_sections = Section.objects.filter(is_active=True)
     return {
         'request_path': request.path,
         'sections': active_sections,
