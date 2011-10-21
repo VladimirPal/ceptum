@@ -1,9 +1,11 @@
-{% extends "base.html" %}
+	{% extends "base.html" %}
 {% load catalog_filters %}
 {% load cart_filters  %}
 {% block site_wrapper %}
 {% category_list request %}
-    <a id="move_up" href="#">Наверх</a>
+    <p id="back-top">
+   <a href="#top"><span class="arrow"></span>Наверх</a>
+</p>
 <div id="content_block" class="alignleft clearfix">
         <div id="content">
    <!-- Категории -->
@@ -100,7 +102,7 @@
                 <div class="filtr_item alignleft">
                     <ul>
                         <p class="filt_title"><b>Разрешение</b><sup>?</sup></p>
-                        	<li><p class="subtitle">Низкое <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
+                        	<li><p class="subtitle"><span>Низкое</span> <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
 				            {% for item in resolution_choices %}
                                 <li><input type="checkbox" name="option" value="resolution:{{ item.0 }}"
                                 {% for feature, values in features_dict2.items %}
@@ -115,7 +117,7 @@
                                 {% endfor %}
                                         ><label>{{ item.1 }}</label></li>
                                 {% if item.0 == '420' %}
-                                	</ul></li><li><p class="subtitle">Высокое <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
+                                	</ul></li><li><p class="subtitle"><span>Высокое</span> <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
                                 {% endif %} 
 				            {% endfor %}
 				        </ul></li>    
@@ -124,7 +126,7 @@
                 <div class="filtr_item alignleft">
                     <ul>
                         <p class="filt_title"><b>Чувствительность</b><sup>?</sup></p>
-                        	<li><p class="subtitle">Высокая <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
+                        	<li><p class="subtitle"><span>Высокая</span> <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
 				            {% for item in sensevity_choices %}
                                 <li><input type="checkbox" name="option" value="sensitivity:{{ item.0 }}"
                                 {% for feature, values in features_dict2.items %}
@@ -139,7 +141,7 @@
                                 {% endfor %}
                                         ><label>{{ item.1 }}</label></li>
                                 {% if item.0 == '0,025' %}
-                                	</ul></li><li><p class="subtitle">Низкая <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
+                                	</ul></li><li><p class="subtitle"><span>Низкая</span> <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
                                 {% endif %} 
 				            {% endfor %}
 				    	</ul></li> 

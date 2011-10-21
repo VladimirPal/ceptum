@@ -42,18 +42,33 @@ header {
 }
 header #contacts{
 	position: absolute;
-	top:30px;
+	top:12px;
 	right: 5px;
 	text-align: right;
 }
 header #contacts p{
 	text-align: right;
 }
+header #contacts p.call{
+	font-size: 22px;
+	padding-bottom: 5px;
+}
+header #contacts p.call a{
+
+}
 header #contacts p.phone{
 	font-size: 28px;
 }
 header #contacts p.mail{
 	font-size: 20px;
+}
+header #contacts p.mail a{
+	color: #222;
+	text-decoration: none;
+}
+header #contacts p.skype{
+	font-size: 14px;
+	margin-top: 5px;
 }
 #header_title{
 	padding:41px 0 0 294px;
@@ -478,6 +493,7 @@ header #contacts p.mail{
 	margin-top: 10px;
 }
 #tovar .bottom{
+	text-align: left;
 	padding: 20px 0;
 	color: #222222;
 	font-size: 14px;
@@ -605,7 +621,7 @@ footer {
     padding: 5px 5px 4px;
     text-shadow: 0 1px 0 #FFFFFF;
 }
-#basket input{
+#basket input, #call_form input{
 	background: none repeat scroll 0 0 #FFFFFF;
     border-color: #CCCCCC #AAAAAA #AAAAAA #CCCCCC;
     border-style: solid;
@@ -619,7 +635,7 @@ footer {
     line-height: normal;
     padding: 5px 3px 3px 5px;
 }
-#basket textarea {
+#basket textarea, #call_form textarea {
     border-color: #DEDEDE #BBBBBB #BBBBBB #DEDEDE;
     border-style: solid;
     border-width: 1px;
@@ -717,7 +733,117 @@ a#move_up:hover {
    color: #fff;
    background: #597da3;
 }
-
+#back-top {
+	position: fixed;
+	top: 10px;
+	margin-left: 60px;
+}
+ 
+#back-top a {
+	width: 78px;
+	display: block;
+	text-align: center;
+	font: 11px/100% Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #bbb;
+ 
+	/* transition */
+	-webkit-transition: 1s;
+	-moz-transition: 1s;
+	transition: 1s;
+}
+#back-top a:hover {
+	color: #000;
+}
+ 
+/* arrow icon (span tag) */
+#back-top span {
+	width: 78px;
+	height: 78px;
+	display: block;
+	margin-bottom: 7px;
+	background: #EDEDED url(../img/up-arrow.png) no-repeat center center;
+ 
+	/* rounded corners */
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+ 
+	/* transition */
+	-webkit-transition: 1s;
+	-moz-transition: 1s;
+	transition: 1s;
+}
+#back-top a:hover span {
+	background-color: #474747;
+}
+#call_block{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	z-index: 999;
+	display: none;
+}
+#call_form{
+	width: 410px;
+	margin: 50px auto;
+	background: #EDEDED;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	box-shadow: 0 0 5px 5px #999;
+	position: relative;
+}
+#call_form .close{
+	display: block;
+	width: 23px;
+	height: 23px;
+	position: absolute;
+	right: 15px;
+	top: 10px;
+	background: url(../img/close.png) top left no-repeat;
+	cursor: pointer;
+}
+#call_form form{
+	display: block;
+	padding: 20px 40px;
+}
+#call_form form h3{
+	font-size: 24px;
+	margin-bottom: 10px;
+	text-align: center;
+	font-weight: normal;
+}
+#call_form form div{
+	margin-bottom: 10px;
+}
+#call_form form input, #call_form form textarea{
+	width: 320px;
+}
+#call_form form .update_btn{
+	background: #E5E5E5;
+    border: 1px solid #AAAAAA;
+    color: #333333;
+    font-family: arial,helvetica;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 5px 4px;
+    text-shadow: 0 1px 0 #FFFFFF;
+    width: 332px;
+}
+#call_form form .update_btn:hover{
+	background: #ddd;
+}
+#call_form form .update_btn:active{
+	color: #ccc;
+}
+#call_form ul{
+	list-style: none;
+	margin: 0;
+}
 @media print{
 *{background:transparent !important;color:black !important;text-shadow:none !important;filter:none !important;-ms-filter:none !important}
 a, a:visited{color:#444 !important;text-decoration:underline}

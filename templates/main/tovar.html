@@ -83,11 +83,7 @@
       											<input type='image' src='{{ STATIC_URL }}res/img/buy.png' id='product_26_submit_button' class='wpsc_buy_button' name='submit'  value="Купить" />
   				 </form>
   				 {% endif %}
-			</div>
-			<div class="right">
-				{{ product.mini_html_description|safe }}<br><br>
-                {{ product.html_description|safe }}
-				<div class="bottom">
+  					<div class="bottom">
 
 
 
@@ -95,6 +91,10 @@
 		        {{ product.tech_details|safe }}
 
 				</div>
+			</div>
+			<div class="right">
+				{{ product.mini_html_description|safe }}<br><br>
+                {{ product.html_description|safe }}
 			</div>
 
 		</div>
