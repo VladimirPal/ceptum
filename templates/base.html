@@ -103,13 +103,6 @@
 		$('#call_form').click(function(event){
 			event.stopPropagation();
 		});
-        $("#popup_call").live("keypress", function(e) {
-            if (e.keyCode == 13){
-                function($(this)){
-                }
-                return false;
-            }
-        });
 	});
 </script>
 <body>
@@ -125,7 +118,7 @@
 	<div id="call_block">
 		<div id="call_form">
 			<a class="close"></a>
-			<form id="popup_call" action="">
+			<form id="popup_call" action="#">
 				<h3>Заголовок</h3>
 				<div class="row">
 					<label>
@@ -154,7 +147,7 @@
 				<p class="call"><a href="#">Перезвонить</a></p>
 				<p class="phone">+7 (495) 565-37-70</p>
 				<p class="mail"><a href="mailto:info@cctvision.ru">info@cctvision.ru</a></p>
-				<p class="skype">skype: bizzzmaker</p>
+				<p class="skype">skype: bizzmaker</p>
 			</div>
 			<div id="cam_block">
 				{% if request.path == '/' %}
@@ -205,3 +198,5 @@
 	</div>
 </body>
 </html>
+
+iii
