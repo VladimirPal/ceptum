@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.core import urlresolvers
 from django.template import RequestContext
 from catalog.models import Category, Product, Section, TYPE_CHOICES, LENS_CHOICES, IR_CHOICES, RESOLUTION_CHOICES, SENSIVITY_CHOICES, CameraProduct
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from cart import cart
 
 def index(request):
@@ -139,3 +139,9 @@ def delivery(request):
 
 def internal_error(request):
     return render_to_response('500.html', locals(), context_instance=RequestContext(request))
+
+def take_call_form(request):
+    if request.method == 'POST':
+        postdata = request.POST.copy()
+        print postdata
+        return HttpResponse()
