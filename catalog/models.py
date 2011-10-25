@@ -155,7 +155,7 @@ class ProductPhoto(models.Model):
 class File(models.Model):
     product = models.ForeignKey(Product, verbose_name='Файл')
     name = models.CharField(max_length=100, verbose_name='Название')
-    file = models.FileField(upload_to='./files')
+    file = FileBrowseField(max_length=100, directory="files", blank=True, null=True)
 
     def __unicode__(self):
         return self.name
