@@ -86,7 +86,9 @@
   					<div class="bottom">
 
 
-
+              {% for file in product.file_set.all %}
+              <p><a class="download_file" href="{{file.file.url}}" target="_blank">{{ file.name }}</a></p>
+              {% endfor %}
 				<h3>Технические характеристики:</h3>
 		        {{ product.tech_details|safe }}
 
