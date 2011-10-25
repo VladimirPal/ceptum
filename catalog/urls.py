@@ -8,5 +8,6 @@ urlpatterns = patterns('',
                       url(r'^products/(?P<product_slug>[-\w]+)/$', 'catalog.views.show_product', name="product-page"),
                       url(r'^about$', 'catalog.views.about', name="about-page"),
                       url(r'^delivery$', 'catalog.views.delivery', name="delivery-page"),
+                      url(r'^take_form$', 'catalog.views.take_call_form', name="call-form"),
 )
 
