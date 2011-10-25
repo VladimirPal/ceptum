@@ -8,7 +8,9 @@
 <title>{% block title %}{{ page_title }}{% endblock %}</title>
 <link rel="shortcut icon" href="{{ STATIC_URL }}res/img/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" href="{{ STATIC_URL }}res/css/style.css" type="text/css" media="screen" />
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}res/css/style.css" type="text/css" media="screen" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.form.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#back-top").hide();
@@ -95,7 +97,7 @@
 			$('#call_block').fadeIn(100);
 			event.preventDefault();
 		});
-		$('#call_block, #call_block .close').click(function(){
+		$('#call_block, #call_block .close').click(function(event){
 			$('#call_block').fadeOut(200);
 			event.stopPropagation();
 			event.preventDefault();
@@ -103,6 +105,17 @@
 		$('#call_form').click(function(event){
 			event.stopPropagation();
 		});
+		$("#popup_call").live("submit", function(event) {
+ 			event.preventDefault();
+            var $target = $(this),
+ 			send_data = $target.formSerialize(),
+ 			send_url = $target.attr('action');
+            $.ajax({
+                type: 'POST',
+                url: send_url,
+                data: send_data
+            });
+        });
 	});
 </script>
 <body>
@@ -118,7 +131,7 @@
 	<div id="call_block">
 		<div id="call_form">
 			<a class="close"></a>
-			<form id="popup_call" action="#">
+			<form id="popup_call" action="take_form">
 				<h3>Заголовок</h3>
 				<div class="row">
 					<label>
