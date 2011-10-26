@@ -156,8 +156,8 @@
         </div>
         {% endif %}
 	<table id="catalog" cellpadding="0" cellspacing="0" border="0">
-	<tr>
 		{% for product in products %}
+		<tr id="item-{{ product.id }}" name="item-{{ product.id }}">
 			<td class="left">
 
 			<div class="img_block" style="position:relative">
@@ -165,7 +165,7 @@
 
 
 				{% if product.thumbnail_image %}
-            		<a class="item-head" href="{{product.get_absolute_url}}"><img style="width:90%; margin:5%" src="{{ product.thumbnail_image.url }}" title="{{ product.name }}" alt="{{ product.name }}" /></a>
+            		<a class="item-head" href="{{product.get_absolute_url}}"><img style="width:60%; margin:5%" src="{{ product.thumbnail_image.url }}" title="{{ product.name }}" alt="{{ product.name }}" /></a>
 				{% else %}
                                                 Фото товара отсутствует
                 {% endif %}
@@ -188,17 +188,17 @@
 			 <p>
 			 	{{ product.mini_html_description|safe }}
 			 </p><br>
-			 <p>
+			 <!--p>
 				Технические характеристики:<br />
                 {{ product.tech_details|safe }}
-			 </p>
-			<a class="additional_description_span" href="{{product.get_absolute_url}}"><img src="{{ STATIC_URL }}res/img/more_link.png" /></a>
+			 </p-->
+			<!--a class="additional_description_span" href="{{product.get_absolute_url}}"><img src="{{ STATIC_URL }}res/img/more_link.png" /></a-->
 			</td>
-			{% if forloop.counter|div:2 == 0 %}
-				</tr><tr>
-			{% endif %}
+
+	
+		</tr>
 		{% endfor %}
-	</tr>
+
 	</table>
         {% if section.SEO_text %}
 		<div id="cont_discr" class="clearfix">

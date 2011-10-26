@@ -22,7 +22,7 @@
 		$(window).resize(function(){
 			$('#content_block').width($('#main_block').width()-200);
 		});
-		$('.prew_img_tov').click(function(){
+		$('.prew_img_tov').hover(function(){
 		//	alert('!');
 			$(this).siblings('.img_block').children('img').attr('src', ($(this).attr('src')));
 		});
@@ -183,16 +183,16 @@
 			<div id="head_menu">
 				<ul class="menu">
 					<li class="menu_right">
-						<a href="/">Главная</a>
+						<a href="/" class="{% if request.path == '/' %}active{% endif %}">Главная</a>
 					</li>
 					<li class="menu_right menu_left">
-						<a href="/delivery">Оплата и монтаж</a>
+						<a href="/delivery" class="{% if request.path == '/delivery' %}active{% endif %}">Оплата и монтаж</a>
 					</li>
 					<li class="menu_right menu_left">
-						<a href="/about">О нас</a>
+						<a href="/about" class="{% if request.path == '/about' %}active{% endif %}">О нас</a>
 					</li>
 					<li class="menu_left">
-						<a href="/blog">Блог</a>
+						<a href="/blog" class="{% if request.path == '/blog' %}active{% endif %}">Блог</a>
 					</li>
 				</ul>
 			</div>
