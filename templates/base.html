@@ -101,21 +101,22 @@
 			$('#call_block').fadeOut(200);
 			event.stopPropagation();
 			event.preventDefault();
-		})
+		});
 		$('#call_form').click(function(event){
 			event.stopPropagation();
 		});
 		$("#popup_call").live("submit", function(event) {
-            alert('ll');
             var $target = $(this),
  			send_data = $target.formSerialize(),
  			send_url = $target.attr('action');
- 			alert(send_data);
             $.ajax({
                 type: 'POST',
                 url: send_url,
-                data: send_data
-            });
+                data: send_data,
+                success: function(){
+                    $('#call_block').fadeOut(200);
+                }
+            });
  			event.preventDefault();
         });
 	});
@@ -133,7 +134,7 @@
 	<div id="call_block">
 		<div id="call_form">
 			<a class="close"></a>
-			<form id="popup_call" action="take_form" method="post" accept-charset="UTF-8">
+			<form id="popup_call" action="take_form" method="post" accept-charset="UTF-8">{% csrf_token %}
 				<h3>Заголовок</h3>
 				<div class="row">
 					<label>
