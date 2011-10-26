@@ -119,6 +119,13 @@ header #contacts p.skype{
 #head_menu .menu li a:hover{
 	text-shadow: none;
 }
+#head_menu .menu li a.active,
+#head_menu .menu li a:hover.active{
+	text-decoration: underline;
+	text-shadow: none;
+	cursor: default;
+}
+
 .menu_left{
 	border-left: 1px solid #5c5c5c;
 }

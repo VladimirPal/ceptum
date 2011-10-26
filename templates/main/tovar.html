@@ -67,11 +67,18 @@
                                                 Фото товара отсутствует
                         {% endif %}
                  </div>
+				 
+			  
                   {% if product.productphoto_set.all %}
 					{% for item in product.productphoto_set.all %}
 						<img class="prew_img_tov" src="{{ item.image.url }}" title="{{ page_title }}" alt="{{ page_title }}" width="50px" style="display:inline-block; margin:10px;"/>
 					{% endfor %}
 				 {% endif %}
+				 
+              {% for file in product.file_set.all %}
+              <div style="text-align:left"><p><a class="download_file" href="{{file.file.url}}" target="_blank">{{ file.name }}</a></p></div>
+              {% endfor %}
+			  
 				<p class="price">
 					<strong>{{ product.price }}</strong> руб.
 				</p>
@@ -83,20 +90,23 @@
       											<input type='image' src='{{ STATIC_URL }}res/img/buy.png' id='product_26_submit_button' class='wpsc_buy_button' name='submit'  value="Купить" />
   				 </form>
   				 {% endif %}
-  					<div class="bottom">
-
-
-              {% for file in product.file_set.all %}
-              <p><a class="download_file" href="{{file.file.url}}" target="_blank">{{ file.name }}</a></p>
-              {% endfor %}
-				<h3>Технические характеристики:</h3>
-		        {{ product.tech_details|safe }}
-
+				 
+				{% if product.html_description %}
+  				<div class="bottom">
+				  <h3>Технические характеристики:</h3>
+		          {{ product.tech_details|safe }}
 				</div>
+				{% endif %}
 			</div>
 			<div class="right">
 				{{ product.mini_html_description|safe }}<br><br>
-                {{ product.html_description|safe }}
+
+				{% if product.html_description %}
+                  {{ product.html_description|safe }}
+				{% else %}
+				  <h3>Технические характеристики:</h3>
+		          {{ product.tech_details|safe }}
+				{% endif %}
 			</div>
 
 		</div>
