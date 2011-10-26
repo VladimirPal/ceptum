@@ -106,16 +106,16 @@
 			event.stopPropagation();
 		});
 		$("#popup_call").live("submit", function(event) {
-            console.log($(this.serializeArray()));
- 			event.preventDefault();
             var $target = $(this),
  			send_data = $target.formSerialize(),
  			send_url = $target.attr('action');
+ 			alert(send_data);
             $.ajax({
                 type: 'POST',
                 url: send_url,
                 data: send_data
             });
+ 			event.preventDefault();
         });
 	});
 </script>
@@ -130,26 +130,26 @@
 {% load catalog_filters %}
 {% load cart_filters  %}
 	<div id="call_block">
-		<div id="call_form">{% csrf_token %}
+		<div id="call_form">
 			<a class="close"></a>
-			<form id="popup_call" action="take_form">
+			<form id="popup_call" action="take_form" method="post" accept-charset="UTF-8">
 				<h3>Заголовок</h3>
 				<div class="row">
 					<label>
 						Имя<span>*</span>:
 					</label>
-					<input id="popup_call_name" type="text" onclick="this.value='';" value="" name="">
+					<input id="popup_call_name" type="text" onclick="this.value='';" value="" name="name">
 				</div>
 				<div class="row">
 					<label>Телефон<span>*</span>:</label>
-					<input id="popup_call_phone" type="text" value="" name="">
+					<input id="popup_call_phone" type="text" onclick="this.value='';" value="" name="phone">
 				</div>
 				<div class="p_ta ta_sm">
 					<label>Сообщение:</label>
-					<textarea id="popup_call_message" name=""></textarea>
+					<textarea id="popup_call_message" name="message"></textarea>
 				</div>
 				<em id="popup_call_err" style="opacity: 0; display: inline;"></em>
-				<input class="update_btn" type="submit" value="Отправить" name=""><br><br><br>
+				<input class="update_btn" type="submit" value="Отправить" name="sender"><br><br><br>
 				<h3>Мы вам перезвоним</h3>
                 <p>Оставьте свой номер телефона и мы перезвоним вам в течении 30 минут если заявка была оставлена в рабочее время с 9 00 до 20 00.</p>
 			</form>
