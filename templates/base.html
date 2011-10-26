@@ -106,6 +106,7 @@
 			event.stopPropagation();
 		});
 		$("#popup_call").live("submit", function(event) {
+            alert('ll');
             var $target = $(this),
  			send_data = $target.formSerialize(),
  			send_url = $target.attr('action');
