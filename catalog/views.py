@@ -7,6 +7,9 @@ from django.template import RequestContext
 from catalog.models import Category, Product, Section, TYPE_CHOICES, LENS_CHOICES, IR_CHOICES, RESOLUTION_CHOICES, SENSIVITY_CHOICES, CameraProduct
 from django.http import HttpResponseRedirect, HttpResponse
 from cart import cart
+import threading
+from django.core.mail import send_mail
+from cart import settings
 
 def index(request):
     page_title = "Системы видеонаблюдения"
@@ -143,5 +146,11 @@ def internal_error(request):
 def take_call_form(request):
     if request.method == 'POST':
         postdata = request.POST.copy()
-        print postdata
+        if settings.SEND_ADMIN_EMAIL:
+            t = threading.Thread(target= send_mail, args=[
+                u'Перезвонить, %s' % postdata['name'],
+                u'Имя: %s \nТелефон: %s\nСообщение: %s\n' % (postdata['name'], postdata['phone'], postdata['message']),
+               settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
+            t.setDaemon(True)
+            t.start()
         return HttpResponse()
