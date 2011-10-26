@@ -99,7 +99,11 @@ def show_category(request, category_slug):
 #            products = []
 #            for cat in category:
 #                products += cat.product_set.filter(is_active=True).order_by('categoryproduct__sort_number')
-    return render_to_response("main/catalog.html", locals(), context_instance=RequestContext(request))
+    if category.slug == 'cctv-komplekt':
+        return render_to_response("main/catalog-komlpekt.html", locals(), context_instance=RequestContext(request))
+    else:
+        return render_to_response("main/catalog.html", locals(), context_instance=RequestContext(request))
+
 
 def show_section(request, section_slug):
     section = Section.objects.get(slug=section_slug)
