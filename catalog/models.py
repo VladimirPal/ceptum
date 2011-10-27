@@ -70,7 +70,7 @@ class Product(models.Model):
     mini_html_description = models.TextField(help_text='Максимальное количество символов: 140.',
                                         verbose_name='Мини описание в HTML')
     html_description = models.TextField(blank=True, verbose_name='Описание', help_text='Описание в HTML')
-    tech_details = models.TextField()
+    tech_details = models.TextField(blank=True)
     thumbnail_image = FileBrowseField("Image", max_length=200, directory="products_image/videocamers", extensions=[".jpg", ".jpeg", ".png"], blank=True, null=True)
     # Метаданные товара
     is_active = models.BooleanField(default=True, verbose_name='Активный')
