@@ -86,12 +86,12 @@ def show_category(request, category_slug):
                 products = category.product_set.filter(is_active=True).order_by('categoryproduct__position')
     else:
         products = category.product_set.filter(is_active=True).order_by('categoryproduct__position')
-        if category.section.name == category.name:
-            page_title = "%s" % category.section
-        else:
-            page_title = "%s %s" % (category.section, category)
-        meta_keywords = category.meta_keywords
-        meta_description = category.meta_descriotion
+    if category.section.name == category.name:
+        page_title = "%s" % category.section
+    else:
+        page_title = "%s %s" % (category.section, category)
+    meta_keywords = category.meta_keywords
+    meta_description = category.meta_descriotion
 #        except :
 #            section = Section.objects.get(slug=category_slug)
 #            category = section.category_set.filter(is_active=True)
