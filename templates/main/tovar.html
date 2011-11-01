@@ -92,10 +92,12 @@
   				 {% endif %}
 				 
 				{% if product.html_description %}
+                    {% if product.tech_details %}
   				<div class="bottom">
 				  <h3>Технические характеристики:</h3>
 		          {{ product.tech_details|safe }}
 				</div>
+                    {% endif %}
 				{% endif %}
 			</div>
 			<div class="right">
