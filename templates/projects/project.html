@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load projects_category %}
+{% block site_wrapper %}
+					<!-- /nav -->
+						<div id="blog_posts" class="alignleft">
+							<div class="blog_post">
+								<h1 class="post_title">{{ project.name }}</h1>
+								<p class="date">{{ project.name }}</p>
+								{{ project.entry|safe }}
+								<div class="clr"></div>
+
+							</div>
+						</div><br><br>
+    Категории:<br>
+    {% category %}
+{% endblock %}

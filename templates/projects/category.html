@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load projects_category %}
+{% block site_wrapper %}
+    {{ category.name }}
+							{% for project in projects %}
+								<div class="blog_post">
+								    <a href="{{ project.get_absolute_url }}" class="post_title"><h1>{{ project.name }}</h1></a>
+								    <p class="date">{{ project.date }}</p>
+								    {{ project.thumbnail_entry|safe }}
+									<div class="clr"></div>
+								</div>
+                                Категории:<br>
+                                {% category %}
+							{% endfor %}
+{% endblock %}
