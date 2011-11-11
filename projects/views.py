@@ -19,7 +19,7 @@ def all_projects(request):
 def category(request, category_slug):
     category = Category.objects.get(slug=category_slug)
     projects = Project.objects.filter(category=category)
-    return render_to_response("projects/category.html", locals(), context_instance=RequestContext(request))
+    return render_to_response("projects/main.html", locals(), context_instance=RequestContext(request))
 
 def project(request, entry_slug):
     project = Project.objects.get(slug=entry_slug)
