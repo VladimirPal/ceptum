@@ -19,7 +19,7 @@ class Entry(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(max_length=50, unique=True)
     category = models.ManyToManyField(Category)
-    date = models.DateTimeField()
+    date = models.DateField()
     entry = models.TextField()
     thumbnail_entry = models.TextField()
 

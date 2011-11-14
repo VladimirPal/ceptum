@@ -32,6 +32,7 @@ def archive(request, when):
     return render_to_response("blog/main.html", locals(), context_instance=RequestContext(request))
 
 def entry(request, entry_slug):
+    page_title = "Блог"
     entry = Entry.objects.get(slug=entry_slug)
     return render_to_response("blog/entry.html", locals(), context_instance=RequestContext(request))
 
