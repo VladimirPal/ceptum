@@ -57,7 +57,7 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-#TINYMCE_JS_URL = STATIC_URL + 'js/tiny_mce/tiny_mce.js'
+TINYMCE_JS_URL = '/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js'
 #TINYMCE_JS_ROOT = os.path.join(PROJECT_PATH, 'static/js/tiny_mce')
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
