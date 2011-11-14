@@ -1,16 +1,25 @@
 {% extends "base.html" %}
 {% load projects_category %}
+{% load catalog_filters %}
 {% block site_wrapper %}
+{% category_list request %}
 					<!-- /nav -->
-						<div id="blog_posts" class="alignleft">
+                    
+                                                <div id="content_block" class="alignleft clearfix" style="float:none;position: relative;width: 1194px;">
+<div id="content">
+<div class="blog_side alignleft">
+    <ul>
+		<h6>Категории</h6>
+			{% category %}
+	</ul>
+                            </div>
 							<div class="blog_post">
 								<h1 class="post_title">{{ project.name }}</h1>
-								<p class="date">{{ project.name }}</p>
+								<p class="date">{{ project.date }}</p>
 								{{ project.entry|safe }}
 								<div class="clr"></div>
-
+								
 							</div>
-						</div><br><br>
-    Категории:<br>
-    {% category %}
+						</div>
+
 {% endblock %}

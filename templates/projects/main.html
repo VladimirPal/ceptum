@@ -1,25 +1,38 @@
+
 {% extends "base.html" %}
 {% load projects_category %}
+{% load catalog_filters %}
 {% block site_wrapper %}
-							{% for project in projects.object_list %}
-								<div class="blog_post">
+{% category_list request %}
+                            <div id="menu_block">
+
+<div id="content_block" class="alignleft clearfix" style="width: 1194px;"><div id="content">							
+<div class="blog_side alignleft">
+ <ul>
+		<h6>Категории</h6>
+			{% category %}
+	</ul>
+						        {% if projects.has_previous %}
+						            <a href="?page={{ projects.previous_page_number }}">Сюда</a>
+						        {% endif %}
+                                </div>
+                                <div class="blog_post">
+								    {% for project in projects.object_list %}
+								<div class="odna_nov">
 								    <a href="{{ project.get_absolute_url }}" class="post_title"><h1>{{ project.name }}</h1></a>
 								    <p class="date">{{ project.date }}</p>
 								    {{ project.thumbnail_entry|safe }}
 									<div class="clr"></div>
 								</div>
-							{% endfor %}
-                                Категории:<br>
-                                {% category %}
-						        {% if projects.has_previous %}
-						            <a href="?page={{ projects.previous_page_number }}">Сюда</a>
-						        {% endif %}
-
-						        <span class="current">
+							{% endfor %}</div>
+                                </div></div>
+                                <span class="current">
 						            Страница {{ projects.number }} из {{ projects.paginator.num_pages }}.
 						        </span>
 
 						        {% if projects.has_next %}
 						            <a href="?page={{ projects.next_page_number }}">Туда</a>
 						        {% endif %}
+                                </div>
+                                </div>
 {% endblock %}

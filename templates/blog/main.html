@@ -1,27 +1,44 @@
 {% extends "base.html" %}
+{% load catalog_filters %}
 {% load archive %}
 {% block site_wrapper %}
-							{% for entry in entrys.object_list %}
-								<div class="blog_post">
-								    <a href="{{ entry.get_absolute_url }}" class="post_title"><h1>{{ entry.title }}</h1></a>
-								    <p class="date">{{ entry.date }}</p>
-								    {{ entry.thumbnail_entry|safe }}
-									<div class="clr"></div>
-								</div>
-							{% endfor %}
-							Архив:<br>
-							{% archive %}<br><br>
-							Категории:<br>
+{% category_list request %}
+<div id="blog_osnova">
+	<div id="menu_block">
+		<div id="content_block" class="alignleft clearfix" style="width: 1194px;">
+			<div id="content">							
+				<div class="blog_side alignleft">
+					<ul>
+						<h6>Архив</h6>
+							{% archive %}
+					</ul>
+					<ul>
+						<h6>Категории</h6>
 							{% categories %}
-						        {% if entrys.has_previous %}
-						            <a href="?page={{ entrys.previous_page_number }}">Сюда</a>
-						        {% endif %}
-
-						        <span class="current">
-						            Страница {{ entrys.number }} из {{ entrys.paginator.num_pages }}.
-						        </span>
-
-						        {% if entrys.has_next %}
-						            <a href="?page={{ entrys.next_page_number }}">Туда</a>
-						        {% endif %}
+					</ul>
+					{% if entrys.has_previous %}
+						<a href="?page={{ entrys.previous_page_number }}">Сюда</a>
+					{% endif %}
+				</div>
+				<div class="blog_post clearfix">
+					{% for entry in entrys.object_list %}
+						<div class="odna_nov">
+							<a href="{{ entry.get_absolute_url }}" class="post_title"><h1>{{ entry.title }}</h1></a>
+							<p class="date">{{ entry.date }} | <a href="#">Название категории</a></p>
+								{{ entry.thumbnail_entry|safe }}
+							<div class="clr"></div>
+						</div>
+					{% endfor %}
+				</div>
+				<span class="current">
+					Страница {{ entrys.number }} из {{ entrys.paginator.num_pages }}.
+				</span>
+				
+				{% if entrys.has_next %}
+					<a href="?page={{ entrys.next_page_number }}">Туда</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
