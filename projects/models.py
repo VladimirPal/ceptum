@@ -10,27 +10,27 @@ class Category(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('categoryblog-page', [str(self.slug)])
+        return ('category-page', [str(self.slug)])
 
     class Meta:
-        verbose_name_plural = 'Категории блога'
+        verbose_name_plural = 'Отрасли заказчиков'
 
-class Entry(models.Model):
-    title = models.CharField(max_length=100)
+class Project(models.Model):
+    name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=50, unique=True)
     category = models.ManyToManyField(Category)
-    date = models.DateTimeField()
+    date = models.DateField()
     entry = models.TextField()
     thumbnail_entry = models.TextField()
 
     def __unicode__(self):
-        return self.title
+        return self.name
 
     def get_absolute_url(self):
-        return "/blog/%s/" % self.slug
+        return "/projects/%s/" % self.slug
 
     class Meta:
         ordering = ['-date']
 
     class Meta:
-        verbose_name_plural = 'Записи в блоге'
+        verbose_name_plural = 'Проекты'

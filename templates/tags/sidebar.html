@@ -24,7 +24,7 @@
                     {% endfor %}
        					</ul>
 				{% else %}
-                    {% if section.get_absolute_url == request_path %}
+                    {% if section.category_set.all.0.get_absolute_url == request_path %}
                         <li class="active"> <span>{{ section.category_set.all.0.name }}</span></li>
                     {% else %}
                         <li> <a href="{{ section.category_set.all.0.get_absolute_url }}" title="">{{ section.category_set.all.0.name }}</a></li>

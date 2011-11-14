@@ -183,14 +183,40 @@
 			<div id="head_menu">
 				<ul class="menu">
 					<li class="menu_right">
-						<a href="/" class="{% if request.path == '/' %}active{% endif %}">Главная</a>
+						{% if request.path == '/' %}
+							<span>Главная</span>
+						{% else %}
+							<a href="/">Главная</a>
+						{% endif %}
 					</li>
 					<li class="menu_right menu_left">
-						<a href="/delivery" class="{% if request.path == '/delivery' %}active{% endif %}">Оплата и монтаж</a>
+						{% if request.path == '/delivery' %}
+							<span>Оплата и монтаж</span>
+						{% else %}
+							<a href="/delivery">Оплата и монтаж</a>
+						{% endif %}
 					</li>
 					<li class="menu_right menu_left">
-						<a href="/about" class="{% if request.path == '/about' %}active{% endif %}">О нас</a>
+						{% if request.path == '/about' %}
+							<span>О нас</span>
+						{% else %}
+							<a href="/about">О нас</a>
+						{% endif %}
 					</li>
+                    <li class="menu_right menu_left">
+                    	{% if request.path == '/projects/' %}
+							<span>Наши работы</span>
+						{% else %}
+							<a href="/projects">Наши работы</a>
+						{% endif %}
+                    </li>
+                    <li class="menu_left">
+                    	{% if request.path == '/blog/' %}
+							<span>Блог</span>
+						{% else %}
+							<a href="/blog">Блог</a>
+						{% endif %}
+                    </li>
 				</ul>
 			</div>
 			<div id="main_block" class="clearfix">

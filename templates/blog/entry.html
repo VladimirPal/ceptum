@@ -1,22 +1,29 @@
 {% extends "base.html" %}
 {% load catalog_filters %}
-{% load cart_filters  %}
 {% block site_wrapper %}
+{% category_list request %}
 {% load archive %}
 					<!-- /nav -->
-						<div id="blog_posts" class="alignleft">
+<div id="content_block" class="alignleft clearfix" style="float:none;position: relative;width: 1194px;">
+<div id="content">
+<div class="blog_side alignleft">
+	<ul>
+		<h6>Архив</h6>
+			{% archive %}
+	</ul>
+	<ul>
+		<h6>Категории</h6>
+			{% categories %}
+	</ul>
+</div>
 							<div class="blog_post">
 								<h1 class="post_title">{{ entry.title }}</h1>
-								<p class="date">{{ entry.date }}</p>
+								<p class="date">{{ entry.date }} | <a href="#">Название категории</a></p>
 								{{ entry.entry|safe }}
 								<div class="clr"></div>
 								
 							</div>
 						</div>
-						<div class="blog_side alignleft">
-							Архив:<br>
-							{% archive %}<br><br>
-							Категории:<br>
-							{% categories %}
+
 {% endblock %}
 

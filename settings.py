@@ -104,6 +104,7 @@ INSTALLED_APPS = (
     'cctvision.cart',
     'cctvision.myadmin',
     'cctvision.blog',
+    'cctvision.projects',
     'filebrowser',
 #    'tinymce',
     # Uncomment the next line to enable admin documentation:
