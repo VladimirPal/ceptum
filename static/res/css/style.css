@@ -18,6 +18,11 @@ input[type="text"]:focus { outline: none; }
 .clr{clear:both}
 .alignleft{float: left}
 .alignright{float: right}
+.stady{
+	text-align: center;
+	font-size: 23px;
+	color: #FF4C4C;
+}
 html{
 	height: 100%;
 }
