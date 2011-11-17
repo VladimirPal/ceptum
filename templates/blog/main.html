@@ -16,6 +16,11 @@
 						<h6>Категории</h6>
 							{% categories %}
 					</ul>
+					<p class="textright">
+						<a title="Подписаться" href="http://feeds.feedburner.com">
+							<img src="/static/res/img/rss_logo.png">
+						</a>
+					</p>
 					{% if entrys.has_previous %}
 						<a href="?page={{ entrys.previous_page_number }}">Сюда</a>
 					{% endif %}
