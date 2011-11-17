@@ -257,12 +257,12 @@ header #contacts p.skype{
 }
 #content_block{
 	padding-left: 200px;
+	min-height: 450px;
 }
 #content{
 	min-width: 600px;
 	width: 96%;
 	font-size: 14px;
-	min-height: 450px;
 	padding-bottom: 20px;
 	padding: 0 2% 20px;
 }
@@ -911,7 +911,15 @@ p.date{
 	font-weight: bold;
 }
 span.current{ text-align:center; display:block;margin:20px 200px 5px 0;}
-
+/*COMMENTS*/
+#vk_comments{
+	float: right;
+	margin-right: 10px;
+}
+.fb_iframe_widget{
+	float: left;
+	margin-left: 10px;
+}
 @media print{
 *{background:transparent !important;color:black !important;text-shadow:none !important;filter:none !important;-ms-filter:none !important}
 a, a:visited{color:#444 !important;text-decoration:underline}
