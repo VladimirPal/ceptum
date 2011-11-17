@@ -153,6 +153,7 @@ header #contacts p.skype{
 	width: 200px;
 	padding: 17px 0;
 	position: fixed;
+	z-index: 999;
 }
 #sidebar #basket{
 	font-size: 10px;
@@ -913,11 +914,11 @@ p.date{
 span.current{ text-align:center; display:block;margin:20px 200px 5px 0;}
 /*COMMENTS*/
 #vk_comments{
-	float: right;
+	float: left;
 	margin-right: 10px;
 }
 .fb_iframe_widget{
-	float: left;
+	float: right;
 	margin-left: 10px;
 }
 @media print{
