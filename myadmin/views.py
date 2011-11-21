@@ -11,7 +11,6 @@ from forms import ClientForm, BaseProductFormset, CashForm, BalanceForm, TaskFor
 from django.forms.models import inlineformset_factory
 from cart.cart import _generate_cart_id
 from django.core.urlresolvers import reverse
-from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from catalog.models import Product, Category
 from models import Cash, Balance, Waytmoney, Task, TaskAnswer, TaskFile, Order, Product_statistic, Cash_statistic
 from django.contrib.auth import logout
