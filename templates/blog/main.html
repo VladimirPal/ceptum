@@ -25,9 +25,6 @@
 						<a href="?page={{ entrys.previous_page_number }}">Сюда</a>
 					{% endif %}
 				</div>
-                {% for entry in entrys.object_list %}
-                    {{ entry.name }}
-                {% endfor %}
 				<div class="blog_post clearfix">
 					{% for entry in entrys.object_list %}
 						<div class="odna_nov">
