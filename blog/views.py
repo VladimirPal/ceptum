@@ -8,7 +8,7 @@ from django.utils.encoding import smart_str
 
 def blog(request):
     first_entry = Entry.objects.order_by()[0].date
-    entrys = Entry.objects.filter(date__range=(first_entry, datetime.now()))
+    entrys = Entry.objects.filter(date__range=(first_entry, datetime.now()), is_active=True)
     try:
         page = int(request.GET.get('page', '1'))
     except ValueError:

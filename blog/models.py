@@ -22,6 +22,7 @@ class Entry(models.Model):
     date = models.DateField()
     entry = models.TextField()
     thumbnail_entry = models.TextField()
+    is_active = models.BooleanField(default=True, verbose_name='Активный')
 
     def __unicode__(self):
         return self.title
