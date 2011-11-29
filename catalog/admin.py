@@ -30,14 +30,14 @@ class ProductsAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug' : ('name',)}
 
     class Media:
-        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/grappelli/tinymce_setup/tinymce_setup.js',]
+        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/js/tinymce_setup.js',]
 
 class CameraProductAdmin(admin.ModelAdmin):
     inlines = [PhotoInline, FilesInline, CategoryProductinline2]
     ordering = ['category']
 
     class Media:
-        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/grappelli/tinymce_setup/tinymce_setup.js',]
+        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/js/tinymce_setup.js',]
 
 
 admin.site.register(Product, ProductsAdmin)
@@ -53,7 +53,7 @@ class CategoriesAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug' : ('name',)}
 
     class Media:
-        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/grappelli/tinymce_setup/tinymce_setup.js',]
+        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/js/tinymce_setup.js',]
 
 admin.site.register(Category, CategoriesAdmin)
 
@@ -67,7 +67,7 @@ class SectionsAdmin(admin.ModelAdmin):
         prepopulated_fields = {'slug' : ('name',)}
 
         class Media:
-            js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/grappelli/tinymce_setup/tinymce_setup.js',]
+            js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/js/tinymce_setup.js',]
 
 admin.site.register(Section, SectionsAdmin)
 
