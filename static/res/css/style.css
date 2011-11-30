@@ -103,12 +103,15 @@ header #contacts p.skype{
 	height: 33px;
 	z-index: 999;
 	background: url(../img/head_bg.gif) 90px 0 repeat-x;
-	margin: 0px 167px;
+	margin: 0px 167px 0 210px;
+	position: relative;
 }
 #head_menu .menu{
 	list-style: none;
 	padding-top: 6px;
-	margin: 0 0 0 25%;
+	margin-left: -210px;
+	margin-right: -168px;
+	text-align: center;
 }
 #head_menu .menu li{
 	display: inline;
@@ -916,10 +919,18 @@ span.current{ text-align:center; display:block;margin:20px 200px 5px 0;}
 #vk_comments{
 	float: left;
 	margin-right: 10px;
+	width: 49% !important;
 }
 .fb_iframe_widget{
 	float: right;
 	margin-left: 10px;
+	width: 48%;
+}
+.fb_iframe_widget span{
+	width: 100%;
+}
+.fb_iframe_widget iframe{
+	width: 100% !important;
 }
 @media print{
 *{background:transparent !important;color:black !important;text-shadow:none !important;filter:none !important;-ms-filter:none !important}
