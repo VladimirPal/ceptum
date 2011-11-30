@@ -39,6 +39,7 @@ tinyMCE.init({
     object_resizing: false,
     media_strict: true,
 
+
     // Callbackss
     file_browser_callback: 'CustomFileBrowser',
 
@@ -55,6 +56,7 @@ tinyMCE.init({
     fix_table_elements: true,
     fix_nesting: true,
     forced_root_block : 'p',
+    entity_encoding : "raw",
 
     // URL
     relative_urls: false,
