@@ -951,6 +951,9 @@ span.current{ text-align:center; display:block;margin:20px 200px 5px 0;}
 .fb_iframe_widget iframe{
 	width: 100% !important;
 }
+#vkwidget1{
+	width: 100%;
+}
 @media print{
 *{background:transparent !important;color:black !important;text-shadow:none !important;filter:none !important;-ms-filter:none !important}
 a, a:visited{color:#444 !important;text-decoration:underline}
