@@ -541,6 +541,27 @@ footer {
 }
 #catalog{
 	width: 100%;
+	display: block;
+}
+#catalog .item{
+	display:inline-block; 
+	width:49%;
+	white-space: nowrap;
+	vertical-align: top;
+	padding: 10px 0 0;
+	margin: 10px 0 0;
+	border-top: 1px dashed #666;
+}
+#catalog .item .left, #catalog .item .right{
+	display: inline-block; 
+	white-space: normal;
+	vertical-align: top;
+}
+#catalog .item .left{
+	width: 40%
+}
+#catalog .item .right{
+	width: 60%;
 }
 #catalog .img_block{
 	margin: 10px 10px 10px 0;
@@ -568,11 +589,9 @@ footer {
 #catalog .left{
 	width: 20%;
 	text-align: center;
-	background: url("../img/cat_line.gif") repeat-x scroll left bottom transparent;
 }
 #catalog .right{
 	width: 30%;
-	background: url("../img/cat_line.gif") repeat-x scroll left bottom transparent;
 	line-height: 160%;
 }
 #catalog .additional_description_span{
