@@ -22,7 +22,7 @@ def blog(request):
     return render_to_response("blog/main.html", locals(), context_instance=RequestContext(request))
 
 def archive(request, when):
-    entrys = Entry.objects.filter(date__year=when[-4:], date__month=when[:-4])
+    entrys = Entry.objects.filter(date__year=when[-4:], date__month=when[:-4], is_actvie=True)
     try:
         page = int(request.GET.get('page', '1'))
     except ValueError:
@@ -42,7 +42,7 @@ def entry(request, entry_slug):
 
 def category(request, category_slug):
     category = Category.objects.get(slug=category_slug)
-    entrys = Entry.objects.filter(category=category)
+    entrys = Entry.objects.filter(category=category, is_active=True)
     try:
         page = int(request.GET.get('page', '1'))
     except ValueError:
