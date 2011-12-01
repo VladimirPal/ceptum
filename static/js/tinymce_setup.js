@@ -55,7 +55,9 @@ tinyMCE.init({
     fix_list_elements: true,
     fix_table_elements: true,
     fix_nesting: true,
-    forced_root_block : 'p',
+    force_br_newlines : true,
+    force_p_newlines : false,
+    forced_root_block : '',
     entity_encoding : "raw",
 
     // URL
