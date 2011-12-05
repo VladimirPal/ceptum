@@ -101,7 +101,7 @@ header #contacts p.skype{
 }
 #head_menu{
 	height: 33px;
-	z-index: 999;
+	z-index: 800;
 	background: url(../img/head_bg.gif) 90px 0 repeat-x;
 	margin: 0px 167px 0 210px;
 	position: relative;
