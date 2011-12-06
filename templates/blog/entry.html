@@ -23,7 +23,7 @@
 </div>
 							<div class="blog_post">
 								<h1 class="post_title">{{ entry.title }}</h1>
-								<p class="date">{{ entry.date }} | <a href="#">Название категории</a></p>
+                                <p class="date">{{ entry.date }} | <a href="{{ entry.category.all.0.get_absolute_url }}">{{ entry.category.all.0.name }}</a></p>
 								{{ entry.entry|safe }}
 								<div class="clr"></div>
 								
