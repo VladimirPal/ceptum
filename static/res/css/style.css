@@ -8,7 +8,10 @@ body, select, input, textarea {color: #444}
 a:link{-webkit-tap-highlight-color:#222222}
 a,a:active,a:visited{color:#607890}
 a:hover{color:#036}
-
+a.item-head:hover h2{
+	background: #607890;
+	color: #000 !important;
+}
 h1, h2, h3, h4, h5, h6 {font-weight:bold}
 input[type="text"]:focus { outline: none; }
 .hidden{display:none;visibility:hidden}
