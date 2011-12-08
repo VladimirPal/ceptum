@@ -168,7 +168,7 @@ class Subtotal:
 def send_admin_email(request, cart_items, form, cart_subtotal, discount):
     products_for_email = ""
     for item in cart_items:
-        products_for_email += u"%s:%s шт  http://cctvision.ru%s\n" % (item.product.name,
+        products_for_email += u"%s:%s шт  http://ceptum.ru%s\n" % (item.product.name,
                                           item.quantity, item.product.get_absolute_url())
     t = threading.Thread(target= send_mail, args=[
         u'Заказ от %s %s' % (form.cleaned_data['name'], form.cleaned_data['surname'] ),
@@ -184,7 +184,7 @@ def send_admin_email(request, cart_items, form, cart_subtotal, discount):
 def send_client_email(cart_items, form, cart_subtotal):
     products_for_email = ""
     for item in cart_items:
-        products_for_email += u"%s:%s шт  http://cctvision.ru%s\n" % (item.product.name,
+        products_for_email += u"%s:%s шт  http://ceptum.ru%s\n" % (item.product.name,
                                           item.quantity, item.product.get_absolute_url())
     t = threading.Thread(target= send_mail, args=[
         u'Ваш заказ от cctvision',
