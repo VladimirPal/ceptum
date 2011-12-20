@@ -34,6 +34,7 @@ class ProductsAdmin(admin.ModelAdmin):
 
 class CameraProductAdmin(admin.ModelAdmin):
     inlines = [PhotoInline, FilesInline, CategoryProductinline2]
+    prepopulated_fields = {'slug' : ('name',)}
     ordering = ['category']
 
     class Media:
@@ -44,6 +45,7 @@ admin.site.register(CameraProduct, CameraProductAdmin)
 
 class DoorPhoneAdmin(admin.ModelAdmin):
     inlines = [PhotoInline, FilesInline, CategoryProductinline2]
+    prepopulated_fields = {'slug' : ('name',)}
     ordering = ['category']
 
     class Media:
