@@ -137,6 +137,17 @@ class CameraProduct(Product):
     class Meta:
         verbose_name_plural = 'Аналоговые камеры'
 
+DTYPE_CHOICES = (
+  ('color', 'Цветной'),
+  ('black-and-white', 'Черно-Белый'),
+  )
+
+class DoorPhone(Product):
+    type = models.CharField(choices=DTYPE_CHOICES, max_length=255)
+
+    class Meta:
+        verbose_name_plural = 'Домофоны'
+
 class ProductPhoto(models.Model):
     item = models.ForeignKey(Product)
     image = FileBrowseField("Image", max_length=200, directory="products_image", extensions=[".jpg", ".jpeg", ".png"], blank=True, null=True)
