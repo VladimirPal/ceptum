@@ -1,5 +1,5 @@
 from django.contrib import admin
-from catalog.models import Product, ProductPhoto, Category, Section, File, CategoryProduct, CameraProduct
+from catalog.models import Product, ProductPhoto, Category, Section, File, CategoryProduct, CameraProduct, DoorPhone
 from cart.models import Client
 
 class PhotoInline(admin.StackedInline):
@@ -39,9 +39,17 @@ class CameraProductAdmin(admin.ModelAdmin):
     class Media:
         js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/js/tinymce_setup.js',]
 
-
 admin.site.register(Product, ProductsAdmin)
 admin.site.register(CameraProduct, CameraProductAdmin)
+
+class DoorPhoneAdmin(admin.ModelAdmin):
+    inlines = [PhotoInline, FilesInline, CategoryProductinline2]
+    ordering = ['category']
+
+    class Media:
+        js = ['/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js', '/static/js/tinymce_setup.js',]
+
+admin.site.register(DoorPhone, DoorPhoneAdmin)
 
 class CategoriesAdmin(admin.ModelAdmin):
     inlines = [CategoryProductinline]
