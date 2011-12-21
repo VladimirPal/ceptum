@@ -30,7 +30,7 @@ class Project(models.Model):
         return "/projects/%s/" % self.slug
 
     class Meta:
-        ordering = ['date']
+        ordering = ['-date']
 
     class Meta:
         verbose_name_plural = 'Проекты'

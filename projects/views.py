@@ -5,7 +5,7 @@ from django.template import RequestContext
 from projects.models import Project, Category
 
 def all_projects(request):
-    projects = Project.objects.all()
+    projects = Project.objects.all().order_by("-date")
     try:
         page = int(request.GET.get('page', '1'))
     except ValueError:
