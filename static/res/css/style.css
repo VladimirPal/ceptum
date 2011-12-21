@@ -1,4 +1,4 @@
-@import url(reset.css);
+﻿@import url(reset.css);
 
 body{font:13px/1.231 verdana, sans-serif; *font-size:small}
 body, select, input, textarea {color: #444}
@@ -969,4 +969,9 @@ tr, img{page-break-inside:avoid}
 @page{margin:0.5cm}
 p, h2, h3{orphans:3; widows:3}
 h2, h3{page-break-after:avoid}
+}
+
+.select_block {
+  background: #e5e7f2;
+  padding: 1em 4em 1em 2em;
 }
