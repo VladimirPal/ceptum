@@ -12,12 +12,11 @@ from django.core.mail import send_mail
 from cart import settings
 
 def index(request):
-    page_title = "Системы видеонаблюдения"
-    meta_keywords = """шпионские штучки магазин, шпионские штучки купить, купить подслушивающее устройство,
-     шпионская техника, шпионские камеры, шпионское оборудование продажа, магазин шпионских товаров"""
-    meta_description = """Интернет магазин, где можно купить шпионские штучки, камеры,
-     подслушивающие устройства. Так же у нас в продаже шпионская техника, оборудование,
-      глушилка мобильных телефонов, мини камера."""
+    page_title = u'Монтаж видеонаблюдения, установка видеонаблюдения - Цептум. Москва'
+    meta_keywords = """установка систем видеонаблюдения монтаж камер лицензия сигнализация прайс
+     лист стоимость услуги в квартира офис школа помещение"""
+    meta_description = """Все для Видеонаблюдения - установка и монтаж систем видеонаблюдени.
+     Продажа видеокамер, видеорегистраторов и аксессуаров по доступным ценам"""
     sections = Section.objects.all()
     return render_to_response("main/index.html", locals(), context_instance=RequestContext(request))
 
@@ -87,9 +86,9 @@ def show_category(request, category_slug):
     else:
         products = category.product_set.filter(is_active=True).order_by('categoryproduct__position')
     if category.section.name == category.name:
-        page_title = "%s" % category.section
+        page_title = u'%s - Цептум' % category.section
     else:
-        page_title = "%s %s" % (category.section, category)
+        page_title = u'%s %s - Цептум' % (category.section, category)
     meta_keywords = category.meta_keywords
     meta_description = category.meta_descriotion
 #        except :
@@ -108,7 +107,7 @@ def show_category(request, category_slug):
 def show_section(request, section_slug):
     section = Section.objects.get(slug=section_slug)
     cats = section.category_set.filter(is_active=True)
-    page_title = section.name
+    page_title = section.name + u' - Цептум'
     return render_to_response("main/section.html", locals(), context_instance=RequestContext(request))
 
 def show_product(request, product_slug):
@@ -120,7 +119,7 @@ def show_product(request, product_slug):
             cart.add_to_cart(request)
             url = urlresolvers.reverse('show_cart')
             return HttpResponseRedirect(url)
-    page_title = "%s" % product.name
+    page_title = u'%s - Цептум' % product.name
     meta_keywords = page_title
     meta_description = "%s - %s" % (page_title, product.mini_html_description)
     sections = Section.objects.all()
@@ -132,16 +131,16 @@ def all_goods(request):
         url = urlresolvers.reverse('show_cart')
         return HttpResponseRedirect(url)
     products = Product.objects.filter(is_active=True)
-    page_title = "my-SPY - Все товары"
+    page_title = u'Цептум Все товары'
     meta_keywords = page_title
     return render_to_response("main/catalog.html", locals(), context_instance=RequestContext(request))
 
 def about(request):
-    page_title = "О нас"
+    page_title = u'О нас - Цептум'
     return render_to_response('main/about.html', locals(), context_instance=RequestContext(request))
 
 def delivery(request):
-    page_title = "Оплата и Монтаж"
+    page_title = u'Оплата и Монтаж - Цептум'
     return render_to_response('main/delivery.html', locals(), context_instance=RequestContext(request))
 
 def internal_error(request):
