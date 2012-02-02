@@ -1,6 +1,6 @@
           # -*- coding: utf-8 -*-
+import re
 from django.db.models.query_utils import Q
-from ordereddict import OrderedDict
 from django.shortcuts import get_object_or_404, render_to_response
 from django.core import urlresolvers
 from django.template import RequestContext
@@ -149,11 +149,12 @@ def internal_error(request):
 def take_call_form(request):
     if request.method == 'POST':
         postdata = request.POST.copy()
-        if settings.SEND_ADMIN_EMAIL:
-            t = threading.Thread(target= send_mail, args=[
-                u'Перезвонить, %s' % postdata['name'],
-                u'Имя: %s \nТелефон: %s\nСообщение: %s\n' % (postdata['name'], postdata['phone'], postdata['message']),
-               settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
-            t.setDaemon(True)
-            t.start()
+        if not "href" in postdata['message']:
+            if settings.SEND_ADMIN_EMAIL:
+                t = threading.Thread(target= send_mail, args=[
+                    u'Перезвонить, %s' % postdata['name'],
+                    u'Имя: %s \nТелефон: %s\nСообщение: %s\n' % (postdata['name'], postdata['phone'], postdata['message']),
+                   settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
+                t.setDaemon(True)
+                t.start()
         return HttpResponse()
