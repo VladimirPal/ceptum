@@ -33,10 +33,11 @@
 <!-- Put this div tag to the place, where the Comments block will be -->
 <div id="vk_comments"></div>
 <script type="text/javascript">
-VK.Widgets.Comments("vk_comments", {limit: 10, width: "496", attach: false, onChange: aae});
+VK.Observer.subscribe('widgets.comments.new_comment', sendComment());
+VK.Widgets.Comments("vk_comments", {limit: 10, width: "496", attach: false});
 
-function aae() {
-    alert("!");
+function sendComment() {
+    alert('!');
 }
 </script>
 {% endblock %}
