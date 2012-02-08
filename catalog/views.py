@@ -158,3 +158,14 @@ def take_call_form(request):
                 t.setDaemon(True)
                 t.start()
         return HttpResponse()
+
+def take_vk_comment(request):
+    if request.method == 'POST':
+        param = request.POST['comment']
+        if settings.SEND_ADMIN_EMAIL:
+            t = threading.Thread(target= send_mail, args=[
+            u'Новый комментарий',
+            u'%s' % param, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
+            t.setDaemon(True)
+            t.start()
+    return HttpResponse()
