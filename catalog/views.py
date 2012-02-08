@@ -161,7 +161,6 @@ def take_call_form(request):
 
 def take_vk_comment(request):
     if request.method == 'POST':
-        print "test"
         param = request.POST['comment']
         if settings.SEND_ADMIN_EMAIL:
             t = threading.Thread(target= send_mail, args=[
