@@ -9,5 +9,6 @@ urlpatterns = patterns('',
                       url(r'^about$', 'catalog.views.about', name="about-page"),
                       url(r'^delivery$', 'catalog.views.delivery', name="delivery-page"),
                       url(r'^take_form$', 'catalog.views.take_call_form', name="call-form"),
+                      url(r'^take_vk_comment$', 'catalog.views.take_vk_comment', name="vk-comment"),
 )
 
