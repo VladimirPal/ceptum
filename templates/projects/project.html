@@ -36,7 +36,7 @@
 VK.Observer.subscribe('widgets.comments.new_comment', sendComment);
 VK.Widgets.Comments("vk_comments", {limit: 10, width: "496", attach: false});
 
-function sendComment(last_comment) {
+function sendComment(num, last_comment) {
     $.post("/take_vk_comment", {comment: last_comment});
 }
 </script>
