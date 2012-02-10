@@ -1,6 +1,6 @@
           # -*- coding: utf-8 -*-
 from datetime import date, timedelta
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.core import urlresolvers
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
@@ -11,7 +11,7 @@ from forms import ClientForm, BaseProductFormset, CashForm, BalanceForm, TaskFor
 from django.forms.models import inlineformset_factory
 from cart.cart import _generate_cart_id
 from django.core.urlresolvers import reverse
-from catalog.models import Product, Category
+from catalog.models import Product, Category, Section
 from models import Cash, Balance, Waytmoney, Task, TaskAnswer, TaskFile, Order, Product_statistic, Cash_statistic
 from django.contrib.auth import logout
 from django.core.mail import send_mail
@@ -237,12 +237,30 @@ def edit_client(request, id):
 
 @login_required
 def store(request):
-    products = Product.objects.all().order_by('category')
-    money_in_retail = 0
-    money_in_wholesale = 0
-    for product in products:
-        money_in_retail += product.quantity * product.price
-        money_in_wholesale += product.quantity * product.wholesale_price
+    products = Product.objects.filter(quantity__gt=0)
+    return render_to_response("myadmin/store/store.html", locals(), context_instance=RequestContext(request))
+
+@login_required
+def unstore(request):
+    products = Product.objects.filter(quantity=0)
+    return render_to_response("myadmin/store/store.html", locals(), context_instance=RequestContext(request))
+
+@login_required
+def allstore(request):
+    products = Product.objects.all()
+    return render_to_response("myadmin/store/store.html", locals(), context_instance=RequestContext(request))
+
+@login_required
+def filterstore(request, category_slug):
+    try:
+        category = Category.objects.get(slug=category_slug)
+        products = category.product_set.all().order_by('categoryproduct__position')
+    except :
+        section = get_object_or_404(Section, slug=category_slug)
+        category = section.category_set.all()
+        products = []
+        for cat in category:
+            products += cat.product_set.all().order_by('categoryproduct__position')
     return render_to_response("myadmin/store/store.html", locals(), context_instance=RequestContext(request))
 
 @login_required
