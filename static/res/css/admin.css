@@ -1,0 +1,196 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+.alignright{
+	float: right;
+}
+.alignleft{
+	float:left;
+}
+#allsales_block{
+	padding: 0 0 0 0;
+}
+.clr{
+	clear: both;
+}
+a{
+	color:#2778c5;
+}
+a:hover{
+	text-decoration: none;
+}
+.menu{
+	margin: 0px auto;
+}
+.menu td{
+	padding: 5px 20px;
+	height: 30px;
+	vertical-align: center;
+	line-height: 20px;
+	font-size: 14px;
+}
+.menu td:hover{
+	background:#999;
+}
+#menu_block{
+/* 	background: url('../img/menu_bg_admin.jpg') top left repeat-x; */
+	border: solid 2px #999;
+	position: relative;
+}
+#allsales_block #money{
+	position: absolute;
+	top:0;
+	right:0;
+	padding: 20px;
+}
+.textcenter{
+	text-align: center;
+}
+.margincenter{
+	margin:0 auto;
+}
+#selector_block{
+	z-index: 999;
+	background: #ebf1fe;
+	top:0;
+	border-bottom: solid 2px #999;
+	position: relative;
+}
+.selectbutton{
+	border: none;
+	background: #2778c5;
+	cursor: pointer;
+	color: white;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	margin: 10px 0 0;
+	font-size: 12px;
+}
+a.selectbutton{
+	padding: 3px 10px 2px;
+	text-decoration: none;
+}
+#selector_block p{
+	text-align:right; 
+	padding: 0 20px;
+	float:right;
+}
+#selector_block ul{
+	list-style: none;
+	padding: 0;
+}
+#selector_block .hidden{
+	padding: 20px;
+}
+#selector_block:hover .hidden{
+	display: block;
+}
+#selector_block:hover p{
+}
+#status_selector ul li{	
+	list-style: none;
+}
+.margin_center{
+	margin: 0 auto;
+}
+#period{
+	width: 90%;
+	text-align: right;
+	padding: 25px 5% 10px;
+}
+#period span{
+	float: left;
+}
+#allsales td{
+	padding: 5px;
+}
+#allsales th label{
+	font-size: 13px;
+}
+#allsales, #client_edit_form_table{
+	margin: 20px auto;
+	border: solid 2px #999;
+	color: #3b4c5d;	
+}
+#client_edit_form_table{
+	font-size: 12px;
+	padding: 5px;
+}
+.addclientbtn{
+	padding: 10px 20px;
+}
+.pagination{
+	padding: 5px 20px;
+}
+.rightborder{
+	border-right: 1px solid #dbdbdc;
+}
+.bottomborder{
+	border-bottom: 1px solid #dbdbdc;
+}
+.topborder{
+	border-top: 1px solid #dbdbdc;
+}
+.head_row{
+	background:#cccccc;
+
+}
+.head_row td{
+	text-align: center;
+}
+#allsales .clientinfo td, #allsales .clientadress td{
+	background: #fefefe;
+}
+#id_sms_status{
+}
+#add_formstats{
+	position: absolute;
+	top:80px;
+	right: 0;
+	border: solid 2px #999;
+	padding: 10px;
+	max-width:15%;
+	background: white;
+}
+#add_formstats .title{
+	background: rgb(235, 241, 254);
+	text-align: center;
+	margin: 0 0 10px 0;
+}
+.orange{
+	color: #e66202;
+}
+.autent{
+	position: absolute;
+	top:0;
+	right: 0;
+	padding: 7px 20px;
+}
+.money_stat{
+	padding: 15px 15px 0;
+}
+.money_stat td{
+	padding: 3px 5px;
+}
+.chat_menu{
+	margin:30px 5% 0;
+	width:90%;
+}
+.order_fonts{
+	font-size: 16px;
+}
+#task_chat{
+	margin: 30px auto 0;
+	color: #3B4C5D;
+}
+#task_chat td{
+	padding: 5px 15px;
+}
+#task_chat td p{
+	margin:0;
+}
+#task_chat_in{
+	width:100%;
+}

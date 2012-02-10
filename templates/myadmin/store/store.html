@@ -2,6 +2,23 @@
 {% block site_wrapper %}
 {% load myadmin_tags %}
 	{% menu request %}
+    <form action="/myadmin/store/" method="POST">{% csrf_token %}
+        <select name="category_select" data-placeholder="Выберите категорию товара" style="width:350px;" class="chzn-select" multiple tabindex="6">
+            <option value=""></option>
+            {% for section in sections %}
+            <optgroup label="{{ section.name }}">
+                {% for category in section.category_set.all %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </optgroup>
+            {% endfor %}
+        </select>
+    <input type="submit" value="Submit" />
+    {% if category_select %}
+        Выбранные категории: {% for category in category_select %} {{ category.name }}{% if forloop.last %}.{% else %},{% endif %}{% endfor %}
+    {% endif %}
+
+    </form>
 	<table id="allsales" cellpadding="5px" cellspacing="0">
 		<tr style="background:#cccccc;" class="textcenter">
 			<td class="bottomborder rightborder">
@@ -34,8 +51,4 @@
 		</tr>
 		{% endfor %}
 	</table>
-	<div id="add_formstats">
-		Денег в рознице: <span class="orange">{{ money_in_retail }}</span> руб <br/><br/>
-		Денег в опте: <span class="orange">{{ money_in_wholesale }}</span> руб
-	</div>
 {% endblock %}
