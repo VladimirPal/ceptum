@@ -2,6 +2,23 @@
 {% block site_wrapper %}
 {% load myadmin_tags %}
 	{% menu request %}
+    <form action="/myadmin/store/" method="POST">{% csrf_token %}
+        <select name="category_select" data-placeholder="Выберите категорию товара" style="width:350px;" class="chzn-select" multiple tabindex="6">
+            <option value=""></option>
+            {% for section in sections %}
+            <optgroup label="{{ section.name }}">
+                {% for category in section.category_set.all %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </optgroup>
+            {% endfor %}
+        </select>
+    <input type="submit" value="Submit" />
+    {% if category_select %}
+        Выбранные категории: {% for category in category_select %} {{ category.name }}{% if forloop.last %}.{% else %},{% endif %}{% endfor %}
+    {% endif %}
+
+    </form>
 	<table id="allsales" cellpadding="5px" cellspacing="0">
 		<tr style="background:#cccccc;" class="textcenter">
 			<td class="bottomborder rightborder">
@@ -34,257 +51,4 @@
 		</tr>
 		{% endfor %}
 	</table>
-	<div id="add_formstats">
-		Денег в рознице: <span class="orange">{{ money_in_retail }}</span> руб <br/><br/>
-		Денег в опте: <span class="orange">{{ money_in_wholesale }}</span> руб
-	</div>
-    <div>
-    <em>Into This</em>
-    <select data-placeholder="Choose a Country" class="chzn-select chzn-done" multiple="" style="width: 350px; display: none; " tabindex="-1" id="selF3M">
-    <option value=""></option>
-    <option value="United States">United States</option>
-    <option value="United Kingdom">United Kingdom</option>
-    <option value="Afghanistan">Afghanistan</option>
-    <option value="Albania">Albania</option>
-    <option value="Algeria">Algeria</option>
-    <option value="American Samoa">American Samoa</option>
-    <option value="Andorra">Andorra</option>
-    <option value="Angola">Angola</option>
-    <option value="Anguilla">Anguilla</option>
-    <option value="Antarctica">Antarctica</option>
-    <option value="Antigua and Barbuda">Antigua and Barbuda</option>
-    <option value="Argentina">Argentina</option>
-    <option value="Armenia">Armenia</option>
-    <option value="Aruba">Aruba</option>
-    <option value="Australia">Australia</option>
-    <option value="Austria">Austria</option>
-    <option value="Azerbaijan">Azerbaijan</option>
-    <option value="Bahamas">Bahamas</option>
-    <option value="Bahrain">Bahrain</option>
-    <option value="Bangladesh">Bangladesh</option>
-    <option value="Barbados">Barbados</option>
-    <option value="Belarus">Belarus</option>
-    <option value="Belgium">Belgium</option>
-    <option value="Belize">Belize</option>
-    <option value="Benin">Benin</option>
-    <option value="Bermuda">Bermuda</option>
-    <option value="Bhutan">Bhutan</option>
-    <option value="Bolivia">Bolivia</option>
-    <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
-    <option value="Botswana">Botswana</option>
-    <option value="Bouvet Island">Bouvet Island</option>
-    <option value="Brazil">Brazil</option>
-    <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
-    <option value="Brunei Darussalam">Brunei Darussalam</option>
-    <option value="Bulgaria">Bulgaria</option>
-    <option value="Burkina Faso">Burkina Faso</option>
-    <option value="Burundi">Burundi</option>
-    <option value="Cambodia">Cambodia</option>
-    <option value="Cameroon">Cameroon</option>
-    <option value="Canada">Canada</option>
-    <option value="Cape Verde">Cape Verde</option>
-    <option value="Cayman Islands">Cayman Islands</option>
-    <option value="Central African Republic">Central African Republic</option>
-    <option value="Chad">Chad</option>
-    <option value="Chile">Chile</option>
-    <option value="China">China</option>
-    <option value="Christmas Island">Christmas Island</option>
-    <option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
-    <option value="Colombia">Colombia</option>
-    <option value="Comoros">Comoros</option>
-    <option value="Congo">Congo</option>
-    <option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic of The</option>
-    <option value="Cook Islands">Cook Islands</option>
-    <option value="Costa Rica">Costa Rica</option>
-    <option value="Cote D'ivoire">Cote D'ivoire</option>
-    <option value="Croatia">Croatia</option>
-    <option value="Cuba">Cuba</option>
-    <option value="Cyprus">Cyprus</option>
-    <option value="Czech Republic">Czech Republic</option>
-    <option value="Denmark">Denmark</option>
-    <option value="Djibouti">Djibouti</option>
-    <option value="Dominica">Dominica</option>
-    <option value="Dominican Republic">Dominican Republic</option>
-    <option value="Ecuador">Ecuador</option>
-    <option value="Egypt">Egypt</option>
-    <option value="El Salvador">El Salvador</option>
-    <option value="Equatorial Guinea">Equatorial Guinea</option>
-    <option value="Eritrea">Eritrea</option>
-    <option value="Estonia">Estonia</option>
-    <option value="Ethiopia">Ethiopia</option>
-    <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
-    <option value="Faroe Islands">Faroe Islands</option>
-    <option value="Fiji">Fiji</option>
-    <option value="Finland">Finland</option>
-    <option value="France">France</option>
-    <option value="French Guiana">French Guiana</option>
-    <option value="French Polynesia">French Polynesia</option>
-    <option value="French Southern Territories">French Southern Territories</option>
-    <option value="Gabon">Gabon</option>
-    <option value="Gambia">Gambia</option>
-    <option value="Georgia">Georgia</option>
-    <option value="Germany">Germany</option>
-    <option value="Ghana">Ghana</option>
-    <option value="Gibraltar">Gibraltar</option>
-    <option value="Greece">Greece</option>
-    <option value="Greenland">Greenland</option>
-    <option value="Grenada">Grenada</option>
-    <option value="Guadeloupe">Guadeloupe</option>
-    <option value="Guam">Guam</option>
-    <option value="Guatemala">Guatemala</option>
-    <option value="Guinea">Guinea</option>
-    <option value="Guinea-bissau">Guinea-bissau</option>
-    <option value="Guyana">Guyana</option>
-    <option value="Haiti">Haiti</option>
-    <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands</option>
-    <option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
-    <option value="Honduras">Honduras</option>
-    <option value="Hong Kong">Hong Kong</option>
-    <option value="Hungary">Hungary</option>
-    <option value="Iceland">Iceland</option>
-    <option value="India">India</option>
-    <option value="Indonesia">Indonesia</option>
-    <option value="Iran, Islamic Republic of">Iran, Islamic Republic of</option>
-    <option value="Iraq">Iraq</option>
-    <option value="Ireland">Ireland</option>
-    <option value="Israel">Israel</option>
-    <option value="Italy">Italy</option>
-    <option value="Jamaica">Jamaica</option>
-    <option value="Japan">Japan</option>
-    <option value="Jordan">Jordan</option>
-    <option value="Kazakhstan">Kazakhstan</option>
-    <option value="Kenya">Kenya</option>
-    <option value="Kiribati">Kiribati</option>
-    <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
-    <option value="Korea, Republic of">Korea, Republic of</option>
-    <option value="Kuwait">Kuwait</option>
-    <option value="Kyrgyzstan">Kyrgyzstan</option>
-    <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
-    <option value="Latvia">Latvia</option>
-    <option value="Lebanon">Lebanon</option>
-    <option value="Lesotho">Lesotho</option>
-    <option value="Liberia">Liberia</option>
-    <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
-    <option value="Liechtenstein">Liechtenstein</option>
-    <option value="Lithuania">Lithuania</option>
-    <option value="Luxembourg">Luxembourg</option>
-    <option value="Macao">Macao</option>
-    <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav Republic of</option>
-    <option value="Madagascar">Madagascar</option>
-    <option value="Malawi">Malawi</option>
-    <option value="Malaysia">Malaysia</option>
-    <option value="Maldives">Maldives</option>
-    <option value="Mali">Mali</option>
-    <option value="Malta">Malta</option>
-    <option value="Marshall Islands">Marshall Islands</option>
-    <option value="Martinique">Martinique</option>
-    <option value="Mauritania">Mauritania</option>
-    <option value="Mauritius">Mauritius</option>
-    <option value="Mayotte">Mayotte</option>
-    <option value="Mexico">Mexico</option>
-    <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
-    <option value="Moldova, Republic of">Moldova, Republic of</option>
-    <option value="Monaco">Monaco</option>
-    <option value="Mongolia">Mongolia</option>
-    <option value="Montenegro">Montenegro</option>
-    <option value="Montserrat">Montserrat</option>
-    <option value="Morocco">Morocco</option>
-    <option value="Mozambique">Mozambique</option>
-    <option value="Myanmar">Myanmar</option>
-    <option value="Namibia">Namibia</option>
-    <option value="Nauru">Nauru</option>
-    <option value="Nepal">Nepal</option>
-    <option value="Netherlands">Netherlands</option>
-    <option value="Netherlands Antilles">Netherlands Antilles</option>
-    <option value="New Caledonia">New Caledonia</option>
-    <option value="New Zealand">New Zealand</option>
-    <option value="Nicaragua">Nicaragua</option>
-    <option value="Niger">Niger</option>
-    <option value="Nigeria">Nigeria</option>
-    <option value="Niue">Niue</option>
-    <option value="Norfolk Island">Norfolk Island</option>
-    <option value="Northern Mariana Islands">Northern Mariana Islands</option>
-    <option value="Norway">Norway</option>
-    <option value="Oman">Oman</option>
-    <option value="Pakistan">Pakistan</option>
-    <option value="Palau">Palau</option>
-    <option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied</option>
-    <option value="Panama">Panama</option>
-    <option value="Papua New Guinea">Papua New Guinea</option>
-    <option value="Paraguay">Paraguay</option>
-    <option value="Peru">Peru</option>
-    <option value="Philippines">Philippines</option>
-    <option value="Pitcairn">Pitcairn</option>
-    <option value="Poland">Poland</option>
-    <option value="Portugal">Portugal</option>
-    <option value="Puerto Rico">Puerto Rico</option>
-    <option value="Qatar">Qatar</option>
-    <option value="Reunion">Reunion</option>
-    <option value="Romania">Romania</option>
-    <option value="Russian Federation">Russian Federation</option>
-    <option value="Rwanda">Rwanda</option>
-    <option value="Saint Helena">Saint Helena</option>
-    <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
-    <option value="Saint Lucia">Saint Lucia</option>
-    <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
-    <option value="Saint Vincent and The Grenadines">Saint Vincent and The Grenadines</option>
-    <option value="Samoa">Samoa</option>
-    <option value="San Marino">San Marino</option>
-    <option value="Sao Tome and Principe">Sao Tome and Principe</option>
-    <option value="Saudi Arabia">Saudi Arabia</option>
-    <option value="Senegal">Senegal</option>
-    <option value="Serbia">Serbia</option>
-    <option value="Seychelles">Seychelles</option>
-    <option value="Sierra Leone">Sierra Leone</option>
-    <option value="Singapore">Singapore</option>
-    <option value="Slovakia">Slovakia</option>
-    <option value="Slovenia">Slovenia</option>
-    <option value="Solomon Islands">Solomon Islands</option>
-    <option value="Somalia">Somalia</option>
-    <option value="South Africa">South Africa</option>
-    <option value="South Georgia and The South Sandwich Islands">South Georgia and The South Sandwich Islands</option>
-    <option value="South Sudan">South Sudan</option>
-    <option value="Spain">Spain</option>
-    <option value="Sri Lanka">Sri Lanka</option>
-    <option value="Sudan">Sudan</option>
-    <option value="Suriname">Suriname</option>
-    <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
-    <option value="Swaziland">Swaziland</option>
-    <option value="Sweden">Sweden</option>
-    <option value="Switzerland">Switzerland</option>
-    <option value="Syrian Arab Republic">Syrian Arab Republic</option>
-    <option value="Taiwan, Republic of China">Taiwan, Republic of China</option>
-    <option value="Tajikistan">Tajikistan</option>
-    <option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
-    <option value="Thailand">Thailand</option>
-    <option value="Timor-leste">Timor-leste</option>
-    <option value="Togo">Togo</option>
-    <option value="Tokelau">Tokelau</option>
-    <option value="Tonga">Tonga</option>
-    <option value="Trinidad and Tobago">Trinidad and Tobago</option>
-    <option value="Tunisia">Tunisia</option>
-    <option value="Turkey">Turkey</option>
-    <option value="Turkmenistan">Turkmenistan</option>
-    <option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
-    <option value="Tuvalu">Tuvalu</option>
-    <option value="Uganda">Uganda</option>
-    <option value="Ukraine">Ukraine</option>
-    <option value="United Arab Emirates">United Arab Emirates</option>
-    <option value="United Kingdom">United Kingdom</option>
-    <option value="United States">United States</option>
-    <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
-    <option value="Uruguay">Uruguay</option>
-    <option value="Uzbekistan">Uzbekistan</option>
-    <option value="Vanuatu">Vanuatu</option>
-    <option value="Venezuela">Venezuela</option>
-    <option value="Viet Nam">Viet Nam</option>
-    <option value="Virgin Islands, British">Virgin Islands, British</option>
-    <option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option>
-    <option value="Wallis and Futuna">Wallis and Futuna</option>
-    <option value="Western Sahara">Western Sahara</option>
-    <option value="Yemen">Yemen</option>
-    <option value="Zambia">Zambia</option>
-    <option value="Zimbabwe">Zimbabwe</option>
-    </select><div id="selF3M_chzn" class="chzn-container chzn-container-multi" style="width: 350px;"><ul class="chzn-choices"><li class="search-field"><input type="text" value="Choose a Country" class="default" autocomplete="off" style="width: 129px; " tabindex="4"></li></ul><div class="chzn-drop" style="width: 348px; left: -9000px; top: 29px; "><ul class="chzn-results"><li id="selF3M_chzn_o_1" class="active-result" style="">United States</li><li id="selF3M_chzn_o_2" class="active-result" style="">United Kingdom</li><li id="selF3M_chzn_o_3" class="active-result" style="">Afghanistan</li><li id="selF3M_chzn_o_4" class="active-result" style="">Albania</li><li id="selF3M_chzn_o_5" class="active-result" style="">Algeria</li><li id="selF3M_chzn_o_6" class="active-result" style="">American Samoa</li><li id="selF3M_chzn_o_7" class="active-result" style="">Andorra</li><li id="selF3M_chzn_o_8" class="active-result" style="">Angola</li><li id="selF3M_chzn_o_9" class="active-result" style="">Anguilla</li><li id="selF3M_chzn_o_10" class="active-result" style="">Antarctica</li><li id="selF3M_chzn_o_11" class="active-result" style="">Antigua and Barbuda</li><li id="selF3M_chzn_o_12" class="active-result" style="">Argentina</li><li id="selF3M_chzn_o_13" class="active-result" style="">Armenia</li><li id="selF3M_chzn_o_14" class="active-result" style="">Aruba</li><li id="selF3M_chzn_o_15" class="active-result" style="">Australia</li><li id="selF3M_chzn_o_16" class="active-result" style="">Austria</li><li id="selF3M_chzn_o_17" class="active-result" style="">Azerbaijan</li><li id="selF3M_chzn_o_18" class="active-result" style="">Bahamas</li><li id="selF3M_chzn_o_19" class="active-result" style="">Bahrain</li><li id="selF3M_chzn_o_20" class="active-result" style="">Bangladesh</li><li id="selF3M_chzn_o_21" class="active-result" style="">Barbados</li><li id="selF3M_chzn_o_22" class="active-result" style="">Belarus</li><li id="selF3M_chzn_o_23" class="active-result" style="">Belgium</li><li id="selF3M_chzn_o_24" class="active-result" style="">Belize</li><li id="selF3M_chzn_o_25" class="active-result" style="">Benin</li><li id="selF3M_chzn_o_26" class="active-result" style="">Bermuda</li><li id="selF3M_chzn_o_27" class="active-result" style="">Bhutan</li><li id="selF3M_chzn_o_28" class="active-result" style="">Bolivia</li><li id="selF3M_chzn_o_29" class="active-result" style="">Bosnia and Herzegovina</li><li id="selF3M_chzn_o_30" class="active-result" style="">Botswana</li><li id="selF3M_chzn_o_31" class="active-result" style="">Bouvet Island</li><li id="selF3M_chzn_o_32" class="active-result" style="">Brazil</li><li id="selF3M_chzn_o_33" class="active-result" style="">British Indian Ocean Territory</li><li id="selF3M_chzn_o_34" class="active-result" style="">Brunei Darussalam</li><li id="selF3M_chzn_o_35" class="active-result" style="">Bulgaria</li><li id="selF3M_chzn_o_36" class="active-result" style="">Burkina Faso</li><li id="selF3M_chzn_o_37" class="active-result" style="">Burundi</li><li id="selF3M_chzn_o_38" class="active-result" style="">Cambodia</li><li id="selF3M_chzn_o_39" class="active-result" style="">Cameroon</li><li id="selF3M_chzn_o_40" class="active-result" style="">Canada</li><li id="selF3M_chzn_o_41" class="active-result" style="">Cape Verde</li><li id="selF3M_chzn_o_42" class="active-result" style="">Cayman Islands</li><li id="selF3M_chzn_o_43" class="active-result" style="">Central African Republic</li><li id="selF3M_chzn_o_44" class="active-result" style="">Chad</li><li id="selF3M_chzn_o_45" class="active-result" style="">Chile</li><li id="selF3M_chzn_o_46" class="active-result" style="">China</li><li id="selF3M_chzn_o_47" class="active-result" style="">Christmas Island</li><li id="selF3M_chzn_o_48" class="active-result" style="">Cocos (Keeling) Islands</li><li id="selF3M_chzn_o_49" class="active-result" style="">Colombia</li><li id="selF3M_chzn_o_50" class="active-result" style="">Comoros</li><li id="selF3M_chzn_o_51" class="active-result" style="">Congo</li><li id="selF3M_chzn_o_52" class="active-result" style="">Congo, The Democratic Republic of The</li><li id="selF3M_chzn_o_53" class="active-result" style="">Cook Islands</li><li id="selF3M_chzn_o_54" class="active-result" style="">Costa Rica</li><li id="selF3M_chzn_o_55" class="active-result" style="">Cote D'ivoire</li><li id="selF3M_chzn_o_56" class="active-result" style="">Croatia</li><li id="selF3M_chzn_o_57" class="active-result" style="">Cuba</li><li id="selF3M_chzn_o_58" class="active-result" style="">Cyprus</li><li id="selF3M_chzn_o_59" class="active-result" style="">Czech Republic</li><li id="selF3M_chzn_o_60" class="active-result" style="">Denmark</li><li id="selF3M_chzn_o_61" class="active-result" style="">Djibouti</li><li id="selF3M_chzn_o_62" class="active-result" style="">Dominica</li><li id="selF3M_chzn_o_63" class="active-result" style="">Dominican Republic</li><li id="selF3M_chzn_o_64" class="active-result" style="">Ecuador</li><li id="selF3M_chzn_o_65" class="active-result" style="">Egypt</li><li id="selF3M_chzn_o_66" class="active-result" style="">El Salvador</li><li id="selF3M_chzn_o_67" class="active-result" style="">Equatorial Guinea</li><li id="selF3M_chzn_o_68" class="active-result" style="">Eritrea</li><li id="selF3M_chzn_o_69" class="active-result" style="">Estonia</li><li id="selF3M_chzn_o_70" class="active-result" style="">Ethiopia</li><li id="selF3M_chzn_o_71" class="active-result" style="">Falkland Islands (Malvinas)</li><li id="selF3M_chzn_o_72" class="active-result" style="">Faroe Islands</li><li id="selF3M_chzn_o_73" class="active-result" style="">Fiji</li><li id="selF3M_chzn_o_74" class="active-result" style="">Finland</li><li id="selF3M_chzn_o_75" class="active-result" style="">France</li><li id="selF3M_chzn_o_76" class="active-result" style="">French Guiana</li><li id="selF3M_chzn_o_77" class="active-result" style="">French Polynesia</li><li id="selF3M_chzn_o_78" class="active-result" style="">French Southern Territories</li><li id="selF3M_chzn_o_79" class="active-result" style="">Gabon</li><li id="selF3M_chzn_o_80" class="active-result" style="">Gambia</li><li id="selF3M_chzn_o_81" class="active-result" style="">Georgia</li><li id="selF3M_chzn_o_82" class="active-result" style="">Germany</li><li id="selF3M_chzn_o_83" class="active-result" style="">Ghana</li><li id="selF3M_chzn_o_84" class="active-result" style="">Gibraltar</li><li id="selF3M_chzn_o_85" class="active-result" style="">Greece</li><li id="selF3M_chzn_o_86" class="active-result" style="">Greenland</li><li id="selF3M_chzn_o_87" class="active-result" style="">Grenada</li><li id="selF3M_chzn_o_88" class="active-result" style="">Guadeloupe</li><li id="selF3M_chzn_o_89" class="active-result" style="">Guam</li><li id="selF3M_chzn_o_90" class="active-result" style="">Guatemala</li><li id="selF3M_chzn_o_91" class="active-result" style="">Guinea</li><li id="selF3M_chzn_o_92" class="active-result" style="">Guinea-bissau</li><li id="selF3M_chzn_o_93" class="active-result" style="">Guyana</li><li id="selF3M_chzn_o_94" class="active-result" style="">Haiti</li><li id="selF3M_chzn_o_95" class="active-result" style="">Heard Island and Mcdonald Islands</li><li id="selF3M_chzn_o_96" class="active-result" style="">Holy See (Vatican City State)</li><li id="selF3M_chzn_o_97" class="active-result" style="">Honduras</li><li id="selF3M_chzn_o_98" class="active-result" style="">Hong Kong</li><li id="selF3M_chzn_o_99" class="active-result" style="">Hungary</li><li id="selF3M_chzn_o_100" class="active-result" style="">Iceland</li><li id="selF3M_chzn_o_101" class="active-result" style="">India</li><li id="selF3M_chzn_o_102" class="active-result" style="">Indonesia</li><li id="selF3M_chzn_o_103" class="active-result" style="">Iran, Islamic Republic of</li><li id="selF3M_chzn_o_104" class="active-result" style="">Iraq</li><li id="selF3M_chzn_o_105" class="active-result" style="">Ireland</li><li id="selF3M_chzn_o_106" class="active-result" style="">Israel</li><li id="selF3M_chzn_o_107" class="active-result" style="">Italy</li><li id="selF3M_chzn_o_108" class="active-result" style="">Jamaica</li><li id="selF3M_chzn_o_109" class="active-result" style="">Japan</li><li id="selF3M_chzn_o_110" class="active-result" style="">Jordan</li><li id="selF3M_chzn_o_111" class="active-result" style="">Kazakhstan</li><li id="selF3M_chzn_o_112" class="active-result" style="">Kenya</li><li id="selF3M_chzn_o_113" class="active-result" style="">Kiribati</li><li id="selF3M_chzn_o_114" class="active-result" style="">Korea, Democratic People's Republic of</li><li id="selF3M_chzn_o_115" class="active-result" style="">Korea, Republic of</li><li id="selF3M_chzn_o_116" class="active-result" style="">Kuwait</li><li id="selF3M_chzn_o_117" class="active-result" style="">Kyrgyzstan</li><li id="selF3M_chzn_o_118" class="active-result" style="">Lao People's Democratic Republic</li><li id="selF3M_chzn_o_119" class="active-result" style="">Latvia</li><li id="selF3M_chzn_o_120" class="active-result" style="">Lebanon</li><li id="selF3M_chzn_o_121" class="active-result" style="">Lesotho</li><li id="selF3M_chzn_o_122" class="active-result" style="">Liberia</li><li id="selF3M_chzn_o_123" class="active-result" style="">Libyan Arab Jamahiriya</li><li id="selF3M_chzn_o_124" class="active-result" style="">Liechtenstein</li><li id="selF3M_chzn_o_125" class="active-result" style="">Lithuania</li><li id="selF3M_chzn_o_126" class="active-result" style="">Luxembourg</li><li id="selF3M_chzn_o_127" class="active-result" style="">Macao</li><li id="selF3M_chzn_o_128" class="active-result" style="">Macedonia, The Former Yugoslav Republic of</li><li id="selF3M_chzn_o_129" class="active-result" style="">Madagascar</li><li id="selF3M_chzn_o_130" class="active-result" style="">Malawi</li><li id="selF3M_chzn_o_131" class="active-result" style="">Malaysia</li><li id="selF3M_chzn_o_132" class="active-result" style="">Maldives</li><li id="selF3M_chzn_o_133" class="active-result" style="">Mali</li><li id="selF3M_chzn_o_134" class="active-result" style="">Malta</li><li id="selF3M_chzn_o_135" class="active-result" style="">Marshall Islands</li><li id="selF3M_chzn_o_136" class="active-result" style="">Martinique</li><li id="selF3M_chzn_o_137" class="active-result" style="">Mauritania</li><li id="selF3M_chzn_o_138" class="active-result" style="">Mauritius</li><li id="selF3M_chzn_o_139" class="active-result" style="">Mayotte</li><li id="selF3M_chzn_o_140" class="active-result" style="">Mexico</li><li id="selF3M_chzn_o_141" class="active-result" style="">Micronesia, Federated States of</li><li id="selF3M_chzn_o_142" class="active-result" style="">Moldova, Republic of</li><li id="selF3M_chzn_o_143" class="active-result" style="">Monaco</li><li id="selF3M_chzn_o_144" class="active-result" style="">Mongolia</li><li id="selF3M_chzn_o_145" class="active-result" style="">Montenegro</li><li id="selF3M_chzn_o_146" class="active-result" style="">Montserrat</li><li id="selF3M_chzn_o_147" class="active-result" style="">Morocco</li><li id="selF3M_chzn_o_148" class="active-result" style="">Mozambique</li><li id="selF3M_chzn_o_149" class="active-result" style="">Myanmar</li><li id="selF3M_chzn_o_150" class="active-result" style="">Namibia</li><li id="selF3M_chzn_o_151" class="active-result" style="">Nauru</li><li id="selF3M_chzn_o_152" class="active-result" style="">Nepal</li><li id="selF3M_chzn_o_153" class="active-result" style="">Netherlands</li><li id="selF3M_chzn_o_154" class="active-result" style="">Netherlands Antilles</li><li id="selF3M_chzn_o_155" class="active-result" style="">New Caledonia</li><li id="selF3M_chzn_o_156" class="active-result" style="">New Zealand</li><li id="selF3M_chzn_o_157" class="active-result" style="">Nicaragua</li><li id="selF3M_chzn_o_158" class="active-result" style="">Niger</li><li id="selF3M_chzn_o_159" class="active-result" style="">Nigeria</li><li id="selF3M_chzn_o_160" class="active-result" style="">Niue</li><li id="selF3M_chzn_o_161" class="active-result" style="">Norfolk Island</li><li id="selF3M_chzn_o_162" class="active-result" style="">Northern Mariana Islands</li><li id="selF3M_chzn_o_163" class="active-result" style="">Norway</li><li id="selF3M_chzn_o_164" class="active-result" style="">Oman</li><li id="selF3M_chzn_o_165" class="active-result" style="">Pakistan</li><li id="selF3M_chzn_o_166" class="active-result" style="">Palau</li><li id="selF3M_chzn_o_167" class="active-result" style="">Palestinian Territory, Occupied</li><li id="selF3M_chzn_o_168" class="active-result" style="">Panama</li><li id="selF3M_chzn_o_169" class="active-result" style="">Papua New Guinea</li><li id="selF3M_chzn_o_170" class="active-result" style="">Paraguay</li><li id="selF3M_chzn_o_171" class="active-result" style="">Peru</li><li id="selF3M_chzn_o_172" class="active-result" style="">Philippines</li><li id="selF3M_chzn_o_173" class="active-result" style="">Pitcairn</li><li id="selF3M_chzn_o_174" class="active-result" style="">Poland</li><li id="selF3M_chzn_o_175" class="active-result" style="">Portugal</li><li id="selF3M_chzn_o_176" class="active-result" style="">Puerto Rico</li><li id="selF3M_chzn_o_177" class="active-result" style="">Qatar</li><li id="selF3M_chzn_o_178" class="active-result" style="">Reunion</li><li id="selF3M_chzn_o_179" class="active-result" style="">Romania</li><li id="selF3M_chzn_o_180" class="active-result" style="">Russian Federation</li><li id="selF3M_chzn_o_181" class="active-result" style="">Rwanda</li><li id="selF3M_chzn_o_182" class="active-result" style="">Saint Helena</li><li id="selF3M_chzn_o_183" class="active-result" style="">Saint Kitts and Nevis</li><li id="selF3M_chzn_o_184" class="active-result" style="">Saint Lucia</li><li id="selF3M_chzn_o_185" class="active-result" style="">Saint Pierre and Miquelon</li><li id="selF3M_chzn_o_186" class="active-result" style="">Saint Vincent and The Grenadines</li><li id="selF3M_chzn_o_187" class="active-result" style="">Samoa</li><li id="selF3M_chzn_o_188" class="active-result" style="">San Marino</li><li id="selF3M_chzn_o_189" class="active-result" style="">Sao Tome and Principe</li><li id="selF3M_chzn_o_190" class="active-result" style="">Saudi Arabia</li><li id="selF3M_chzn_o_191" class="active-result" style="">Senegal</li><li id="selF3M_chzn_o_192" class="active-result" style="">Serbia</li><li id="selF3M_chzn_o_193" class="active-result" style="">Seychelles</li><li id="selF3M_chzn_o_194" class="active-result" style="">Sierra Leone</li><li id="selF3M_chzn_o_195" class="active-result" style="">Singapore</li><li id="selF3M_chzn_o_196" class="active-result" style="">Slovakia</li><li id="selF3M_chzn_o_197" class="active-result" style="">Slovenia</li><li id="selF3M_chzn_o_198" class="active-result" style="">Solomon Islands</li><li id="selF3M_chzn_o_199" class="active-result" style="">Somalia</li><li id="selF3M_chzn_o_200" class="active-result" style="">South Africa</li><li id="selF3M_chzn_o_201" class="active-result" style="">South Georgia and The South Sandwich Islands</li><li id="selF3M_chzn_o_202" class="active-result" style="">South Sudan</li><li id="selF3M_chzn_o_203" class="active-result" style="">Spain</li><li id="selF3M_chzn_o_204" class="active-result" style="">Sri Lanka</li><li id="selF3M_chzn_o_205" class="active-result" style="">Sudan</li><li id="selF3M_chzn_o_206" class="active-result" style="">Suriname</li><li id="selF3M_chzn_o_207" class="active-result" style="">Svalbard and Jan Mayen</li><li id="selF3M_chzn_o_208" class="active-result" style="">Swaziland</li><li id="selF3M_chzn_o_209" class="active-result" style="">Sweden</li><li id="selF3M_chzn_o_210" class="active-result" style="">Switzerland</li><li id="selF3M_chzn_o_211" class="active-result" style="">Syrian Arab Republic</li><li id="selF3M_chzn_o_212" class="active-result" style="">Taiwan, Republic of China</li><li id="selF3M_chzn_o_213" class="active-result" style="">Tajikistan</li><li id="selF3M_chzn_o_214" class="active-result" style="">Tanzania, United Republic of</li><li id="selF3M_chzn_o_215" class="active-result" style="">Thailand</li><li id="selF3M_chzn_o_216" class="active-result" style="">Timor-leste</li><li id="selF3M_chzn_o_217" class="active-result" style="">Togo</li><li id="selF3M_chzn_o_218" class="active-result" style="">Tokelau</li><li id="selF3M_chzn_o_219" class="active-result" style="">Tonga</li><li id="selF3M_chzn_o_220" class="active-result" style="">Trinidad and Tobago</li><li id="selF3M_chzn_o_221" class="active-result" style="">Tunisia</li><li id="selF3M_chzn_o_222" class="active-result" style="">Turkey</li><li id="selF3M_chzn_o_223" class="active-result" style="">Turkmenistan</li><li id="selF3M_chzn_o_224" class="active-result" style="">Turks and Caicos Islands</li><li id="selF3M_chzn_o_225" class="active-result" style="">Tuvalu</li><li id="selF3M_chzn_o_226" class="active-result" style="">Uganda</li><li id="selF3M_chzn_o_227" class="active-result" style="">Ukraine</li><li id="selF3M_chzn_o_228" class="active-result" style="">United Arab Emirates</li><li id="selF3M_chzn_o_229" class="active-result" style="">United Kingdom</li><li id="selF3M_chzn_o_230" class="active-result" style="">United States</li><li id="selF3M_chzn_o_231" class="active-result" style="">United States Minor Outlying Islands</li><li id="selF3M_chzn_o_232" class="active-result" style="">Uruguay</li><li id="selF3M_chzn_o_233" class="active-result" style="">Uzbekistan</li><li id="selF3M_chzn_o_234" class="active-result" style="">Vanuatu</li><li id="selF3M_chzn_o_235" class="active-result" style="">Venezuela</li><li id="selF3M_chzn_o_236" class="active-result" style="">Viet Nam</li><li id="selF3M_chzn_o_237" class="active-result" style="">Virgin Islands, British</li><li id="selF3M_chzn_o_238" class="active-result" style="">Virgin Islands, U.S.</li><li id="selF3M_chzn_o_239" class="active-result" style="">Wallis and Futuna</li><li id="selF3M_chzn_o_240" class="active-result" style="">Western Sahara</li><li id="selF3M_chzn_o_241" class="active-result" style="">Yemen</li><li id="selF3M_chzn_o_242" class="active-result" style="">Zambia</li><li id="selF3M_chzn_o_243" class="active-result" style="">Zimbabwe</li></ul></div></div>
-    </div>
 {% endblock %}

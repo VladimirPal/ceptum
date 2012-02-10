@@ -27,7 +27,7 @@ def auth(request):
         user = authenticate(username=username, password=password)
         if user is not None and user.is_active:
             login(request, user)
-            return HttpResponseRedirect("/myadmin/sales/")
+            return HttpResponseRedirect(request.GET['next'])
         else:
             error = True
     return render_to_response("myadmin/auth.html", locals(), context_instance=RequestContext(request))
@@ -107,14 +107,14 @@ def add_client(request):
             formset = CartProductFormset(request.POST, instance=cart)
             if formset.is_valid():
                 # Обновляю количество товара на складе
-                for formitem in formset.cleaned_data:
-                    if formitem:
-                        product_name = formitem['product']
-                        quantity = formitem['quantity']
-                        product = Product.objects.get(name=product_name)
-                        true_quantity = product.quantity - quantity
-                        product.quantity = true_quantity
-                        product.save()
+           #     for formitem in formset.cleaned_data:
+           #         if formitem:
+           #             product_name = formitem['product']
+           #             quantity = formitem['quantity']
+           #             product = Product.objects.get(name=product_name)
+           #             true_quantity = product.quantity - quantity
+           #             product.quantity = true_quantity
+           #             product.save()
                 formset.save()
                 # Высчитываю сумму и скидку
                 subtotal(cart.id)
@@ -163,14 +163,14 @@ def copy_client(request, id):
             formset = CartProductFormset(request.POST, instance=cart)
             if formset.is_valid():
                 # Обновляю количество товара на складе
-                for formitem in formset.cleaned_data:
-                    if formitem:
-                        product_name = formitem['product']
-                        quantity = formitem['quantity']
-                        product = Product.objects.get(name=product_name)
-                        true_quantity = product.quantity - quantity
-                        product.quantity = true_quantity
-                        product.save()
+          #      for formitem in formset.cleaned_data:
+          #          if formitem:
+          #              product_name = formitem['product']
+          #              quantity = formitem['quantity']
+          #              product = Product.objects.get(name=product_name)
+          #              true_quantity = product.quantity - quantity
+          #              product.quantity = true_quantity
+          #              product.save()
                 formset.save()
                 # Высчитываю сумму и скидку
                 subtotal(cart.id)
@@ -237,7 +237,12 @@ def edit_client(request, id):
 
 @login_required
 def store(request):
-    products = Product.objects.filter(quantity__gt=0)
+    sections = Section.objects.all().exclude(slug="cctv-komplekt")
+    if request.method == "POST":
+        category_select = Category.objects.filter(id__in = request.POST.getlist("category_select"))
+        products = Product.objects.filter(category__in = category_select)
+        return render_to_response("myadmin/store/store.html", locals(), context_instance=RequestContext(request))
+    products = Product.objects.filter(quantity__gt=0).exclude(slug="cctv-komplekt")
     return render_to_response("myadmin/store/store.html", locals(), context_instance=RequestContext(request))
 
 @login_required
@@ -251,7 +256,7 @@ def allstore(request):
     return render_to_response("myadmin/store/store.html", locals(), context_instance=RequestContext(request))
 
 @login_required
-def filterstore(request, category_slug):
+def filterstore(request):
     try:
         category = Category.objects.get(slug=category_slug)
         products = category.product_set.all().order_by('categoryproduct__position')
