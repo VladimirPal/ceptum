@@ -242,7 +242,8 @@ def store(request):
         category_select = Category.objects.filter(id__in = request.POST.getlist("category_select"))
         products = Product.objects.filter(category__in = category_select)
         return render_to_response("myadmin/store/store.html", locals(), context_instance=RequestContext(request))
-    products = Product.objects.filter(quantity__gt=0).exclude(slug="cctv-komplekt")
+    #products = Product.objects.filter(quantity__gt=0).exclude(slug="cctv-komplekt")
+    products = Product.objects.exclude(slug="cctv-komplekt")
     return render_to_response("myadmin/store/store.html", locals(), context_instance=RequestContext(request))
 
 @login_required
@@ -256,18 +257,6 @@ def allstore(request):
     return render_to_response("myadmin/store/store.html", locals(), context_instance=RequestContext(request))
 
 @login_required
-def filterstore(request):
-    try:
-        category = Category.objects.get(slug=category_slug)
-        products = category.product_set.all().order_by('categoryproduct__position')
-    except :
-        section = get_object_or_404(Section, slug=category_slug)
-        category = section.category_set.all()
-        products = []
-        for cat in category:
-            products += cat.product_set.all().order_by('categoryproduct__position')
-    return render_to_response("myadmin/store/store.html", locals(), context_instance=RequestContext(request))
-
 def change_product_field(request):
     if request.method == 'POST':
         product = Product.objects.get(id=request.POST['id'])
