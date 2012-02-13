@@ -268,6 +268,18 @@ def filterstore(request):
             products += cat.product_set.all().order_by('categoryproduct__position')
     return render_to_response("myadmin/store/store.html", locals(), context_instance=RequestContext(request))
 
+def change_product_field(request):
+    if request.method == 'POST':
+        product = Product.objects.get(id=request.POST['id'])
+        if request.POST['field'] == 'quantity':
+            product.quantity = request.POST['val']
+        elif request.POST['field'] == 'price':
+            product.price = request.POST['val']
+        elif request.POST['field'] == 'wholesale_price':
+            product.wholesale_price = request.POST['val']
+        product.save()
+        return HttpResponse(status=200)
+
 @login_required
 def cash(request, when):
     balance = Balance.objects.get(id=1)

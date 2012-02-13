@@ -57,7 +57,7 @@ $(function(){
 
 	function saveChanges(productId, fieldName) {
 		fieldValue = parseFloat($('#' + fieldName + '-' + productId).html());
-		//$.post("url", { id: productId, field: fieldName, val: fieldValue } );
+		$.post("/myadmin/change_product_field/", { id: productId, field: fieldName, val: fieldValue } );
 	}
 })
 </script>
@@ -83,7 +83,7 @@ $(function(){
 		{% for product in products %}
 		<tr class="clientinfo">
 			<td class="bottomborder rightborder" width="400">
-				{{ product.name }}
+				<a href="/admin/catalog/product/{{ product.id }}/" target="_blank">{{ product.name }}</a>
 			</td>
 	        <td class="quantity bottomborder rightborder textcenter" id="quantity-{{ product.id }}" width="95">
 	            {{ product.quantity }}
@@ -94,7 +94,9 @@ $(function(){
 	        <td class="bottomborder rightborder textcenter" id="wholesale_price-{{ product.id }}" width="120">
 	            {{ product.wholesale_price|floatformat }}
 	        </td>
-	        <td class="bottomborder textcenter" id="profit-{{ product.id }}" width="120"></td>
+	        <td class="bottomborder textcenter" id="profit-{{ product.id }}" width="120">
+            {% profit product.id %}
+            </td>
 		</tr>
 		{% endfor %}
 	</table>
