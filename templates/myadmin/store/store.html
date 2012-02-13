@@ -2,6 +2,8 @@
 {% block site_wrapper %}
 {% load myadmin_tags %}
 	{% menu request %}
+	
+	<div style="width: 450px; margin: 2em auto 0">
     <form action="/myadmin/store/" method="POST">{% csrf_token %}
         <select name="category_select" data-placeholder="Выберите категорию товара" style="width:350px;" class="chzn-select" multiple tabindex="6">
             <option value=""></option>
@@ -13,41 +15,88 @@
             </optgroup>
             {% endfor %}
         </select>
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" style="position: relative; top: -10px;" />
     {% if category_select %}
         Выбранные категории: {% for category in category_select %} {{ category.name }}{% if forloop.last %}.{% else %},{% endif %}{% endfor %}
     {% endif %}
 
     </form>
+	</div>
+
+<script>
+$(function(){
+	$("[id^=quantity], [id^=price], [id^=wholesale_price]").click(function(){
+		if ($(this).find('input').length != 0) return;
+
+		var input = $("<input type='text' id='editor'>");
+		input.val($.trim($(this).html()));
+		$(this).html(input);
+		input.focus();
+	})
+
+	$('#editor').live('focusout', function(){
+		fieldName = $(this).parents('td').attr('id').split('-')[0];
+		productId = $(this).parents('td').attr('id').split('-')[1];
+		// input remove
+		$(this).parents('td').html($(this).val());
+
+		profit = profitCalc(productId);
+		$('#profit-' + productId).html(profit);
+
+		saveChanges(productId, fieldName);
+	})
+
+	function profitCalc(productId) {
+		wholesale_price = parseFloat($('#wholesale_price-' + productId).html());
+		price = parseFloat($('#price-' + productId).html());
+		quantity = parseFloat($('#quantity-' + productId).html());
+		
+		profit = (price - wholesale_price).toFixed(2) * quantity;
+		return profit;
+	}
+
+	function saveChanges(productId, fieldName) {
+		fieldValue = parseFloat($('#' + fieldName + '-' + productId).html());
+		$.post("/myadmin/change_product_field/", { id: productId, field: fieldName, val: fieldValue } );
+	}
+})
+</script>
+
 	<table id="allsales" cellpadding="5px" cellspacing="0">
 		<tr style="background:#cccccc;" class="textcenter">
-			<td class="bottomborder rightborder">
+			<td class="bottomborder rightborder" width="400">
 				Наименование
 			</td>
-	        <td class="bottomborder rightborder">
+	        <td class="bottomborder rightborder" width="95">
 	            Количество
 	        </td>
-	        <td class="bottomborder rightborder">
+	        <td class="bottomborder rightborder" width="120">
 	            Розничная цена
 	        </td>
-			<td class="bottomborder">
+			<td class="bottomborder rightborder" width="120">
 				Цена закупки
 			</td>
-		<tr>
+			<td class="bottomborder" width="120">
+				Прибыль
+			</td>
+		</tr>
 		{% for product in products %}
 		<tr class="clientinfo">
-			<td class="bottomborder rightborder">
-				{{ product.name }}
+			<td class="bottomborder rightborder" width="400">
+				<a href="/admin/catalog/product/{{ product.id }}/" target="_blank">{{ product.name }}</a>
 			</td>
-	        <td class="bottomborder rightborder textcenter">
+	        <td class="quantity bottomborder rightborder textcenter" id="quantity-{{ product.id }}" width="95">
 	            {{ product.quantity }}
 	        </td>
-			<td class="bottomborder rightborder textcenter">
-	            {{ product.price }}
+			<td class="bottomborder rightborder textcenter" id="price-{{ product.id }}" width="120">
+	            {{ product.price|floatformat }}
 			</td>
-	        <td class="bottomborder textcenter">
-	            {{ product.wholesale_price }}
+	        <td class="bottomborder rightborder textcenter" id="wholesale_price-{{ product.id }}" width="120">
+	            {{ product.wholesale_price|floatformat }}
 	        </td>
+	        <td class="bottomborder textcenter" id="profit-{{ product.id }}" width="120">
+            {% profit product.id %}
+            </td>
 		</tr>
 		{% endfor %}
 	</table>

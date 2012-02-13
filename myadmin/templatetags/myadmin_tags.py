@@ -2,6 +2,7 @@
 from django import template
 from datetime import date
 from cart.models import Client, STATUS_CHOICES
+from catalog.models import Product
 from myadmin.models import Cash
 
 register = template.Library()
@@ -65,6 +66,11 @@ def status_count(status):
     else:
         status_with_count = status
     return status_with_count
+
+@register.simple_tag
+def profit(id):
+    product = Product.objects.get(id=id)
+    return int(product.price - product.wholesale_price)
 
 @register.inclusion_tag("myadmin/tags/select.html")
 def select(client):
