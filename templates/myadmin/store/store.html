@@ -49,9 +49,8 @@ $(function(){
 	function profitCalc(productId) {
 		wholesale_price = parseFloat($('#wholesale_price-' + productId).html());
 		price = parseFloat($('#price-' + productId).html());
-		quantity = parseFloat($('#quantity-' + productId).html());
-		
-		profit = (price - wholesale_price).toFixed(2) * quantity;
+
+		profit = price - wholesale_price;
 		return profit;
 	}
 
