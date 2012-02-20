@@ -17,7 +17,7 @@ def index(request):
      лист стоимость услуги в квартира офис школа помещение"""
     meta_description = """Все для Видеонаблюдения - установка и монтаж систем видеонаблюдени.
      Продажа видеокамер, видеорегистраторов и аксессуаров по доступным ценам"""
-    sections = Section.objects.all()
+    sections = Section.objects.filter(is_active=True)
     return render_to_response("main/index.html", locals(), context_instance=RequestContext(request))
 
 def cats(request):
