@@ -11,14 +11,14 @@
         {% for section in sections %}
    				{% if not section.category_set.all.0.name == section.name %}
    						{% if section.slug == product.category.all.0.section.slug %}
-                            <li class="active"> <span>{{ section.name }}</span>
+                            <li class="active"> <a href="{{ section.get_absolute_url }}" title="">{{ section.name }}</a>
                         {% else %}
                             <li> <a href="{{ section.get_absolute_url }}" title="">{{ section.name }}</a>
                         {% endif %}
    						<ul>
                     {% for category in section.category_set.all %}
                          {% if category.slug == product.category.all.0.slug %}
-                            <li class="active"><span>{{ category.name }}</span></li>
+                            <li class="active"><a href="{{ category.get_absolute_url }}" title="">{{ category.name }}</a></li>
                          {% else %}
                             <li><a href="{{ category.get_absolute_url }}" title="">{{ category.name }}</a></li>
                          {% endif %}
@@ -26,7 +26,7 @@
        					</ul>
 				{% else %}
                     {% if section.slug == product.category.all.0.section.slug %}
-                        <li class="active"> <span>{{ section.category_set.all.0.name }}</span></li>
+                        <li class="active"> <a href="{{ section.category_set.all.0.get_absolute_url }}" title="">{{ section.category_set.all.0.name }}</a></li>
                     {% else %}
                         <li> <a href="{{ section.category_set.all.0.get_absolute_url }}" title="">{{ section.category_set.all.0.name }}</a></li>
                     {% endif %}
