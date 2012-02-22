@@ -1,6 +1,7 @@
           # -*- coding: utf-8 -*-
 import re
 from django.db.models.query_utils import Q
+from django.views.decorators.cache import cache_page
 from django.shortcuts import get_object_or_404, render_to_response
 from django.core import urlresolvers
 from django.template import RequestContext
@@ -11,6 +12,7 @@ import threading
 from django.core.mail import send_mail
 from cart import settings
 
+@cache_page(60 * 15)
 def index(request):
     page_title = u'Монтаж видеонаблюдения, установка видеонаблюдения - Цептум. Москва'
     meta_keywords = """установка систем видеонаблюдения монтаж камер лицензия сигнализация прайс
