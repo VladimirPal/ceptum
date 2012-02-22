@@ -122,7 +122,7 @@ def show_product(request, product_slug):
     page_title = u'%s - Цептум' % product.name
     meta_keywords = page_title
     meta_description = "%s - %s" % (page_title, product.mini_html_description)
-    sections = Section.objects.all()
+    sections = Section.objects.filter(is_active=True)
     return render_to_response("main/tovar.html", locals(), context_instance=RequestContext(request))
 
 def all_goods(request):
