@@ -36,4 +36,6 @@ def category(request, category_slug):
 def project(request, entry_slug):
     project = Project.objects.get(slug=entry_slug)
     page_title = project.name
+    meta_keywords = project.meta_keywords
+    meta_description = project.meta_description
     return render_to_response("projects/project.html", locals(), context_instance=RequestContext(request))
