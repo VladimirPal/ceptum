@@ -12,6 +12,7 @@ import threading
 from django.core.mail import send_mail
 from cart import settings
 
+@cache_page(60 * 15)
 def index(request):
     page_title = u'Монтаж видеонаблюдения, установка видеонаблюдения - Цептум. Москва'
     meta_keywords = """установка систем видеонаблюдения монтаж камер лицензия сигнализация прайс
