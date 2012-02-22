@@ -16,7 +16,54 @@
         <strong>Наши специалисты установят и настроят все необходимое оборудование в самые кратчайшие сроки.</strong>
         Перед монтажом специалист прибудет к Вам для составления проекта с указанием необходимого оборудования и конечной стоимости.<br><br>
 
-        <center><strong>Честны перед вами, как перед собой!</strong></center>
+        <center><strong>Честны перед вами, как перед собой!</strong></center><br>
+
+        <h2>Контакты:</h2>
+        Телефон: <strong>+7(495) 565-37-70</strong><br>
+        Email: <strong>info@ceptum.ru</strong><br>
+        Skype: <strong>bizzzmaker</strong><br>
+        Адрес: <strong>Москва, ул Новая площадь дом 8к1. Заходите в гости;)</strong><br>
+
+        <script src="http://api-maps.yandex.ru/1.1/?key=ADXuRE8BAAAADp3XQgIBr9gMQcy4Qsq4boW0DvRwIRLRoOgAAAAAAAAAAAClKSiqiwtFhPcB4qZ85iI33jpQgg==&modules=pmap&wizard=constructor" type="text/javascript"></script>
+        <script type="text/javascript">
+            YMaps.jQuery(window).load(function () {
+                var map = new YMaps.Map(YMaps.jQuery("#YMapsID-3133")[0]);
+                map.setCenter(new YMaps.GeoPoint(37.626032,55.759325), 16, YMaps.MapType.MAP);
+                map.addControl(new YMaps.Zoom());
+                map.addControl(new YMaps.ToolBar());
+                YMaps.MapType.PMAP.getName = function () { return "Народная"; };
+                map.addControl(new YMaps.TypeControl([
+                    YMaps.MapType.MAP,
+                    YMaps.MapType.SATELLITE,
+                    YMaps.MapType.HYBRID,
+                    YMaps.MapType.PMAP
+                ], [0, 1, 2, 3]));
+
+                YMaps.Styles.add("constructor#pmgrmPlacemark", {
+                    iconStyle : {
+                        href : "http://api-maps.yandex.ru/i/0.3/placemarks/pmgrm.png",
+                        size : new YMaps.Point(28,29),
+                        offset: new YMaps.Point(-8,-27)
+                    }
+                });
+
+                map.addOverlay(createObject("Placemark", new YMaps.GeoPoint(37.626718,55.758381), "constructor#pmgrmPlacemark", "Цептум"));
+
+                function createObject (type, point, style, description) {
+                    var allowObjects = ["Placemark", "Polyline", "Polygon"],
+                            index = YMaps.jQuery.inArray( type, allowObjects),
+                            constructor = allowObjects[(index == -1) ? 0 : index];
+                    description = description || "";
+
+                    var object = new YMaps[constructor](point, {style: style, hasBalloon : !!description});
+                    object.description = description;
+
+                    return object;
+                }
+            });
+        </script>
+
+        <div id="YMapsID-3133" style="width:450px;height:350px"></div>
 
         <h2>Реквизиты:</h2>
         ООО "ПНК"<br>
