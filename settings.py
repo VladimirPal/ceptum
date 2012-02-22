@@ -106,6 +106,8 @@ INSTALLED_APPS = (
     'cctvision.blog',
     'cctvision.projects',
     'filebrowser',
+    'south',
+    'raven.contrib.django',
 #    'tinymce',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
