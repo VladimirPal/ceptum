@@ -15,7 +15,7 @@
                             </div>
 							<div class="blog_post">
 								<h1 class="post_title">{{ project.name }}</h1>
-								<p class="date">{{ project.date }}</p>
+                                <p class="date">{{ project.date }} <a href="{{ project.category.all.0.get_absolute_url }}">{{ project.category.all.0 }}</a></p>
 								{{ project.entry|safe }}
 								<div class="clr"></div>
 								

@@ -1,3 +1,7 @@
 {% for cat in categories %}
-   <li><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+    {% if cat.get_absolute_url == request_path %}
+        <li class="active"><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+    {% else %}
+        <li><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+    {% endif %}
 {% endfor %}

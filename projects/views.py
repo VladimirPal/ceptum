@@ -20,7 +20,7 @@ def all_projects(request):
 
 def category(request, category_slug):
     category = Category.objects.get(slug=category_slug)
-    projects = Project.objects.filter(category=category)
+    projects = Project.objects.filter(category=category).order_by("-date")
     try:
         page = int(request.GET.get('page', '1'))
     except ValueError:

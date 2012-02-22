@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 {% load projects_category %}
 {% load catalog_filters %}
@@ -10,7 +9,7 @@
 <div class="blog_side alignleft">
  <ul>
 		<h6>Категории</h6>
-			{% category %}
+			{% category request %}
 	</ul>
 						        {% if projects.has_previous %}
 						            <a href="?page={{ projects.previous_page_number }}">Сюда</a>
@@ -20,7 +19,7 @@
 								    {% for project in projects.object_list %}
 								<div class="odna_nov">
 								    <a href="{{ project.get_absolute_url }}" class="post_title"><h1>{{ project.name }}</h1></a>
-								    <p class="date">{{ project.date }}</p>
+								    <p class="date">{{ project.date }} <a href="{{ project.category.all.0.get_absolute_url }}">{{ project.category.all.0 }}</a></p>
 								    {{ project.thumbnail_entry|safe }}
 									<div class="clr"></div>
 								</div>
