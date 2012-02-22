@@ -22,8 +22,6 @@ class Project(models.Model):
     date = models.DateField()
     entry = models.TextField()
     thumbnail_entry = models.TextField()
-    meta_keywords = models.CharField(max_length=300, blank=True, null=True)
-    meta_description = models.CharField(max_length=300, blank=True, null=True)
 
     def __unicode__(self):
         return self.name
