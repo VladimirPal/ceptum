@@ -1,3 +1,4 @@
+{% load cache %}
 <!doctype html>
 <html lang="ru">
 <head>
@@ -175,6 +176,7 @@
 <![endif]-->
 {% load catalog_filters %}
 {% load cart_filters  %}
+{% cache 1000 call_block %}
 	<div id="call_block">
 		<div id="call_form">
 			<a class="close"></a>
@@ -200,7 +202,9 @@
 			</form>
 		</div>
 	</div>
+{% endcache %}
 	<div id="wrapper">
+        {% cache 1000 contacts %}
 		<header>
 			<div id="contacts">
 				<p class="call"><a href="#">Перезвонить</a></p>
@@ -223,6 +227,7 @@
 				</div>
 			</div>
 		</header>
+        {% endcache %}
 		<div id="main">
 			<div id="head_menu">
 				<ul class="menu">
@@ -273,11 +278,13 @@
 		    	</div>
 	    	</div>
     	</div>
-    
+
+        {% cache 1000 footer %}
 		<footer>
 			<p>&copy; ceptum.ru, 2011&#150;2012</p>
 			<p><a href="http://yula-group.ru">Продвижение сайта</a> &laquo;Юла групп&raquo;</p>
 		</footer>
+        {% endcache %}
 	</div>
 </body>
 </html>
