@@ -1,12 +1,14 @@
 {% extends "base.html" %}
+{% load cache %}
 {% load catalog_filters %}
 {% load cart_filters  %}
 {% block site_wrapper %}
 {% category_list request %}
+{% cache 1000 content_block  %}
 <div id="content_block" class="alignleft clearfix">
         <div id="content">
 		<div id="Breadcrumbs">
-                <a href="/">Главная</a> {% if section %}»&nbsp;{{ section.name }}{% else %}{% if not category.section.slug == category.slug %}»&nbsp;<a href="/cats/{{ category.section.slug }}">{{ category.section.name }}</a>{% endif %} »&nbsp;{{ category.name }} {% endif %}
+                <a href="/">Главная</a> »&nbsp; {{ section.name }}
 		</div>
 		<h1 id="page_title">{{ section.name }}</h1>
 		<div id="items" class="clearfix">
@@ -23,5 +25,6 @@
 		<div id="cont_discr" class="clearfix">
             {{ section.SEO_text|safe }}
 		</div>
+{% endcache %}
 {% endblock %}
 
