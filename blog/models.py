@@ -23,8 +23,6 @@ class Entry(models.Model):
     entry = models.TextField()
     thumbnail_entry = models.TextField()
     is_active = models.BooleanField(default=True, verbose_name='Активный')
-    meta_keywords = models.CharField(max_length=300, blank=True, null=True)
-    meta_description = models.CharField(max_length=300, blank=True, null=True)
 
     def __unicode__(self):
         return self.title
