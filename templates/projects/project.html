@@ -10,12 +10,12 @@
 <div class="blog_side alignleft">
     <ul>
 		<h6>Категории</h6>
-			{% category %}
+			{% category request %}
 	</ul>
                             </div>
 							<div class="blog_post">
 								<h1 class="post_title">{{ project.name }}</h1>
-                                <p class="date">{{ project.date }} <a href="{{ project.category.all.0.get_absolute_url }}">{{ project.category.all.0 }}</a></p>
+								<p class="date">{{ project.date }}</p>
 								{{ project.entry|safe }}
 								<div class="clr"></div>
 								
