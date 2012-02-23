@@ -1,7 +1,9 @@
 {% extends "base.html" %}
+{% load cache %}
 {% load projects_category %}
 {% load catalog_filters %}
 {% block site_wrapper %}
+{% cache 1000 projects_page %}
 {% category_list request %}
                             <div id="menu_block">
 
@@ -34,4 +36,5 @@
 						        {% endif %}
                                 </div>
                                 </div>
+{% endcache %}
 {% endblock %}
