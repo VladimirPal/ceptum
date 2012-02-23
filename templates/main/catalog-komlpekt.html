@@ -1,4 +1,5 @@
-	{% extends "base.html" %}
+{% extends "base.html" %}
+{% load cache %}
 {% load catalog_filters %}
 {% load cart_filters  %}
 {% block site_wrapper %}
@@ -6,6 +7,7 @@
     <p id="back-top">
    <a href="#top"><span class="arrow"></span>Наверх</a>
 </p>
+{% cache 1000 content_block %}
 <div id="content_block" class="alignleft clearfix">
         <div id="content">
    <!-- Категории -->
@@ -13,148 +15,6 @@
         	<a href="/">Главная</a> {% if section %}»&nbsp;{{ section.name }}{% else %}{% if not category.section.slug == category.slug %}»&nbsp;<a href="/section/{{ category.section.slug }}">{{ category.section.name }}</a>{% endif %} »&nbsp;{{ category.name }} {% endif %}
         </div>
         <br>
-        {% if filter %}
-        <div id="cont_discr" class="main_page clearfix">
-        	<b>Фильтровать</b><hr>
-	        <form method="post" action="" id="filter_form">
-	        	<!--Вот в этом блоке описаловка для каждого параметра-->
-	        	<div id="filtr_discription">
-	        		<div id="type">
-                        <strong>День-Ночь</strong> - <em>Тип камеры, которая днем(при достаточном освещении) работает в цветном режиме,<br>
-                        а ночью(при плохом освещении) работает в черно-белом режиме.</em>
-	        		</div>
-	        		<div id="objective">
-                        <strong>Фиксированный</strong> - <em>Объектив с фиксированным углом обзора.</em><br>
-                        <strong>Вариофокальный</strong> - <em>Объектив с изменяемым углом обзора.</em><br>
-                        Чем меньше угол обзора - тем выше детализация.
-	        		</div>
-	        		<div id="ikport">
-                        <strong>ИК подсветка</strong> - <em>Освещение, невидимое человеческому глазу, но достаточное для осуществления качественного видеонаблюдения.</em>
-	        		</div>
-	        		<div id="resolution">
-                        <strong>ТВЛ</strong> - <em>Количество телевизионных вертикальных линий в кадре.</em><br>
-                        Простым языком - четкость изображения.<br>
-                        Чем выше ТВЛ тем лучше качество изобржения.
-	        		</div>
-	        		<div id="sencitive">
-                        <strong>Люкс</strong> - <em>Единица измерения освещенности</em><br>
-                        Чем выше чувствительность, тем лучше изображение при малой освещенности и тем меньше Люкс.
-	        		</div>
-	        	</div>
-	        	{% csrf_token %}
-	        	<div class="filtr_item alignleft">
-	        		<ul>	
-				        <p class="filt_title"><b>Тип</b><sup>?</sup></p>
-				            {% for item in type_choices %}
-                                <li><input type="checkbox" name="option" value="type:{{ item.0 }}"
-                                {% for feature, values in features_dict2.items %}
-                                    {% if feature == 'type' %}
-                                        {% for value in values %}
-                                            {% if value == item.0 %}
-                                                checked="checked"
-                                            {% endif %}
-                                        {{ value }}
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endfor %}
-                                        ><label>{{ item.1 }}</label></li>
-				            {% endfor %}
-                    </ul>
-                </div>
-                <div class="filtr_item alignleft">
-                    <ul>
-                        <p class="filt_title"><b>Объектив</b><sup>?</sup></p>
-				            {% for item in lens_choices %}
-                                <li><input type="checkbox" name="option" value="lens:{{ item.0 }}"
-                                {% for feature, values in features_dict2.items %}
-                                    {% if feature == 'lens' %}
-                                        {% for value in values %}
-                                            {% if value == item.0 %}
-                                                checked="checked"
-                                            {% endif %}
-                                        {{ value }}
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endfor %}
-                                        ><label>{{ item.1 }}</label></li>
-				            {% endfor %}
-                    </ul>
-                </div>
-                <div class="filtr_item alignleft">
-                    <ul>
-                        <p class="filt_title"><b>ИК подсветка</b><sup>?</sup></p>
-				            {% for item in ir_choices %}
-                                <li><input type="checkbox" name="option" value="ir:{{ item.0 }}"
-                                {% for feature, values in features_dict2.items %}
-                                    {% if feature == 'ir' %}
-                                        {% for value in values %}
-                                            {% if value == item.0 %}
-                                                checked="checked"
-                                            {% endif %}
-                                        {{ value }}
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endfor %}
-                                        ><label>{{ item.1 }}</label></li>
-				            {% endfor %}
-                    </ul>
-                </div>
-                <div class="filtr_item alignleft">
-                    <ul>
-                        <p class="filt_title"><b>Разрешение</b><sup>?</sup></p>
-                        	<li><p class="subtitle"><span>Низкое</span> <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
-				            {% for item in resolution_choices %}
-                                <li><input type="checkbox" name="option" value="resolution:{{ item.0 }}"
-                                {% for feature, values in features_dict2.items %}
-                                    {% if feature == 'resolution' %}
-                                        {% for value in values %}
-                                            {% if value == item.0 %}
-                                                checked="checked"
-                                            {% endif %}
-                                        {{ value }}
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endfor %}
-                                        ><label>{{ item.1 }}</label></li>
-                                {% if item.0 == '420' %}
-                                	</ul></li><li><p class="subtitle"><span>Высокое</span> <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
-                                {% endif %} 
-				            {% endfor %}
-				        </ul></li>    
-                    </ul>
-                </div>
-                <div class="filtr_item alignleft">
-                    <ul>
-                        <p class="filt_title"><b>Чувствительность</b><sup>?</sup></p>
-                        	<li><p class="subtitle"><span>Высокая</span> <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
-				            {% for item in sensevity_choices %}
-                                <li><input type="checkbox" name="option" value="sensitivity:{{ item.0 }}"
-                                {% for feature, values in features_dict2.items %}
-                                    {% if feature == 'sensitivity' %}
-                                        {% for value in values %}
-                                            {% if value == item.0 %}
-                                                checked="checked"
-                                            {% endif %}
-                                        {{ value }}
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endfor %}
-                                        ><label>{{ item.1 }}</label></li>
-                                {% if item.0 == '0,025' %}
-                                	</ul></li><li><p class="subtitle"><span>Низкая</span> <input class="sub_checker" type="checkbox"></p><ul class="sublvl">
-                                {% endif %} 
-				            {% endfor %}
-				    	</ul></li> 
-					</ul>
-			    </div>
-	        	<div class="clr"></div>
-	            <div class="clearfix buttonbox"><input type="submit" name='kkk' value="Выбрать" /></div>
-            {% if features_dict2 %}
-                <div class="clearfix clean_filter"><a href="." style="border-bottom: 2px dotted #607890; padding: 1px; text-decoration: none;">Сбросить фильтр</a></div>
-            {% endif %}
-	        </form>
-        </div>
-        {% endif %}
 	<table id="catalog" cellpadding="0" cellspacing="0" border="0">
 		{% for product in products %}
 		<tr id="item-{{ product.id }}" name="item-{{ product.id }}">
@@ -206,4 +66,5 @@
         </div>
         {% endif %}
 
+{% endcache %}
 {% endblock %}
