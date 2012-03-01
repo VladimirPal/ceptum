@@ -6,15 +6,15 @@ import settings
 
 from django.contrib import admin
 admin.autodiscover()
-handler500 = 'cctvision.catalog.views.internal_error'
+handler500 = 'catalog.views.internal_error'
 
 urlpatterns = patterns('',
-    (r'^', include('cctvision.catalog.urls')),
+    (r'^', include('catalog.urls')),
     (r'^admin/filebrowser/', include(site.urls)),
-    (r'^cart/', include('cctvision.cart.urls')),
-    (r'^blog/', include('cctvision.blog.urls')),
-    (r'^projects/', include('cctvision.projects.urls')),
-    (r'^myadmin/', include('cctvision.myadmin.urls')),
+    (r'^cart/', include('cart.urls')),
+    (r'^blog/', include('blog.urls')),
+    (r'^projects/', include('projects.urls')),
+    (r'^myadmin/', include('myadmin.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^grappelli/', include('grappelli.urls')),
 )

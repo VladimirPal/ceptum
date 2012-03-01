@@ -1,5 +1,5 @@
           # -*- coding: utf-8 -*-
-# Django settings for cctvision project
+# Django settings for ceptum project
 import os
 
 DEBUG = False
@@ -81,10 +81,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'cctvision.ReferMiddleware.ReferMiddleware',
+    'ceptum.ReferMiddleware.ReferMiddleware',
 )
 
-ROOT_URLCONF = 'cctvision.urls'
+ROOT_URLCONF = 'ceptum.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'templates')
@@ -100,11 +100,11 @@ INSTALLED_APPS = (
     'grappelli',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    'cctvision.catalog',
-    'cctvision.cart',
-    'cctvision.myadmin',
-    'cctvision.blog',
-    'cctvision.projects',
+    'ceptum.catalog',
+    'ceptum.cart',
+    'ceptum.myadmin',
+    'ceptum.blog',
+    'ceptum.projects',
     'filebrowser',
     'south',
     'raven.contrib.django',
