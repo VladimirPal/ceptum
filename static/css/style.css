@@ -195,9 +195,10 @@ header #contacts p.skype{
 	text-decoration: none;
 	font-size: 12px;
 }
-#menu_block li.active a,
-#menu_block li.active span{
+#sidebar #menu_block ul ul li.active a,
+#sidebar #menu_block ul ul li.active span{
 	font-weight: bold;
+	color: #444;
 }
 
 #sidebar #menu_block .menu_sidebar ul a{
