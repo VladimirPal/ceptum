@@ -16,11 +16,7 @@
                         <ul>
                             {% for category in section.category_set.all %}
                                 {% if category.is_active %}
-                                    {% if category.get_absolute_url == request_path %}
-                                        <li class="active"><span>{{ category.name }}</span></li>
-                                    {% else %}
-                                        <li><a href="{{ category.get_absolute_url }}" title="">{{ category.name }}</a></li>
-                                    {% endif %}
+                                        <li ><a href="{{ category.get_absolute_url }}" title="">{{ category.name }}</a></li>
                                 {% endif %}
                             {% endfor %}
                         </ul>
