@@ -2,7 +2,41 @@
 {% load catalog_filters %}
 {% load cart_filters  %}
 {% block site_wrapper %}
-{% category_list request %}
+{% load cart_filters  %}
+<div id="sidebar" class="alignleft">
+    {% cart_box request %}
+    <div id="menu_block">
+        <i class="top_corn"></i>
+        <i class="bot_corn"></i>
+        <ul class="menu_sidebar">
+            <li> <a href="/cats/cctv-komplekt/" title="">Готовые комплекты</a>
+                {% for item in sections %}
+                    {% if item == section %}
+                        <li class="active"> <span>{{ item.name }}</span>
+                        <ul>
+                            {% for category in section.category_set.all %}
+                                {% if category.is_active %}
+                                    {% if category.get_absolute_url == request_path %}
+                                        <li class="active"><span>{{ category.name }}</span></li>
+                                    {% else %}
+                                        <li><a href="{{ category.get_absolute_url }}" title="">{{ category.name }}</a></li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <li> <a href="{{ item.get_absolute_url }}" title="">{{ item.name }}</a>
+                    {% endif %}
+                {% endfor %}
+        </ul>
+    </div>
+    <div id="sub_slider">
+        <form id="search" action="#">
+            <input id="s" type="text" onfocus="if(this.value=='Введите слово') this.value='';" onblur="if(this.value=='') this.value='Введите слово';" value="Введите слово" name="s">
+            <input class="go" type="submit" value="">
+        </form>
+    </div>
+</div>
 <div id="content_block" class="alignleft clearfix">
         <div id="content">
 		<div id="Breadcrumbs">

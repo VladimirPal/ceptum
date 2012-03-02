@@ -1,20 +1,50 @@
 {% extends "base.html" %}
-{% load cache %}
 {% load catalog_filters %}
 {% load cart_filters  %}
 {% block site_wrapper %}
-{% category_list request %}
+<div id="sidebar" class="alignleft">
+    {% cart_box request %}
+    <div id="menu_block">
+        <i class="top_corn"></i>
+        <i class="bot_corn"></i>
+        <ul class="menu_sidebar">
+            <li> <a href="/cats/cctv-komplekt/" title="">Готовые комплекты</a>
+                {% for section in sections %}
+                    {% if section == category.section %}
+                        <li class="active"> <span>{{ section.name }}</span>
+                        <ul>
+                            {% for cat in category.section.category_set.all %}
+                                {% if cat.is_active %}
+                                    {% if cat.get_absolute_url == request.path %}
+                                        <li class="active"><span>{{ cat.name }}</span></li>
+                                    {% else %}
+                                        <li><a href="{{ cat.get_absolute_url }}" title="">{{ cat.name }}</a></li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <li> <a href="{{ section.get_absolute_url }}" title="">{{ section.name }}</a>
+                    {% endif %}
+                {% endfor %}
+        </ul>
+    </div>
+    <div id="sub_slider">
+        <form id="search" action="#">
+            <input id="s" type="text" onfocus="if(this.value=='Введите слово') this.value='';" onblur="if(this.value=='') this.value='Введите слово';" value="Введите слово" name="s">
+            <input class="go" type="submit" value="">
+        </form>
+    </div>
+</div>
     <p id="back-top">
    <a href="#top"><span class="arrow"></span>Наверх</a>
 </p>
 <div id="content_block" class="alignleft clearfix">
         <div id="content">
    <!-- Категории -->
-        {% cache 1000 Breadcumbs %}
    		<div id="Breadcrumbs">
             <a href="/">Главная</a> »&nbsp; <a href="{{ category.section.get_absolute_url }}">{{ category.section.name }}</a> »&nbsp {{ category.name }}
         </div>
-        {% endcache %}
         <br>
         {% if filter %}
         <div id="cont_discr" class="main_page clearfix">

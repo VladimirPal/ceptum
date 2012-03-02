@@ -6,7 +6,7 @@ register = template.Library()
 
 @register.inclusion_tag("tags/sidebar.html")
 def category_list(request):
-    active_sections = Section.objects.filter(is_active=True)
+    active_sections = Section.objects.filter(is_active=True).exclude(slug="cctv-komplekt")
     return {
         'request_path': request.path,
         'sections': active_sections,

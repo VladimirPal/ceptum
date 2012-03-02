@@ -3,11 +3,30 @@
 {% load catalog_filters %}
 {% load cart_filters  %}
 {% block site_wrapper %}
-{% category_list request %}
+{% load cart_filters  %}
+<div id="sidebar" class="alignleft">
+    {% cart_box request %}
+{% cache 1000 content %}
+    <div id="menu_block">
+        <i class="top_corn"></i>
+        <i class="bot_corn"></i>
+        <ul class="menu_sidebar">
+            <li class="active"> <span>Готовые комплекты</span>
+                {% for section in sections %}
+                        <li> <a href="{{ section.get_absolute_url }}" title="">{{ section.name }}</a>
+                {% endfor %}
+        </ul>
+    </div>
+        <div id="sub_slider">
+            <form id="search" action="#">
+                <input id="s" type="text" onfocus="if(this.value=='Введите слово') this.value='';" onblur="if(this.value=='') this.value='Введите слово';" value="Введите слово" name="s">
+                <input class="go" type="submit" value="">
+            </form>
+        </div>
+    </div>
     <p id="back-top">
    <a href="#top"><span class="arrow"></span>Наверх</a>
 </p>
-{% cache 1000 content_block %}
 <div id="content_block" class="alignleft clearfix">
         <div id="content">
    <!-- Категории -->
