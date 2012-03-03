@@ -190,21 +190,32 @@ header #contacts p.skype{
 	list-style-image: url(../res/img/li_first.gif);
 	list-style-position: inside;
 }
-#sidebar #menu_block .menu_sidebar a, #sidebar #menu_block .menu_sidebar span{
+#menu_block .menu_sidebar a, 
+#menu_block .menu_sidebar span{
 	color: #444;
 	text-decoration: none;
 	font-size: 12px;
 }
-#sidebar #menu_block ul ul li.active a,
-#sidebar #menu_block ul ul li.active span{
+#menu_block .menu_sidebar .active>a,
+#menu_block .menu_sidebar .active>span{
+	font-weight: bold;
+}
+
+#menu_block .menu_sidebar ul a, 
+#menu_block .menu_sidebar ul span{
+	color: #8d8d8d;
+	text-decoration: none;
+	font-size: 12px;
+	font-weight: normal;
+}
+#menu_block .menu_sidebar .active>a,
+#menu_block .menu_sidebar .active>span,
+#menu_block .menu_sidebar ul li.active a,
+#menu_block .menu_sidebar ul li.active span {
 	font-weight: bold;
 	color: #444;
 }
 
-#sidebar #menu_block .menu_sidebar ul a{
-	color: #8d8d8d;
-	font-size: 12px;
-}
 #sidebar #menu_block .menu_sidebar li{
 	padding: 3px 0;
 }
