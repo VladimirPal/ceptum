@@ -152,3 +152,7 @@ def take_vk_comment(request):
             t.setDaemon(True)
             t.start()
     return HttpResponse()
+
+def office(request):
+    page_title = u'Видеонаблюдение в офис - Цептум'
+    return render_to_response('main/office.html', locals(), context_instance=RequestContext(request))
