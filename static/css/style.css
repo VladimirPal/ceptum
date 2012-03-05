@@ -989,3 +989,76 @@ h2, h3{page-break-after:avoid}
   background: #e5e7f2;
   padding: 1em 4em 1em 2em;
 }
+/*--------------------------- office -------*/
+.office {
+	padding-top: 15px;
+}
+.office p {
+	padding: 4px 0;
+}
+.office h2 {
+	font-size: 16px;
+	text-decoration: underline;
+	margin: 15px 0 10px 0;
+}
+.office .intro .order {
+	float: left;
+	width: 401px;
+	height: 455px;
+	background: url('../res/img/office.jpg') no-repeat 0 28px;
+}
+.office .intro .order h1 {
+	position: absolute;
+	font: 25px "Arial Narrow",Arial,sans-serif;
+	margin: 323px 0 0 0;
+	width: 383px;
+	text-align: center;
+}
+.office .intro .order a {
+	position: absolute;
+	display: block;
+	margin: 365px 0 0 115px;
+}
+.office .intro .order a img {
+	border: none;
+}
+/*-.office .item-*/
+.office .item {
+	padding-top: 45px;
+}
+.office .item .left {
+    display: block;
+    float: left;
+	width: 401px;
+	padding-top: 5px;
+}
+.office .item .left .img_block {
+	width: 383px;
+	position: relative;
+}
+.office .item .left .img_block img {
+	width: 245px;
+}
+.office .item .left .img_block .item-head {
+	display: block;
+	width: 245px;
+	margin: 0 auto;
+}
+.office .item .left .btn {
+	width: 383px;
+	padding: 58px 0 10px 115px;
+}
+.office .item .left .price {
+	font: 25px "Arial Narrow",Arial,sans-serif;
+	width: 383px;
+	text-align: center;
+	padding-bottom: 20px;
+}
+.office .item .right h2 {
+	margin-top: 0;
+}
+
+
+
+
+
