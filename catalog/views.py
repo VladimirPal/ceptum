@@ -156,3 +156,19 @@ def take_vk_comment(request):
 def office(request):
     page_title = u'Видеонаблюдение в офис - Цептум'
     return render_to_response('main/office.html', locals(), context_instance=RequestContext(request))
+
+def store(request):
+    page_title = u'Видеонаблюдение в магазин - Цептум'
+    return render_to_response('main/store.html', locals(), context_instance=RequestContext(request))
+
+def house(request):
+    page_title = u'Видеонаблюдение в дом - Цептум'
+    return render_to_response('main/house.html', locals(), context_instance=RequestContext(request))
+
+def podezd(request):
+    page_title = u'Видеонаблюдение в подъезд - Цептум'
+    return render_to_response('main/podezd.html', locals(), context_instance=RequestContext(request))
+
+def autoservice(request):
+    page_title = u'Видеонаблюдение в автосервис/автомойка - Цептум'
+    return render_to_response('main/autoservice.html', locals(), context_instance=RequestContext(request))
