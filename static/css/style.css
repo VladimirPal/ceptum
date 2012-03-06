@@ -1005,8 +1005,12 @@ h2, h3{page-break-after:avoid}
 	float: left;
 	width: 401px;
 	height: 455px;
-	background: url('../res/img/office.jpg') no-repeat 0 28px;
 }
+.office .intro .n1 { background: url('../res/img/b_tp_ofice.jpg') no-repeat 0 28px; }
+.office .intro .n2 { background: url('../res/img/b_tp_shop.jpg') no-repeat 0 28px; }
+.office .intro .n3 { background: url('../res/img/b_tp_home.jpg') no-repeat 0 28px; }
+.office .intro .n4 { background: url('../res/img/b_tp_porch.jpg') no-repeat 0 28px; }
+.office .intro .n5 { background: url('../res/img/b_tp_autoserv.jpg') no-repeat 0 28px; }
 .office .intro .order h1 {
 	position: absolute;
 	font: 25px "Arial Narrow",Arial,sans-serif;
