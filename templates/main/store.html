@@ -13,25 +13,26 @@
 		<div class="intro">
 			<div class="order n2">
 				<h1>Видеонаблюдение в магазин</h1>
-				<a href="#"><img src="{{ STATIC_URL }}res/img/order.gif" alt="Заказать" /></a>
+				<a href="#" onclick="return fn_office_showFrom(false)" id="a_order"><img src="{{ STATIC_URL }}res/img/order.gif" alt="Заказать" /></a>
 			</div>
-			
-			<h2>Магазин</h2>
-			<p>
-                Система видеонаблюдения в магазине/супермаркете просто необходима для разрешения кофликтных ситуаций и для контроля за персоналом.<br>
-                К сожалению в нашем обществе кражи происходят довольно часто, особенно это относится к магазинам. Видеонаблюдение позволит вовремя заметить попытку кражи и станет неоспоримым доказательством вины.<br>
-                Установка камеры над кассой позволит вести контроль за кассовыми операциями, что позволит разрешить массу недоразумений.<br>
-                Также важным преимуществом системы видеонаблюдения в магазине является возможность удаленно контролировать работу персонала, вовремя заметить пустующую витрину и многие другие ошибки ваших сотрудников.
-			</p>
+			<div class="intro-right">
+				<h2>Магазин</h2>
+				<p>
+					Система видеонаблюдения в магазине/супермаркете просто необходима для разрешения кофликтных ситуаций и для контроля за персоналом.<br>
+					К сожалению в нашем обществе кражи происходят довольно часто, особенно это относится к магазинам. Видеонаблюдение позволит вовремя заметить попытку кражи и станет неоспоримым доказательством вины.<br>
+					Установка камеры над кассой позволит вести контроль за кассовыми операциями, что позволит разрешить массу недоразумений.<br>
+					Также важным преимуществом системы видеонаблюдения в магазине является возможность удаленно контролировать работу персонала, вовремя заметить пустующую витрину и многие другие ошибки ваших сотрудников.
+				</p>
 
-            <h2>Возможности</h2>
-            <p>&bull; Просмотр через интернет с помощью компютера, устройств на базе IOS(IPhone/IPad), Android, Windows Mobile, Symbian.</p>
-            <p>&bull; Архив записей.</p>
-            <p>&bull; Детектор движения.</p>
-            <p>&bull; Поиск по записям через временные отметки и отметки движения.</p>
-            <p>&bull; Установка микрофона. Дополнительно к видео можно будет слушать звуки.</p>
-            <p>&bull; Наблюдение в полной темноте с помощью инфракрасной подсветки.</p>
-            <br><br><br>
+				<h2>Возможности</h2>
+				<p>&bull; Просмотр через интернет с помощью компютера, устройств на базе IOS(IPhone/IPad), Android, Windows Mobile, Symbian.</p>
+				<p>&bull; Архив записей.</p>
+				<p>&bull; Детектор движения.</p>
+				<p>&bull; Поиск по записям через временные отметки и отметки движения.</p>
+				<p>&bull; Установка микрофона. Дополнительно к видео можно будет слушать звуки.</p>
+				<p>&bull; Наблюдение в полной темноте с помощью инфракрасной подсветки.</p>
+            </div>
+			<div class="clr"></div>
 
             <h2>Необходимое оборудование</h2>
             <p><i>Для осуществления видеонаблюдения понадобятся:</i></p>
@@ -45,8 +46,6 @@
             <p>При необходимости постоянного наблюдения монитор подключается к видеорегистратору.</p>
             <p>&bull; <a href="/delivery">Монтажный комплект</a></p>
             <p>При установке системы видеонаблюдения понадобятся провода и блоки питания.</p>
-
-            <div class="clr"></div>
         </div>
 
         <center><h2>Типовые комплекты</h2></center>
@@ -59,7 +58,7 @@
                 <div class="btn">
                     <form method="post" action="" class="cart">{% csrf_token %}
                         <input type="hidden" name="product_slug" value="Видеонаблюдение в офис - 2 камеры" />
-                        <input type='image' src='/static/res/img/buy.png' id='product_26_submit_button' class='wpsc_buy_button' name='submit'  value="Купить" />
+                        <input type='image' src='/static/res/img/buy.png' id='product_26_submit_button' class='wpsc_buy_button' name='submit' onclick="return fn_office_showFrom(true,this)" value="Купить" />
                     </form>
                 </div>
                 <div class="price">15 000,00 руб.</div>
@@ -96,7 +95,7 @@
                 <div class="btn">
                     <form method="post" action="" class="cart">{% csrf_token %}
                         <input type="hidden" name="product_slug" value="Видеонаблюдение в офис - 2 камеры" />
-                        <input type='image' src='/static/res/img/buy.png' id='product_26_submit_button' class='wpsc_buy_button' name='submit'  value="Купить" />
+                        <input type='image' src='/static/res/img/buy.png' id='product_26_submit_button' class='wpsc_buy_button' name='submit' onclick="return fn_office_showFrom(true,this)" value="Купить" />
                     </form>
                 </div>
                 <div class="price">23 500,00 руб.</div>
@@ -132,7 +131,7 @@
                 <div class="btn">
                     <form method="post" action="" class="cart">{% csrf_token %}
                         <input type="hidden" name="product_slug" value="Видеонаблюдение в офис - 2 камеры" />
-                        <input type='image' src='/static/res/img/buy.png' id='product_26_submit_button' class='wpsc_buy_button' name='submit'  value="Купить" />
+                        <input type='image' src='/static/res/img/buy.png' id='product_26_submit_button' class='wpsc_buy_button' name='submit' onclick="return fn_office_showFrom(true,this)" value="Купить" />
                     </form>
                 </div>
                 <div class="price">36 500,00 руб.</div>
@@ -159,4 +158,42 @@
             </div>
             <div class="clr"></div>
         </div>
+<div class="office-form-data" id="office_form">
+	<div class="office-form">
+		<form method="post" action="/" class="wpsc_checkout_forms">
+			<br>
+			<h2>Пожалуйста, заполните контактную информацию:</h2><br>
+			<p>Области, отмеченные звёздочкой, должны быть заполненны.<br><br>
+			<table class='wpsc_checkout_table'>
+				<tr><th><label for="id_name">Имя*:</label></th><td><ul class="errorlist"><li>Имя обязательно для заполнения</li></ul><input type="text" name="name" id="id_name" /></td></tr>
+				<tr><th><label for="id_phone">Телефон*:</label></th>
+					<td>
+						<ul class="errorlist"><li>Телефон обязателен для заполнения</li></ul><input type="hidden" name="phone" id="id_phone" class="hidden_phone" />
+						<div class="phone-inp">
+							<div class="phone-inp-click-area" onclick="fn_office_tel_click(this)"></div>
+							<input type="text" name="tmp_phone1" class="phone1" maxlength="3" onkeyup="fn_office_tel_keyup(this,1)" />
+							<input type="text" name="tmp_phone2" class="phone2" maxlength="3" onkeyup="fn_office_tel_keyup(this,2)" />
+							<input type="text" name="tmp_phone3" class="phone3" maxlength="2" onkeyup="fn_office_tel_keyup(this,3)" />
+							<input type="text" name="tmp_phone4" class="phone4" maxlength="2" onkeyup="fn_office_tel_keyup(this,4)" />
+						</div>
+					</td>
+				</tr>
+				<tr><th><label for="id_email">Email:</label></th><td><input type="text" name="email" id="id_email" /></td></tr>
+				<tr><th><label for="id_address">Адрес:</label></th><td><textarea id="id_address" rows="2" cols="40" name="address"></textarea></td></tr>
+				<tr><th><label for="id_comment">Комментарий:</label></th><td><textarea id="id_comment" rows="2" cols="40" name="comment"></textarea></td></tr>
+				<tr><td></td><td align="center">
+					<input class="make_purchase" type="submit" value="Сделать заказ" name="Good" alt="сделать заказ" style="background-image: none;" onclick="return fn_office_submit(this)" />
+				</td></tr>
+			</table>
+		</form>
+	</div>
+</div>
+<div class="office-form-data" id="office_form_result">
+	<div class="office-form">
+		<div class="result-text">
+			Cпасибо большое за ваш заказ, в ближайшее время мы с вами свяжемся.
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="{{ STATIC_URL }}js/office.js"></script>
 {% endblock %}

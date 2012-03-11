@@ -1004,7 +1004,7 @@ h2, h3{page-break-after:avoid}
 .office .intro .order {
 	float: left;
 	width: 401px;
-	height: 455px;
+	height: 430px;
 }
 .office .intro .n1 { background: url('../res/img/b_tp_ofice.jpg') no-repeat 0 28px; }
 .office .intro .n2 { background: url('../res/img/b_tp_shop.jpg') no-repeat 0 28px; }
@@ -1025,6 +1025,17 @@ h2, h3{page-break-after:avoid}
 }
 .office .intro .order a img {
 	border: none;
+}
+.office .intro .order p {
+	position: absolute;
+	display: block;
+	padding: 0;
+	width: 416px;
+	margin: 300px 0 0 -16px;
+	text-align: center;
+}
+.office .intro-right {
+	margin-left: 402px;
 }
 /*-.office .item-*/
 .office .item {
@@ -1061,8 +1072,104 @@ h2, h3{page-break-after:avoid}
 .office .item .right h2 {
 	margin-top: 0;
 }
-
-
-
-
+/*-office-form-data-*/
+.office-form-data {
+	display: none;
+	padding: 10px;
+}
+.office-form {
+	width: 500px;
+	border: solid 2px #eee;
+	border-radius: 8px;
+	padding: 10px;
+}
+.office-form h2{
+	font-size: 18px;
+	text-align: center;
+}
+.office-form input ,
+.office-form .phone-inp {
+	background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #CCCCCC #AAAAAA #AAAAAA #CCCCCC;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 110%;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: normal;
+    padding: 5px 3px 3px 5px;
+	margin: 0;
+	width: 153px;
+	height: 16px;
+}
+.office-form textarea {
+    border-color: #DEDEDE #BBBBBB #BBBBBB #DEDEDE;
+    border-style: solid;
+    border-width: 1px;
+    font: 110% Arial,Helvetica,sans-serif;
+    padding: 5px 3px 3px 7px;
+}
+.office-form .phone-inp {
+	
+}
+.office-form .phone-inp-click-area {
+	position: absolute;
+	background: url('../res/img/tel-bg.gif') no-repeat 1px 2px;
+	margin: 0;
+	width: 153px;
+	height: 16px;
+	cursor: text;
+}
+.office-form .phone-inp input {
+	position: absolute;
+	border: none;
+	background: none;
+	padding: 0;
+	margin: -1px 0 0 0;
+	width: 25px;
+	font: 13px Arial,sans-serif;
+}
+.office-form .phone-inp .phone1 {
+	margin-left: 19px;
+}
+.office-form .phone-inp .phone2 {
+	margin-left: 45px;
+}
+.office-form .phone-inp .phone3 {
+	margin-left: 72px;
+	width: 17px;
+}
+.office-form .phone-inp .phone4 {
+	margin-left: 90px;
+	width: 17px;
+}
+.office-form .errorlist {
+    color: red;
+    font-size: 10px;
+    left: 280px;
+    position: absolute;
+	display: none;
+}
+.office-form .wpsc_checkout_table td{
+	padding: 5px;
+}
+.office-form .make_purchase{
+	background: #E5E5E5;
+	border: 1px solid #AAAAAA;
+    color: #333333;
+    font-family: arial,helvetica;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 5px 4px;
+    text-shadow: 0 1px 0 #FFFFFF;
+    text-decoration: none;
+	width: auto;
+	height: auto;
+}
+.office-form .make_purchase:hover{
+	background: #AAAAAA;
+}
 
