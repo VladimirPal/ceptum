@@ -49,9 +49,10 @@ function fn_office_add_data(){
 	for (var i = 0; i < frm_inps.length; i++){
 		var name = frm_inps[i].name;
 		if (name !== ''){
-			sendData += '&'+name+'='+frm_inps[i].value.replace(/&/g,'%26');
+			sendData += '&'+name+'='+encodeURIComponent(frm_inps[i].value);
 		}
 	}
+	
 	return sendData;
 }
 function fn_office_submit_send_getdata(_this){
@@ -70,10 +71,11 @@ function fn_office_submit_send_getdata(_this){
 		for (var i = 0; i < frm_inps.length; i++){
 			var name = frm_inps[i].name;
 			if (name !== '' && name.slice(0,4) !== 'tmp_'){
-				sendData += ((sendData==='')?'':'&')+name+'='+frm_inps[i].value.replace(/&/g,'%26');
+				sendData += ((sendData==='')?'':'&')+name+'='+encodeURIComponent(frm_inps[i].value);
 			}
 		}
 	}
+	
 	return sendData;
 }
 function fn_office_tel_keyup(_this,n){
