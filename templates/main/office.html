@@ -56,7 +56,7 @@
 					<a class="item-head" href="#"><img src="/static/res/img/standart_solutions/office-ceptum-2.jpg" title="Видеонаблюдение в офис - 2 камеры" alt="Видеонаблюдение в офис - 2 камеры" /></a>
 				</div>
 				<div class="btn">
-					<form method="post" action="" class="cart">{% csrf_token %}
+					<form method="post" action="{{ request.path }}" class="cart">{% csrf_token %}
 						<input type="hidden" name="product_slug" value="Видеонаблюдение в офис - 2 камеры" />
 						<input type='image' src='/static/res/img/buy.png' id='product_26_submit_button' class='wpsc_buy_button' name='submit' onclick="return fn_office_showFrom(true,this)" value="Купить" />
 					</form>
@@ -134,7 +134,7 @@
 						<input type='image' src='/static/res/img/buy.png' id='product_26_submit_button' class='wpsc_buy_button' name='submit' onclick="return fn_office_showFrom(true,this)" value="Купить" />
 					</form>
 				</div>
-				<div class="price">36 500,00 руб.</div>
+				<div class="price">44 500,00 руб.</div>
 			</div>
 			<div class="right">
 				<h2>Видеонаблюдение в офис - 8 камер</h2>
@@ -153,14 +153,14 @@
                 <p>
                 Монитор(квадратный) - <a href="/products/monitor-17-lcd-acer/">купить у нас.</a><br>
                 Жесткий диск SATA до 1 Tb, 1шт - <a href="/products/zhestkij-disk-5000-gb-samsung/">купить у нас.</a><br>
-                Монтаж(5000руб - 10000руб) - <a href="/delivery">закажите у нас.</a>
+                Монтаж(8000руб - 20000руб) - <a href="/delivery">закажите у нас.</a>
                 </p>
             </div>
 			<div class="clr"></div>
 		</div>
 <div class="office-form-data" id="office_form">
 	<div class="office-form">
-		<form method="post" action="/" class="wpsc_checkout_forms">
+		<form method="post" action="" class="wpsc_checkout_forms">
 			<br>
 			<h2>Пожалуйста, заполните контактную информацию:</h2><br>
 			<p>Области, отмеченные звёздочкой, должны быть заполненны.<br><br>

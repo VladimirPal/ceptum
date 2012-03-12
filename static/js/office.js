@@ -37,7 +37,8 @@ function fn_office_submit_send(_this){
 		sendData += fn_office_add_data();
 	}
 	var the_url = $('#office_form .wpsc_checkout_forms').attr('action');
-	
+    console.log(the_url);
+
 	$.ajax({type:"POST", url:the_url, data:sendData, success: function(){
 		$.fancybox(document.getElementById('office_form_result').innerHTML);
 	}});
