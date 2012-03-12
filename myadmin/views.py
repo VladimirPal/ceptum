@@ -237,13 +237,12 @@ def edit_client(request, id):
 
 @login_required
 def store(request):
-    sections = Section.objects.all().exclude(slug="cctv-komplekt")
+    sections = Section.objects.all()
     if request.method == "POST":
         category_select = Category.objects.filter(id__in = request.POST.getlist("category_select"))
         products = Product.objects.filter(category__in = category_select)
         return render_to_response("myadmin/store/store.html", locals(), context_instance=RequestContext(request))
-    #products = Product.objects.filter(quantity__gt=0).exclude(slug="cctv-komplekt")
-    products = Product.objects.exclude(slug="cctv-komplekt")
+    products = Product.objects.all()
     return render_to_response("myadmin/store/store.html", locals(), context_instance=RequestContext(request))
 
 @login_required

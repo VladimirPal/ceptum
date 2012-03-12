@@ -79,16 +79,13 @@ def show_category(request, category_slug):
         page_title = u'%s %s - Цептум' % (category.section, category)
     meta_keywords = category.meta_keywords
     meta_description = category.meta_descriotion
-    sections = Section.objects.filter(is_active=True).exclude(slug="cctv-komplekt")
-    if category.slug == 'cctv-komplekt':
-        return render_to_response("main/catalog-komlpekt.html", locals(), context_instance=RequestContext(request))
-    else:
-        return render_to_response("main/catalog.html", locals(), context_instance=RequestContext(request))
+    sections = Section.objects.filter(is_active=True)
+    return render_to_response("main/catalog.html", locals(), context_instance=RequestContext(request))
 
 
 def show_section(request, section_slug):
     section = Section.objects.get(slug=section_slug)
-    sections = Section.objects.filter(is_active=True).exclude(slug="cctv-komplekt")
+    sections = Section.objects.filter(is_active=True)
     cats = section.category_set.filter(is_active=True)
     page_title = section.name + u' - Цептум'
     return render_to_response("main/section.html", locals(), context_instance=RequestContext(request))
@@ -105,7 +102,7 @@ def show_product(request, product_slug):
     page_title = u'%s - Цептум' % product.name
     meta_keywords = page_title
     meta_description = "%s - %s" % (page_title, product.mini_html_description)
-    sections = Section.objects.filter(is_active=True).exclude(slug="cctv-komplekt")
+    sections = Section.objects.filter(is_active=True)
     return render_to_response("main/tovar.html", locals(), context_instance=RequestContext(request))
 
 def all_goods(request):
