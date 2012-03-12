@@ -31,18 +31,21 @@ function fn_office_submit_send(_this){
 	
 	//сбор данных из формы, отправка
 	$.fancybox.close();
-	$.fancybox.showActivity();
+	//$.fancybox.showActivity();
 	var sendData = fn_office_submit_send_getdata(_this);
 	if (glob_add_data){
 		sendData += fn_office_add_data();
 	}
-	var the_url = $('#office_form .wpsc_checkout_forms').attr('action');
-    console.log(the_url);
-
-	$.ajax({type:"POST", url:the_url, data:sendData, success: function(){
+	
+	setTimeout('fn_office_submit_send_step2("'+sendData+'")',800);
+}
+function fn_office_submit_send_step2(sendData){
+	var the_url = location.url;
+	$.ajax({type:"POST", url:the_url, data:sendData, success: function(data){
 		$.fancybox(document.getElementById('office_form_result').innerHTML);
 	}});
 }
+
 function fn_office_add_data(){
 	var sendData = '';
 	if (glob_add_data_frm === null){ return; }
