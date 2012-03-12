@@ -82,7 +82,29 @@ function fn_office_submit_send_getdata(_this){
 	
 	return sendData;
 }
-function fn_office_tel_keyup(_this,n){
+function fn_office_tel_keyup(_this,n,event){
+	
+	var keycode;
+    if(!event) var event = window.event;
+    if (event.keyCode){ keycode = event.keyCode; }else{ if(event.which) keycode = event.which; }
+    if (keycode == 8){
+		function f(n){
+			if (n > 1 && _this.value.length == 0)
+			{
+				n--;
+				var inps = _this.parentNode.getElementsByTagName('input');
+				for (var i = 0; i < inps.length; i++){
+					if (inps[i].className === 'phone'+n){
+						inps[i].focus();
+						return;
+					}
+				}
+			}
+		}
+		f(n);
+		return;
+	}
+	
 	var go_next = false;
 	if (n == 1 && _this.value.length >= 3){ go_next = true; }
 	if (n == 2 && _this.value.length >= 3){ go_next = true; }
