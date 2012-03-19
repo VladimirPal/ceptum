@@ -1,7 +1,6 @@
           # -*- coding: utf-8 -*-
 import re
 from django.db.models.query_utils import Q
-from django.views.decorators.cache import cache_page
 from django.shortcuts import get_object_or_404, render_to_response
 from django.core import urlresolvers
 from django.template import RequestContext
@@ -34,7 +33,7 @@ def show_category(request, category_slug):
         ir_choices = IR_CHOICES
         resolution_choices = RESOLUTION_CHOICES
         sensevity_choices = SENSIVITY_CHOICES
-    category = Category.objects.get(slug=category_slug)
+    category = get_object_or_404(Category, slug=category_slug)
     if request.method == 'POST':
         if 'product_slug' in request.POST:
             cart.add_to_cart(request)
@@ -84,7 +83,7 @@ def show_category(request, category_slug):
 
 
 def show_section(request, section_slug):
-    section = Section.objects.get(slug=section_slug)
+    section = get_object_or_404(Section, slug=section_slug)
     sections = Section.objects.filter(is_active=True)
     cats = section.category_set.filter(is_active=True)
     page_title = section.name + u' - Цептум'

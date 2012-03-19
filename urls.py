@@ -6,7 +6,6 @@ import settings
 
 from django.contrib import admin
 admin.autodiscover()
-handler500 = 'catalog.views.internal_error'
 
 urlpatterns = patterns('',
     (r'^', include('catalog.urls')),
