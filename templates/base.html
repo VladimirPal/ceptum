@@ -5,6 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="description" content="{{ meta_description|striptags }}" />
 <meta name="keywords" content="{{ meta_keywords }}" />
+<meta property="fb:admins" content="1355040238"/>
 <title>{% block title %}{{ page_title }}{% endblock %}</title>
 <link rel="shortcut icon" href="{{ STATIC_URL }}res/img/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" media="screen" />
@@ -160,14 +161,6 @@
 	});
 </script>
 <body>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 <!--[if IE]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
