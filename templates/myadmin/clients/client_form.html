@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -55,3 +56,30 @@
 </form>
 </body>
 </html>
+=======
+<form id="client_add_form" enctype="multipart/form-data" method="post" action="">{% csrf_token %}
+    <div id="contacts">
+        <h4>Контактные данные</h4>
+        <label for="title">Название</label>
+        <input type="text" name="title" id="title"/>
+
+        <div id="name_phone">
+            <label for="title">Имя</label>
+            <input type="text" name="name" id="name"/>
+            <label for="title">Телефон</label>
+            <input type="text" name="phone" id="phone"/>
+        </div>
+
+    </div>
+</form>
+<style type="text/css">
+    label {
+        margin-top: .33em;
+        display: block;
+    }
+    input {
+        display: block;
+        width: 250px;
+    }
+</style>
+>>>>>>> 3a0ad676baeb3f41fb75f4f58418c7b4ea7180f7
