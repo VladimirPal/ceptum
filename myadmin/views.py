@@ -9,7 +9,7 @@ from catalog.models import Product, Category, Section
 from django.contrib.auth import logout
 from models import Client
 from django.contrib.auth.models import User
-from madmin_func import valid_form
+from madmin_func import valid_client_form
 
 def auth(request):
     if request.method == 'POST':
@@ -48,7 +48,7 @@ def add_client(request):
         postdata = request.POST
         print postdata
         # Validation
-        errors = valid_form(postdata)
+        errors = valid_client_form(postdata)
         if not errors:
             user = User.objects.get(id=postdata.get('manager'))
             client = Client()

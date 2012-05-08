@@ -1,6 +1,6 @@
           # -*- coding: utf-8 -*-
 
-def valid_form(postdata):
+def valid_client_form(postdata):
     errors = {}
     name = postdata.get('name','')
     contacts = postdata.get('contacts','')
