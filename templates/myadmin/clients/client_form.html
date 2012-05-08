@@ -8,8 +8,7 @@
 		width: 260px;
 	}
 	</style>
-	<script src="/ceptum/templates/myadmin/clients/jquery-1.4.2.js"></script>
-	<script src="http://ajax.microsoft.com/ajax/jQuery/jquery-1.4.2.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 </head>
 <body>
 <form id="form1" style="padding: 5px 20px; width: 400px; border: 2px solid rgb(153, 153, 153); margin: 10px;" enctype="multipart/form-data" method="post" action="">{% csrf_token %}
@@ -39,16 +38,20 @@
     <textarea rows="5" cols="30" name="ext_data"></textarea>
 	<p>Исполнитель</p>
     <input type="text" name="ispolnit" />
+	<script>
+		var total = 0;
+		$('input[type="file"]').live('change', function(){
+		total++;
+     $('#files').append('<br /><input name="file'+total+'" type="file" />');
+});
+	</script>
+	<div id="files">
     <p>Прикрепленный файл</p>
 	<input type="file" name="file" />
+	</div>
 	<br />
 	<br />
     <input style="text-align: center; margin: 0" type="submit" value="Submit" />
 </form>
-<script>
-		$('input[type="file"]').live('change', function(){
-        if($('input[type=file][value=""]').length==0) $('#files').append('<br /><input name="file[]" type="file" />');
-});
-	</script>
 </body>
 </html>
