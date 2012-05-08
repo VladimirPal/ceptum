@@ -3,7 +3,10 @@
 <head>
     <title></title>
     <link rel="stylesheet" href="/static/admin/css/bootstrap.css">
-      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/admin/css/datepicker.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/bootstrap-datepicker.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -45,7 +48,8 @@
 			    	<div class="control-group">
 			    		<label class="control-label" for="">Время</label>
 			    		<div class="controls">
-			    			<input name="datetime" type="datetime" class="input-xlarge">
+			    			<input name="datetime" type="datetime" class="datepicker" size="10">
+			    			<input size="5" maxlength="5" type="time" class="time_input" style="display:none; width:40px;"> <a href="#" class="set_time_picker">уточнить время</a>
 			    		</div>
 			    	</div>
 					<div class="control-group">
@@ -93,6 +97,22 @@
 				$('.load_filed_fields').find('a.remove_link').live('click',function(e){
 					e.preventDefault();
 					$(this).parent().remove();
+				});
+				
+				$('.datepicker').datepicker();
+				
+				$('.set_time_picker').click(function(e){
+					e.preventDefault();
+					var $time_input	= $('.time_input');
+					
+					if($time_input.is(':hidden')){
+						$time_input.val('12:00').show().focus();
+						$(this).text('убрать время');
+					}else{
+						$time_input.val('').hide();
+						$(this).text('уточнить время');
+					}
+					
 				});
 			});
 		</script>
