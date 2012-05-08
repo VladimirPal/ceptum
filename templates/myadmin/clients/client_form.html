@@ -13,39 +13,39 @@
 			    	<div class="control-group">
 			    		<label class="control-label" for="">Название</label>
 			    		<div class="controls">
-			    			<input type="text" class="input-xlarge">
+			    			<input name="name" type="text" class="input-xlarge">
 			    		</div>
 			    	</div>
 			    	<div class="control-group">
 			    		<label class="control-label" for="">Контактное лицо</label>
 			    		<div class="controls">
-			    			<textarea rows="3" class="input-xlarge"></textarea>
+			    			<textarea name="contacts" rows="3" class="input-xlarge"></textarea>
 			    		</div>
 			    	</div>
 			    	<div class="control-group">
 			    		<label class="control-label" for="">Email</label>
 			    		<div class="controls">
-			    			<input type="email" class="input-xlarge">
+			    			<input name="email" type="email" class="input-xlarge">
 			    		</div>
 			    	</div>
 			    	<div class="control-group">
 			    		<label class="control-label" for="">Статус</label>
 			    		<div class="controls">
 			    			<label class="radio">
-			    				<input type="radio" name="state" value="CALL"> Созвон
+			    				<input type="radio" name="status" value="CALL"> Созвон
 			    			</label>
 			    			<label class="radio">
-			    				<input type="radio" name="state" value="OFFER"> Скинуть КП
+			    				<input type="radio" name="status" value="OFFER"> Скинуть КП
 			    			</label>
 			    			<label class="radio">
-			    				<input type="radio" name="state" value="INSPECTION"> Осмотр
+			    				<input type="radio" name="status" value="INSPECTION"> Осмотр
 			    			</label>
 			    		</div>
 			    	</div>
 			    	<div class="control-group">
 			    		<label class="control-label" for="">Время</label>
 			    		<div class="controls">
-			    			<input type="datetime" class="input-xlarge">
+			    			<input name="datetime" type="datetime" class="input-xlarge">
 			    		</div>
 			    	</div>
 					<div class="control-group">
@@ -57,13 +57,13 @@
 			    	<div class="control-group">
 			    		<label class="control-label" for="">Дополнительные данные</label>
 			    		<div class="controls">
-			    			<textarea rows="3" class="input-xxlarge"></textarea>
+			    			<textarea name="data" rows="3" class="input-xxlarge"></textarea>
 			    		</div>
 			    	</div>
 					<div class="control-group">
 			    		<label class="control-label" for="">Исполнитель</label>
 			    		<div class="controls">
-			    			<select>
+			    			<select name="manager">
                                 {% for user in users %}
 			    				<option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
                                 {% endfor %}
@@ -99,4 +99,9 @@
 	</div>
 </body>
 </html>
-
+{% if errors %}
+    {% for error_field, error_message in errors.items %}
+        {{ error_field }}
+        {{ error_message }}
+    {% endfor %}
+{% endif %}

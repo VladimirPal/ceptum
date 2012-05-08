@@ -47,18 +47,34 @@ def add_client(request):
     if request.method == 'POST':
         postdata = request.POST
         # Validation
-        print postdata
-        user = User.objects.get(id=request.POST['user'])
-        client = Client()
-        client.name = request.POST['name']
-        client.contact_name = request.POST['contact_name']
-        client.email = request.POST['email']
-        client.status = request.POST['status']
-        if postdata.get('status_time', False):
-            client.status_time = postdata.get('status_time')
-        client.data = request.POST['data']
-        client.user = user
-        client.save()
+        errors = {}
+        name = postdata.get('name','')
+        contacts = postdata.get('contacts','')
+        status = postdata.get('status','')
+        manager = postdata.get('manager','')
+        if not name:
+            errors['name'] = 'Введите название'
+        if not contacts:
+            errors['contacts'] = 'Введите контактное лицо'
+        if not status:
+            errors['status'] = 'Укажите статус'
+        if not manager:
+            errors['manager'] = 'Укажите исполнителя'
+        if not errors:
+            user = User.objects.get(id=postdata.get('manager'))
+            client = Client()
+            client.name = name
+            client.contact_name = contacts
+            client.email = postdata.get('email','')
+            client.status = status
+            if postdata.get('status_time', False):
+                client.status_time = postdata.get('status_time')
+            client.data = postdata.get('data','')
+            client.user = user
+            client.save()
+            return HttpResponseRedirect(urlresolvers.reverse('clients'))
+        else:
+            return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
     else:
         pass
     return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
