@@ -46,6 +46,8 @@ def add_client(request):
     users = User.objects.all()
     if request.method == 'POST':
         postdata = request.POST
+        # Validation
+        print postdata
         user = User.objects.get(id=request.POST['user'])
         client = Client()
         client.name = request.POST['name']
