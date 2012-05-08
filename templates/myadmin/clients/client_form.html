@@ -1,62 +1,3 @@
-<<<<<<< HEAD
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title></title>
-	<style>
-		#form1 input {
-		width: 260px;
-	}
-	</style>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-</head>
-<body>
-<form id="form1" style="padding: 5px 20px; width: 400px; border: 2px solid rgb(153, 153, 153); margin: 10px;" enctype="multipart/form-data" method="post" action="">{% csrf_token %}
-<!--
-    {{ form.as_p }}
--->
-	<p>Название (название организации или обозначение клиента)</p>
-    <input type="text" name="org" />
-	<p>Контактное лицо:<p>
-    <input type="text" name="name" />
-	<p>Телефон</p>
-    <input type="text" name="phone" />
-	<p>email</p>
-	<input type="text" name="Submit" />
-    <p>Статус</p>
-	<select name="status">
-	 <option value="1" selected>созвон</option>
-	 <option value="2">скинуть КП</option>
-	 <option value="3">Осмотр</option>
-	 <option value="4">Проект</option>
-	</select>
-	<p>Время</p>
-    <input type="text" name="time" />
-	<p>Комментарий к статусу</p>
-    <textarea rows="5" cols="30" name="comments"></textarea>
-	<p>Дополнительные данные</p>
-    <textarea rows="5" cols="30" name="ext_data"></textarea>
-	<p>Исполнитель</p>
-    <input type="text" name="ispolnit" />
-	<script>
-		var total = 0;
-		$('input[type="file"]').live('change', function(){
-		total++;
-     $('#files').append('<br /><input name="file'+total+'" type="file" />');
-});
-	</script>
-	<div id="files">
-    <p>Прикрепленный файл</p>
-	<input type="file" name="file" />
-	</div>
-	<br />
-	<br />
-    <input style="text-align: center; margin: 0" type="submit" value="Submit" />
-</form>
-</body>
-</html>
-=======
 <form id="client_add_form" enctype="multipart/form-data" method="post" action="">{% csrf_token %}
     <div id="contacts">
         <h4>Контактные данные</h4>
@@ -82,4 +23,3 @@
         width: 250px;
     }
 </style>
->>>>>>> 3a0ad676baeb3f41fb75f4f58418c7b4ea7180f7
