@@ -32,27 +32,24 @@
 			    		<label class="control-label" for="">Статус</label>
 			    		<div class="controls">
 			    			<label class="radio">
-			    				<input type="radio" name="state" value=""> созвон
+			    				<input type="radio" name="state" value=""> Созвон
 			    			</label>
 			    			<label class="radio">
-			    				<input type="radio" name="state" value=""> скинуть КП
+			    				<input type="radio" name="state" value=""> Скинуть КП
 			    			</label>
 			    			<label class="radio">
 			    				<input type="radio" name="state" value=""> Осмотр
 			    			</label>
-			    			<label class="radio">
-			    				<input type="radio" name="state" value=""> Проект
-			    			</label>
 			    		</div>
 			    	</div>
 			    	<div class="control-group">
-			    		<label class="control-label" for="">время</label>
+			    		<label class="control-label" for="">Время</label>
 			    		<div class="controls">
 			    			<input type="datetime" class="input-xlarge">
 			    		</div>
 			    	</div>
 					<div class="control-group">
-			    		<label class="control-label" for="">комментарий к статусу</label>
+			    		<label class="control-label" for="">Комментарий к статусу</label>
 			    		<div class="controls">
 			    			<textarea rows="3" class="input-xlarge"></textarea>
 			    		</div>
@@ -67,10 +64,9 @@
 			    		<label class="control-label" for="">Исполнитель</label>
 			    		<div class="controls">
 			    			<select>
-			    				<option>1</option>
-			    				<option>2</option>
-			    				<option>3</option>
-			    				<option>4</option>
+                                {% for user in users %}
+			    				<option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+                                {% endfor %}
 			    			</select>
 			    		</div>
 			    	</div>

@@ -43,26 +43,22 @@ def clients(request):
 
 @login_required
 def add_client(request):
+    users = User.objects.all()
     if request.method == 'POST':
         postdata = request.POST
-        print postdata
-        form = ClientForm(request.POST, request.FILES)
-        if form.is_valid():
-            user = User.objects.get(id=request.POST['user'])
-            client = Client()
-            client.name = request.POST['name']
-            client.contact_name = request.POST['contact_name']
-            client.email = request.POST['email']
-            client.status = request.POST['status']
-            if postdata.get('status_time', False):
-                client.status_time = postdata.get('status_time')
-            client.data = request.POST['data']
-            client.user = user
-            client.save()
-        else:
-            print "form is not valid"
+        user = User.objects.get(id=request.POST['user'])
+        client = Client()
+        client.name = request.POST['name']
+        client.contact_name = request.POST['contact_name']
+        client.email = request.POST['email']
+        client.status = request.POST['status']
+        if postdata.get('status_time', False):
+            client.status_time = postdata.get('status_time')
+        client.data = request.POST['data']
+        client.user = user
+        client.save()
     else:
-          form = ClientForm()
+        pass
     return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
 
 @login_required
