@@ -41,12 +41,16 @@ def clients(request):
         clients = False
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
 
+from django.core.files import File
+from myadmin.models import ClientFile
+from django.core.files.base import ContentFile
+from ceptum.settings import MEDIA_ROOT
+import os
 @login_required
 def add_client(request):
     users = User.objects.all()
     if request.method == 'POST':
         postdata = request.POST
-        print postdata
         # Validation
         errors = valid_client_form(postdata)
         if not errors:
@@ -60,6 +64,15 @@ def add_client(request):
                 client.status_time = postdata.get('status_time')
             client.data = postdata.get('data','')
             client.user = user
+            client.save()
+            for upfile in request.FILES.getlist('file_name_1'):
+                FILE_ROOT = os.path.join(MEDIA_ROOT, 'clientfiles')
+                myfile = ContentFile(upfile.read())
+                myfile.name = os.path.join(FILE_ROOT, upfile.name)
+                file_model = ClientFile()
+                file_model.file = myfile
+                file_model.save()
+                client.file.add(file_model)
             client.save()
             return HttpResponseRedirect(urlresolvers.reverse('clients'))
         else:
