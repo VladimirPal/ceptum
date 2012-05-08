@@ -74,7 +74,7 @@
 			    		<label class="control-label" for="">Прикрепить файл</label>
 			    		<div class="controls load_filed_fields">
 			    			<p><input type="file" class="input-file" name="file_name_1"></p>
-			    			<a href="#" onclick="more_file_link(event); return false;">Приерепить еще…</a>
+			    			<a href="#">Приерепить еще…</a>
 			    		</div>
 			    	</div>
 					
@@ -83,11 +83,18 @@
 					</div>
 			</form>
 		</fieldset>
-		<script type="text/javascript">
-			function more_file_link(e){
-				var size = $('.load_filed_fields').find('p').size();
-				$(e).hide().before('<input type="file" class="input-file" name="file_name_'+size+'">');
-			};
+			<script type="text/javascript">
+			$(function(){
+				$('.load_filed_fields').find('a').click(function(e){
+					e.preventDefault();
+					var size = $('.load_filed_fields').find('p').size();
+					$(this).before('<p><input type="file" class="input-file" name="file_name_'+size+'"> <a href="#" class="remove_link">Удалить</a></p>');
+				});
+				$('.load_filed_fields').find('a.remove_link').live('click',function(e){
+					e.preventDefault();
+					$(this).parent().remove();
+				});
+			});
 		</script>
 	</div>
 </body>
