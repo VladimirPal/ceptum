@@ -1,25 +1,32 @@
 <form id="client_add_form" enctype="multipart/form-data" method="post" action="">{% csrf_token %}
     <div id="contacts">
-        <h4>Контактные данные</h4>
-        <label for="title">Название</label>
-        <input type="text" name="title" id="title"/>
-
-        <div id="name_phone">
-            <label for="title">Имя</label>
-            <input type="text" name="name" id="name"/>
-            <label for="title">Телефон</label>
-            <input type="text" name="phone" id="phone"/>
+        <div id="title_form">
+            <h4>Контактные данные</h4>
+            <label for="title" style="display: block;">Название</label>
+            <input type="text" name="title" id="title"/>
         </div>
 
+        <div style="display:inline-block">
+            <label for="name" style="display:block">Имя</label>
+            <input type="text" name="name" id="name" />
+        </div>
+
+        <div style="display:inline-block">
+            <label for="phone"  style="display:block">Телефон</label>
+            <input type="text" name="phone" id="phone" />
+        </div>
+        <div style="display:inline-block">
+            <label for="phone"  style="display:block">Телефон</label>
+            <input type="text" name="phone" id="phone" />
+        </div>
     </div>
+    <input type="submit" value="Submit" />
 </form>
 <style type="text/css">
-    label {
-        margin-top: .33em;
-        display: block;
-    }
-    input {
-        display: block;
-        width: 250px;
+    #contacts {
+        border: thin solid #000000;
+        padding: 10px;
+        margin: 10px;
     }
 </style>
+

@@ -45,6 +45,7 @@ def clients(request):
 def add_client(request):
     if request.method == 'POST':
         postdata = request.POST
+        print postdata
         form = ClientForm(request.POST, request.FILES)
         if form.is_valid():
             user = User.objects.get(id=request.POST['user'])
