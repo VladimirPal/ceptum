@@ -1,32 +1,99 @@
-<form id="client_add_form" enctype="multipart/form-data" method="post" action="">{% csrf_token %}
-    <div id="contacts">
-        <div id="title_form">
-            <h4>Контактные данные</h4>
-            <label for="title" style="display: block;">Название</label>
-            <input type="text" name="title" id="title"/>
-        </div>
-
-        <div style="display:inline-block">
-            <label for="name" style="display:block">Имя</label>
-            <input type="text" name="name" id="name" />
-        </div>
-
-        <div style="display:inline-block">
-            <label for="phone"  style="display:block">Телефон</label>
-            <input type="text" name="phone" id="phone" />
-        </div>
-        <div style="display:inline-block">
-            <label for="phone"  style="display:block">Телефон</label>
-            <input type="text" name="phone" id="phone" />
-        </div>
-    </div>
-    <input type="submit" value="Submit" />
-</form>
-<style type="text/css">
-    #contacts {
-        border: thin solid #000000;
-        padding: 10px;
-        margin: 10px;
-    }
-</style>
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.css">
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<fieldset>
+			<form autocomplete="off" class="form-horizontal" id="client_add_form" enctype="multipart/form-data" method="post" action="">{% csrf_token %}
+					<legend>Создание клиента</legend>
+			    	<div class="control-group">
+			    		<label class="control-label" for="">Название</label>
+			    		<div class="controls">
+			    			<input type="text" class="input-xlarge">
+			    		</div>
+			    	</div>
+			    	<div class="control-group">
+			    		<label class="control-label" for="">Контактное лицо</label>
+			    		<div class="controls">
+			    			<textarea rows="3" class="input-xlarge"></textarea>
+			    		</div>
+			    	</div>
+			    	<div class="control-group">
+			    		<label class="control-label" for="">Email</label>
+			    		<div class="controls">
+			    			<input type="email" class="input-xlarge">
+			    		</div>
+			    	</div>
+			    	<div class="control-group">
+			    		<label class="control-label" for="">Статус</label>
+			    		<div class="controls">
+			    			<label class="radio">
+			    				<input type="radio" name="state" value=""> созвон
+			    			</label>
+			    			<label class="radio">
+			    				<input type="radio" name="state" value=""> скинуть КП
+			    			</label>
+			    			<label class="radio">
+			    				<input type="radio" name="state" value=""> Осмотр
+			    			</label>
+			    			<label class="radio">
+			    				<input type="radio" name="state" value=""> Проект
+			    			</label>
+			    		</div>
+			    	</div>
+			    	<div class="control-group">
+			    		<label class="control-label" for="">время</label>
+			    		<div class="controls">
+			    			<input type="datetime" class="input-xlarge">
+			    		</div>
+			    	</div>
+					<div class="control-group">
+			    		<label class="control-label" for="">комментарий к статусу</label>
+			    		<div class="controls">
+			    			<textarea rows="3" class="input-xlarge"></textarea>
+			    		</div>
+			    	</div>
+			    	<div class="control-group">
+			    		<label class="control-label" for="">Дополнительные данные</label>
+			    		<div class="controls">
+			    			<textarea rows="3" class="input-xxlarge"></textarea>
+			    		</div>
+			    	</div>
+					<div class="control-group">
+			    		<label class="control-label" for="">Исполнитель</label>
+			    		<div class="controls">
+			    			<select>
+			    				<option>1</option>
+			    				<option>2</option>
+			    				<option>3</option>
+			    				<option>4</option>
+			    			</select>
+			    		</div>
+			    	</div>
+					<div class="control-group">
+			    		<label class="control-label" for="">Прикрепить файл</label>
+			    		<div class="controls load_filed_fields">
+			    			<p><input type="file" class="input-file" name="file_name_1"></p>
+			    			<a href="#" onclick="more_file_link(event); return false;">Приерепить еще…</a>
+			    		</div>
+			    	</div>
+					
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary">Создать</button>
+					</div>
+			</form>
+		</fieldset>
+		<script type="text/javascript">
+			function more_file_link(e){
+				var size = $('.load_filed_fields').find('p').size();
+				$(e).hide().before('<input type="file" class="input-file" name="file_name_'+size+'">');
+			};
+		</script>
+	</div>
+</body>
+</html>
 
