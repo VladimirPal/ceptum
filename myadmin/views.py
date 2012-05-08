@@ -7,9 +7,9 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from catalog.models import Product, Category, Section
 from django.contrib.auth import logout
-from forms import ClientForm
 from models import Client
 from django.contrib.auth.models import User
+from madmin_func import valid_form
 
 def auth(request):
     if request.method == 'POST':
@@ -46,27 +46,16 @@ def add_client(request):
     users = User.objects.all()
     if request.method == 'POST':
         postdata = request.POST
+        print postdata
         # Validation
-        errors = {}
-        name = postdata.get('name','')
-        contacts = postdata.get('contacts','')
-        status = postdata.get('status','')
-        manager = postdata.get('manager','')
-        if not name:
-            errors['name'] = 'Введите название'
-        if not contacts:
-            errors['contacts'] = 'Введите контактное лицо'
-        if not status:
-            errors['status'] = 'Укажите статус'
-        if not manager:
-            errors['manager'] = 'Укажите исполнителя'
+        errors = valid_form(postdata)
         if not errors:
             user = User.objects.get(id=postdata.get('manager'))
             client = Client()
-            client.name = name
-            client.contact_name = contacts
+            client.name = postdata.get('name','')
+            client.contact_name = postdata.get('contacts','')
             client.email = postdata.get('email','')
-            client.status = status
+            client.status = postdata.get('status','')
             if postdata.get('status_time', False):
                 client.status_time = postdata.get('status_time')
             client.data = postdata.get('data','')
