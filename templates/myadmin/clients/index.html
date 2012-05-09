@@ -135,7 +135,9 @@
 					    <td>{{ client.status_comment }}</td>
 					    <td>{{ client.data }}</td>
 					    <td>{{ client.user.get_full_name }}</td>
-					    <td><a href="{{ client.file.file }}">{{ client.file.name }}</a></td>
+                        {% for file in client.clientfile_set.all %}
+                            <td><a href="{{ file.file.url }}">{{ file.file.name|slice:"12:"|truncatechars:13 }}</a></td>
+                        {% endfor %}
 					    <td><a class="client_edit_link" title="Редактировать"  data-toggle="modal" href="../client/edit/{{ client.id }}"><i class="icon-pencil"></i></a></td>
 				    </tr>
 				{% endfor %}
