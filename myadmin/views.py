@@ -86,10 +86,11 @@ def edit_client(request, id):
 @login_required
 def edit_ajx_client(request):
     if request.method == 'POST':
-        print request.POST
         client = Client.objects.get(id=request.POST.get('id',''))
         if request.POST.get('status', False):
             client.status = request.POST.get('status','')
+        if request.POST.get('date', False):
+            client.status_date = request.POST.get('date','')
         client.save()
         return HttpResponse(status=200)
 """
