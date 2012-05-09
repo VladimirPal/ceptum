@@ -71,10 +71,18 @@
 	
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
-			<div class="container-fluide header">			
+			<div class="container-fluide header">		
 				<div class="pull-right">
 					<a href="#" class="btn alignright"><i class="icon-off"></i> Выйти</a>
 				</div>
+				<div class="pull-left">
+					<ul class="nav litle_stat">
+						<li>Созвон ( <strong>3</strong> )</li>
+						<li>Скинуть КП ( <strong>2</strong> )</li>
+						<li>Осмотр ( <strong>0</strong> )</li>
+						<li>Проект ( <strong>6</strong> )</li>
+					</ul>
+				</div>	
 			</div>
 		</div>
 	</div>
@@ -85,15 +93,15 @@
 				<a href="add" class="btn btn-primary"><i class="icon-plus icon-white"></i> Добавить клиента </a>
 			</div>
 			<div class="pull-right">
-				<form id="clients_filter_form" action="" method="post" autocomlete="off" class="form-inline">
+				<form id="clients_filter_form" action="" method="get" autocomlete="off" class="form-inline">
 					<div class="control-group client_filter">
-						
-			    			<select data-placeholder="Выберите статусы" id="clients_filter_select" multiple="multiple">
-			    				<option></option>
-			    				<option>Созвон</option>
-			    				<option>Скинуть КП</option>
-			    				<option>Осмотр</option>
-			    			</select>
+			    			
+			    			<select id="clients_filter_select" data-placeholder="Выберите статусы" autocomplete="off" name="status" multiple="multiple">
+					    	{% for value, status in current_statuses %}
+							    <option value="{{ value }}" selected="selected"> {{ status }}</option>
+							{% endfor %}
+							</select>
+			    			
 			    			<input type="submit" value="Фильтровать" class="btn">
 			    	</div>
 				</form>
@@ -130,7 +138,7 @@
 							{% endfor %}
 							</select>
 					    	<hr>
-					    	{{ client.status_date|default_if_none:"" }} {{ client.status_time|default_if_none:"" }}
+					    	<input type="text" data-id="{{ client.id }}" class="datepick table_date" value="{{ client.status_date|default_if_none:"" }}"> {{ client.status_time|default_if_none:"" }}
 					    </td>
 					    <td>{{ client.status_comment }}</td>
 					    <td>{{ client.data }}</td>
@@ -140,7 +148,7 @@
                             	<p><a href="{{ file.file.url }}">{{ file.file.name|slice:"12:"|truncatechars:13 }}</a></p>
                         	{% endfor %}
                         </td>
-					    <td><a class="client_edit_link" title="Редактировать"  data-toggle="modal" href="../client/edit/{{ client.id }}"><i class="icon-pencil"></i></a></td>
+					    <td><a class="client_edit_link" title="Редактировать"  data-toggle="modal" href="../clients/edit/{{ client.id }}"><i class="icon-pencil"></i></a></td>
 				    </tr>
 				{% endfor %}
 			</tbody>
@@ -152,7 +160,7 @@
 		$(function(){
 			//отправка формы при выборе статуса
 			$('.change_status_select').change(function(){
-				var url = '/myadmin/client/edit-status';
+				var url = '/myadmin/clients/edit-ajx-client';
 				var queryString = $(this).fieldSerialize()+'&id='+$(this).attr('data-id');
 				$.ajax({
 					type: 		"POST",
@@ -203,7 +211,7 @@
 			});
 			
 			$('.load_filed_fields').find('a').live('click',function(e){
-					e.preventDefault();
+				e.preventDefault();
 				var size = $('.load_filed_fields').find('p').size();
 				$(this).before('<p><input id="id_clientfile_set-'+size+'-id" type="hidden" name="clientfile_set-'+size+'-id"><input id="id_clientfile_set-'+size+'-file" type="file" name="clientfile_set-'+size+'-file"> <a href="#" class="remove_link">Удалить</a></p>');
 			});
@@ -211,9 +219,23 @@
 				e.preventDefault();
 				$(this).parent().remove();
 			});
-
+			$('.datepick').datepicker({
+				onSelect: function(dateText, inst) { 
+					var url = '/myadmin/clients/edit-ajx-client';
+					var queryString = 'date='+dateText+'&id='+$(this).attr('data-id');
+					$.ajax({
+						type: 		"POST",
+						url:		url,
+						data:		queryString,
+						success:	function(msg){
+	
+						}
+					});
+				},
+				dateFormat: "dd.mm.yy"
+			});
 			$('.datepicker').live('click',function(){
-				$(this).datepicker({showOn:'focus'}).focus();
+				$(this).datepicker({showOn:'focus', dateFormat: "dd.mm.yy"}).focus();
 			});
 
 			$('.set_time_picker').live('click',function(e){

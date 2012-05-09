@@ -1,4 +1,4 @@
-*{
+a{
 	outline: none;
 }
 .clr{
@@ -35,4 +35,23 @@ body{
 }
 #client_main_table select{
 	margin: 0;
+}
+.litle_stat li{
+	padding: 0 10px;
+	height: 40px;
+	line-height: 40px;
+}
+#clients_filter_select_chzn{
+	width: auto !important;
+}
+.table_date{
+	background: none;
+	border: 0;
+	box-shadow: none;
+	width: 100px;
+}
+.table_date:focus{
+	background: #fff;
+	border: 1px solid #CCCCCC;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
 }
