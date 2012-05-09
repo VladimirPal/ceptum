@@ -48,7 +48,7 @@ def clients(request):
 @login_required
 def add_client(request):
     form = ClientForm(initial={'user': request.user.id})
-    FileFormset = inlineformset_factory(Client, ClientFile, extra=2)
+    FileFormset = inlineformset_factory(Client, ClientFile, extra=1)
     client = Client()
     formset = FileFormset()
     if request.method == 'POST':
