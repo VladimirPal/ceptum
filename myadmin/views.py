@@ -87,14 +87,16 @@ import datetime
 @login_required
 def edit_ajx_client(request):
     if request.method == 'POST':
-        print request.POST
         client = Client.objects.get(id=request.POST.get('id',''))
         if request.POST.get('status', False):
             client.status = request.POST.get('status','')
         if request.POST.get('date', False):
             client.status_date = datetime.datetime.strptime(request.POST.get('date'), '%d.%m.%Y').date()
-        if request.POST.get('time', False):
-            client.status_time = request.POST.get('time','')
+        if 'time' in request.POST:
+            if request.POST.get('time',''):
+                client.status_time = request.POST.get('time','')
+            else:
+                client.status_time = None
         if request.POST.get('comment', False):
             client.status_comment = request.POST.get('comment','')
         client.save()
