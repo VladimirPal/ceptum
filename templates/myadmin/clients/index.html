@@ -118,14 +118,15 @@
 				{% for client in clients %}
 					<tr>					
 					    <td><a href="">{{ client.name }}</a></td>
-					    <td>{{ client.contact_name }}<hr>
+					    <td>{{ client.contact_name|linebreaks }}<hr>
 					    	<a href="#">{{ client.address }}</a>
 					    </td>
 					    <td>{{ client.email }}</td>
 					    <td>
-					    	<select class="change_status_select" name="status" data-id="{{ client.id }}">
+					    
+					    	<select autocomplete="off" class="change_status_select" name="status" data-id="{{ client.id }}">
 					    	{% for value, status in statuses %}
-							    <option value="{{ value }}" {% if client.status == value %} selected {% endif %}> {{ status }}</option>
+							    <option value="{{ value }}" {% if client.status == value %} selected="selected" {% endif %}> {{ status }}</option>
 							{% endfor %}
 							</select>
 					    	<hr>
@@ -133,7 +134,7 @@
 					    </td>
 					    <td>{{ client.status_comment }}</td>
 					    <td>{{ client.data }}</td>
-					    <td>{{ client.user }}</td>
+					    <td>{{ client.user.get_full_name }}</td>
 					    <td><a href="{{ client.file.file }}">{{ client.file.name }}</a></td>
 					    <td><a class="client_edit_link" title="Редактировать"  data-toggle="modal" href="../client/edit/{{ client.id }}"><i class="icon-pencil"></i></a></td>
 				    </tr>
