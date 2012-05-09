@@ -86,7 +86,7 @@
                             {{ formset.management_form }}
                             {% for form in formset %}
                                 {{ form.file.errors }}
-                                {{ form.file }}
+                                <p>{{ form.file }}</p>
                             {% endfor %}
 			    			<a href="#">Прикрепить еще…</a>
 			    		</div>
