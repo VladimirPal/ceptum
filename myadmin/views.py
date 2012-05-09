@@ -84,10 +84,11 @@ def edit_client(request, id):
     return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
 
 @login_required
-def edit_status(request):
+def edit_ajx_client(request):
     if request.method == 'POST':
         client = Client.objects.get(id=request.POST.get('id',''))
-        client.status = request.POST.get('status','')
+        if request.POST.get('status', False):
+            client.status = request.POST.get('status','')
         client.save()
         return HttpResponse(status=200)
 """
