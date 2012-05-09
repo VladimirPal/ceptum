@@ -1,7 +1,7 @@
           # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
-import os
+from django.contrib import admin
 
 STATUS_CHOICES = (
     ('CALL', 'Созвон'),
