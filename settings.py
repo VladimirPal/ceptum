@@ -108,6 +108,7 @@ INSTALLED_APPS = (
     'filebrowser',
     'south',
     'raven.contrib.django',
+    'widget_tweaks',
 #    'tinymce',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',

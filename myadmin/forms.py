@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from django import forms
 from myadmin.models import Client
 from django.contrib.auth.models import User
+from fields import UserModelChoiceField
 
 STATUS_CHOICES = (
     ('CALL', 'Созвон'),
@@ -19,7 +20,7 @@ class ClientForm(ModelForm):
     status_time = forms.TimeField(required=False, widget=forms.TextInput(attrs={'class':'time_input', 'size':'5', 'max_length':'5', 'style':'display:none; width:40px;'}))
     status_comment = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows':'3', 'class':'input-xlarge'}))
     data = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows':'3', 'class':'input-xxlarge'}))
-    user = forms.ModelChoiceField(queryset=User.objects.all())
+    user = UserModelChoiceField(queryset=User.objects.filter(groups__name='Менеджеры'))
     class Meta:
         model = Client
         exclude = ('comment')
