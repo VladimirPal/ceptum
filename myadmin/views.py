@@ -13,6 +13,7 @@ from myadmin.forms import ClientForm
 from myadmin.models import ClientFile
 from django.forms.models import inlineformset_factory
 from madmin_func import valid_client_form
+from myadmin.models import STATUS_CHOICES
 
 def auth(request):
     if request.method == 'POST':
@@ -37,6 +38,7 @@ def logout_view(request):
 
 @login_required
 def clients(request):
+    statuses = STATUS_CHOICES
     user = User.objects.get(username=request.user)
     try:
         clients = Client.objects.filter(user=user)
