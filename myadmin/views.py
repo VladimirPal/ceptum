@@ -61,6 +61,22 @@ def add_client(request):
             return HttpResponseRedirect(urlresolvers.reverse('clients'))
     return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
 
+@login_required
+def edit_client(request, id):
+    client = Client.objects.get(id=id)
+    form = ClientForm(initial={'user': request.user.id}, instance=client)
+    FileFormset = inlineformset_factory(Client, ClientFile, extra=1)
+    formset = FileFormset()
+    if request.method == 'POST':
+        form = ClientForm(request.POST, instance=client)
+        if form.is_valid():
+            form.save()
+            formset = FileFormset(request.POST, request.FILES, instance=client)
+            if formset.is_valid():
+                formset.save()
+            return HttpResponseRedirect(urlresolvers.reverse('clients'))
+    return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
+
 """
 from myadmin.models import ClientFile
 from django.core.files.base import ContentFile
