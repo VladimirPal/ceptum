@@ -138,11 +138,13 @@
 							{% endfor %}
 							</select>
 					    	<hr>
-					    	<input type="text" data-id="{{ client.id }}" class="datepick table_date" value="{{ client.status_date|default_if_none:"" }}"> 
-					    	<input maxlength="5" placeholder="уточинть время" size="5" type="text" data-id="{{ client.id }}" class="timepicker" value="{{ client.status_time|default_if_none:"" }}">
-					    	
+					    	<div class="date_block">
+					    	<input type="text" data-id="{{ client.id }}" class="datepick table_date" value="{{ client.status_date|default_if_none:"" }}">&nbsp;<input maxlength="5" placeholder="уточинть время" size="5" type="text" data-id="{{ client.id }}" class="timepicker" value="{{ client.status_time|default_if_none:"" }}">
+					    	</div>
 					    </td>
-					    <td>{{ client.status_comment }}</td>
+					    <td>
+					    	<textarea data-id="{{ client.id }}" placeholder="Комментарий" class="client_comment_area">{{ client.status_comment }}</textarea>
+					    	</td>
 					    <td>{{ client.data }}</td>
 					    <td>{{ client.user.get_full_name }}</td>
                         <td>
@@ -245,6 +247,18 @@
 			}).blur(function(){
 				var url = '/myadmin/clients/edit-ajx-client';
 					var queryString = 'time='+$(this).val()+'&id='+$(this).attr('data-id');
+					$.ajax({
+						type: 		"POST",
+						url:		url,
+						data:		queryString,
+						success:	function(msg){
+	
+						}
+					});
+			});
+			$('.client_comment_area').blur(function(){
+				var url = '/myadmin/clients/edit-ajx-client';
+					var queryString = 'comment='+$(this).val()+'&id='+$(this).attr('data-id');
 					$.ajax({
 						type: 		"POST",
 						url:		url,

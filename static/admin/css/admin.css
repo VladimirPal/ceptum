@@ -50,8 +50,21 @@ body{
 	box-shadow: none;
 	width: 100px;
 }
-.table_date:focus, .timepicker:focus{
+.client_comment_area{
+	background: none;
+	border-color: rgba(0,0,0,0);
+	box-shadow: none;
+	resize: none;
+}
+.table_date:focus, .timepicker:focus, .client_comment_area:focus{
 	background: #fff;
 	border: 1px solid #CCCCCC;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	resize: auto;
+}
+.timepicker:focus{
+	width: 60px;
+}
+.date_block{
+	white-space: nowrap;
 }
