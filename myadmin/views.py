@@ -43,7 +43,7 @@ def clients(request):
     statuses = STATUS_CHOICES
     user = User.objects.get(username=request.user)
     try:
-        clients = Client.objects.filter(user=user)
+        clients = Client.objects.filter(user=user).exclude(status='DONE')
     except :
         clients = False
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
