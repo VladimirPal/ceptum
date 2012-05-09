@@ -123,7 +123,12 @@
 					    </td>
 					    <td>{{ client.email }}</td>
 					    <td>
-					    	{{ client.get_status_display }}<hr>
+					    	<select class="change_status_select" name="status" data-id="{{ client.id }}">
+					    	{% for value, status in statuses %}
+							    <option value="{{ value }}" {% if client.status == value %} selected {% endif %}> {{ status }}</option>
+							{% endfor %}
+							</select>
+					    	<hr>
 					    	{{ client.status_date }} {{ client.status_time }}
 					    </td>
 					    <td>{{ client.status_comment }}</td>
@@ -141,9 +146,18 @@
 	<script type="text/javascript">
 		$(function(){
 			//отправка формы при выборе статуса
-			//$('#clients_filter_select').change(function(){
-			//	$('#clients_filter_form').trigger('submit');
-			//});
+			$('.change_status_select').change(function(){
+				var url = '/myadmin/client/edit-status';
+				var queryString = $(this).fieldSerialize()+'&id='+$(this).attr('data-id');
+				$.ajax({
+					type: 		"POST",
+					url:		url,
+					data:		queryString,
+					success:	function(msg){
+						
+					}
+				});
+			});
 			
 			$('#clients_filter_select').chosen();
 			
@@ -178,6 +192,3 @@
 	</script>
 </body>
 </html>
-{% for value, status in statuses %}
-    {{ value }} {{ status }}
-{% endfor %}

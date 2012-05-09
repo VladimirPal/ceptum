@@ -1,3 +1,6 @@
+*{
+	outline: none;
+}
 .clr{
 	clear: both;
 }
@@ -10,4 +13,26 @@ body{
 }
 .header, .content{
 	padding: 0 20px;
+}
+.client_filter *{
+	vertical-align: middle;
+}
+
+#myModal{
+	width: 760px;
+	position: absolute;
+	margin: 0 0 0 -360px;
+	top: 40px;
+}
+#myModal .modal-body{
+	max-height: none;
+}
+#client_main_table hr{
+	margin: 8px 0;
+}
+#client_main_table td{
+	vertical-align: middle;
+}
+#client_main_table select{
+	margin: 0;
 }
