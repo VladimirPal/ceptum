@@ -130,7 +130,7 @@
 							{% endfor %}
 							</select>
 					    	<hr>
-					    	{{ client.status_date }} {{ client.status_time }}
+					    	{{ client.status_date|default_if_none:"" }} {{ client.status_time|default_if_none:"" }}
 					    </td>
 					    <td>{{ client.status_comment }}</td>
 					    <td>{{ client.data }}</td>
