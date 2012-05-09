@@ -138,7 +138,9 @@
 							{% endfor %}
 							</select>
 					    	<hr>
-					    	<input type="text" data-id="{{ client.id }}" class="datepick table_date" value="{{ client.status_date|default_if_none:"" }}"> {{ client.status_time|default_if_none:"" }}
+					    	<input type="text" data-id="{{ client.id }}" class="datepick table_date" value="{{ client.status_date|default_if_none:"" }}"> 
+					    	<input maxlength="5" placeholder="уточинть время" size="5" type="text" data-id="{{ client.id }}" class="timepicker" value="{{ client.status_time|default_if_none:"" }}">
+					    	
 					    </td>
 					    <td>{{ client.status_comment }}</td>
 					    <td>{{ client.data }}</td>
@@ -237,7 +239,21 @@
 			$('.datepicker').live('click',function(){
 				$(this).datepicker({showOn:'focus', dateFormat: "dd.mm.yy"}).focus();
 			});
-
+			
+			$('.timepicker').focus(function(){
+				$(this).val('12:00');
+			}).blur(function(){
+				var url = '/myadmin/clients/edit-ajx-client';
+					var queryString = 'time='+$(this).val()+'&id='+$(this).attr('data-id');
+					$.ajax({
+						type: 		"POST",
+						url:		url,
+						data:		queryString,
+						success:	function(msg){
+	
+						}
+					});
+			});
 			$('.set_time_picker').live('click',function(e){
 				e.preventDefault();
 				var $time_input	= $('.time_input');

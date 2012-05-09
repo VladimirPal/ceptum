@@ -44,13 +44,13 @@ body{
 #clients_filter_select_chzn{
 	width: auto !important;
 }
-.table_date{
+.table_date, .timepicker{
 	background: none;
-	border: 0;
+	border-color: rgba(0,0,0,0);
 	box-shadow: none;
 	width: 100px;
 }
-.table_date:focus{
+.table_date:focus, .timepicker:focus{
 	background: #fff;
 	border: 1px solid #CCCCCC;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
