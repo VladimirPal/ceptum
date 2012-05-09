@@ -90,8 +90,11 @@ def edit_ajx_client(request):
         client = Client.objects.get(id=request.POST.get('id',''))
         if request.POST.get('status', False):
             client.status = request.POST.get('status','')
-        if request.POST.get('date', False):
-            client.status_date = datetime.datetime.strptime(request.POST.get('date'), '%d.%m.%Y').date()
+        if 'date' in request.POST:
+            if request.POST.get('date',''):
+                client.status_date = datetime.datetime.strptime(request.POST.get('date'), '%d.%m.%Y').date()
+            else:
+                client.status_date = None
         if 'time' in request.POST:
             if request.POST.get('time',''):
                 client.status_time = request.POST.get('time','')

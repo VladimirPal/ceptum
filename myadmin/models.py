@@ -8,6 +8,7 @@ STATUS_CHOICES = (
     ('OFFER', 'Скинуть КП'),
     ('INSPECTION', 'Осмотр'),
     ('PROJECT', 'Проект'),
+    ('Done', ' Готово'),
  )
 
 class Client(models.Model):
