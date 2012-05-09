@@ -76,7 +76,10 @@ def edit_client(request, id):
             formset = FileFormset(request.POST, request.FILES, instance=client)
             if formset.is_valid():
                 formset.save()
-            return HttpResponseRedirect(urlresolvers.reverse('clients'))
+            if request.is_ajax():
+                return HttpResponse(status=200)
+            else:
+                return HttpResponseRedirect(urlresolvers.reverse('clients'))
     return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
 
 @login_required
