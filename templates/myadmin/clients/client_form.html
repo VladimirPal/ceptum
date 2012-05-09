@@ -119,6 +119,8 @@
 					e.preventDefault();
 					var size = $('.load_filed_fields').find('p').size();
 					$(this).before('<p><input id="id_clientfile_set-'+size+'-id" type="hidden" name="clientfile_set-'+size+'-id"><input id="id_clientfile_set-'+size+'-file" type="file" name="clientfile_set-'+size+'-file"> <a href="#" class="remove_link">Удалить</a></p>');
+					
+					$('#id_clientfile_set-TOTAL_FORMS').val(size+1);
 				});
 				$('.load_filed_fields').find('a.remove_link').live('click',function(e){
 					e.preventDefault();
@@ -126,6 +128,7 @@
 				});
 
 				$('.datepicker').datepicker();
+				$( ".datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
 
 				$('.set_time_picker').live('click',function(e){
 					e.preventDefault();
