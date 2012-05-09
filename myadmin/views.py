@@ -48,11 +48,28 @@ def clients(request):
     statuses = STATUS_CHOICES
     user = User.objects.get(username=request.user)
     try:
-        clients = Client.objects.filter(status__in=current_statuses)
+        print current_statuses
+        clients = Client.objects.filter(user=user, status__in=current_statuses)
     except :
         clients = False
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
 
+@login_required
+def clients_all(request):
+    if request.GET.getlist('status'):
+        current_statuses = []
+        for status in request.GET.getlist('status'):
+            current_statuses.append(status)
+    else:
+        current_statuses = dict((x) for x in STATUS_CHOICES)
+        del current_statuses['DONE']
+    statuses = STATUS_CHOICES
+    try:
+        print current_statuses
+        clients = Client.objects.filter(status__in=current_statuses)
+    except :
+        clients = False
+    return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
 
 @login_required
 def add_client(request):
