@@ -9,7 +9,7 @@ from myadmin.models import STATUS_CHOICES
 class ClientForm(ModelForm):
     name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'input-xlarge'}))
     contact_name = forms.CharField(widget=forms.Textarea(attrs={'rows':'3', 'class':'input-xlarge'}))
-    email = forms.EmailField(max_length=100, widget=forms.TextInput(attrs={'type':'email', 'class':'input-xlarge'}))
+    email = forms.EmailField(required=False, max_length=100, widget=forms.TextInput(attrs={'type':'email', 'class':'input-xlarge'}))
     address = forms.CharField(required=False, max_length=300, widget=forms.TextInput(attrs={'class':'input-xlarge'}))
     status = forms.ChoiceField(choices=STATUS_CHOICES, widget=forms.RadioSelect)
     status_date = forms.DateField(input_formats=['%d/%m/%Y'], required=False, widget=forms.DateInput(attrs={'class':'datepicker'}))
