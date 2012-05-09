@@ -189,10 +189,45 @@
 					url:		link+'/',
 					data:		send_data,
 					success:	function(msg){
-						$modal.find('.modal-body').html(msg);
-						//$modal.modal('hide');
+						if(msg == ''){
+							$modal.modal('hide');
+						}else{
+						
+							var div = document.createElement('div');
+							div.innerHTML = msg;
+							$modal.find('.modal-body').html('');
+							$(div).find('#client_form_fields').appendTo('.modal-body');
+						}
 					}
 				});
+			});
+			
+			$('.load_filed_fields').find('a').live('click',function(e){
+					e.preventDefault();
+				var size = $('.load_filed_fields').find('p').size();
+				$(this).before('<p><input id="id_clientfile_set-'+size+'-id" type="hidden" name="clientfile_set-'+size+'-id"><input id="id_clientfile_set-'+size+'-file" type="file" name="clientfile_set-'+size+'-file"> <a href="#" class="remove_link">Удалить</a></p>');
+			});
+			$('.load_filed_fields').find('a.remove_link').live('click',function(e){
+				e.preventDefault();
+				$(this).parent().remove();
+			});
+
+			$('.datepicker').live('click',function(){
+				$(this).datepicker({showOn:'focus'}).focus();
+			});
+
+			$('.set_time_picker').live('click',function(e){
+				e.preventDefault();
+				var $time_input	= $('.time_input');
+
+				if($time_input.is(':hidden')){
+					$time_input.val('12:00').show().focus();
+					$(this).text('убрать время');
+				}else{
+					$time_input.val('').hide();
+					$(this).text('уточнить время');
+				}
+
 			});
 		});
 	</script>
