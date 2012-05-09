@@ -82,7 +82,10 @@ def edit_client(request, id):
 @login_required
 def edit_status(request):
     if request.method == 'POST':
-        print request.POST
+        client = Client.objects.get(id=request.POST.get('id',''))
+        client.status = request.POST.get('status','')
+        client.save()
+        return HttpResponse(status=200)
 """
 from myadmin.models import ClientFile
 from django.core.files.base import ContentFile
