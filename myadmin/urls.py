@@ -7,4 +7,6 @@ urlpatterns = patterns('',
                       url(r'^clients/all/$', 'myadmin.views.clients_all', name="clients_all"),
                       url(r'^clients/add$', 'myadmin.views.add_client', name="add_client"),
                       url(r'^clients/edit-ajx-client$', 'myadmin.views.edit_ajx_client', name="edit_ajx_client"),
-                      url(r'^clients/edit/(?P<id>[-\w]+)/$', 'myadmin.views.edit_client', name="edit-client"),)
+                      url(r'^clients/edit/(?P<id>[-\w]+)/$', 'myadmin.views.edit_client', name="edit-client"),
+                      url(r'^clients/del/(?P<id>[-\w]+)/$', 'myadmin.views.delete_client', name="delete-client"),)
+

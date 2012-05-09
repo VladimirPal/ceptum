@@ -106,6 +106,11 @@ def edit_client(request, id):
                 return HttpResponseRedirect(urlresolvers.reverse('clients'))
     return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
 
+@login_required
+def delete_client(request, id):
+    client = Client.objects.get(id=id)
+    client.delete()
+
 import datetime
 @login_required
 def edit_ajx_client(request):
