@@ -4,11 +4,54 @@
     <title></title>
     <link rel="stylesheet" href="/static/admin/css/bootstrap.css">
     <link rel="stylesheet" href="/static/admin/css/admin.css">
-    <link rel="stylesheet" href="/static/admin/css/datepicker.css">
+    <link rel="stylesheet" href="/static/css/chosen.css">
+    <link rel="stylesheet" href="/static/admin/css/smoothness/jquery-ui-1.8.20.custom.css">
+    
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/jquery.ui.datepicker-ru.js"></script>
     <script type="text/javascript" src="/static/admin/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/admin/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="/static/admin/js/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="/static/js/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/form.js"></script>
+    <script type="text/javascript">
+    	jQuery(document).ajaxSend(function(event, xhr, settings) {
+		    function getCookie(name) {
+		        var cookieValue = null;
+		        if (document.cookie && document.cookie != '') {
+		            var cookies = document.cookie.split(';');
+		            for (var i = 0; i < cookies.length; i++) {
+		                var cookie = jQuery.trim(cookies[i]);
+		                // Does this cookie string begin with the name we want?
+		                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+		                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                    break;
+		                }
+		            }
+		        }
+		        return cookieValue;
+		    }
+		    function sameOrigin(url) {
+		        // url could be relative or scheme relative or absolute
+		        var host = document.location.host; // host + port
+		        var protocol = document.location.protocol;
+		        var sr_origin = '//' + host;
+		        var origin = protocol + sr_origin;
+		        // Allow absolute or scheme relative URLs to same origin
+		        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+		            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+		            // or any other URL that isn't scheme relative or absolute i.e relative.
+		            !(/^(\/\/|http:|https:).*/.test(url));
+		    }
+		    function safeMethod(method) {
+		        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		    }
+		
+		    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+		        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+		    }
+		});
+    </script>
 </head>
 <body>
 
@@ -17,12 +60,12 @@
 	    <button class="close" data-dismiss="modal">×</button>
 	    <h3>Редактирование клиента</h3>
 	  </div>
-	  <div class="modal-body">
+	  <form autocomplete="off" class="form-horizontal modal-body" id="client_add_form" enctype="multipart/form-data" method="post" action="">
 	    
-	  </div>
+	  </form>
 	  <div class="modal-footer">
-	    <a href="#" class="btn">Отмена</a>
-	    <a href="#" class="btn btn-primary">Сохранить</a>
+	    <a href="#" class="btn" id="cancel_client_link">Отмена</a>
+	    <a href="#" class="btn btn-primary" id="save_client_link">Сохранить</a>
 	  </div>
 	</div>	
 	
@@ -43,49 +86,51 @@
 			</div>
 			<div class="pull-right">
 				<form id="clients_filter_form" action="" method="post" autocomlete="off" class="form-inline">
-					<div class="control-group">
-			    		<label for="">Фильтровать: </label>
-			    			<select id="clients_filter_select">
+					<div class="control-group client_filter">
+						
+			    			<select data-placeholder="Выберите статусы" id="clients_filter_select" multiple="multiple">
 			    				<option></option>
 			    				<option>Созвон</option>
 			    				<option>Скинуть КП</option>
 			    				<option>Осмотр</option>
 			    			</select>
+			    			<input type="submit" value="Фильтровать" class="btn">
 			    	</div>
 				</form>
 			</div>
 		</div>
 		<hr class="clr">
 		{% if clients %}
-		<table class="table table-striped">
+		<table class="table table-striped" id="client_main_table">
 			<thead>
 				<tr>
 					<th>Название</th>
 					<th>Контакты</th>
 					<th>Email</th>
 					<th>Статус</th>
-					<th>Время</th>
 					<th>Комментарий</th>
 					<th>Дополнительно</th>
 					<th>Исполнитель</th>
 					<th>Файл</th>
-					<th>Ссылка</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for client in clients %}
 					<tr>					
-					    <td>{{ client.name }}</td>
-					    <td>{{ client.contact_name }}</td>
+					    <td><a href="">{{ client.name }}</a></td>
+					    <td>{{ client.contact_name }}<hr>
+					    	<a href="#">{{ client.address }}</a>
+					    </td>
 					    <td>{{ client.email }}</td>
-					    <td>{{ client.get_status_display }}</td>
-					    <td>{{ client.status_time }}</td>
+					    <td>
+					    	{{ client.get_status_display }}<hr>
+					    	{{ client.status_date }} {{ client.status_time }}
+					    </td>
 					    <td>{{ client.status_comment }}</td>
 					    <td>{{ client.data }}</td>
 					    <td>{{ client.user }}</td>
-					    <td>{{ client.file.name }}</td>
-					    <td>{{ client.file.file }}</td>
-					    <td><a class="client_edit_link" title="Редактировать"  data-toggle="modal" href=""><i class="icon-pencil"></i></a></td>
+					    <td><a href="{{ client.file.file }}">{{ client.file.name }}</a></td>
+					    <td><a class="client_edit_link" title="Редактировать"  data-toggle="modal" href="../client/edit/{{ client.id }}"><i class="icon-pencil"></i></a></td>
 				    </tr>
 				{% endfor %}
 			</tbody>
@@ -96,12 +141,38 @@
 	<script type="text/javascript">
 		$(function(){
 			//отправка формы при выборе статуса
-			$('#clients_filter_select').change(function(){
-				$('#clients_filter_form').trigger('submit');
+			//$('#clients_filter_select').change(function(){
+			//	$('#clients_filter_form').trigger('submit');
+			//});
+			
+			$('#clients_filter_select').chosen();
+			
+			var link;
+			var $modal	= $('#myModal');
+			$('a.client_edit_link').click(function(e){
+				e.preventDefault();
+				link = $(this).attr('href');
+				$modal.find('.modal-body').load(link+' #client_form_fields',function(){
+					$modal.modal('show');
+				});
 			});
 			
-			$('a.client_edit_link').click(function(){
-				$('#myModal').modal('show');
+			$('#cancel_client_link').click(function(e){
+				e.preventDefault();
+				$modal.modal('hide');
+			});
+			
+			$('#save_client_link').click(function(e){
+				e.preventDefault();
+				var send_data = $('#client_add_form').formSerialize();
+				$.ajax({
+					type: 		"POST",
+					url:		link+'/',
+					data:		send_data,
+					success:	function(msg){
+						$modal.modal('hide');
+					}
+				});
 			});
 		});
 	</script>
