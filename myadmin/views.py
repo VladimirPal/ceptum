@@ -39,6 +39,7 @@ def logout_view(request):
 @login_required
 def clients(request):
     statuses = STATUS_CHOICES
+    current_statuses = STATUS_CHOICES
     user = User.objects.get(username=request.user)
     try:
         clients = Client.objects.filter(user=user)
@@ -50,7 +51,7 @@ def clients(request):
 @login_required
 def add_client(request):
     form = ClientForm(initial={'user': request.user.id})
-    FileFormset = inlineformset_factory(Client, ClientFile, extra=1)
+    FileFormset = inlineformset_factory(Client, ClientFile, extra=2)
     client = Client()
     formset = FileFormset()
     if request.method == 'POST':
