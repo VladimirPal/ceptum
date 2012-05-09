@@ -119,7 +119,7 @@
 					<tr>					
 					    <td><a href="">{{ client.name }}</a></td>
 					    <td>{{ client.contact_name|linebreaks }}<hr>
-					    	<a href="#">{{ client.address }}</a>
+                            <a href="http://maps.yandex.ru/?text={{ client.address|urlize }}" target="_blank">{{ client.address }}</a>
 					    </td>
 					    <td>{{ client.email }}</td>
 					    <td>
@@ -146,7 +146,7 @@
 			</tbody>
 		</table>
 		{% endif %}
-		
+
 	</div>
 	<script type="text/javascript">
 		$(function(){
@@ -159,13 +159,13 @@
 					url:		url,
 					data:		queryString,
 					success:	function(msg){
-						
+
 					}
 				});
 			});
-			
+
 			$('#clients_filter_select').chosen();
-			
+
 			var link;
 			var $modal	= $('#myModal');
 			$('a.client_edit_link').click(function(e){
@@ -175,12 +175,12 @@
 					$modal.modal('show');
 				});
 			});
-			
+
 			$('#cancel_client_link').click(function(e){
 				e.preventDefault();
 				$modal.modal('hide');
 			});
-			
+
 			$('#save_client_link').click(function(e){
 				e.preventDefault();
 				var send_data = $('#client_add_form').formSerialize();
