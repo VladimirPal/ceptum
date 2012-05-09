@@ -38,12 +38,17 @@ def logout_view(request):
 
 @login_required
 def clients(request):
-    current_statuses = dict((x, y) for x, y in STATUS_CHOICES)
-    del current_statuses['DONE']
+    if request.GET.getlist('status'):
+        current_statuses = []
+        for status in request.GET.getlist('status'):
+            current_statuses.append(status)
+    else:
+        current_statuses = dict((x) for x in STATUS_CHOICES)
+        del current_statuses['DONE']
     statuses = STATUS_CHOICES
     user = User.objects.get(username=request.user)
     try:
-        clients = Client.objects.filter(user=user).exclude(status='DONE')
+        clients = Client.objects.filter(status__in=current_statuses)
     except :
         clients = False
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
