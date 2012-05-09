@@ -14,15 +14,15 @@ class Client(models.Model):
     contact_name = models.TextField()
     email = models.EmailField(max_length=100, null=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES)
-    status_date = models.DateTimeField(null=True,blank=True)
+    status_date = models.DateField(null=True, blank=True)
     status_time = models.TimeField(null=True, blank=True)
     status_comment = models.CharField(max_length=500, blank=True)
     data = models.TextField(null=True)
     user = models.ForeignKey(User)
-    file = models.ManyToManyField('ClientFile', null=True)
     comment = models.ManyToManyField('Comment', null=True)
 
 class ClientFile(models.Model):
+    client = models.ForeignKey(Client)
     file = models.FileField(upload_to='./clientfiles')
 
 class Comment(models.Model):

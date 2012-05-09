@@ -16,72 +16,75 @@
 			    	<div class="control-group">
 			    		<label class="control-label" for="">Название</label>
 			    		<div class="controls">
-			    			<input name="name" type="text" class="input-xlarge">
-			    		</div>
+                            {{ form.name.errors }}
+                            {{ form.name }}
+                        </div>
 			    	</div>
 			    	<div class="control-group">
 			    		<label class="control-label" for="">Контактное лицо</label>
 			    		<div class="controls">
-			    			<textarea name="contacts" rows="3" class="input-xlarge"></textarea>
+                            {{ form.contact_name.errors }}
+                            {{ form.contact_name }}
 			    		</div>
 			    	</div>
 			    	<div class="control-group">
 			    		<label class="control-label" for="">Email</label>
 			    		<div class="controls">
-			    			<input name="email" type="email" class="input-xlarge">
+                            {{ form.email.errors }}
+                            {{ form.email }}
 			    		</div>
 			    	</div>
 			    	<div class="control-group">
 			    		<label class="control-label" for="">Статус</label>
 			    		<div class="controls">
-			    			<label class="radio">
-			    				<input type="radio" name="status" value="CALL"> Созвон
-			    			</label>
-			    			<label class="radio">
-			    				<input type="radio" name="status" value="OFFER"> Скинуть КП
-			    			</label>
-			    			<label class="radio">
-			    				<input type="radio" name="status" value="INSPECTION"> Осмотр
-			    			</label>
+                            {{ form.status.errors }}
+                            {% for radio in form.status %}
+                                {{ radio }}
+                            {% endfor %}
 			    		</div>
-			    	</div>
+                    </div>
 			    	<div class="control-group">
 			    		<label class="control-label" for="">Время</label>
 			    		<div class="controls">
-			    			<input name="datetime" type="datetime" class="datepicker" size="10">
-			    			<input size="5" maxlength="5" type="time" class="time_input" style="display:none; width:40px;"> <a href="#" class="set_time_picker">уточнить время</a>
+                            {{ form.status_date.errors }}
+                            {{ form.status_date }}
+                            {{ form.status_time.errors }}
+                            {{ form.status_time }} <a href="#" class="set_time_picker">уточнить время</a>
 			    		</div>
 			    	</div>
 					<div class="control-group">
 			    		<label class="control-label" for="">Комментарий к статусу</label>
 			    		<div class="controls">
-			    			<textarea rows="3" class="input-xlarge"></textarea>
+                            {{ form.status_comment.errors }}
+                            {{ form.status_comment }}
 			    		</div>
 			    	</div>
 			    	<div class="control-group">
 			    		<label class="control-label" for="">Дополнительные данные</label>
 			    		<div class="controls">
-			    			<textarea name="data" rows="3" class="input-xxlarge"></textarea>
+                            {{ form.data.errors }}
+                            {{ form.data }}
 			    		</div>
 			    	</div>
 					<div class="control-group">
 			    		<label class="control-label" for="">Исполнитель</label>
 			    		<div class="controls">
-			    			<select name="manager">
-                                {% for user in users %}
-			    				<option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
-                                {% endfor %}
-			    			</select>
+                            {{ form.user.errors }}
+                            {{ form.user }}
 			    		</div>
 			    	</div>
 					<div class="control-group">
 			    		<label class="control-label" for="">Прикрепить файл</label>
 			    		<div class="controls load_filed_fields">
-			    			<p><input type="file" class="input-file" name="file_name_1"></p>
-			    			<a href="#">Приерепить еще…</a>
+                            {{ formset.management_form }}
+                            {% for form in formset %}
+                                {{ form.file.errors }}
+                                {{ form.file }}
+                            {% endfor %}
+			    			<a href="#">Прикрепить еще…</a>
 			    		</div>
 			    	</div>
-					
+
 					<div class="form-actions">
 						<button type="submit" class="btn btn-primary">Создать</button>
 					</div>
@@ -98,13 +101,13 @@
 					e.preventDefault();
 					$(this).parent().remove();
 				});
-				
+
 				$('.datepicker').datepicker();
-				
+
 				$('.set_time_picker').click(function(e){
 					e.preventDefault();
 					var $time_input	= $('.time_input');
-					
+
 					if($time_input.is(':hidden')){
 						$time_input.val('12:00').show().focus();
 						$(this).text('убрать время');
@@ -112,17 +115,10 @@
 						$time_input.val('').hide();
 						$(this).text('уточнить время');
 					}
-					
+
 				});
 			});
 		</script>
 	</div>
 </body>
 </html>
-{% if errors %}
-    {% for error_field, error_message in errors.items %}
-        {{ error_field }}
-        {{ error_message }}
-    {% endfor %}
-{% endif %}
-

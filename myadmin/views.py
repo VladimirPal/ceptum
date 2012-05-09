@@ -9,6 +9,9 @@ from catalog.models import Product, Category, Section
 from django.contrib.auth import logout
 from models import Client
 from django.contrib.auth.models import User
+from myadmin.forms import ClientForm
+from myadmin.models import ClientFile
+from django.forms.models import inlineformset_factory
 from madmin_func import valid_client_form
 
 def auth(request):
@@ -41,7 +44,24 @@ def clients(request):
         clients = False
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
 
-from django.core.files import File
+
+@login_required
+def add_client(request):
+    form = ClientForm()
+    FileFormset = inlineformset_factory(Client, ClientFile, extra=1)
+    client = Client()
+    formset = FileFormset()
+    if request.method == 'POST':
+        form = ClientForm(request.POST, instance=client)
+        if form.is_valid():
+            form.save()
+            formset = FileFormset(request.POST, request.FILES, instance=client)
+            if formset.is_valid():
+                formset.save()
+            return HttpResponseRedirect(urlresolvers.reverse('clients'))
+    return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
+
+"""
 from myadmin.models import ClientFile
 from django.core.files.base import ContentFile
 from ceptum.settings import MEDIA_ROOT
@@ -54,10 +74,10 @@ def add_client(request):
         # Validation
         errors = valid_client_form(postdata)
         if not errors:
-            user = User.objects.get(id=postdata.get('manager'))
+            user = User.objects.get(id=postdata.get('user'))
             client = Client()
             client.name = postdata.get('name','')
-            client.contact_name = postdata.get('contacts','')
+            client.contact_name = postdata.get('contact_name','')
             client.email = postdata.get('email','')
             client.status = postdata.get('status','')
             if postdata.get('status_time', False):
@@ -65,7 +85,7 @@ def add_client(request):
             client.data = postdata.get('data','')
             client.user = user
             client.save()
-            for upfile in request.FILES.getlist('file_name_1'):
+            for upfile in request.FILES.getlist('file'):
                 FILE_ROOT = os.path.join(MEDIA_ROOT, 'clientfiles')
                 myfile = ContentFile(upfile.read())
                 myfile.name = os.path.join(FILE_ROOT, upfile.name)
@@ -80,6 +100,7 @@ def add_client(request):
     else:
         pass
     return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
+"""
 
 @login_required
 def store(request):

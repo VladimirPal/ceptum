@@ -9,9 +9,9 @@ def valid_client_form(postdata):
     if not name:
         errors['name'] = 'Введите название'
     if not contacts:
-        errors['contacts'] = 'Введите контактное лицо'
+        errors['contact_name'] = 'Введите контактное лицо'
     if not status:
         errors['status'] = 'Укажите статус'
     if not manager:
-        errors['manager'] = 'Укажите исполнителя'
+        errors['user'] = 'Укажите исполнителя'
     return errors
