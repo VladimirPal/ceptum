@@ -38,8 +38,9 @@ def logout_view(request):
 
 @login_required
 def clients(request):
+    current_statuses = dict((x, y) for x, y in STATUS_CHOICES)
+    del current_statuses['DONE']
     statuses = STATUS_CHOICES
-    current_statuses = STATUS_CHOICES
     user = User.objects.get(username=request.user)
     try:
         clients = Client.objects.filter(user=user)

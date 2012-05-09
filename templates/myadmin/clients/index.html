@@ -97,7 +97,7 @@
 					<div class="control-group client_filter">
 			    			
 			    			<select id="clients_filter_select" data-placeholder="Выберите статусы" autocomplete="off" name="status" multiple="multiple">
-					    	{% for value, status in current_statuses %}
+					    	{% for value, status in current_statuses.items %}
 							    <option value="{{ value }}" selected="selected"> {{ status }}</option>
 							{% endfor %}
 							</select>
