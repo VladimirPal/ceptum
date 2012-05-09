@@ -67,7 +67,7 @@
 				    		<label class="control-label" for="">Время</label>
 				    		<div class="controls">
 	                            {{ form.status_date.errors }}
-	                            {{ form.status_date }}
+	                            {{ form.status_date|date:'%Y-%m-%d' }}
 	                            {{ form.status_time.errors }}
 	                            {{ form.status_time }} <a href="#" class="set_time_picker">уточнить время</a>
 				    		</div>
