@@ -104,6 +104,35 @@
 				    			<a href="#">Прикрепить еще…</a>
 				    		</div>
 				    	</div>
+				    	<script type="text/javascript">
+						$(function(){
+							$('.load_filed_fields').find('a').click(function(e){
+								e.preventDefault();
+								var size = $('.load_filed_fields').find('p').size();
+								$(this).before('<p><input id="id_clientfile_set-'+size+'-file" type="file" name="clientfile_set-'+size+'-file"> <a href="#" class="remove_link">Удалить</a></p>');
+							});
+							$('.load_filed_fields').find('a.remove_link').live('click',function(e){
+								e.preventDefault();
+								$(this).parent().remove();
+							});
+			
+							$('.datepicker').datepicker();
+			
+							$('.set_time_picker').click(function(e){
+								e.preventDefault();
+								var $time_input	= $('.time_input');
+			
+								if($time_input.is(':hidden')){
+									$time_input.val('12:00').show().focus();
+									$(this).text('убрать время');
+								}else{
+									$time_input.val('').hide();
+									$(this).text('уточнить время');
+								}
+			
+							});
+						});
+					</script>
 					</div>
 					
 					<div class="form-actions">
@@ -111,35 +140,7 @@
 					</div>
 			</form>
 		</fieldset>
-			<script type="text/javascript">
-			$(function(){
-				$('.load_filed_fields').find('a').click(function(e){
-					e.preventDefault();
-					var size = $('.load_filed_fields').find('p').size();
-					$(this).before('<p><input id="id_clientfile_set-'+size+'-file" type="file" name="clientfile_set-'+size+'-file"> <a href="#" class="remove_link">Удалить</a></p>');
-				});
-				$('.load_filed_fields').find('a.remove_link').live('click',function(e){
-					e.preventDefault();
-					$(this).parent().remove();
-				});
-
-				$('.datepicker').datepicker();
-
-				$('.set_time_picker').click(function(e){
-					e.preventDefault();
-					var $time_input	= $('.time_input');
-
-					if($time_input.is(':hidden')){
-						$time_input.val('12:00').show().focus();
-						$(this).text('убрать время');
-					}else{
-						$time_input.val('').hide();
-						$(this).text('уточнить время');
-					}
-
-				});
-			});
-		</script>
+		
 	</div>
 </body>
 </html>
