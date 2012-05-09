@@ -12,6 +12,7 @@ STATUS_CHOICES = (
 class Client(models.Model):
     name = models.CharField(max_length=100, unique=True)
     contact_name = models.TextField()
+    address = models.CharField(max_length=300, null=True)
     email = models.EmailField(max_length=100, null=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES)
     status_date = models.DateField(null=True, blank=True)
