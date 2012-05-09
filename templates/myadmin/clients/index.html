@@ -135,9 +135,11 @@
 					    <td>{{ client.status_comment }}</td>
 					    <td>{{ client.data }}</td>
 					    <td>{{ client.user.get_full_name }}</td>
-                        {% for file in client.clientfile_set.all %}
-                            <td><a href="{{ file.file.url }}">{{ file.file.name|slice:"12:"|truncatechars:13 }}</a></td>
-                        {% endfor %}
+                        <td>
+                        	{% for file in client.clientfile_set.all %}
+                            	<p><a href="{{ file.file.url }}">{{ file.file.name|slice:"12:"|truncatechars:13 }}</a></p>
+                        	{% endfor %}
+                        </td>
 					    <td><a class="client_edit_link" title="Редактировать"  data-toggle="modal" href="../client/edit/{{ client.id }}"><i class="icon-pencil"></i></a></td>
 				    </tr>
 				{% endfor %}
@@ -187,7 +189,8 @@
 					url:		link+'/',
 					data:		send_data,
 					success:	function(msg){
-						$modal.modal('hide');
+						$modal.find('.modal-body').html(msg);
+						//$modal.modal('hide');
 					}
 				});
 			});
