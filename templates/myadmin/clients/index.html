@@ -3,25 +3,107 @@
 <head>
     <title></title>
     <link rel="stylesheet" href="/static/admin/css/bootstrap.css">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/admin/css/admin.css">
+    <link rel="stylesheet" href="/static/admin/css/datepicker.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="/static/admin/js/bootstrap-modal.js"></script>
 </head>
 <body>
-<a href="add">Добавить клиента</a><br>
 
-{% if clients %}
-{% for client in clients %}
-    {{ client.name }}
-    {{ client.contact_name }}
-    {{ client.email }}
-    {{ client.get_status_display }}
-    {{ client.status_time }}
-    {{ client.status_comment }}
-    {{ client.data }}
-    {{ client.user }}
-    {{ client.file.name }}
-    {{ client.file.file }}
-{% endfor %}
-{% endif %}
-
+	<div class="modal" id="myModal" style="display:none;">
+	  <div class="modal-header">
+	    <button class="close" data-dismiss="modal">×</button>
+	    <h3>Редактирование клиента</h3>
+	  </div>
+	  <div class="modal-body">
+	    
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#" class="btn">Отмена</a>
+	    <a href="#" class="btn btn-primary">Сохранить</a>
+	  </div>
+	</div>	
+	
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluide header">			
+				<div class="pull-right">
+					<a href="#" class="btn alignright"><i class="icon-off"></i> Выйти</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluide content">
+		<div class="container-fluide">
+			<div class="pull-left">
+				<a href="#" class="btn btn-success"><i class="icon-th-list icon-white"></i> Показать всех клиентов</a>			
+				<a href="add" class="btn btn-primary"><i class="icon-plus icon-white"></i> Добавить клиента </a>
+			</div>
+			<div class="pull-right">
+				<form id="clients_filter_form" action="" method="post" autocomlete="off" class="form-inline">
+					<div class="control-group">
+			    		<label for="">Фильтровать: </label>
+			    			<select id="clients_filter_select">
+			    				<option></option>
+			    				<option>Созвон</option>
+			    				<option>Скинуть КП</option>
+			    				<option>Осмотр</option>
+			    			</select>
+			    	</div>
+				</form>
+			</div>
+		</div>
+		<hr class="clr">
+		{% if clients %}
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Название</th>
+					<th>Контакты</th>
+					<th>Email</th>
+					<th>Статус</th>
+					<th>Время</th>
+					<th>Комментарий</th>
+					<th>Дополнительно</th>
+					<th>Исполнитель</th>
+					<th>Файл</th>
+					<th>Ссылка</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for client in clients %}
+					<tr>					
+					    <td>{{ client.name }}</td>
+					    <td>{{ client.contact_name }}</td>
+					    <td>{{ client.email }}</td>
+					    <td>{{ client.get_status_display }}</td>
+					    <td>{{ client.status_time }}</td>
+					    <td>{{ client.status_comment }}</td>
+					    <td>{{ client.data }}</td>
+					    <td>{{ client.user }}</td>
+					    <td>{{ client.file.name }}</td>
+					    <td>{{ client.file.file }}</td>
+					    <td><a class="client_edit_link" title="Редактировать"  data-toggle="modal" href=""><i class="icon-pencil"></i></a></td>
+				    </tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% endif %}
+		
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			//отправка формы при выборе статуса
+			$('#clients_filter_select').change(function(){
+				$('#clients_filter_form').trigger('submit');
+			});
+			
+			$('a.client_edit_link').click(function(){
+				$('#myModal').modal('show');
+			});
+		});
+	</script>
 </body>
 </html>
