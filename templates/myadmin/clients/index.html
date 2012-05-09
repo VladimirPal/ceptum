@@ -139,7 +139,7 @@
 							</select>
 					    	<hr>
 					    	<div class="date_block">
-					    	<input type="text" data-id="{{ client.id }}" class="datepick table_date" value="{{ client.status_date|default_if_none:"" }}">&nbsp;<input maxlength="5" placeholder="уточинть время" size="5" type="text" data-id="{{ client.id }}" class="timepicker" value="{{ client.status_time|default_if_none:"" }}">
+					    	<input type="text" data-id="{{ client.id }}" class="datepick table_date" value="{{ client.status_date|default_if_none:"" }}">&nbsp;<input maxlength="5" placeholder="уточинть время" size="5" type="text" data-id="{{ client.id }}" class="timepicker" value="{{ client.status_time|time:"H:i"|default_if_none:"" }}">
 					    	</div>
 					    </td>
 					    <td>
@@ -204,7 +204,7 @@
 						if(msg == ''){
 							$modal.modal('hide');
 						}else{
-						
+
 							var div = document.createElement('div');
 							div.innerHTML = msg;
 							$modal.find('.modal-body').html('');
@@ -213,7 +213,7 @@
 					}
 				});
 			});
-			
+
 			$('.load_filed_fields').find('a').live('click',function(e){
 				e.preventDefault();
 				var size = $('.load_filed_fields').find('p').size();
@@ -224,7 +224,7 @@
 				$(this).parent().remove();
 			});
 			$('.datepick').datepicker({
-				onSelect: function(dateText, inst) { 
+				onSelect: function(dateText, inst) {
 					var url = '/myadmin/clients/edit-ajx-client';
 					var queryString = 'date='+dateText+'&id='+$(this).attr('data-id');
 					$.ajax({
@@ -232,7 +232,7 @@
 						url:		url,
 						data:		queryString,
 						success:	function(msg){
-	
+
 						}
 					});
 				},
@@ -241,7 +241,7 @@
 			$('.datepicker').live('click',function(){
 				$(this).datepicker({showOn:'focus', dateFormat: "dd.mm.yy"}).focus();
 			});
-			
+
 			$('.timepicker').focus(function(){
 				$(this).val('12:00');
 			}).blur(function(){
@@ -252,7 +252,7 @@
 						url:		url,
 						data:		queryString,
 						success:	function(msg){
-	
+
 						}
 					});
 			});
@@ -264,7 +264,7 @@
 						url:		url,
 						data:		queryString,
 						success:	function(msg){
-	
+
 						}
 					});
 			});
