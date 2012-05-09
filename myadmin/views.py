@@ -110,6 +110,7 @@ def edit_client(request, id):
 def delete_client(request, id):
     client = Client.objects.get(id=id)
     client.delete()
+    return HttpResponseRedirect(urlresolvers.reverse('clients'))
 
 import datetime
 @login_required
