@@ -66,7 +66,7 @@ def edit_client(request, id):
     client = Client.objects.get(id=id)
     form = ClientForm(initial={'user': request.user.id}, instance=client)
     FileFormset = inlineformset_factory(Client, ClientFile, extra=1)
-    formset = FileFormset()
+    formset = FileFormset(instance=client)
     if request.method == 'POST':
         form = ClientForm(request.POST, instance=client)
         if form.is_valid():
