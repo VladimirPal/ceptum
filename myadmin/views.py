@@ -49,7 +49,6 @@ def clients(request):
     user = User.objects.get(username=request.user)
     print user.username
     try:
-        print current_statuses
         clients = Client.objects.filter(user=user, status__in=current_statuses)
     except :
         clients = False
@@ -66,7 +65,6 @@ def clients_all(request):
         del current_statuses['DONE']
     statuses = STATUS_CHOICES
     try:
-        print current_statuses
         clients = Client.objects.filter(status__in=current_statuses)
     except :
         clients = False
