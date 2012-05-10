@@ -8,5 +8,6 @@ urlpatterns = patterns('',
                       url(r'^clients/add$', 'myadmin.views.add_client', name="add_client"),
                       url(r'^clients/edit-ajx-client$', 'myadmin.views.edit_ajx_client', name="edit_ajx_client"),
                       url(r'^clients/edit/(?P<id>[-\w]+)/$', 'myadmin.views.edit_client', name="edit-client"),
-                      url(r'^clients/del/(?P<id>[-\w]+)/$', 'myadmin.views.delete_client', name="delete-client"),)
+                      url(r'^clients/del/(?P<id>[-\w]+)/$', 'myadmin.views.delete_client', name="delete-client"),
+                      url(r'^clients/(?P<username>[-\w]+)/$', 'myadmin.views.user_clients', name="user-clients"),)
 

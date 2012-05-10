@@ -54,6 +54,23 @@ def clients(request):
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
 
 @login_required
+def user_clients(request, username):
+    if request.GET.getlist('status'):
+        current_statuses = []
+        for status in request.GET.getlist('status'):
+            current_statuses.append(status)
+    else:
+        current_statuses = dict((x) for x in STATUS_CHOICES)
+        del current_statuses['DONE']
+    statuses = STATUS_CHOICES
+    user = User.objects.get(username=username)
+    try:
+        clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
+    except :
+        clients = False
+    return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
+
+@login_required
 def clients_all(request):
     if request.GET.getlist('status'):
         current_statuses = []
