@@ -152,7 +152,7 @@
 					    <td>
 					    	<textarea data-id="{{ client.id }}" placeholder="Комментарий" class="client_comment_area">{{ client.status_comment }}</textarea>
 					    	</td>
-					    <td>{{ client.data }}</td>
+					    <td>{{ client.data|linebreaks }}</td>
 					    <td>{{ client.user.get_full_name }}</td>
                         <td>
                         	{% for file in client.clientfile_set.all %}
