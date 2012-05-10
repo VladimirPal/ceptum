@@ -48,7 +48,12 @@ def clients(request):
     statuses = STATUS_CHOICES
     user = User.objects.get(username=request.user)
     try:
-        clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
+        if request.GET.get('time',''):
+            time = request.GET.get('time')
+            if time == 'today':
+                clients = Client.objects.filter(user=user, status__in=current_statuses, status_date=datetime.date.today()).order_by('status_date')
+        else:
+            clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
     except :
         clients = False
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
@@ -65,7 +70,12 @@ def user_clients(request, username):
     statuses = STATUS_CHOICES
     user = User.objects.get(username=username)
     try:
-        clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
+        if request.GET.get('time',''):
+            time = request.GET.get('time')
+            if time == 'today':
+                clients = Client.objects.filter(user=user, status__in=current_statuses, status_date=datetime.date.today()).order_by('status_date')
+        else:
+            clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
     except :
         clients = False
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
@@ -81,7 +91,12 @@ def clients_all(request):
         del current_statuses['DONE']
     statuses = STATUS_CHOICES
     try:
-        clients = Client.objects.filter(status__in=current_statuses).order_by('status_date')
+        if request.GET.get('time',''):
+            time = request.GET.get('time')
+            if time == 'today':
+                clients = Client.objects.filter(status__in=current_statuses, status_date=datetime.date.today()).order_by('status_date')
+        else:
+            clients = Client.objects.filter(status__in=current_statuses).order_by('status_date')
     except :
         clients = False
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
