@@ -2,7 +2,7 @@
 {% block site_wrapper %}
 {% load myadmin_tags %}
 	{% menu request %}
-	
+
 	<div style="width: 450px; margin: 2em auto 0">
     <form action="/myadmin/store/" method="POST">{% csrf_token %}
         <select name="category_select" data-placeholder="Выберите категорию товара" style="width:350px;" class="chzn-select" multiple tabindex="6">

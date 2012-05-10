@@ -3,7 +3,6 @@ from django import template
 from datetime import date
 from cart.models import Client, STATUS_CHOICES
 from catalog.models import Product
-from myadmin.models import Cash
 
 register = template.Library()
 
