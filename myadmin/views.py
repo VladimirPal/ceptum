@@ -48,7 +48,7 @@ def clients(request):
     statuses = STATUS_CHOICES
     user = User.objects.get(username=request.user)
     try:
-        clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date').reverse()
+        clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
     except :
         clients = False
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
@@ -64,7 +64,7 @@ def clients_all(request):
         del current_statuses['DONE']
     statuses = STATUS_CHOICES
     try:
-        clients = Client.objects.filter(status__in=current_statuses).order_by('status_date').reverse()
+        clients = Client.objects.filter(status__in=current_statuses).order_by('status_date')
     except :
         clients = False
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
