@@ -65,6 +65,7 @@
 	  </form>
 	  <div class="modal-footer">
 	    <a href="#" class="btn" id="cancel_client_link">Отмена</a>
+	    <a href="#" id="remove_client_link" class="btn btn-danger">Удалить</a>
 	    <a href="#" class="btn btn-primary" id="save_client_link">Сохранить</a>
 	  </div>
 	</div>	
@@ -90,7 +91,8 @@
 	<div class="container-fluide content">
 		<div class="container-fluide">
 			<div class="pull-left">
-				<a href="#" class="btn btn-success"><i class="icon-th-list icon-white"></i> Показать всех клиентов</a>			
+				<a href="/myadmin/clients/all/" class="btn btn-success"><i class="icon-th-list icon-white"></i> Показать всех клиентов</a>
+				<a href="/myadmin/clients/" class="btn btn-warning"><i class="icon-user icon-white"></i> Мои клиенты</a>			
 				<a href="add" class="btn btn-primary"><i class="icon-plus icon-white"></i> Добавить клиента </a>
 			</div>
 			<div class="pull-right">
@@ -134,7 +136,7 @@
 					    <td>{{ client.contact_name|linebreaks }}<hr>
                             <a href="http://maps.yandex.ru/?text={{ client.address|urlize }}" target="_blank">{{ client.address }}</a>
 					    </td>
-					    <td>{{ client.email }}</td>
+					    <td><a href="mailto:{{ client.email }}">{{ client.email }}</a></td>
 					    <td>
 					    
 					    	<select autocomplete="off" class="change_status_select" name="status" data-id="{{ client.id }}">
@@ -144,7 +146,7 @@
 							</select>
 					    	<hr>
 					    	<div class="date_block">
-					    	<input type="text" data-id="{{ client.id }}" class="datepick table_date" value="{{ client.status_date|default_if_none:"" }}">&nbsp;<input maxlength="5" placeholder="уточинть время" size="5" type="text" data-id="{{ client.id }}" class="timepicker" value="{{ client.status_time|time:"H:i"|default_if_none:"" }}">
+					    	<input placeholder="Указать дату" type="text" data-id="{{ client.id }}" class="datepick table_date" value="{{ client.status_date|default_if_none:"" }}">&nbsp;<input {% if not client.status_date %}style="display:none"{% endif %} maxlength="5" placeholder="уточинть время" size="5" type="text" data-id="{{ client.id }}" class="timepicker" value="{{ client.status_time|time:"H:i"|default_if_none:"" }}">
 					    	</div>
 					    </td>
 					    <td>
@@ -157,7 +159,7 @@
                             	<p><a href="{{ file.file.url }}">{{ file.file.name|slice:"12:"|truncatechars:13 }}</a></p>
                         	{% endfor %}
                         </td>
-					    <td><a class="client_edit_link" title="Редактировать"  data-toggle="modal" href="../clients/edit/{{ client.id }}"><i class="icon-pencil"></i></a></td>
+					    <td><a data-id="{{ client.id }}" class="client_edit_link" title="Редактировать"  data-toggle="modal" href="/myadmin/clients/edit/{{ client.id }}"><i class="icon-pencil"></i></a></td>
 				    </tr>
 				{% endfor %}
 			</tbody>
@@ -188,7 +190,7 @@
 			$('a.client_edit_link').click(function(e){
 				e.preventDefault();
 				link = $(this).attr('href');
-				$modal.find('.modal-body').load(link+' #client_form_fields',function(){
+				$modal.find('.modal-body').attr('data-id',$(this).attr('data-id')).load(link+' #client_form_fields',function(){
 					$modal.modal('show');
 				});
 			});
@@ -229,19 +231,28 @@
 				$(this).parent().remove();
 			});
 			$('.datepick').datepicker({
-				onSelect: function(dateText, inst) {
+				dateFormat: "dd.mm.yy"
+			}).blur(function(){
+				var $this = $(this);
+				var send_data = function(){
 					var url = '/myadmin/clients/edit-ajx-client';
-					var queryString = 'date='+dateText+'&id='+$(this).attr('data-id');
+					var val = $this.val();
+					if(val != ''){
+						$this.siblings('.timepicker').show();
+					}else{
+						$this.siblings('.timepicker').hide();
+					}
+					var queryString = 'date='+val+'&id='+$this.attr('data-id');
 					$.ajax({
 						type: 		"POST",
 						url:		url,
 						data:		queryString,
 						success:	function(msg){
-
+	
 						}
 					});
-				},
-				dateFormat: "dd.mm.yy"
+				};
+				setTimeout(send_data,500);
 			});
 			$('.datepicker').live('click',function(){
 				$(this).datepicker({showOn:'focus', dateFormat: "dd.mm.yy"}).focus();
@@ -285,6 +296,11 @@
 					$(this).text('уточнить время');
 				}
 
+			});
+			$('#remove_client_link').click(function(){
+				$.get('/myadmin/clients/del/'+$modal.find('.modal-body').attr('data-id')+'/',function(){
+					$modal.modal('hide');
+				});
 			});
 		});
 	</script>
