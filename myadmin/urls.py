@@ -9,5 +9,10 @@ urlpatterns = patterns('',
                       url(r'^clients/edit-ajx-client$', 'myadmin.views.edit_ajx_client', name="edit_ajx_client"),
                       url(r'^clients/edit/(?P<id>[-\w]+)/$', 'myadmin.views.edit_client', name="edit-client"),
                       url(r'^clients/del/(?P<id>[-\w]+)/$', 'myadmin.views.delete_client', name="delete-client"),
-                      url(r'^clients/(?P<username>[-\w]+)/$', 'myadmin.views.user_clients', name="user-clients"),)
+                      url(r'^clients/(?P<username>[-\w]+)/$', 'myadmin.views.user_clients', name="user-clients"),
+                      url(r'^change_product_field/$', 'myadmin.views.change_product_field', name="change-field"),
+                      url(r'^store/$', 'myadmin.views.store', name="store-page"),
+                      url(r'^unstore/$', 'myadmin.views.unstore', name="store-page"),
+                      url(r'^allstore/$', 'myadmin.views.allstore', name="store-page"),)
+
 
