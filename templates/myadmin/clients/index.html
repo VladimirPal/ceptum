@@ -54,13 +54,23 @@
     </script>
 </head>
 <body>
+	
+	<script language="javascript"><!--
+	function loader_end() {
+	//Этот код будет выполняться после полной отправки данных
+	alert("Файл загружен!");
+	}
+	//-->
+	</script>
+	<div style="display:none;">
+	<iframe name="loader" onload="loader_end()"></iframe></div>
 
 	<div class="modal" id="myModal" style="display:none;">
 	  <div class="modal-header">
 	    <button class="close" data-dismiss="modal">×</button>
 	    <h3>Редактирование клиента</h3>
 	  </div>
-	  <form autocomplete="off" class="form-horizontal modal-body" id="client_add_form" enctype="multipart/form-data" method="post" action="">
+	  <form autocomplete="off" class="form-horizontal modal-body" id="client_add_form" enctype="multipart/form-data" method="post" action="" target="loader">
 	    
 	  </form>
 	  <div class="modal-footer">
@@ -122,7 +132,6 @@
 				<tr>
 					<th>Название</th>
 					<th>Контакты</th>
-					<th>Email</th>
 					<th>Статус</th>
 					<th>Комментарий</th>
 					<th>Дополнительно</th>
@@ -135,9 +144,9 @@
 					<tr>					
 					    <td><a href="">{{ client.name }}</a></td>
 					    <td>{{ client.contact_name|linebreaks }}<hr>
-                            <a href="http://maps.yandex.ru/?text={{ client.address|urlize }}" target="_blank">{{ client.address }}</a>
+                            <a href="http://maps.yandex.ru/?text={{ client.address|urlize }}" target="_blank">{{ client.address }}</a><hr>
+                            <a href="mailto:{{ client.email }}">{{ client.email }}</a>
 					    </td>
-					    <td><a href="mailto:{{ client.email }}">{{ client.email }}</a></td>
 					    <td>
 					    
 					    	<select autocomplete="off" class="change_status_select" name="status" data-id="{{ client.id }}">
@@ -191,7 +200,7 @@
 			$('a.client_edit_link').click(function(e){
 				e.preventDefault();
 				link = $(this).attr('href');
-				$modal.find('.modal-body').attr('data-id',$(this).attr('data-id')).load(link+' #client_form_fields',function(){
+				$modal.find('.modal-body').attr('data-id',$(this).attr('data-id')).attr('action', link+'/').load(link+' #client_form_fields',function(){
 					$modal.modal('show');
 				});
 			});
@@ -203,7 +212,8 @@
 
 			$('#save_client_link').click(function(e){
 				e.preventDefault();
-				var send_data = $('#client_add_form').formSerialize();
+				$('#client_add_form').trigger('submit');
+				/*var send_data = $('#client_add_form').formSerialize();
 				$.ajax({
 					type: 		"POST",
 					url:		link+'/',
@@ -219,7 +229,7 @@
 							$(div).find('#client_form_fields').appendTo('.modal-body');
 						}
 					}
-				});
+				});*/
 			});
 
 			$('.load_filed_fields').find('a').live('click',function(e){

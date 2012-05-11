@@ -68,3 +68,6 @@ body{
 .date_block{
 	white-space: nowrap;
 }
+select{
+	height: 20px;
+}
