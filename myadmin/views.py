@@ -56,6 +56,9 @@ def clients(request):
             clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
     except :
         clients = False
+    status_statistic = {}
+    for status, y in STATUS_CHOICES:
+        status_statistic[y] = Client.objects.filter(user=user, status=status).count()
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
 
 @login_required
@@ -79,6 +82,9 @@ def user_clients(request, username):
             clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
     except :
         clients = False
+    status_statistic = {}
+    for status, y in STATUS_CHOICES:
+        status_statistic[y] = Client.objects.filter(user=user, status=status).count()
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
 
 @login_required
@@ -100,6 +106,10 @@ def clients_all(request):
             clients = Client.objects.filter(status__in=current_statuses).order_by('status_date')
     except :
         clients = False
+    status_statistic = {}
+    for status, y in STATUS_CHOICES:
+        status_statistic[y] = clients.filter(status=status).count()
+        status_statistic[y] = Client.objects.filter(user=user, status=status).count()
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
 
 @login_required

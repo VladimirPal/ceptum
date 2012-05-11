@@ -82,11 +82,9 @@
 				</div>
 				<div class="pull-left">
 					<ul class="nav litle_stat">
-						<li>Созвон ( <strong>3</strong> )</li>
-						<li>Скинуть КП ( <strong>2</strong> )</li>
-						<li>Осмотр ( <strong>0</strong> )</li>
-						<li>Проект ( <strong>6</strong> )</li>
-                        <li>Готово ( <strong>10</strong> )</li>
+                        {% for status, value in status_statistic.items %}
+						<li>{{ status }} ( <strong>{{ value }}</strong> )</li>
+                        {% endfor %}
 					</ul>
 				</div>	
 			</div>
