@@ -108,8 +108,7 @@ def clients_all(request):
         clients = False
     status_statistic = {}
     for status, y in STATUS_CHOICES:
-        status_statistic[y] = clients.filter(status=status).count()
-        status_statistic[y] = Client.objects.filter(user=user, status=status).count()
+        status_statistic[y] = Client.objects.filter(status=status).count()
     return render_to_response("myadmin/clients/index.html", locals(), context_instance=RequestContext(request))
 
 @login_required
