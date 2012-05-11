@@ -70,4 +70,24 @@ body{
 }
 select{
 	height: 20px;
+	padding: 0;
+}
+.progress {
+    border: 1px solid #DDDDDD;
+    border-radius: 3px 3px 3px 3px;
+    padding: 1px;
+    position: relative;
+    width: 400px;
+}
+.bar {
+    background-color: #B4F5B4;
+    border-radius: 3px 3px 3px 3px;
+    height: 20px;
+    width: 0;
+}
+.percent {
+    display: inline-block;
+    left: 48%;
+    position: absolute;
+    top: 3px;
 }

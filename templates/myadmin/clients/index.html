@@ -54,16 +54,6 @@
     </script>
 </head>
 <body>
-	
-	<script language="javascript"><!--
-	function loader_end() {
-	//Этот код будет выполняться после полной отправки данных
-	//alert("Файл загружен!");
-	}
-	//-->
-	</script>
-	<div style="display:none;">
-	<iframe name="loader" onload="loader_end()"></iframe></div>
 
 	<div class="modal" id="myModal" style="display:none;">
 	  <div class="modal-header">
@@ -74,6 +64,10 @@
 	    
 	  </form>
 	  <div class="modal-footer">
+	  	<div class="progress">
+			<div class="bar"></div>
+			<div class="percent">0%</div>
+		</div>
 	    <a href="#" class="btn" id="cancel_client_link">Отмена</a>
 	    <a href="#" id="remove_client_link" class="btn btn-danger">Удалить</a>
 	    <a href="#" class="btn btn-primary" id="save_client_link">Сохранить</a>
@@ -212,6 +206,35 @@
 
 			$('#save_client_link').click(function(e){
 				e.preventDefault();
+				
+				var bar = $('.bar');
+				var percent = $('.percent');
+				var status = $('#status');
+				$('#client_add_form').ajaxForm({
+					beforeSend: function() {
+						status.empty();
+						var percentVal = '0%';
+						bar.width(percentVal)
+						percent.html(percentVal);
+					},
+					uploadProgress: function(event, position, total, percentComplete) {
+						var percentVal = percentComplete + '%';
+						bar.width(percentVal)
+						percent.html(percentVal);
+						//console.log(percentVal, position, total);
+					},
+					success: function(msg) {
+						if(msg == ''){
+							$modal.modal('hide');
+						}else{
+
+							var div = document.createElement('div');
+							div.innerHTML = msg;
+							$modal.find('.modal-body').html('');
+							$(div).find('#client_form_fields').appendTo('.modal-body');
+						}
+					}
+				}); 
 				$('#client_add_form').trigger('submit');
 				/*var send_data = $('#client_add_form').formSerialize();
 				$.ajax({
