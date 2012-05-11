@@ -293,7 +293,9 @@
 			});
 
 			$('.timepicker').focus(function(){
-				$(this).val('12:00');
+				if($(this).val() == ""){
+					$(this).val('12:00');
+				}
 			}).blur(function(){
 				var url = '/myadmin/clients/edit-ajx-client';
 					var queryString = 'time='+$(this).val()+'&id='+$(this).attr('data-id');
