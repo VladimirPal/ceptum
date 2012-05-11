@@ -24,8 +24,8 @@
 	
 	<div class="container">	
 		<fieldset>
-			<form action="" autocomplete="off" method="post" class="form-horizontal">
-				<legend>Просмотр клиента</legend>	
+			<form action="" autocomplete="off" method="post" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
+				<legend>Просмотр клиента</legend>
 					<div class="control-group">
 						<label class="control-label" for="">Название</label>
 						<div class="controls">
@@ -83,9 +83,22 @@
 					<div class="control-group">
 						<label class="control-label" for="">Новый комментарий</label>
 						<div class="controls">
-							<textarea class="input-xxlarge" rows="3"></textarea>
+                            {{ form.comment.error }}
+                            {{ form.comment }}
 						</div>
-					</div>
+                        <div class="control-group">
+                            <label class="control-label" for="">Прикрепить файл</label>
+                            <div class="controls load_filed_fields">
+                                {{ formset.management_form }}
+                                {% for form in formset %}
+                                    {{ form.id }}
+                                    {{ form.file.errors }}
+                                    <p>{{ form.file }}</p>
+                                {% endfor %}
+                                <a href="#">Прикрепить еще…</a>
+                            </div>
+                        </div>
+                    </div>
 					<div class="form-actions">
 						<button type="submit" class="btn btn-primary">Комментировать</button>
 					</div>
@@ -94,3 +107,10 @@
 	</div>
 </body>
 </html>
+Комментарии:<br>
+{% for comment in client.comment_set.all %}
+    {{ comment.comment }} - от {{ comment.user.get_full_name }}
+    {% for file in comment.commentfile_set.all %}
+        <p><a href="{{ file.file.url }}">{{ file.file.name|slice:"12:"|truncatechars:13 }}</a></p>
+    {% endfor %}<br>
+{% endfor %}

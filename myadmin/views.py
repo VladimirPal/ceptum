@@ -7,9 +7,9 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from catalog.models import Product, Category, Section
 from django.contrib.auth import logout
-from models import Client
+from models import Client, Comment, CommentFile
 from django.contrib.auth.models import User
-from myadmin.forms import ClientForm
+from myadmin.forms import ClientForm, CommentForm
 from myadmin.models import ClientFile
 from django.forms.models import inlineformset_factory
 from madmin_func import valid_client_form
@@ -177,6 +177,21 @@ def edit_ajx_client(request):
 @login_required
 def client_page(request, id):
     client = Client.objects.get(id=id)
+    user = User.objects.get(username=request.user)
+    comment = Comment()
+    form = CommentForm()
+    FileFormset = inlineformset_factory(Comment, CommentFile, extra=1)
+    formset = FileFormset()
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            newform = form.save(commit=False)
+            newform.user = user
+            newform.client = client
+            newform.save()
+            formset = FileFormset(request.POST, request.FILES, instance=comment)
+            if formset.is_valid():
+                formset.save()
     return render_to_response("myadmin/clients/client_page.html", locals(), context_instance=RequestContext(request))
 """
 from myadmin.models import ClientFile

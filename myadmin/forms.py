@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.forms import ModelForm
 from django import forms
-from myadmin.models import Client
+from myadmin.models import Client, Comment
 from django.contrib.auth.models import User
 from fields import UserModelChoiceField
 from myadmin.models import STATUS_CHOICES
@@ -21,3 +21,9 @@ class ClientForm(ModelForm):
         model = Client
         exclude = ('comment')
 
+
+class CommentForm(ModelForm):
+    comment = forms.CharField(widget=forms.Textarea(attrs={'rows':'3', 'class':'input-xxlarge'}))
+    class Meta:
+        model = Comment
+        exclude = ('user', 'client')

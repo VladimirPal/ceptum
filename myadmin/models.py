@@ -22,13 +22,16 @@ class Client(models.Model):
     status_comment = models.CharField(max_length=500, blank=True)
     data = models.TextField(null=True)
     user = models.ForeignKey(User)
-    comment = models.ManyToManyField('Comment', null=True)
 
 class ClientFile(models.Model):
     client = models.ForeignKey(Client)
     file = models.FileField(upload_to='./clientfiles')
 
 class Comment(models.Model):
-    user = models.ManyToManyField(User)
+    client = models.ForeignKey(Client)
+    user = models.ForeignKey(User)
     comment = models.TextField()
-    file = models.ManyToManyField(ClientFile)
+
+class CommentFile(models.Model):
+    comment = models.ForeignKey(Comment)
+    file = models.FileField(upload_to='./clientfiles')
