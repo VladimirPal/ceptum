@@ -192,6 +192,8 @@ def client_page(request, id):
             formset = FileFormset(request.POST, request.FILES, instance=comment)
             if formset.is_valid():
                 formset.save()
+    form = CommentForm()
+    formset = FileFormset()
     return render_to_response("myadmin/clients/client_page.html", locals(), context_instance=RequestContext(request))
 """
 from myadmin.models import ClientFile
