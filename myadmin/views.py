@@ -69,6 +69,7 @@ def user_clients(request, username):
         del current_statuses['DONE']
     statuses = STATUS_CHOICES
     user = User.objects.get(username=username)
+    clientsuser = user.get_full_name()
     try:
         if request.GET.get('time',''):
             time = request.GET.get('time')
