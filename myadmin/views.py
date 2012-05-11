@@ -14,6 +14,7 @@ from myadmin.models import ClientFile
 from django.forms.models import inlineformset_factory
 from madmin_func import valid_client_form
 from myadmin.models import STATUS_CHOICES
+import datetime
 
 def auth(request):
     if request.method == 'POST':
@@ -152,7 +153,6 @@ def delete_client(request, id):
     client.delete()
     return HttpResponseRedirect(urlresolvers.reverse('clients'))
 
-import datetime
 @login_required
 def edit_ajx_client(request):
     if request.method == 'POST':
@@ -173,6 +173,11 @@ def edit_ajx_client(request):
             client.status_comment = request.POST.get('comment','')
         client.save()
         return HttpResponse(status=200)
+
+@login_required
+def client_page(request, id):
+    client = Client.objects.get(id=id)
+    return render_to_response("myadmin/clients/client_page.html", locals(), context_instance=RequestContext(request))
 """
 from myadmin.models import ClientFile
 from django.core.files.base import ContentFile
