@@ -139,7 +139,7 @@
 			<tbody>
 				{% for client in clients %}
 					<tr>					
-					    <td><a href="">{{ client.name }}</a></td>
+					    <td><a href="/myadmin/clients/page/{{ client.id }}/">{{ client.name }}</a></td>
 					    <td>{{ client.contact_name|linebreaks }}<hr>
                             <a href="http://maps.yandex.ru/?text={{ client.address|urlize }}" target="_blank">{{ client.address }}</a><hr>
                             <a href="mailto:{{ client.email }}">{{ client.email }}</a>

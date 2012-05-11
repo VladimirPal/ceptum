@@ -1,11 +1,96 @@
-{{ client.status }}
-{{ client.address }}
-{{ client.contact_name }}
-{{ client.data }}
-{{ client.email }}
-{{ client.name }}
-{{ client.status }}
-{{ client.status_comment }}
-{{ client.status_date }}
-{{ client.status_time }}
-{{ client.user }}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/admin/css/admin.css">
+    <link rel="stylesheet" href="/static/admin/css/smoothness/jquery-ui-1.8.20.custom.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/jquery.ui.datepicker-ru.js"></script>
+    <script type="text/javascript" src="/static/admin/js/bootstrap.min.js"></script>
+      
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluide header">			
+				<div class="pull-right">
+					<a href="#" class="btn alignright"><i class="icon-off"></i> Выйти</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">	
+		<fieldset>
+			<form action="" autocomplete="off" method="post" class="form-horizontal">
+				<legend>Просмотр клиента</legend>	
+					<div class="control-group">
+						<label class="control-label" for="">Название</label>
+						<div class="controls">
+							<p class="client_page_field">{{ client.name }}</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="">Статус</label>
+						<div class="controls">
+							<p class="client_page_field">{{ client.status }}</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="">Адрес</label>
+						<div class="controls">
+							<p class="client_page_field">{{ client.address }}</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="">Контакты</label>
+						<div class="controls">
+							<p class="client_page_field">{{ client.contact_name }}</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="">Дополнительно</label>
+						<div class="controls">
+							<p class="client_page_field">{{ client.data }}</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="">Email</label>
+						<div class="controls">
+							<p class="client_page_field">{{ client.email }}</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="">Дата</label>
+						<div class="controls">
+							<p class="client_page_field">{{ client.status_date }} {{ client.status_time }}</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="">Исполнитель</label>
+						<div class="controls">
+							<p class="client_page_field">{{ client.user }}</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="">Комментарий</label>
+						<div class="controls">
+							<p class="client_page_field">{{ client.status_comment }}</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="">Новый комментарий</label>
+						<div class="controls">
+							<textarea class="input-xxlarge" rows="3"></textarea>
+						</div>
+					</div>
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary">Комментировать</button>
+					</div>
+			</form>
+		</fieldset>
+	</div>
+</body>
+</html>

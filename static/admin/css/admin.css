@@ -96,3 +96,6 @@ select{
 	height: 28px;
 	line-height: 28px;
 }
+.client_page_field{
+	padding: 5px 0;
+}
