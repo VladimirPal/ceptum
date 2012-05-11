@@ -96,14 +96,14 @@
 		<div class="container-fluide">
 			<div class="pull-left">
 				<a href="/myadmin/clients/all/" class="btn btn-success"><i class="icon-th-list icon-white"></i> Показать всех клиентов</a>
-				<a href="/myadmin/clients/" class="btn btn-warning"><i class="icon-user icon-white"></i> Мои клиенты</a>
+				<a href="/myadmin/clients/" class="btn btn-warning active"><i class="icon-user icon-white"></i> Мои клиенты</a>
                 <a href="?time=today" class="btn btn-danger"><i class="icon-time icon-white"></i> Клиенты на сегодня</a>
                 <a href="/myadmin/clients/add" class="btn btn-primary"><i class="icon-plus icon-white"></i> Добавить клиента </a>
 			</div>
 			<div class="pull-right">
 				<form id="clients_filter_form" action="" method="get" autocomlete="off" class="form-inline">
 					<div class="control-group client_filter">
-			    			
+			    			{% if 'today' in request.get_full_path %} <input type="hidden" name="time" value="today"> {% else %} {% endif %}
 			    			<select id="clients_filter_select" data-placeholder="Выберите статусы" autocomplete="off" name="status" multiple="multiple">
 					    	{% for value, status in statuses %}
                                 {% if value in current_statuses %}
