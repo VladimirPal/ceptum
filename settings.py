@@ -108,6 +108,7 @@ INSTALLED_APPS = (
     'filebrowser',
     'south',
     'raven.contrib.django',
+    'pymorphy',
 #    'tinymce',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
@@ -151,3 +152,7 @@ LOGGING = {
         },
     }
 }
+
+PYMORPHY_DICTS = {
+  'ru': { 'dir': './pymorphy_dicts' },
+  }

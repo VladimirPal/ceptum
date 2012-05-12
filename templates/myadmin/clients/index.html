@@ -1,3 +1,4 @@
+{% load pymorphy_tags %}
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -139,8 +140,9 @@
 			<tbody>
 				{% for client in clients %}
 					<tr>					
-					    <td><a href="/myadmin/clients/page/{{ client.id }}/">{{ client.name }}</a></td>
-					    <td>{{ client.contact_name|linebreaks }}<hr>
+					    <td><a href="/myadmin/clients/page/{{ client.id }}/">{{ client.name }}</a><br>
+                        {{ client.comment_set.all.count }} {{ 'Комментарий'|plural:client.comment_set.all.count }}</td>
+					    <td>{{ client.contact_name|linebreaks }} <hr>
                             <a href="http://maps.yandex.ru/?text={{ client.address|urlize }}" target="_blank">{{ client.address }}</a><hr>
                             <a href="mailto:{{ client.email }}">{{ client.email }}</a>
 					    </td>
