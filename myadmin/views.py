@@ -138,6 +138,7 @@ def add_client(request):
             return HttpResponseRedirect(urlresolvers.reverse('clients'))
     return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
 
+from django.shortcuts import redirect
 @login_required
 def edit_client(request, id):
     client = Client.objects.get(id=id)
@@ -154,7 +155,14 @@ def edit_client(request, id):
             if request.is_ajax():
                 return HttpResponse(status=200)
             else:
-                return HttpResponseRedirect(urlresolvers.reverse('clients'))
+                ref = request.session.get('ref')
+                print ref
+                if ref:
+                    return redirect(ref)
+                else:
+                    return redirect('/myadmin/clients')
+    else:
+        request.session['ref'] = request.META.get('HTTP_REFERER')
     return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
 
 @login_required
