@@ -42,12 +42,12 @@
 					<p class="client_page_field">{{ client.contact_name }}</p>
 					<p class="client_page_field">{{ client.address }}</p>
 					<p class="client_page_field">{{ client.email }}</p>	
-					<p class="client_page_field">{{ client.status }}</p>
-					<p class="client_page_field">{{ client.data }}</p>
+					<p class="client_page_field">{{ client.get_status_display }}</p>
 					<p class="client_page_field">{{ client.status_date }} {{ client.status_time }}</p>
 					<p class="client_page_field">{{ client.status_comment }}</p>
-					<p class="client_page_field">{{ client.user }}</p>
-					
+					<p class="client_page_field">{{ client.user.get_full_name }}</p>
+                    <p class="client_page_field">{{ client.data }}</p>
+
 					<hr>
                     <div class="control-group">
                     	<label class="control-label">Комментарии:</label>
