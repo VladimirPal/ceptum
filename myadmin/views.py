@@ -57,6 +57,8 @@ def clients(request):
             clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
     except :
         clients = False
+    expired_count = Client.objects.exclude(user=user, status_date__gt=datetime.date.today()).count()
+    today_count = Client.objects.filter(user=user, status_date=datetime.date.today()).count()
     status_statistic = {}
     for status, y in STATUS_CHOICES:
         status_statistic[y] = Client.objects.filter(user=user, status=status).count()
@@ -83,6 +85,8 @@ def user_clients(request, username):
             clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
     except :
         clients = False
+    expired_count = Client.objects.exclude(user=user, status_date__gt=datetime.date.today()).count()
+    today_count = Client.objects.filter(user=user, status_date=datetime.date.today()).count()
     status_statistic = {}
     for status, y in STATUS_CHOICES:
         status_statistic[y] = Client.objects.filter(user=user, status=status).count()
@@ -107,6 +111,8 @@ def clients_all(request):
             clients = Client.objects.filter(status__in=current_statuses).order_by('status_date')
     except :
         clients = False
+    expired_count = Client.objects.exclude(status_date__gt=datetime.date.today()).count()
+    today_count = Client.objects.filter(status_date=datetime.date.today()).count()
     status_statistic = {}
     for status, y in STATUS_CHOICES:
         status_statistic[y] = Client.objects.filter(status=status).count()
