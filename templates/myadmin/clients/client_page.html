@@ -40,13 +40,23 @@
 
 					<p class="client_page_field">{{ client.name }}</p>
 					<p class="client_page_field">{{ client.contact_name }}</p>
-					<p class="client_page_field">{{ client.address }}</p>
-					<p class="client_page_field">{{ client.email }}</p>	
+                    {% if client.address %}
+                        <p class="client_page_field">{{ client.address }}</p>
+                    {% endif %}
+                    {% if client.email %}
+                        <p class="client_page_field">{{ client.email }}</p>
+                    {% endif %}
 					<p class="client_page_field">{{ client.get_status_display }}</p>
-					<p class="client_page_field">{{ client.status_date }} {{ client.status_time }}</p>
-					<p class="client_page_field">{{ client.status_comment }}</p>
+                    {% if client.status_date %}
+					<p class="client_page_field">{{ client.status_date }} {{ client.status_time|default_if_none:"" }}</p>
+                    {% endif %}
+                    {% if client.status_comment %}
+                        <p class="client_page_field">{{ client.status_comment }}</p>
+                    {% endif %}
 					<p class="client_page_field">{{ client.user.get_full_name }}</p>
+                    {% if client.data %}
                     <p class="client_page_field">{{ client.data }}</p>
+                    {% endif %}
 
 					<hr>
                     <div class="control-group">
@@ -56,7 +66,7 @@
 								{% for comment in client.comment_set.all %}
 								<tr>
 									<td>
-								    	<p>{{ comment.comment }}</p>
+								    	<p>{{ comment.comment|linebreaks }}</p>
 								    	{% for file in comment.commentfile_set.all %}
 								       		<p>
 								       			<a href="{{ file.file.url }}">{{ file.file.name|slice:"12:"|truncatechars:13 }}</a>
