@@ -52,12 +52,12 @@ def clients(request):
         if request.GET.get('time',''):
             time = request.GET.get('time')
             if time == 'today':
-                clients = Client.objects.filter(user=user, status__in=current_statuses, status_date=datetime.date.today()).order_by('status_date')
+                clients = Client.objects.filter(user=user, status__in=current_statuses, status_date=datetime.date.today()).exclude(status_date__isnull=True).order_by('status_date')
         else:
             clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
     except :
         clients = False
-    expired_count = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).count()
+    expired_count = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).count()
     today_count = Client.objects.filter(user=user, status_date=datetime.date.today()).count()
     status_statistic = {}
     for status, y in STATUS_CHOICES:
@@ -80,12 +80,12 @@ def user_clients(request, username):
         if request.GET.get('time',''):
             time = request.GET.get('time')
             if time == 'today':
-                clients = Client.objects.filter(user=user, status__in=current_statuses, status_date=datetime.date.today()).order_by('status_date')
+                clients = Client.objects.filter(user=user, status__in=current_statuses, status_date=datetime.date.today()).exclude(status_date__isnull=True).order_by('status_date')
         else:
             clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
     except :
         clients = False
-    expired_count = Client.objects.exclude(user=user, status_date__gte=datetime.date.today()).count()
+    expired_count = Client.objects.exclude(user=user, status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).count()
     today_count = Client.objects.filter(user=user, status_date=datetime.date.today()).count()
     status_statistic = {}
     for status, y in STATUS_CHOICES:
