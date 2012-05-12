@@ -77,3 +77,12 @@ def select(client):
         'need_statuses': STATUS_CHOICES,
         'client' : client,
         }
+
+import datetime
+@register.filter(name='check_date')
+def check_date(date):
+    if date:
+        if date < datetime.date.today():
+            return "error"
+        elif date == datetime.date.today():
+            return "success"

@@ -1,4 +1,5 @@
 {% load pymorphy_tags %}
+{% load myadmin_tags %}
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -161,7 +162,7 @@
 							</select>
 					    	<hr>
 					    	<div class="date_block">
-					    	<input placeholder="Указать дату" type="text" data-id="{{ client.id }}" class="datepick table_date" value="{{ client.status_date|default_if_none:"" }}">&nbsp;<input {% if not client.status_date %}style="display:none"{% endif %} maxlength="5" placeholder="уточинть время" size="5" type="text" data-id="{{ client.id }}" class="timepicker" value="{{ client.status_time|time:"H:i"|default_if_none:"" }}">
+					    	<input placeholder="Указать дату" type="text" data-id="{{ client.id }}" class="datepick table_date {{ client.status_date|check_date }}" value="{{ client.status_date|default_if_none:"" }}">&nbsp;<input {% if not client.status_date %}style="display:none"{% endif %} maxlength="5" placeholder="уточинть время" size="5" type="text" data-id="{{ client.id }}" class="timepicker" value="{{ client.status_time|time:"H:i"|default_if_none:"" }}">
 					    	</div>
 					    </td>
 					    <td>
