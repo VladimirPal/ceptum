@@ -107,6 +107,8 @@ def clients_all(request):
             time = request.GET.get('time')
             if time == 'today':
                 clients = Client.objects.filter(status__in=current_statuses, status_date=datetime.date.today()).order_by('status_date')
+        elif request.GET.get('expired', ''):
+            clients = Client.objects.exclude( status_date__gte=datetime.date.today()).order_by('status_date')
         else:
             clients = Client.objects.filter(status__in=current_statuses).order_by('status_date')
     except :
