@@ -99,7 +99,7 @@
                 {% if expired_count %}
                     <strong><a href="?expired=1">{{ expired_count }} {{ 'Просроченный'|plural:expired_count }} {{ 'клиентов'|plural:expired_count }}</a></strong> |
                 {% else %}
-                    <strong>{{ 'Просроченный'|plural:expired_count }} {{ 'клиентов'|plural:expired_count }}</strong> |
+                    <strong>{{ expired_count }} {{ 'Просроченный'|plural:expired_count }} {{ 'клиентов'|plural:expired_count }}</strong> |
                 {% endif %}
                 <strong>{{ today_count }} {{ 'Клиентов'|plural:today_count }} на сегодня</strong>
 			</div>
