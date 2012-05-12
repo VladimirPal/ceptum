@@ -20,83 +20,72 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="container-fluide content menu">
+			<div class="">
+				<a href="/myadmin/clients/all/" class="btn btn-success{% if '/myadmin/clients/all/' == request.path %}active disabled{% endif %}"><i class="icon-th-list icon-white"></i> Показать всех клиентов</a>
+				<a href="/myadmin/clients/" class="btn btn-warning{% if '/myadmin/clients/' == request.path %}active disabled{% endif %}"><i class="icon-user icon-white"></i> Мои клиенты</a>
+	            <a href="?time=today" class="btn btn-danger{% if 'today' in request.get_full_path %}active disabled{% endif %}"><i class="icon-time icon-white"></i> Клиенты на сегодня</a>
+	            <a href="/myadmin/clients/add" class="btn btn-primary"><i class="icon-plus icon-white"></i> Добавить клиента </a>
+			</div>
+		</div>
+		
+		<hr class="clr">
 	</div>
 	
-	<div class="container">	
+	<div class="container client_page_form">	
 		<fieldset>
 			<form action="" autocomplete="off" method="post" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
 				<legend>Просмотр клиента</legend>
-					<div class="control-group">
-						<label class="control-label" for="">Название</label>
-						<div class="controls">
-							<p class="client_page_field">{{ client.name }}</p>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="">Статус</label>
-						<div class="controls">
-							<p class="client_page_field">{{ client.status }}</p>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="">Адрес</label>
-						<div class="controls">
-							<p class="client_page_field">{{ client.address }}</p>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="">Контакты</label>
-						<div class="controls">
-							<p class="client_page_field">{{ client.contact_name }}</p>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="">Дополнительно</label>
-						<div class="controls">
-							<p class="client_page_field">{{ client.data }}</p>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="">Email</label>
-						<div class="controls">
-							<p class="client_page_field">{{ client.email }}</p>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="">Дата</label>
-						<div class="controls">
-							<p class="client_page_field">{{ client.status_date }} {{ client.status_time }}</p>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="">Исполнитель</label>
-						<div class="controls">
-							<p class="client_page_field">{{ client.user }}</p>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="">Комментарий</label>
-						<div class="controls">
-							<p class="client_page_field">{{ client.status_comment }}</p>
-						</div>
-					</div>
-					<div class="control-group">
+
+					<p class="client_page_field">{{ client.name }}</p>
+					<p class="client_page_field">{{ client.contact_name }}</p>
+					<p class="client_page_field">{{ client.address }}</p>
+					<p class="client_page_field">{{ client.email }}</p>	
+					<p class="client_page_field">{{ client.status }}</p>
+					<p class="client_page_field">{{ client.data }}</p>
+					<p class="client_page_field">{{ client.status_date }} {{ client.status_time }}</p>
+					<p class="client_page_field">{{ client.status_comment }}</p>
+					<p class="client_page_field">{{ client.user }}</p>
+					
+					<hr>
+                    <div class="control-group">
+                    	<label class="control-label">Комментарии:</label>
+                    	<div class="controls">
+	                    	<table class="table table-striped">	
+								{% for comment in client.comment_set.all %}
+								<tr>
+									<td>
+								    	<p>{{ comment.comment }}</p>
+								    	{% for file in comment.commentfile_set.all %}
+								       		<p>
+								       			<a href="{{ file.file.url }}">{{ file.file.name|slice:"12:"|truncatechars:13 }}</a>
+								       		</p>
+									    {% endfor %}
+									    <p class="textright">{{ comment.user.get_full_name }}</p>
+								    </td>
+								 </tr>
+								{% endfor %}
+							</table>
+                    	</div>
+                    </div>
+                    <div class="control-group">
 						<label class="control-label" for="">Новый комментарий</label>
 						<div class="controls">
                             {{ form.comment.error }}
                             {{ form.comment }}
 						</div>
-                        <div class="control-group">
-                            <label class="control-label" for="">Прикрепить файл</label>
-                            <div class="controls load_filed_fields">
-                                {{ formset.management_form }}
-                                {% for form in formset %}
-                                    {{ form.id }}
-                                    {{ form.file.errors }}
-                                    <p>{{ form.file }}</p>
-                                {% endfor %}
-                                <a href="#">Прикрепить еще…</a>
-                            </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="">Прикрепить файл</label>
+                        <div class="controls load_filed_fields">
+                            {{ formset.management_form }}
+                            {% for form in formset %}
+                                {{ form.id }}
+                                {{ form.file.errors }}
+                                <p>{{ form.file }}</p>
+                            {% endfor %}
+                            <a href="#">Прикрепить еще…</a>
                         </div>
                     </div>
 					<div class="form-actions">
@@ -107,10 +96,3 @@
 	</div>
 </body>
 </html>
-Комментарии:<br>
-{% for comment in client.comment_set.all %}
-    {{ comment.comment }} - от {{ comment.user.get_full_name }}
-    {% for file in comment.commentfile_set.all %}
-        <p><a href="{{ file.file.url }}">{{ file.file.name|slice:"12:"|truncatechars:13 }}</a></p>
-    {% endfor %}<br>
-{% endfor %}

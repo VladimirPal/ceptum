@@ -9,7 +9,7 @@ a{
 	visibility: hidden;
 }
 body{
-	padding-top: 60px;
+	padding-top: 120px;
 }
 .header, .content{
 	padding: 0 20px;
@@ -98,4 +98,16 @@ select{
 }
 .client_page_field{
 	padding: 5px 0;
+}
+.textright{
+	text-align: right;
+}
+.navbar{
+	background: #fff;
+}
+.navbar hr{
+	margin-bottom: 0;
+}
+.navbar .menu{
+	padding: 10px 10px 0;
 }
