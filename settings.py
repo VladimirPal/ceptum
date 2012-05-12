@@ -153,6 +153,3 @@ LOGGING = {
     }
 }
 
-PYMORPHY_DICTS = {
-  'ru': { 'dir': './pymorphy_dicts' },
-  }
