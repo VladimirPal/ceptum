@@ -57,7 +57,7 @@
 </head>
 <body>
 
-	<div class="modal" id="myModal" style="display:none;">
+	<!-- <div class="modal" id="myModal" style="display:none;">
 	  <div class="modal-header">
 	    <button class="close" data-dismiss="modal">×</button>
 	    <h3>Редактирование клиента</h3>
@@ -74,7 +74,7 @@
 	    <a href="#" id="remove_client_link" class="btn btn-danger">Удалить</a>
 	    <a href="#" class="btn btn-primary" id="save_client_link">Сохранить</a>
 	  </div>
-	</div>	
+	</div>	-->
 	
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
@@ -203,13 +203,13 @@
 
 			var link;
 			var $modal	= $('#myModal');
-			$('a.client_edit_link').click(function(e){
+		/*	$('a.client_edit_link').click(function(e){
 				e.preventDefault();
 				link = $(this).attr('href');
 				$modal.find('.modal-body').attr('data-id',$(this).attr('data-id')).attr('action', link+'/').load(link+' #client_form_fields',function(){
 					$modal.modal('show');
 				});
-			});
+			}); */
 
 			$('#cancel_client_link').click(function(e){
 				e.preventDefault();
