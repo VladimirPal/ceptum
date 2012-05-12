@@ -59,7 +59,7 @@ def clients(request):
         clients = False
     expired_client = Client.objects.filter(user=user).exclude(status_date__gt=datetime.date.today())
     expired_count = expired_client.count()
-    print expired_count
+    print expired_client
     today_count = Client.objects.filter(user=user, status_date=datetime.date.today()).count()
     status_statistic = {}
     for status, y in STATUS_CHOICES:
