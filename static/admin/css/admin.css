@@ -111,3 +111,9 @@ select{
 .navbar .menu{
 	padding: 10px 10px 0;
 }
+input.success{
+	color: #468847;
+}
+input.error{
+	color: #B94A48;
+}
