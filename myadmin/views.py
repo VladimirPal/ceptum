@@ -9,7 +9,7 @@ from catalog.models import Product, Category, Section
 from django.contrib.auth import logout
 from models import Client, Comment, CommentFile
 from django.contrib.auth.models import User
-from myadmin.forms import ClientForm, CommentForm
+from myadmin.forms import myClientForm, CommentForm
 from myadmin.models import ClientFile
 from django.forms.models import inlineformset_factory
 from madmin_func import valid_client_form
@@ -124,12 +124,12 @@ def clients_all(request):
 
 @login_required
 def add_client(request):
-    form = ClientForm(initial={'user': request.user.id})
+    form = myClientForm(exclude_list=(),initial={'user': request.user.id})
     FileFormset = inlineformset_factory(Client, ClientFile, extra=2)
     client = Client()
     formset = FileFormset()
     if request.method == 'POST':
-        form = ClientForm(request.POST, instance=client)
+        form = myClientForm((),request.POST, instance=client)
         if form.is_valid():
             form.save()
             formset = FileFormset(request.POST, request.FILES, instance=client)
@@ -142,11 +142,11 @@ from django.shortcuts import redirect
 @login_required
 def edit_client(request, id):
     client = Client.objects.get(id=id)
-    form = ClientForm(instance=client)
+    form = myClientForm(exclude_list=('referrer',), instance=client)
     FileFormset = inlineformset_factory(Client, ClientFile, extra=1)
     formset = FileFormset(instance=client)
     if request.method == 'POST':
-        form = ClientForm(request.POST, instance=client)
+        form = myClientForm(('referrer',), request.POST, instance=client)
         if form.is_valid():
             form.save()
             formset = FileFormset(request.POST, request.FILES, instance=client)
@@ -156,11 +156,13 @@ def edit_client(request, id):
                 return HttpResponse(status=200)
             else:
                 ref = request.session.get('ref')
-                print ref
                 if ref:
                     return redirect(ref)
                 else:
                     return redirect('/myadmin/clients')
+        else:
+            print "lala"
+            print form.errors
     else:
         request.session['ref'] = request.META.get('HTTP_REFERER')
     return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))

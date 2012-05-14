@@ -9,12 +9,12 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
     <script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/jquery.ui.datepicker-ru.js"></script>
     <script type="text/javascript" src="/static/admin/js/bootstrap.min.js"></script>
-      
+
 </head>
 <body>
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
-			<div class="container-fluide header">			
+			<div class="container-fluide header">
 				<div class="pull-right">
 					<a href="#" class="btn alignright"><i class="icon-off"></i> Выйти</a>
 				</div>
@@ -93,6 +93,15 @@
 	                            {{ form.user }}
 				    		</div>
 				    	</div>
+                        {% if form.referrer %}
+                        <div class="control-group">
+				    		<label class="control-label" for="">Откуда пришел</label>
+				    		<div class="controls">
+	                            {{ form.referrer.errors }}
+                                {{ form.referrer }}
+				    		</div>
+				    	</div>
+                        {% endif %}
 						<div class="control-group">
 				    		<label class="control-label" for="">Прикрепить файл</label>
 				    		<div class="controls load_filed_fields">
@@ -105,9 +114,9 @@
 				    			<a href="#">Прикрепить еще…</a>
 				    		</div>
 				    	</div>
-				    	
+
 					</div>
-					
+
 					<div class="form-actions">
 						<button type="submit" class="btn btn-primary">Создать</button>
 					</div>
@@ -119,7 +128,7 @@
 					e.preventDefault();
 					var size = $('.load_filed_fields').find('p').size();
 					$(this).before('<p><input id="id_clientfile_set-'+size+'-id" type="hidden" name="clientfile_set-'+size+'-id"><input id="id_clientfile_set-'+size+'-file" type="file" name="clientfile_set-'+size+'-file"> <a href="#" class="remove_link">Удалить</a></p>');
-					
+
 					$('#id_clientfile_set-TOTAL_FORMS').val(size+1);
 				});
 				$('.load_filed_fields').find('a.remove_link').live('click',function(e){
