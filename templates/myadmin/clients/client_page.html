@@ -37,6 +37,7 @@
 		<fieldset>
 			<form action="" autocomplete="off" method="post" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
 				<legend>Просмотр клиента</legend>
+                    Создан {{ client.created_at }}-{{ client.get_referrer_display }}
 
 					<p class="client_page_field">{{ client.name }}</p>
 					<p class="client_page_field">{{ client.contact_name }}</p>
@@ -66,6 +67,7 @@
 								{% for comment in client.comment_set.all %}
 								<tr>
 									<td>
+                                        {{ comment.created_at }}
 								    	<p>{{ comment.comment|linebreaks }}</p>
 								    	{% for file in comment.commentfile_set.all %}
 								       		<p>
