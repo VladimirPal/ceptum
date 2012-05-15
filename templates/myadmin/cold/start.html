@@ -1,0 +1,19 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+{{ target.name }}<br>
+{{ target.city }}<br>
+{{ target.address }}<br>
+{{ target.site }}<br>
+{{ target.email }}<br>
+{% for phone in target.phone_set.all %}
+{{ phone.phone }}<br>
+{% endfor %}
+Возможность оставить комментарий<br>
+Кнопка отправить на перезвон и выставить дату перезвона<br>
+</body>
+</html>

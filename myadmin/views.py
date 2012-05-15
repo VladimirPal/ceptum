@@ -15,6 +15,7 @@ from django.forms.models import inlineformset_factory
 from madmin_func import valid_client_form
 from myadmin.models import STATUS_CHOICES
 import datetime
+from myadmin.models import CategoryTarget, Target
 
 def auth(request):
     if request.method == 'POST':
@@ -288,3 +289,15 @@ def change_product_field(request):
             product.wholesale_price = request.POST['val']
         product.save()
         return HttpResponse(status=200)
+
+@login_required
+def cold_choose_cat(request):
+    categorys = CategoryTarget.objects.all()
+    return render_to_response("myadmin/cold/index.html", locals(), context_instance=RequestContext(request))
+
+@login_required
+def cold_start(request, category_id):
+    category = CategoryTarget.objects.get(id=category_id)
+    target = Target.objects.filter(category=category, is_busy=False).order_by('?')[0]
+    return render_to_response("myadmin/cold/start.html", locals(), context_instance=RequestContext(request))
+
