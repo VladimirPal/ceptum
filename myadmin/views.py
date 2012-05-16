@@ -301,6 +301,7 @@ def cold_start(request, category_id):
     target = Target.objects.filter(category=category, is_busy=False).order_by('?')[0]
     form = TargetForm(instance=target)
     if request.method == 'POST':
-        print "lala"
-        pass
+        form = TargetForm(request.POST, instance=target)
+        if form.is_valid():
+            print "lala"
     return render_to_response("myadmin/cold/start.html", locals(), context_instance=RequestContext(request))

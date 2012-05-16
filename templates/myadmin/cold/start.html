@@ -78,7 +78,7 @@
 			<p>{{ phone.phone }}</p>
 		{% endfor %}
 		<hr>
-		<form action="" method="post" autocomplete="off" class="">{% csrf_token %}
+		<form action="" method="post" autocomplete="off" enctype="multipart/form-data" class="">{% csrf_token %}
 			<div class="failur_block">
 				<p>Причина отказа:</p>
                 {{ form.fail_reason.errors }}
@@ -87,7 +87,8 @@
                 {% endfor %}
             </div>
 			<div class="form-inline recall_block">
-				<input class="datepicker" type="text" placeholder="Перезвонить">
+                {{ form.callback_at.errors }}
+                {{ form.callback_at }}
 			</div>
 			
 			<script type="text/javascript">
@@ -108,7 +109,7 @@
 				});
 			</script>
 			<div>
-				<textarea placeholder="Комментарий" id="call_comment_text" class="input-xxlarge" rows="5" style="display:none;"></textarea>
+                {{ form.comment }}
 			</div>
 			<button class="btn btn-success" type="submit" name="ready"><i class="icon-ok icon-white"></i> Готово</button>
 		</form>

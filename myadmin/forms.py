@@ -35,9 +35,20 @@ class CommentForm(ModelForm):
         exclude = ('user', 'client')
 
 class TargetForm(ModelForm):
-    fail_reason = forms.ChoiceField(choices=FAIL_REASON, widget=forms.RadioSelect)
+    fail_reason = forms.ChoiceField(choices=FAIL_REASON, widget=forms.RadioSelect, required=False)
+    comment = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows':'5', 'cols':'', 'style':'display:none;', 'class':'input-xxlarge', 'placeholder': 'Комментарий', 'id': 'call_comment_text'}))
+    callback_at = forms.DateField(input_formats=['%d.%m.%Y'], required=False, widget=forms.DateInput(attrs={'class':'datepicker', 'placeholder':'Перезвонить'}))
     class Meta:
         model = Target
         exclude = ('name', 'category', 'city', 'address', 'site', 'email', 'user', 'is_busy',\
                    'is_done', 'is_positive', 'callback', 'done_at')
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        if not cleaned_data.get('fail_reason'):
+            if not cleaned_data.get('callback_at'):
+                msg = u"Укажите причину отказа"
+                self._errors["fail_reason"] = self.error_class([msg])
+        return cleaned_data
+
 
