@@ -81,8 +81,8 @@
 		<form action="" method="post" autocomplete="off" class="">{% csrf_token %}
 			<div class="failur_block">
 				<p>Причина отказа:</p>
-                {{ form.status.errors }}
-                {% for radio in form.status %}
+                {{ form.fail_reason.errors }}
+                {% for radio in form.fail_reason %}
                     {{ radio }}
                 {% endfor %}
             </div>
