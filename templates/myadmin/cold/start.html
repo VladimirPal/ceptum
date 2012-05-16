@@ -82,7 +82,7 @@
 			<div class="failur_block">
 				<p>Причина отказа:</p>
                 {{ form.status.errors }}
-                {% for radio in form.fail_reason %}
+                {% for radio in form.status %}
                     {{ radio }}
                 {% endfor %}
             </div>
@@ -107,8 +107,13 @@
 					});
 				});
 			</script>
+<<<<<<< HEAD
 			
 			<div class="comment_block">
+=======
+
+			<div>
+>>>>>>> 05294747ccd57f56d597eb5509cc21e720ca4c87
 				<textarea placeholder="Комментарий" id="call_comment_text" class="input-xxlarge" rows="5" style="display:none;"></textarea>
 			</div>
 			<button class="btn btn-success" type="submit" name="ready"><i class="icon-ok icon-white"></i> Готово</button>
