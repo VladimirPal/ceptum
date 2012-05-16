@@ -20,6 +20,13 @@ REFERRER_CHOICES = (
     ('OTHER', ' Другое'),
 )
 
+FAIL_REASON = (
+    ('IS_INSTALL', 'Уже установлено'),
+    ('DONT_NEED', 'Не требуется'),
+    ('DONT_TELL', 'Не сообщили'),
+    ('OTHER', 'Другое'),
+ )
+
 class Client(models.Model):
     name = models.CharField(max_length=100, unique=True)
     contact_name = models.TextField()
@@ -60,11 +67,15 @@ class Target(models.Model):
     site = models.URLField(max_length=200, null=True, blank=True)
     email = models.EmailField(max_length=200, null=True, blank=True)
     user = models.ForeignKey(User, null=True, blank=True)
+    fail_reason = models.CharField(null=True, blank=True, max_length=50, choices=FAIL_REASON)
     comment = models.TextField(null=True, blank=True)
     is_busy = models.BooleanField(default=False)
     is_done = models.BooleanField(default=False)
+    is_positive = models.BooleanField(default=False)
     callback = models.BooleanField(default=False)
+    callback_at = models.DateField(null=True, blank=True)
     created_at = models.DateField(auto_now_add=True)
+    done_at = models.DateField(null=True, blank=True)
 
 class Phone(models.Model):
     phone = models.CharField(max_length=20, unique=True)

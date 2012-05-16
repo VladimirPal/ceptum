@@ -78,22 +78,14 @@
 			<p>{{ phone.phone }}</p>
 		{% endfor %}
 		<hr>
-		<form action="" method="post" autocomplete="off" class="">
+		<form action="" method="post" autocomplete="off" class="">{% csrf_token %}
 			<div class="failur_block">
 				<p>Причина отказа:</p>
-				<label class="radio">
-					<input type="radio" name="option" value="1">Уже установлено
-				</label>
-				<label class="radio">
-					<input type="radio" name="option" value="2">Не требуется
-				</label>
-				<label class="radio">
-					<input type="radio" name="option" value="3">Не сообщили
-				</label>
-				<label class="radio">
-					<input type="radio" name="option" value="4">Другое
-				</label>
-			</div>
+                {{ form.status.errors }}
+                {% for radio in form.fail_reason %}
+                    {{ radio }}
+                {% endfor %}
+            </div>
 			<div class="form-inline recall_block">
 				<input class="datepicker" type="text" placeholder="Перезвонить">
 			</div>

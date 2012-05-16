@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.forms import ModelForm
 from django import forms
-from myadmin.models import Client, Comment
+from myadmin.models import Client, Comment, Target
 from django.contrib.auth.models import User
 from fields import UserModelChoiceField
-from myadmin.models import STATUS_CHOICES, REFERRER_CHOICES
+from myadmin.models import STATUS_CHOICES, FAIL_REASON
 
 def myClientForm(exclude_list, *args, **kwargs):
     class ClientForm(ModelForm):
@@ -28,9 +28,16 @@ def myClientForm(exclude_list, *args, **kwargs):
 
     return ClientForm()
 
-
 class CommentForm(ModelForm):
     comment = forms.CharField(widget=forms.Textarea(attrs={'rows':'3', 'class':'input-xxlarge'}))
     class Meta:
         model = Comment
         exclude = ('user', 'client')
+
+class TargetForm(ModelForm):
+    fail_reason = forms.ChoiceField(choices=FAIL_REASON, widget=forms.RadioSelect)
+    class Meta:
+        model = Target
+        exclude = ('name', 'category', 'city', 'address', 'site', 'email', 'user', 'is_busy',\
+                   'is_done', 'is_positive', 'callback', 'done_at')
+
