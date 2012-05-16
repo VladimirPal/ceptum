@@ -128,3 +128,11 @@ input.error{
 .failur_block, .comment_block{
 	margin-bottom: 18px;
 }
+.failur_block label{
+	min-height: 18px;
+    padding-left: 18px;
+}
+.failur_block label input{
+	float: left;
+    margin-left: -18px;
+}
