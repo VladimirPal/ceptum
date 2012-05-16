@@ -125,6 +125,6 @@ input.error{
 	display: block;
 	padding: 8px
 }
-.failur_block{
+.failur_block, .comment_block{
 	margin-bottom: 18px;
 }
