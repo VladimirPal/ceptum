@@ -117,3 +117,34 @@ input.success{
 input.error{
 	color: #B94A48;
 }
+
+.cold_list td{
+	padding: 0;
+}
+.cold_list td a{
+	display: block;
+	padding: 8px
+}
+.failur_block{
+	margin-bottom: 18px;
+}
+.recall_block .datepicker::-webkit-input-placeholder, #call_comment_text::-webkit-input-placeholder{
+	border-color: white;
+	box-shadow: none;
+	cursor: pointer;
+	text-decoration: underline;
+	resize: none;
+}
+.recall_block .datepicker:-moz-placeholder, #call_comment_text:-moz-placeholder{
+	border-color: white;
+	box-shadow: none;
+	cursor: pointer;
+	text-decoration: underline;
+	resize: none;
+}
+#call_comment_text:-moz-placeholder{
+	height: 20px;
+}
+#call_comment_text::-webkit-input-placeholder{
+	height: 20px;
+}

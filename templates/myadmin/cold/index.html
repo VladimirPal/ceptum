@@ -1,13 +1,79 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
 <head>
     <title></title>
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/admin/css/admin.css">
+    <link rel="stylesheet" href="/static/css/chosen.css">
+    <link rel="stylesheet" href="/static/admin/css/smoothness/jquery-ui-1.8.20.custom.css">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/jquery.ui.datepicker-ru.js"></script>
+    <script type="text/javascript" src="/static/admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="/static/js/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/form.js"></script>
+    <script type="text/javascript">
+    	jQuery(document).ajaxSend(function(event, xhr, settings) {
+		    function getCookie(name) {
+		        var cookieValue = null;
+		        if (document.cookie && document.cookie != '') {
+		            var cookies = document.cookie.split(';');
+		            for (var i = 0; i < cookies.length; i++) {
+		                var cookie = jQuery.trim(cookies[i]);
+		                // Does this cookie string begin with the name we want?
+		                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+		                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                    break;
+		                }
+		            }
+		        }
+		        return cookieValue;
+		    }
+		    function sameOrigin(url) {
+		        // url could be relative or scheme relative or absolute
+		        var host = document.location.host; // host + port
+		        var protocol = document.location.protocol;
+		        var sr_origin = '//' + host;
+		        var origin = protocol + sr_origin;
+		        // Allow absolute or scheme relative URLs to same origin
+		        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+		            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+		            // or any other URL that isn't scheme relative or absolute i.e relative.
+		            !(/^(\/\/|http:|https:).*/.test(url));
+		    }
+		    function safeMethod(method) {
+		        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		    }
+		
+		    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+		        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+		    }
+		});
+    </script>
 </head>
 <body>
-{% for category in categorys %}
-    <a href="/myadmin/cold/{{ category.id }}">{{ category.name }}</a><br>
-{% endfor %}
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluide header">		
+				<div class="pull-right">
+					<a href="/myadmin/cold/" class="btn btn-info{% if '/myadmin/cold/' == request.path %}active disabled{% endif %}"><i class="icon-bell icon-white"></i> Холодные звонки</a>
+					<a href="/myadmin/clients/" class="btn btn-warning{% if '/myadmin/clients/' == request.path %}active disabled{% endif %}"><i class="icon-user icon-white"></i> Мои клиенты</a>
+					<a href="#" class="btn alignright"><i class="icon-off"></i> Выйти</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	<div class="container">	
+		<h3>Выберите раздел:</h3><br>
+		<table class="table table-striped cold_list">	
+			{% for category in categorys %}
+				<tr><td><a href="/myadmin/cold/{{ category.id }}">{{ category.name }}</a></td></tr>
+			{% endfor %}
+		</table>
+	</div>
 
 </body>
 </html>
