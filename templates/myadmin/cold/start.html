@@ -100,10 +100,24 @@
 			
 			<script type="text/javascript">
 				$('.datepicker').datepicker({dateFormat: "dd.mm.yy"});
+				$(function(){
+					$('.recall_block').find('.datepicker').blur(function(){
+						var $this = $(this);
+						var send_data = function(){
+							var val = $this.val();
+							if(val != ''){
+								$('#call_comment_text').show();
+							}else{
+								$('#call_comment_text').hide();
+							}
+						};
+						setTimeout(send_data,300);
+					});
+				});
 			</script>
 			
 			<div>
-				<textarea placeholder="Комментарий" id="call_comment_text" class="input-xxlarge" rows="5"></textarea>
+				<textarea placeholder="Комментарий" id="call_comment_text" class="input-xxlarge" rows="5" style="display:none;"></textarea>
 			</div>
 			<button class="btn btn-success" type="submit" name="ready"><i class="icon-ok icon-white"></i> Готово</button>
 		</form>

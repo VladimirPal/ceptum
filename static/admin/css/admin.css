@@ -44,7 +44,7 @@ body{
 #clients_filter_select_chzn{
 	width: auto !important;
 }
-.table_date, .timepicker{
+.table_date, .timepicker, .recall_block .datepicker{
 	background: none;
 	border-color: rgba(0,0,0,0);
 	box-shadow: none;
@@ -56,7 +56,7 @@ body{
 	box-shadow: none;
 	resize: none;
 }
-.table_date:focus, .timepicker:focus, .client_comment_area:focus{
+.table_date:focus, .timepicker:focus, .client_comment_area:focus, .recall_block .datepicker:focus{
 	background: #fff;
 	border: 1px solid #CCCCCC;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
@@ -127,31 +127,4 @@ input.error{
 }
 .failur_block{
 	margin-bottom: 18px;
-}
-.recall_block .datepicker::-webkit-input-placeholder{
-	border-color: white;
-	box-shadow: none;
-	cursor: pointer;
-	text-decoration: underline;
-	resize: none;
-}
-#call_comment_text::-webkit-input-placeholder{
-	border-color: white;
-	box-shadow: none;
-	cursor: pointer;
-	text-decoration: underline;
-	resize: none;
-}
-.recall_block .datepicker:-moz-placeholder, #call_comment_text:-moz-placeholder{
-	border-color: white;
-	box-shadow: none;
-	cursor: pointer;
-	text-decoration: underline;
-	resize: none;
-}
-#call_comment_text:-moz-placeholder{
-	height: 20px;
-}
-#call_comment_text::-webkit-input-placeholder{
-	height: 20px;
 }
