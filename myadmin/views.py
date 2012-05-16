@@ -9,7 +9,7 @@ from catalog.models import Product, Category, Section
 from django.contrib.auth import logout
 from models import Client, Comment, CommentFile
 from django.contrib.auth.models import User
-from myadmin.forms import myClientForm, CommentForm
+from myadmin.forms import myClientForm, CommentForm, TargetForm
 from myadmin.models import ClientFile
 from django.forms.models import inlineformset_factory
 from madmin_func import valid_client_form
@@ -299,5 +299,8 @@ def cold_choose_cat(request):
 def cold_start(request, category_id):
     category = CategoryTarget.objects.get(id=category_id)
     target = Target.objects.filter(category=category, is_busy=False).order_by('?')[0]
+    form = TargetForm(instance=target)
+    if request.method == 'POST':
+        print "lala"
+        pass
     return render_to_response("myadmin/cold/start.html", locals(), context_instance=RequestContext(request))
-
