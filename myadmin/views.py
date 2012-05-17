@@ -1,5 +1,5 @@
           # -*- coding: utf-8 -*-
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response
 from django.core import urlresolvers
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
@@ -12,7 +12,6 @@ from django.contrib.auth.models import User
 from myadmin.forms import myClientForm, CommentForm, TargetForm
 from myadmin.models import ClientFile
 from django.forms.models import inlineformset_factory
-from madmin_func import valid_client_form
 from myadmin.models import STATUS_CHOICES
 import datetime
 from myadmin.models import CategoryTarget, Target
@@ -216,46 +215,6 @@ def client_page(request, id):
     form = CommentForm()
     formset = FileFormset()
     return render_to_response("myadmin/clients/client_page.html", locals(), context_instance=RequestContext(request))
-"""
-from myadmin.models import ClientFile
-from django.core.files.base import ContentFile
-from ceptum.settings import MEDIA_ROOT
-import os
-@login_required
-def add_client(request):
-    users = User.objects.all()
-    if request.method == 'POST':
-        postdata = request.POST
-        # Validation
-        errors = valid_client_form(postdata)
-        if not errors:
-            user = User.objects.get(id=postdata.get('user'))
-            client = Client()
-            client.name = postdata.get('name','')
-            client.contact_name = postdata.get('contact_name','')
-            client.email = postdata.get('email','')
-            client.status = postdata.get('status','')
-            if postdata.get('status_time', False):
-                client.status_time = postdata.get('status_time')
-            client.data = postdata.get('data','')
-            client.user = user
-            client.save()
-            for upfile in request.FILES.getlist('file'):
-                FILE_ROOT = os.path.join(MEDIA_ROOT, 'clientfiles')
-                myfile = ContentFile(upfile.read())
-                myfile.name = os.path.join(FILE_ROOT, upfile.name)
-                file_model = ClientFile()
-                file_model.file = myfile
-                file_model.save()
-                client.file.add(file_model)
-            client.save()
-            return HttpResponseRedirect(urlresolvers.reverse('clients'))
-        else:
-            return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
-    else:
-        pass
-    return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
-"""
 
 @login_required
 def store(request):
@@ -297,6 +256,7 @@ def cold_choose_cat(request):
 
 @login_required
 def cold_start(request, category_id):
+    user = User.objects.get(username=request.user)
     if request.session.get('last_target'):
         last_target = Target.objects.get(id=request.session.get('last_target'))
         if not last_target.is_done:
@@ -317,13 +277,14 @@ def cold_start(request, category_id):
                 target.is_done = True
                 target.is_positive = False
                 target.done_at = datetime.date.today()
+            target.user = user
             target.save()
             return HttpResponseRedirect(request.path)
     else:
         category = CategoryTarget.objects.get(id=category_id)
         target = Target.objects.filter(category=category, is_busy=False, is_done=False).order_by('?')[0]
         target.is_busy = True
-        target.is_busy_at = datetime.date.today()
+        target.is_busy_at = datetime.datetime.today()
         target.save()
         form = TargetForm(instance=target)
         request.session['last_target'] = target.id
