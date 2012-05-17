@@ -70,6 +70,7 @@ class Target(models.Model):
     fail_reason = models.CharField(null=True, blank=True, max_length=50, choices=FAIL_REASON)
     comment = models.TextField(null=True, blank=True)
     is_busy = models.BooleanField(default=False)
+    is_busy_at = models.DateTimeField(null=True, blank=True)
     is_done = models.BooleanField(default=False)
     is_positive = models.BooleanField(default=False)
     callback = models.BooleanField(default=False)

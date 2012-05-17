@@ -297,11 +297,60 @@ def cold_choose_cat(request):
 
 @login_required
 def cold_start(request, category_id):
-    category = CategoryTarget.objects.get(id=category_id)
-    target = Target.objects.filter(category=category, is_busy=False).order_by('?')[0]
-    form = TargetForm(instance=target)
+    if request.session.get('last_target'):
+        last_target = Target.objects.get(id=request.session.get('last_target'))
+        if not last_target.is_done:
+            if not last_target.callback:
+                if last_target.is_busy:
+                    last_target.is_busy = False
+                    last_target.save()
     if request.method == 'POST':
+        target = Target.objects.get(id=request.POST.get("target_id"))
         form = TargetForm(request.POST, instance=target)
         if form.is_valid():
-            print "lala"
+            form.save()
+            if target.callback_at:
+                target.callback = True
+                target.is_busy = True
+            else:
+                target.is_busy = False
+                target.is_done = True
+                target.is_positive = False
+                target.done_at = datetime.date.today()
+            target.save()
+            return HttpResponseRedirect(request.path)
+    else:
+        category = CategoryTarget.objects.get(id=category_id)
+        target = Target.objects.filter(category=category, is_busy=False, is_done=False).order_by('?')[0]
+        target.is_busy = True
+        target.is_busy_at = datetime.date.today()
+        target.save()
+        form = TargetForm(instance=target)
+        request.session['last_target'] = target.id
     return render_to_response("myadmin/cold/start.html", locals(), context_instance=RequestContext(request))
+
+@login_required
+def cold_to_client(request):
+    target = Target.objects.get(id=request.GET.get('target'))
+    contact_name = ''
+    for phone in target.phone_set.all():
+        contact_name += phone.phone + '\n'
+    form = myClientForm(exclude_list=(),initial={'user': request.user.id, 'referrer': 'COLD', 'name': target.name,\
+                         'contact_name':contact_name, 'email':target.email, 'address':target.address})
+    FileFormset = inlineformset_factory(Client, ClientFile, extra=2)
+    client = Client()
+    formset = FileFormset()
+    if request.method == 'POST':
+        form = myClientForm((),request.POST, instance=client)
+        if form.is_valid():
+            form.save()
+            formset = FileFormset(request.POST, request.FILES, instance=client)
+            if formset.is_valid():
+                formset.save()
+            target.is_busy = False
+            target.is_done = True
+            target.callback = False
+            target.done_at = datetime.date.today()
+            target.save()
+            return HttpResponseRedirect(urlresolvers.reverse('clients'))
+    return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))

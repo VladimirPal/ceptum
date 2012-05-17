@@ -16,6 +16,7 @@ urlpatterns = patterns('',
                       url(r'^unstore/$', 'myadmin.views.unstore', name="store-page"),
                       url(r'^allstore/$', 'myadmin.views.allstore', name="store-page"),
                       url(r'^cold/$', 'myadmin.views.cold_choose_cat', name="cold-choose-cat"),
+                      url(r'^cold/toclient/$', 'myadmin.views.cold_to_client', name="cold-to-client"),
                       url(r'^cold/(?P<category_id>[-\w]+)/$', 'myadmin.views.cold_start', name="cold-start"),)
 
 
