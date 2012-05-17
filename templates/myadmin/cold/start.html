@@ -72,8 +72,8 @@
 		<hr class="clr">
 
 		<p>{{ target.city }} {{ target.address }}</p>
-		<p>{{ target.site }}</p>
-		<p>{{ target.email }}</p>
+		<p>{{ target.site|default_if_none:"" }}</p>
+		<p>{{ target.email|default_if_none:"" }}</p>
 		{% for phone in target.phone_set.all %}
 			<p>{{ phone.phone }}</p>
 		{% endfor %}
