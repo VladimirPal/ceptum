@@ -118,6 +118,8 @@ INSTALLED_APPS = (
 import djcelery
 djcelery.setup_loader()
 
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+
 GRAPPELLI_ADMIN_TITLE = 'Видеонаблюдение'
 FILEBROWSER_DIRECTORY = './'
 FILEBROWSER_VERSIONS = {
