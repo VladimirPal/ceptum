@@ -36,6 +36,7 @@ class Client(models.Model):
     status_date = models.DateField(null=True, blank=True)
     status_time = models.TimeField(null=True, blank=True)
     status_comment = models.CharField(max_length=500, blank=True)
+    profit = models.DecimalField(max_digits=10, decimal_places=2)
     data = models.TextField(null=True)
     user = models.ForeignKey(User)
     referrer = models.CharField(max_length=50, choices=REFERRER_CHOICES)

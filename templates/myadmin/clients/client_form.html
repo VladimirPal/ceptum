@@ -102,6 +102,15 @@
 				    		</div>
 				    	</div>
                         {% endif %}
+                        {% if form.profit %}
+                        <div class="control-group">
+				    		<label class="control-label" for="">Прибыль</label>
+				    		<div class="controls">
+	                            {{ form.profit.errors }}
+                                {{ form.profit }}
+				    		</div>
+				    	</div>
+                        {% endif %}
 						<div class="control-group">
 				    		<label class="control-label" for="">Прикрепить файл</label>
 				    		<div class="controls load_filed_fields">

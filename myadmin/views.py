@@ -15,6 +15,7 @@ from django.forms.models import inlineformset_factory
 from myadmin.models import STATUS_CHOICES
 import datetime
 from myadmin.models import CategoryTarget, Target
+from django.shortcuts import redirect
 
 def auth(request):
     if request.method == 'POST':
@@ -124,7 +125,7 @@ def clients_all(request):
 
 @login_required
 def add_client(request):
-    form = myClientForm(exclude_list=(),initial={'user': request.user.id})
+    form = myClientForm(exclude_list=('profit',),initial={'user': request.user.id})
     FileFormset = inlineformset_factory(Client, ClientFile, extra=2)
     client = Client()
     formset = FileFormset()
@@ -138,7 +139,6 @@ def add_client(request):
             return HttpResponseRedirect(urlresolvers.reverse('clients'))
     return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
 
-from django.shortcuts import redirect
 @login_required
 def edit_client(request, id):
     client = Client.objects.get(id=id)
@@ -160,9 +160,6 @@ def edit_client(request, id):
                     return redirect(ref)
                 else:
                     return redirect('/myadmin/clients')
-        else:
-            print "lala"
-            print form.errors
     else:
         request.session['ref'] = request.META.get('HTTP_REFERER')
     return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
