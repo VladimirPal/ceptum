@@ -45,7 +45,7 @@ class Client(models.Model):
         if self.status == 'DONE':
             if not Client.objects.get(id=self.pk).status == 'DONE':
                 self.status_date = datetime.date.today()
-        super(Client, self).save(*args, **kwargs) # Call the "real" save() method.
+        super(Client, self).save(*args, **kwargs)
 
 
 class ClientFile(models.Model):
