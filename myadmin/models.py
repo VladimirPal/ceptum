@@ -1,7 +1,7 @@
           # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib import admin
+import datetime
 
 STATUS_CHOICES = (
     ('CALL', 'Созвон'),
@@ -40,6 +40,13 @@ class Client(models.Model):
     user = models.ForeignKey(User)
     referrer = models.CharField(max_length=50, choices=REFERRER_CHOICES)
     created_at = models.DateField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if self.status == 'DONE':
+            if not Client.objects.get(id=self.pk).status == 'DONE':
+                self.status_date = datetime.date.today()
+        super(Client, self).save(*args, **kwargs) # Call the "real" save() method.
+
 
 class ClientFile(models.Model):
     client = models.ForeignKey(Client)
