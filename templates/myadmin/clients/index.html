@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/static/admin/css/admin.css">
     <link rel="stylesheet" href="/static/css/chosen.css">
     <link rel="stylesheet" href="/static/admin/css/smoothness/jquery-ui-1.8.20.custom.css">
-    
+
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
     <script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/jquery.ui.datepicker-ru.js"></script>
@@ -48,7 +48,7 @@
 		    function safeMethod(method) {
 		        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 		    }
-		
+
 		    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
 		        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
 		    }
@@ -63,7 +63,7 @@
 	    <h3>Редактирование клиента</h3>
 	  </div>
 	  <form autocomplete="off" class="form-horizontal modal-body" id="client_add_form" enctype="multipart/form-data" method="post" action="" target="loader">
-	    
+
 	  </form>
 	  <div class="modal-footer">
 	  	<div class="progress">
@@ -75,10 +75,10 @@
 	    <a href="#" class="btn btn-primary" id="save_client_link">Сохранить</a>
 	  </div>
 	</div>	-->
-	
+
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
-			<div class="container-fluide header">		
+			<div class="container-fluide header">
 				<div class="pull-right">
 					<a href="/myadmin/cold/" class="btn btn-info{% if '/myadmin/clients/cold/' == request.path %}active disabled{% endif %}"><i class="icon-bell icon-white"></i> Холодные звонки</a>
 					<a href="#" class="btn alignright"><i class="icon-off"></i> Выйти</a>
@@ -89,7 +89,7 @@
 						<li>{{ status }} ( <strong>{{ value }}</strong> )</li>
                         {% endfor %}
 					</ul>
-				</div>	
+				</div>
 			</div>
 		</div>
 		<div class="container-fluide menu">
@@ -119,16 +119,16 @@
                                 {% endif %}
 							{% endfor %}
 							</select>
-			    			
+
 			    			<input type="submit" value="Фильтровать" class="btn">
 			    	</div>
 				</form>
 			</div>
-			
+
 			<div class="pull-right clientsuser">
 				{{ clientsuser }}
 			</div>
-			
+
 		</div>
 		<hr class="clr">
 	</div>
@@ -148,7 +148,7 @@
 			</thead>
 			<tbody>
 				{% for client in clients %}
-					<tr>					
+					<tr>
 					    <td><a href="/myadmin/clients/page/{{ client.id }}/">{{ client.name }}</a><br>
                         {{ client.comment_set.all.count }} {{ 'Комментарий'|plural:client.comment_set.all.count }}<br>
                             <hr>
@@ -159,7 +159,7 @@
                             <a href="mailto:{{ client.email }}">{{ client.email }}</a>
 					    </td>
 					    <td>
-					    
+
 					    	<select autocomplete="off" class="change_status_select" name="status" data-id="{{ client.id }}">
 					    	{% for value, status in statuses %}
 							    <option value="{{ value }}" {% if client.status == value %} selected="selected" {% endif %}> {{ status }}</option>
@@ -174,7 +174,10 @@
 					    	<textarea data-id="{{ client.id }}" placeholder="Комментарий" class="client_comment_area">{{ client.status_comment }}</textarea>
 					    	</td>
 					    <td>{{ client.data|linebreaks }}</td>
-					    <td><a href="/myadmin/clients/{{ client.user }}/">{{ client.user.get_full_name }}</a></td>
+					    <td><a href="/myadmin/clients/{{ client.user }}/">{{ client.user.get_full_name }}</a><br>
+                        <hr>
+                        {{ client.profit|default_if_none:'' }}
+                        </td>
                         <td>
                         	{% for file in client.clientfile_set.all %}
                             	<p><a href="{{ file.file.url }}">{{ file.file.name|slice:"12:"|truncatechars:13 }}</a></p>
@@ -223,7 +226,7 @@
 
 			$('#save_client_link').click(function(e){
 				e.preventDefault();
-				
+
 				var bar = $('.bar');
 				var percent = $('.percent');
 				var status = $('#status');
@@ -251,7 +254,7 @@
 							$(div).find('#client_form_fields').appendTo('.modal-body');
 						}
 					}
-				}); 
+				});
 				$('#client_add_form').trigger('submit');
 				/*var send_data = $('#client_add_form').formSerialize();
 				$.ajax({
@@ -299,7 +302,7 @@
 						url:		url,
 						data:		queryString,
 						success:	function(msg){
-	
+
 						}
 					});
 				};
