@@ -310,6 +310,7 @@ def cold_to_client(request):
                 formset.save()
             target.is_busy = False
             target.is_done = True
+            target.is_positive = True
             target.callback = False
             target.done_at = datetime.date.today()
             target.save()
