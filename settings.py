@@ -108,11 +108,15 @@ INSTALLED_APPS = (
     'filebrowser',
     'south',
     'raven.contrib.django',
+    'djcelery',
     'pymorphy',
 #    'tinymce',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+import djcelery
+djcelery.setup_loader()
 
 GRAPPELLI_ADMIN_TITLE = 'Видеонаблюдение'
 FILEBROWSER_DIRECTORY = './'
