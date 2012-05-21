@@ -58,6 +58,13 @@
 		<div class="navbar-inner">
 			<div class="container-fluide header">		
 				<div class="pull-right">
+                    Звонков сегодня: {{ calls_today }}|
+                    Всего звонков: {{ all_calls }}|
+                    Переведено в клиенты за сегодня: {{ clients_from_calls_today }}|
+                    Всего переведено в клиенты: {{ clients_from_calls }}|
+                    Процент успеха за сегодня: {{ succeess_today }}|
+                    Всего процент успеха: {{ succeess }}|
+                    Доведено до конца {{ profit_clients }}
 					<a href="/myadmin/cold/" class="btn btn-info{% if '/myadmin/cold/' == request.path %}active disabled{% endif %}"><i class="icon-bell icon-white"></i> Холодные звонки</a>
 					<a href="/myadmin/clients/" class="btn btn-warning{% if '/myadmin/clients/' == request.path %}active disabled{% endif %}"><i class="icon-user icon-white"></i> Мои клиенты</a>
 					<a href="#" class="btn alignright"><i class="icon-off"></i> Выйти</a>

@@ -285,6 +285,23 @@ def cold_start(request, category_id):
         target.save()
         form = TargetForm(instance=target)
         request.session['last_target'] = target.id
+        calls_today = Target.objects.filter(user=user, is_done=True, done_at=datetime.date.today()).count()
+        all_calls = Target.objects.filter(user=user, is_done=True).count()
+        clients_from_calls_today = Target.objects.filter(user=user, is_positive=True, done_at=datetime.date.today()).count()
+        clients_from_calls = Target.objects.filter(user=user, is_positive=True).count()
+        if calls_today and clients_from_calls_today:
+            succeess_today = "{0:.0f}%".format(float(clients_from_calls_today)/calls_today * 100)
+        else:
+            succeess_today = "0%"
+        if all_calls and clients_from_calls:
+            succeess = "{0:.0f}%".format(float(clients_from_calls_today)/calls_today * 100)
+        else:
+            succeess = "0%"
+        profit_targets = Target.objects.filter(user=user, is_positive=True)
+        profit_clients = 0
+        for client in profit_targets:
+            if client.client.status == 'DONE':
+                profit_clients +=1
     return render_to_response("myadmin/cold/start.html", locals(), context_instance=RequestContext(request))
 
 @login_required
@@ -310,6 +327,9 @@ def cold_to_client(request):
             target.is_positive = True
             target.callback = False
             target.done_at = datetime.date.today()
+            user = User.objects.get(username=request.user)
+            target.user = user
+            target.client = client
             target.save()
             return HttpResponseRedirect(urlresolvers.reverse('clients'))
     return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
