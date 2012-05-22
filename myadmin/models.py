@@ -85,6 +85,8 @@ class Target(models.Model):
     client = models.ForeignKey(Client)
     callback = models.BooleanField(default=False)
     callback_at = models.DateField(null=True, blank=True)
+    notavailable_count = models.IntegerField(default=0, max_length=1)
+    notavailable_date = models.DateField(null=True, blank=True)
     created_at = models.DateField(auto_now_add=True)
     done_at = models.DateField(null=True, blank=True)
 

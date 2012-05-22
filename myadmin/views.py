@@ -391,3 +391,23 @@ def cold_to_client(request):
             target.save()
             return HttpResponseRedirect(urlresolvers.reverse('clients'))
     return render_to_response("myadmin/clients/client_form.html", locals(), context_instance=RequestContext(request))
+
+
+@login_required
+def cold_unavailable(request, target_id):
+    user = User.objects.get(username=request.user)
+    target = Target.objects.get(id=target_id)
+    target.is_busy = False
+    target.notavailable_count += 1
+    if target.notavailable_count >= 3:
+        target.is_done = True
+        target.callback = False
+        target.done_at = datetime.date.today()
+        target.is_positive = False
+        target.user = user
+        target.fail_reason = "UNAVAILABLE"
+    else:
+        target.notavailable_date = datetime.date.today()
+    target.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
