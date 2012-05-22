@@ -50,7 +50,7 @@ class TargetForm(ModelForm):
     class Meta:
         model = Target
         exclude = ('name', 'category', 'city', 'address', 'site', 'email', 'user', 'is_busy',\
-                   'is_done', 'is_positive', 'callback', 'done_at')
+                   'is_done', 'is_positive', 'callback', 'done_at', 'notavailable_count', 'client')
 
     def clean(self):
         cleaned_data = self.cleaned_data
