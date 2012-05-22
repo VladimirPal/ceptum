@@ -294,7 +294,7 @@ def cold_start(request, category_id):
         else:
             succeess_today = "0%"
         if all_calls and clients_from_calls:
-            succeess = "{0:.0f}%".format(float(clients_from_calls_today)/calls_today * 100)
+            succeess = "{0:.0f}%".format(float(clients_from_calls)/all_calls * 100)
         else:
             succeess = "0%"
         profit_targets = Target.objects.filter(user=user, is_positive=True)
