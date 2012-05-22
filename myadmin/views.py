@@ -308,6 +308,61 @@ def cold_start(request, category_id):
     return render_to_response("myadmin/cold/start.html", locals(), context_instance=RequestContext(request))
 
 @login_required
+def recalls_today(request):
+    user = User.objects.get(username=request.user)
+    if request.session.get('last_target'):
+        last_target = Target.objects.get(id=request.session.get('last_target'))
+        if not last_target.is_done:
+            if not last_target.callback:
+                if last_target.is_busy:
+                    last_target.is_busy = False
+                    last_target.save()
+    if request.method == 'POST':
+        target = Target.objects.get(id=request.POST.get("target_id"))
+        form = TargetForm(request.POST, instance=target)
+        if form.is_valid():
+            form.save()
+            if target.callback_at:
+                target.callback = True
+                target.is_busy = True
+            else:
+                target.is_busy = False
+                target.is_done = True
+                target.is_positive = False
+                target.done_at = datetime.date.today()
+            target.user = user
+            target.save()
+            return HttpResponseRedirect(request.path)
+    else:
+        try:
+            target = Target.objects.filter(callback=True, callback_at=datetime.date.today()).order_by('?')[0]
+            target.is_busy = True
+            target.is_busy_at = datetime.datetime.today()
+            target.save()
+            form = TargetForm(instance=target)
+            request.session['last_target'] = target.id
+            calls_today = Target.objects.filter(user=user, is_done=True, done_at=datetime.date.today()).count()
+            all_calls = Target.objects.filter(user=user, is_done=True).count()
+            clients_from_calls_today = Target.objects.filter(user=user, is_positive=True, done_at=datetime.date.today()).count()
+            clients_from_calls = Target.objects.filter(user=user, is_positive=True).count()
+            if calls_today and clients_from_calls_today:
+                succeess_today = "{0:.0f}%".format(float(clients_from_calls_today)/calls_today * 100)
+            else:
+                succeess_today = "0%"
+            if all_calls and clients_from_calls:
+                succeess = "{0:.0f}%".format(float(clients_from_calls)/all_calls * 100)
+            else:
+                succeess = "0%"
+            profit_targets = Target.objects.filter(user=user, is_positive=True)
+            profit_clients = 0
+            for client in profit_targets:
+                if client.client.status == 'DONE':
+                        profit_clients +=1
+        except :
+            pass
+    return render_to_response("myadmin/cold/start.html", locals(), context_instance=RequestContext(request))
+
+@login_required
 def cold_to_client(request):
     target = Target.objects.get(id=request.GET.get('target'))
     contact_name = ''
