@@ -279,7 +279,6 @@ def cold_start(request, category_id):
                 target.done_at = datetime.date.today()
             target.user = user
             target.save()
-            print request.path
             return HttpResponseRedirect(request.path)
     else:
         category = CategoryTarget.objects.get(id=category_id)
