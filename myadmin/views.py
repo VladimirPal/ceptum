@@ -335,7 +335,7 @@ def recalls_today(request):
             return HttpResponseRedirect(request.path)
     else:
         try:
-            target = Target.objects.filter(callback=True, callback_at=datetime.date.today()).order_by('?')[0]
+            target = Target.objects.filter(user=user, callback=True, callback_at=datetime.date.today()).order_by('?')[0]
             target.is_busy = True
             target.is_busy_at = datetime.datetime.today()
             target.save()
