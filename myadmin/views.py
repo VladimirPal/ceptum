@@ -418,11 +418,11 @@ def cold_unavailable(request, target_id):
 @login_required
 def cold_stats(request):
     if request.GET.get('user',''):
-        user = User.objects.get(username=request.GET.get('user',''))
-        calls_today = Target.objects.filter(user=user, is_done=True, done_at=datetime.date.today()).count()
-        all_calls = Target.objects.filter(user=user, is_done=True).count()
-        clients_from_calls_today = Target.objects.filter(user=user, is_positive=True, done_at=datetime.date.today()).count()
-        clients_from_calls = Target.objects.filter(user=user, is_positive=True).count()
+        manager = User.objects.get(username=request.GET.get('user',''))
+        calls_today = Target.objects.filter(user=manager, is_done=True, done_at=datetime.date.today()).count()
+        all_calls = Target.objects.filter(user=manager, is_done=True).count()
+        clients_from_calls_today = Target.objects.filter(user=manager, is_positive=True, done_at=datetime.date.today()).count()
+        clients_from_calls = Target.objects.filter(user=manager, is_positive=True).count()
         if calls_today and clients_from_calls_today:
             succeess_today = "{0:.0f}%".format(float(clients_from_calls_today)/calls_today * 100)
         else:
@@ -431,7 +431,7 @@ def cold_stats(request):
             succeess = "{0:.0f}%".format(float(clients_from_calls)/all_calls * 100)
         else:
             succeess = "0%"
-        profit_targets = Target.objects.filter(user=user, is_positive=True)
+        profit_targets = Target.objects.filter(user=manager, is_positive=True)
         profit_clients = 0
         for client in profit_targets:
             if client.client.status == 'DONE':
