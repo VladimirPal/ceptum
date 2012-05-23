@@ -94,3 +94,9 @@ class Phone(models.Model):
     phone = models.CharField(max_length=20, unique=True)
     target = models.ForeignKey(Target)
 
+class Mail(models.Model):
+    category = models.ForeignKey(CategoryTarget, null=True, blank=True)
+    user = models.ForeignKey(User, null=True, blank=True)
+    title = models.CharField(max_length=200)
+    body = models.TextField()
+    attach = models.FileField(null=True, blank=True, upload_to='./mail_files')

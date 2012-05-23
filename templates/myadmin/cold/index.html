@@ -71,7 +71,7 @@
 		<h3>Выберите раздел:</h3><br>
 		<table class="table table-striped cold_list">	
 			{% for category in categorys %}
-				<tr><td><a href="/myadmin/cold/{{ category.id }}">{{ category.name }}</a></td></tr>
+				<tr><td><a href="/myadmin/cold/{{ category.id }}">{{ category.name }}</a><a href="{{ category.id }}/editmail/">Редактировать шаблон письма</a></td></tr>
 			{% endfor %}
 		</table>
 	</div>

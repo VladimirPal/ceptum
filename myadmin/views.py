@@ -9,8 +9,8 @@ from catalog.models import Product, Category, Section
 from django.contrib.auth import logout
 from models import Client, Comment, CommentFile
 from django.contrib.auth.models import User
-from myadmin.forms import myClientForm, CommentForm, TargetForm
-from myadmin.models import ClientFile
+from myadmin.forms import myClientForm, CommentForm, TargetForm, MailForm
+from myadmin.models import ClientFile, Mail
 from django.forms.models import inlineformset_factory
 from myadmin.models import STATUS_CHOICES
 import datetime
@@ -456,3 +456,27 @@ def cold_stats(request):
                 profit_clients +=1
     users = User.objects.filter(groups__name='Менеджеры')
     return render_to_response("myadmin/cold/stats.html", locals(), context_instance=RequestContext(request))
+
+@login_required
+def cold_edit_mail(request, category_id):
+    category = CategoryTarget.objects.get(id=category_id)
+    user = User.objects.get(username=request.user)
+    category.mail_set.filter(user=user)
+    mail = False
+    try:
+        mail = Mail.objects.get(category=category, user=user)
+        form = MailForm(instance=mail)
+    except :
+        form = MailForm()
+    if request.method == 'POST':
+        if mail:
+            form = MailForm(request.POST, request.FILES, instance=mail)
+        else:
+            form = MailForm(request.POST, request.FILES)
+        if form.is_valid():
+            newform = form.save(commit=False)
+            newform.category_id = category.id
+            newform.user_id = user.id
+            newform.save()
+            return HttpResponseRedirect(urlresolvers.reverse('cold-choose-cat'))
+    return render_to_response("myadmin/cold/mail.html", locals(), context_instance=RequestContext(request))

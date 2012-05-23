@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.forms import ModelForm
 from django import forms
-from myadmin.models import Client, Comment, Target
+from myadmin.models import Client, Comment, Target, Mail, CategoryTarget
 from django.contrib.auth.models import User
 from fields import UserModelChoiceField
 from myadmin.models import STATUS_CHOICES, FAIL_REASON
@@ -60,4 +60,7 @@ class TargetForm(ModelForm):
                 self._errors["fail_reason"] = self.error_class([msg])
         return cleaned_data
 
-
+class MailForm(ModelForm):
+    class Meta:
+        model = Mail
+        exclude = ('category', 'user')
