@@ -1,0 +1,26 @@
+<h1>{{ user.get_full_name }}</h1>
+<div class="span4 cold_stat_block">
+    <div class="well">
+        <div>
+            <h3>Звонков</h3>
+            <p>сегодня: <strong>{{ calls_today }}</strong></p>
+            <p>всего: <strong>{{ all_calls }}</strong></p>
+        </div>
+        <div>
+            <h3>Переведено в клиенты</h3>
+            <p>сегодня: <strong>{{ clients_from_calls_today }}</strong></p>
+            <p>всего: <strong>{{ clients_from_calls }}</strong></p>
+        </div>
+        <div>
+            <h3>Процент успеха</h3>
+            <p>сегодня: <strong>{{ succeess_today }}</strong></p>
+            <p>всего: <strong>{{ succeess }}</strong></p>
+        </div>
+        <div>
+            <h3>Доведено до конца: {{ profit_clients }}</h3>
+        </div>
+    </div>
+</div>
+{% for user in users %}
+    <a href="?user={{ user }}">{{ user.get_full_name }}</a><br>
+{% endfor %}
