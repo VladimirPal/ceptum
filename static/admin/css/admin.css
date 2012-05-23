@@ -136,3 +136,6 @@ input.error{
 	float: left;
     margin-left: -18px;
 }
+.cold_stat_block p{
+	font-size: 15px;
+}

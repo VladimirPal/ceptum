@@ -58,16 +58,9 @@
 		<div class="navbar-inner">
 			<div class="container-fluide header">		
 				<div class="pull-right">
-                    Звонков сегодня: {{ calls_today }}|
-                    Всего звонков: {{ all_calls }}|
-                    Переведено в клиенты за сегодня: {{ clients_from_calls_today }}|
-                    Всего переведено в клиенты: {{ clients_from_calls }}|
-                    Процент успеха за сегодня: {{ succeess_today }}|
-                    Всего процент успеха: {{ succeess }}|
-                    Доведено до конца {{ profit_clients }}
-					<a href="/myadmin/cold/" class="btn btn-info{% if '/myadmin/cold/' == request.path %}active disabled{% endif %}"><i class="icon-bell icon-white"></i> Холодные звонки</a>
-					<a href="/myadmin/clients/" class="btn btn-warning{% if '/myadmin/clients/' == request.path %}active disabled{% endif %}"><i class="icon-user icon-white"></i> Мои клиенты</a>
-                    <a href="/myadmin/cold/recalls-today/" class="btn btn-warning{% if '/myadmin/cold/recalls-today/' == request.path %}active disabled{% endif %}"><i class="icon-user icon-white"></i>Перезвоны на сегодня</a>
+					<a href="/myadmin/cold/" class="btn btn-info {% if '/myadmin/cold/' == request.path %}active disabled{% endif %}"><i class="icon-bell icon-white"></i> Холодные звонки</a>
+					<a href="/myadmin/clients/" class="btn btn-warning {% if '/myadmin/clients/' == request.path %}active disabled{% endif %}"><i class="icon-user icon-white"></i> Мои клиенты</a>
+                    <a href="/myadmin/cold/recalls-today/" class="btn btn-success {% if '/myadmin/cold/recalls-today/' == request.path %}active disabled{% endif %}"><i class="icon-fire icon-white"></i> Перезвоны на сегодня</a>
 					<a href="#" class="btn alignright"><i class="icon-off"></i> Выйти</a>
 				</div>
 			</div>
@@ -75,56 +68,88 @@
 	</div>
 	
 	<div class="container">
-		<h2 class="pull-left">{{ target.name }}</h2>
-		<a href="/myadmin/cold/toclient/?target={{ target.id }}" class="pull-right btn btn-info"><i class="icon-flag icon-white"></i> Перевести в клиенты</a>
-		<hr class="clr">
-
-		<p>{{ target.city }} {{ target.address }}</p>
-		<p>{{ target.site|default_if_none:"" }}</p>
-		<p>{{ target.email|default_if_none:"" }}</p>
-		{% for phone in target.phone_set.all %}
-			<p>{{ phone.phone }}</p>
-		{% endfor %}
-        <p>{{ target.comment }}</p>
-		<hr>
-		<form action="" method="post" autocomplete="off" enctype="multipart/form-data" class="">{% csrf_token %}
-            <input type=hidden name=target_id value="{{ target.id }}">
-            <div class="failur_block">
-				<p>Причина отказа:</p>
-                {{ form.fail_reason.errors }}
-                {% for radio in form.fail_reason %}
-                    {{ radio }}
-                {% endfor %}
-            </div>
-			<div class="form-inline recall_block">
-                {{ form.callback_at.errors }}
-                {{ form.callback_at }}
+		
+		<div class="row">
+			
+		
+			<div class="span8">
+				<h2 class="pull-left">{{ target.name }}</h2>
+				<a href="/myadmin/cold/toclient/?target={{ target.id }}" class="pull-right btn btn-primary"><i class="icon-flag icon-white"></i> Перевести в клиенты</a>
+				<hr class="clr">
+		
+				<p>{{ target.city }} {{ target.address }}</p>
+				<p>{{ target.site|default_if_none:"" }}</p>
+				<p>{{ target.email|default_if_none:"" }}</p>
+				{% for phone in target.phone_set.all %}
+					<p>{{ phone.phone }}</p>
+				{% endfor %}
+		        <p>{{ target.comment }}</p>
+				<hr>
+				<form action="" method="post" autocomplete="off" enctype="multipart/form-data" class="">{% csrf_token %}
+		            <input type=hidden name=target_id value="{{ target.id }}">
+		            <div class="failur_block">
+						<p>Причина отказа:</p>
+		                {{ form.fail_reason.errors }}
+		                {% for radio in form.fail_reason %}
+		                    {{ radio }}
+		                {% endfor %}
+		            </div>
+					<div class="form-inline recall_block">
+		                {{ form.callback_at.errors }}
+		                {{ form.callback_at }}
+					</div>
+					
+					<script type="text/javascript">
+						$('.datepicker').datepicker({dateFormat: "dd.mm.yy"});
+						$(function(){
+							$('.recall_block').find('.datepicker').blur(function(){
+								var $this = $(this);
+								var send_data = function(){
+									var val = $this.val();
+									if(val != ''){
+										$('#call_comment_text').show();
+									}else{
+										$('#call_comment_text').hide();
+									}
+								};
+								setTimeout(send_data,300);
+							});
+						});
+					</script>
+					<div>
+		                {{ form.comment }}
+					</div>
+					<hr class="clr">
+					<button class="btn btn-success" type="submit" name="ready"><i class="icon-ok icon-white"></i> Готово</button>
+					 <a href="/myadmin/cold/unavailable/{{ target.id }}/" class="btn pull-right btn-danger"><i class="icon-repeat icon-white"></i> Недозвон</a>
+				</form>
 			</div>
 			
-			<script type="text/javascript">
-				$('.datepicker').datepicker({dateFormat: "dd.mm.yy"});
-				$(function(){
-					$('.recall_block').find('.datepicker').blur(function(){
-						var $this = $(this);
-						var send_data = function(){
-							var val = $this.val();
-							if(val != ''){
-								$('#call_comment_text').show();
-							}else{
-								$('#call_comment_text').hide();
-							}
-						};
-						setTimeout(send_data,300);
-					});
-				});
-			</script>
-			<div>
-                {{ form.comment }}
+			<div class="span4 cold_stat_block">
+				<div class="well">
+				 	<div>
+				 		<h3>Звонков</h3> 
+				 		<p>сегодня: <strong>{{ calls_today }}</strong></p>
+                    	<p>всего: <strong>{{ all_calls }}</strong></p>
+                    </div>
+                    <div>
+                    	<h3>Переведено в клиенты</h3>
+                    	<p>сегодня: <strong>{{ clients_from_calls_today }}</strong></p>
+                    	<p>всего: <strong>{{ clients_from_calls }}</strong></p>
+                    </div>
+                    <div>
+                    	<h3>Процент успеха</h3>
+                    	<p>сегодня: <strong>{{ succeess_today }}</strong></p>
+                    	<p>всего: <strong>{{ succeess }}</strong></p>
+                    </div>
+                    <div>
+                    	<h3>Доведено до конца: {{ profit_clients }}</h3>
+                    </div>
+            	</div>
 			</div>
-			<button class="btn btn-success" type="submit" name="ready"><i class="icon-ok icon-white"></i> Готово</button>
-		</form>
-        <a href="/myadmin/cold/unavailable/{{ target.id }}/" class="btn btn-info"><i class="icon-bell icon-white"></i> Недозвон</a>
-
+			
+		</div>
+	
 	</div>
 </body>
 </html>
