@@ -305,6 +305,10 @@ def cold_start(request, category_id):
         for client in profit_targets:
             if client.client.status == 'DONE':
                 profit_clients +=1
+        try:
+            is_recalls = Target.objects.filter(user=user, callback=True, callback_at=datetime.date.today()).order_by('?')[0]
+        except :
+            is_recalls = False
     return render_to_response("myadmin/cold/start.html", locals(), context_instance=RequestContext(request))
 
 @login_required

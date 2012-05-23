@@ -60,7 +60,9 @@
 				<div class="pull-right">
 					<a href="/myadmin/cold/" class="btn btn-info {% if '/myadmin/cold/' == request.path %}active disabled{% endif %}"><i class="icon-bell icon-white"></i> Холодные звонки</a>
 					<a href="/myadmin/clients/" class="btn btn-warning {% if '/myadmin/clients/' == request.path %}active disabled{% endif %}"><i class="icon-user icon-white"></i> Мои клиенты</a>
+                    {% if is_recalls %}
                     <a href="/myadmin/cold/recalls-today/" class="btn btn-success {% if '/myadmin/cold/recalls-today/' == request.path %}active disabled{% endif %}"><i class="icon-fire icon-white"></i> Перезвоны на сегодня</a>
+                    {% endif %}
 					<a href="#" class="btn alignright"><i class="icon-off"></i> Выйти</a>
 				</div>
 			</div>
@@ -83,7 +85,7 @@
 				{% for phone in target.phone_set.all %}
 					<p>{{ phone.phone }}</p>
 				{% endfor %}
-		        <p>{{ target.comment }}</p>
+		        <p>{{ target.comment|default_if_none:"" }}</p>
 				<hr>
 				<form action="" method="post" autocomplete="off" enctype="multipart/form-data" class="">{% csrf_token %}
 		            <input type=hidden name=target_id value="{{ target.id }}">
