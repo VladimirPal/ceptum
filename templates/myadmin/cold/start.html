@@ -84,10 +84,8 @@
 					<div class="control-group">
 						<label class="control-label">Текущий:</label>
 						<div class="controls">
-                            {% if email_template %}
 							<p class="help-block"><a href="{{ email_template.attach.url }}">{{ email_template.attach.name|slice:"11:"|truncatechars:13 }}</a></p>
                             <input id="attach" type="hidden" name="attach" value="{{ email_template.attach }}">
-                            {% endif %}
                             <input id="target" type="hidden" name="target" value="{{ target.id }}">
 						</div>
 					</div>

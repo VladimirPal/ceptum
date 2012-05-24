@@ -300,12 +300,9 @@ def cold_start(request, category_id):
         target.is_busy = True
         target.is_busy_at = datetime.datetime.today()
         target.save()
-        try:
-            email_template = Mail.objects.get(category=category, user=user)
-            email_template.title = re.sub('\{\{name\}\}', target.name, email_template.title)
-            email_template.body = re.sub('\{\{name\}\}', target.name, email_template.body)
-        except :
-            pass
+        email_template = Mail.objects.get(category=category, user=user)
+        email_template.title = re.sub('\{\{name\}\}', target.name, email_template.title)
+        email_template.body = re.sub('\{\{name\}\}', target.name, email_template.body)
         form = TargetForm(instance=target)
         request.session['last_target'] = target.id
         calls_today = Target.objects.filter(user=user, is_done=True, done_at=datetime.date.today()).count()
