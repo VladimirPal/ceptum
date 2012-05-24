@@ -54,6 +54,62 @@
     </script>
 </head>
 <body>
+
+	<div class="modal" id="myModal" style="display:none;">
+	  <div class="modal-header">
+	    <button class="close" data-dismiss="modal">×</button>
+	    <h3>Отправка КП</h3>
+	  </div>
+	  <form autocomplete="off" class="form-horizontal modal-body" id="client_add_form" enctype="multipart/form-data" method="post" action="/myadmin/cold/send-ajx-mail" target="loader">
+	  	<fieldset>
+				<!--{{ form }}-->
+				
+				<!---->
+				<div class="controls_group">
+					<input type="hidden" name="email" value="" id="cold_email_for_send">
+					<div class="control-group">
+						<label for="id_title" class="control-label">Title:</label>
+						<div class="controls">
+							<input class="input-xxlarge" id="id_title" type="text" maxlength="200" value="{{ email_template.title }}" name="title">
+						</div> 
+					</div>
+					<div class="control-group">
+						<label for="id_body" class="control-label">Body:</label>
+						<div class="controls">
+							<textarea class="input-xxlarge" id="id_body" name="body" cols="40" rows="10">{{ email_template.body }}</textarea>
+						</div>
+					</div>
+					<h4>Фото</h4>
+					<hr>
+					<div class="control-group">
+						<label class="control-label">Текущий:</label>
+						<div class="controls">
+							<p class="help-block"><a href="{{ email_template.attach.url }}">{{ email_template.attach.name|slice:"11:"|truncatechars:13 }}</a></p>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<label class="checkbox">
+								<input id="attach-clear_id" type="checkbox" name="attach-clear">Очистить
+							</label>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Изменить:</label>
+						<div class="controls">
+							<input id="id_attach" type="file" name="attach">
+						</div>
+					</div>
+				</div>
+				<!---->
+				
+				<div class="form-actions">
+				    <button class="btn btn-success" type="submit" name="ready"><i class="icon-ok icon-white"></i> Отправить</button>
+				</div>
+		    </fieldset>
+	  </form>
+	</div>
+	
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container-fluide header">		
@@ -109,10 +165,47 @@
 								$cold_email_btn.show();
 							});
 							$cold_email_input.blur(function(){
+								$cold_email_input.val($.trim($cold_email_input.val()));
 								if(default_data == $cold_email_input.val()){
 									$cold_email_btn.hide();
 								}
 							});
+							
+							var $myModal	= $('#myModal');
+							var mail_sent	= false;
+							var $cold_client_form	= $('#cold_client_form');
+							
+							$('#cold_client_form').submit(function(e){
+								var value = $('#cold_client_form :radio').fieldValue(); 
+								if(value == 'OFFER' && !mail_sent){
+									e.preventDefault();
+									var email_tosend	= $cold_email_input.val();
+									if(email_tosend != ""){
+										$('#cold_email_for_send').val(email_tosend);
+										$myModal.show();
+									}else{
+										alert('Необходимо указать Email!');
+										$cold_email_input.focus();
+									}
+								}
+							});
+							
+							$('#client_add_form').ajaxForm({
+								 success: function(data) {
+							        if (data.error) {
+							            alert(error);
+							        }
+							        else {
+							           mail_sent	= true;
+							           $cold_client_form.trigger('submit');
+							        }
+							    }
+							});
+							
+							$myModal.find('.close').click(function(){
+								$myModal.fadeOut(200);
+							});
+							
 						});
 					</script>
 				</p>
@@ -121,7 +214,7 @@
 				{% endfor %}
 		        <p>{{ target.comment|default_if_none:"" }}</p>
 				<hr>
-				<form action="" method="post" autocomplete="off" enctype="multipart/form-data" class="">{% csrf_token %}
+				<form id="cold_client_form" action="" method="post" autocomplete="off" enctype="multipart/form-data" class="">{% csrf_token %}
 		            <input type=hidden name=target_id value="{{ target.id }}">
 		            <div class="failur_block">
 						<p>Причина отказа:</p>
@@ -189,8 +282,4 @@
 	</div>
 </body>
 </html>
-
-{{ email_template.title }}
-{{ email_template.body }}
-<a href="{{ email_template.attach.url }}">{{ email_template.attach.name|slice:"11:"|truncatechars:13 }}</a>
 

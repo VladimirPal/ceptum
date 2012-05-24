@@ -1,3 +1,6 @@
+.clearfix:before,.clearfix:after{content: "\0020"; display: block; height: 0; visibility: hidden} 
+.clearfix:after{clear: both}
+.clearfix {zoom: 1}
 a{
 	outline: none;
 }
@@ -26,6 +29,14 @@ body{
 }
 #myModal .modal-body{
 	max-height: none;
+	margin-bottom: 0;
+	padding: 15px 0 0 0;
+}
+#myModal .form-actions{
+	margin-bottom: 0;
+}
+#myModal .controls_group{
+	padding: 0 15px;
 }
 #client_main_table hr{
 	margin: 8px 0;
@@ -121,9 +132,17 @@ input.error{
 .cold_list td{
 	padding: 0;
 }
-.cold_list td a{
+.cold_list td .go_link{
 	display: block;
-	padding: 8px
+	padding: 8px;
+	float: left;
+	width: 90%;
+}
+.cold_list td .editlink{
+	display: block;
+	padding: 8px;
+	width: 2%;
+	float: right;
 }
 .failur_block, .comment_block{
 	margin-bottom: 18px;
@@ -138,4 +157,18 @@ input.error{
 }
 .cold_stat_block p{
 	font-size: 15px;
+}
+#cold_email_edit_form{
+	margin-bottom: 0;
+}
+#cold_email_edit_form *{
+	vertical-align: top;
+}
+#cold_email_input{
+	border-color: white;
+	box-shadow: none;
+}
+#cold_email_input:focus{
+	border-color: #ccc;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
 }

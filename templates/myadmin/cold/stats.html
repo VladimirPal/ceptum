@@ -1,26 +1,106 @@
-<h1>{{ manager.get_full_name }}</h1>
-<div class="span4 cold_stat_block">
-    <div class="well">
-        <div>
-            <h3>Звонков</h3>
-            <p>сегодня: <strong>{{ calls_today }}</strong></p>
-            <p>всего: <strong>{{ all_calls }}</strong></p>
-        </div>
-        <div>
-            <h3>Переведено в клиенты</h3>
-            <p>сегодня: <strong>{{ clients_from_calls_today }}</strong></p>
-            <p>всего: <strong>{{ clients_from_calls }}</strong></p>
-        </div>
-        <div>
-            <h3>Процент успеха</h3>
-            <p>сегодня: <strong>{{ succeess_today }}</strong></p>
-            <p>всего: <strong>{{ succeess }}</strong></p>
-        </div>
-        <div>
-            <h3>Доведено до конца: {{ profit_clients }}</h3>
-        </div>
-    </div>
-</div>
-{% for user in users %}
-    <a href="?user={{ user }}">{{ user.get_full_name }}</a><br>
-{% endfor %}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/admin/css/admin.css">
+    <link rel="stylesheet" href="/static/css/chosen.css">
+    <link rel="stylesheet" href="/static/admin/css/smoothness/jquery-ui-1.8.20.custom.css">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/jquery.ui.datepicker-ru.js"></script>
+    <script type="text/javascript" src="/static/admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="/static/js/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/form.js"></script>
+    <script type="text/javascript">
+    	jQuery(document).ajaxSend(function(event, xhr, settings) {
+		    function getCookie(name) {
+		        var cookieValue = null;
+		        if (document.cookie && document.cookie != '') {
+		            var cookies = document.cookie.split(';');
+		            for (var i = 0; i < cookies.length; i++) {
+		                var cookie = jQuery.trim(cookies[i]);
+		                // Does this cookie string begin with the name we want?
+		                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+		                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                    break;
+		                }
+		            }
+		        }
+		        return cookieValue;
+		    }
+		    function sameOrigin(url) {
+		        // url could be relative or scheme relative or absolute
+		        var host = document.location.host; // host + port
+		        var protocol = document.location.protocol;
+		        var sr_origin = '//' + host;
+		        var origin = protocol + sr_origin;
+		        // Allow absolute or scheme relative URLs to same origin
+		        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+		            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+		            // or any other URL that isn't scheme relative or absolute i.e relative.
+		            !(/^(\/\/|http:|https:).*/.test(url));
+		    }
+		    function safeMethod(method) {
+		        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		    }
+		
+		    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+		        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+		    }
+		});
+    </script>
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluide header">		
+				<div class="pull-right">
+					<a href="/myadmin/cold/" class="btn btn-info {% if '/myadmin/cold/' == request.path %}active disabled{% endif %}"><i class="icon-bell icon-white"></i> Холодные звонки</a>
+					<a href="/myadmin/clients/" class="btn btn-warning {% if '/myadmin/clients/' == request.path %}active disabled{% endif %}"><i class="icon-user icon-white"></i> Мои клиенты</a>
+                    {% if is_recalls %}
+                    <a href="/myadmin/cold/recalls-today/" class="btn btn-success {% if '/myadmin/cold/recalls-today/' == request.path %}active disabled{% endif %}"><i class="icon-fire icon-white"></i> Перезвоны на сегодня</a>
+                    {% endif %}
+					<a href="#" class="btn alignright"><i class="icon-off"></i> Выйти</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<h1>{{ manager.get_full_name }}</h1>
+		<hr>
+		<div class="row">
+			<div class="span10 cold_stat_block">
+			    <div class="well">
+			        <div>
+			            <h3>Звонков</h3>
+			            <p>сегодня: <strong>{{ calls_today }}</strong></p>
+			            <p>всего: <strong>{{ all_calls }}</strong></p>
+			        </div>
+			        <div>
+			            <h3>Переведено в клиенты</h3>
+			            <p>сегодня: <strong>{{ clients_from_calls_today }}</strong></p>
+			            <p>всего: <strong>{{ clients_from_calls }}</strong></p>
+			        </div>
+			        <div>
+			            <h3>Процент успеха</h3>
+			            <p>сегодня: <strong>{{ succeess_today }}</strong></p>
+			            <p>всего: <strong>{{ succeess }}</strong></p>
+			        </div>
+			        <div>
+			            <h3>Доведено до конца: {{ profit_clients }}</h3>
+			        </div>
+			    </div>
+			</div>
+			
+			<div class="span2">
+				{% for user in users %}
+				    <a href="?user={{ user }}">{{ user.get_full_name }}</a><br>
+				{% endfor %}
+			</div>
+	</div>
+</body>
+</html>

@@ -1,4 +1,121 @@
-<form action="" method="post" autocomplete="off" enctype="multipart/form-data" class="">{% csrf_token %}
-{{ form }}
-    <button class="btn btn-success" type="submit" name="ready"><i class="icon-ok icon-white"></i> Готово</button>
-</form>
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/admin/css/admin.css">
+    <link rel="stylesheet" href="/static/css/chosen.css">
+    <link rel="stylesheet" href="/static/admin/css/smoothness/jquery-ui-1.8.20.custom.css">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/jquery.ui.datepicker-ru.js"></script>
+    <script type="text/javascript" src="/static/admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="/static/js/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="/static/admin/js/form.js"></script>
+    <script type="text/javascript">
+    	jQuery(document).ajaxSend(function(event, xhr, settings) {
+		    function getCookie(name) {
+		        var cookieValue = null;
+		        if (document.cookie && document.cookie != '') {
+		            var cookies = document.cookie.split(';');
+		            for (var i = 0; i < cookies.length; i++) {
+		                var cookie = jQuery.trim(cookies[i]);
+		                // Does this cookie string begin with the name we want?
+		                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+		                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                    break;
+		                }
+		            }
+		        }
+		        return cookieValue;
+		    }
+		    function sameOrigin(url) {
+		        // url could be relative or scheme relative or absolute
+		        var host = document.location.host; // host + port
+		        var protocol = document.location.protocol;
+		        var sr_origin = '//' + host;
+		        var origin = protocol + sr_origin;
+		        // Allow absolute or scheme relative URLs to same origin
+		        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+		            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+		            // or any other URL that isn't scheme relative or absolute i.e relative.
+		            !(/^(\/\/|http:|https:).*/.test(url));
+		    }
+		    function safeMethod(method) {
+		        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		    }
+		
+		    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+		        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+		    }
+		});
+    </script>
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluide header">		
+				<div class="pull-right">
+					<a href="/myadmin/cold/" class="btn btn-info {% if '/myadmin/cold/' == request.path %}active disabled{% endif %}"><i class="icon-bell icon-white"></i> Холодные звонки</a>
+					<a href="/myadmin/clients/" class="btn btn-warning {% if '/myadmin/clients/' == request.path %}active disabled{% endif %}"><i class="icon-user icon-white"></i> Мои клиенты</a>
+                    {% if is_recalls %}
+                    <a href="/myadmin/cold/recalls-today/" class="btn btn-success {% if '/myadmin/cold/recalls-today/' == request.path %}active disabled{% endif %}"><i class="icon-fire icon-white"></i> Перезвоны на сегодня</a>
+                    {% endif %}
+					<a href="#" class="btn alignright"><i class="icon-off"></i> Выйти</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<form action="" method="post" autocomplete="off" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
+			<fieldset>
+				<legend>Редактироване шаблона письма</legend>
+				<!--{{ form }}-->
+				
+				<!---->
+				<div class="control-group">
+					<label for="id_title" class="control-label">Title:</label>
+					<div class="controls">
+						<input class="input-xxlarge" id="id_title" type="text" maxlength="200" value="123" name="title">
+					</div> 
+				</div>
+				<div class="control-group">
+					<label for="id_body" class="control-label">Body:</label>
+					<div class="controls">
+						<textarea class="input-xxlarge" id="id_body" name="body" cols="40" rows="10">321</textarea>
+					</div>
+				</div>
+				<h4>Фото</h4>
+				<hr>
+				<div class="control-group">
+					<label class="control-label">Текущий:</label>
+					<div class="controls">
+						<p class="help-block"><a href="/media/mail_files/logo.jpg">mail_files/logo.jpg</a></p>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<label class="checkbox">
+							<input id="attach-clear_id" type="checkbox" name="attach-clear">Очистить
+						</label>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Изменить:</label>
+					<div class="controls">
+						<input id="id_attach" type="file" name="attach">
+					</div>
+				</div>
+				<!---->
+				
+				<div class="form-actions">
+				    <button class="btn btn-success" type="submit" name="ready"><i class="icon-ok icon-white"></i> Готово</button>
+				</div>
+		    </fieldset>
+		</form>
+	</div>
+</body>
+</html>
