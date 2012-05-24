@@ -59,6 +59,10 @@ def clients(request):
             clients = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).order_by('status_date')
         else:
             clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
+        if request.GET.get('filter_month', ''):
+            month = request.GET.get('filter_month')
+            if int(month):
+                clients = clients.filter(status_date__month=month)
     except :
         clients = False
     expired_count = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).count()
@@ -89,6 +93,10 @@ def user_clients(request, username):
             clients = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).order_by('status_date')
         else:
             clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
+        if request.GET.get('filter_month', ''):
+            month = request.GET.get('filter_month')
+            if int(month):
+                clients = clients.filter(status_date__month=month)
     except :
         clients = False
     expired_count = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).count()
@@ -117,6 +125,10 @@ def clients_all(request):
             clients = Client.objects.exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).order_by('status_date')
         else:
             clients = Client.objects.filter(status__in=current_statuses).order_by('status_date')
+        if request.GET.get('filter_month', ''):
+            month = request.GET.get('filter_month')
+            if int(month):
+                clients = clients.filter(status_date__month=month)
     except :
         clients = False
     expired_count = Client.objects.exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).count()
@@ -480,3 +492,9 @@ def cold_edit_mail(request, category_id):
             newform.save()
             return HttpResponseRedirect(urlresolvers.reverse('cold-choose-cat'))
     return render_to_response("myadmin/cold/mail.html", locals(), context_instance=RequestContext(request))
+
+@login_required
+def edit_ajx_target(request):
+    if request.method == 'POST':
+        print request.POST
+        return HttpResponse(status=200)
