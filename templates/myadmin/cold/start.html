@@ -189,3 +189,8 @@
 	</div>
 </body>
 </html>
+
+{{ email_template.title }}
+{{ email_template.body }}
+<a href="{{ email_template.attach.url }}">{{ email_template.attach.name|slice:"11:"|truncatechars:13 }}</a>
+

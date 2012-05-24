@@ -294,6 +294,7 @@ def cold_start(request, category_id):
             return HttpResponseRedirect(request.path)
     else:
         category = CategoryTarget.objects.get(id=category_id)
+        email_template = Mail.objects.get(category=category, user=user)
         target = Target.objects.filter(category=category, is_busy=False, is_done=False).exclude(notavailable_date = datetime.date.today()).order_by('?')[0]
         target.is_busy = True
         target.is_busy_at = datetime.datetime.today()
