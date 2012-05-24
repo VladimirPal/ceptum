@@ -496,5 +496,7 @@ def cold_edit_mail(request, category_id):
 @login_required
 def edit_ajx_target(request):
     if request.method == 'POST':
+        print "-----"
         print request.POST
+        print "-----"
         return HttpResponse(status=200)
