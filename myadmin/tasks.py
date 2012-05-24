@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from celery.task import task
 from myadmin.models import Target
+import os
 import datetime
 from django.conf import settings
 from django.core.mail.message import EmailMessage
@@ -22,5 +23,5 @@ def send_mail(user, title, body, to, is_attach, attach):
     print attach
     print settings.MEDIA_ROOT
     if not is_attach:
-        msg.attach_file(settings.MEDIA_ROOT + attach)
+        msg.attach_file(os.path.join(settings.MEDIA_ROOT, attach))
     msg.send()
