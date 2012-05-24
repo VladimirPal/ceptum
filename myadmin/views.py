@@ -501,3 +501,9 @@ def edit_ajx_target(request):
         target.email = request.POST.get('cold_email')
         target.save()
         return HttpResponse(status=200)
+
+@login_required
+def send_ajx_mail(request):
+    if request.method == 'POST':
+        print request.POST
+        return HttpResponse(status=200)
