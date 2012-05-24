@@ -296,13 +296,16 @@ def cold_start(request, category_id):
             return HttpResponseRedirect(request.path)
     else:
         category = CategoryTarget.objects.get(id=category_id)
-        email_template = Mail.objects.get(category=category, user=user)
         target = Target.objects.filter(category=category, is_busy=False, is_done=False).exclude(notavailable_date = datetime.date.today()).order_by('?')[0]
         target.is_busy = True
         target.is_busy_at = datetime.datetime.today()
         target.save()
-        email_template.title = re.sub('\{\{name\}\}', target.name, email_template.title)
-        email_template.body = re.sub('\{\{name\}\}', target.name, email_template.body)
+        try:
+            email_template = Mail.objects.get(category=category, user=user)
+            email_template.title = re.sub('\{\{name\}\}', target.name, email_template.title)
+            email_template.body = re.sub('\{\{name\}\}', target.name, email_template.body)
+        except :
+            pass
         form = TargetForm(instance=target)
         request.session['last_target'] = target.id
         calls_today = Target.objects.filter(user=user, is_done=True, done_at=datetime.date.today()).count()
