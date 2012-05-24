@@ -16,8 +16,11 @@ def check_busy_target():
 
 @task(name="send_mail")
 def send_mail(user, title, body, to, is_attach, attach):
+    settings.EMAIL_HOST_USER = user.email
+    settings.EMAIL_HOST_PASSWORD = settings.USER_EMAIL_PASSWORDS[user.email]
     msg = EmailMessage(title, body, user.email, [to,])
     print attach
+    print settings.MEDIA_ROOT
     if not is_attach:
-        msg.attach_file('./media/'+ attach)
+        msg.attach_file(settings.MEDIA_ROOT + attach)
     msg.send()
