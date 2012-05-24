@@ -81,7 +81,41 @@
 		
 				<p>{{ target.city }} {{ target.address }}</p>
 				<p>{{ target.site|default_if_none:"" }}</p>
-				<p>{{ target.email|default_if_none:"" }}</p>
+				<p>
+					<form action="/myadmin/cold/edit-ajx-target" method="post" id="cold_email_edit_form" autocomplete="off">
+						<input name="cold_email_id" type="hidden" value="{{ target.id }}">
+						<input name="cold_email" placeholder="Добавить email" type="email" id="cold_email_input" value='{{ target.email|default_if_none:"" }}'>
+						<button type="submit" class="btn btn-info" name="cold_email_btn" id="cold_email_btn" style="display:none;">Сохранить</button>
+					</form>
+					<script type="text/javascript">
+						$(function(){
+						
+							$('#cold_email_edit_form').ajaxForm({
+								 success: function(data) {
+							        if (data.error) {
+							            alert(error);
+							        }
+							        else {
+							           $cold_email_btn.hide();
+							        }
+							    }
+							});
+							
+							var $cold_email_input	= $('#cold_email_input');
+							var $cold_email_btn		= $('#cold_email_btn');
+							var default_data		= $cold_email_input.val();
+							
+							$cold_email_input.focus(function(){
+								$cold_email_btn.show();
+							});
+							$cold_email_input.blur(function(){
+								if(default_data == $cold_email_input.val()){
+									$cold_email_btn.hide();
+								}
+							});
+						});
+					</script>
+				</p>
 				{% for phone in target.phone_set.all %}
 					<p>{{ phone.phone }}</p>
 				{% endfor %}
