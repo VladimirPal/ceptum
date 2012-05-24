@@ -73,44 +73,21 @@
 		<form action="" method="post" autocomplete="off" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
 			<fieldset>
 				<legend>Редактироване шаблона письма</legend>
-				<!--{{ form }}-->
-				
-				<!---->
 				<div class="control-group">
-					<label for="id_title" class="control-label">Title:</label>
+					<label for="id_title" class="control-label">Заголовок:</label>
 					<div class="controls">
-						<input class="input-xxlarge" id="id_title" type="text" maxlength="200" value="123" name="title">
-					</div> 
-				</div>
-				<div class="control-group">
-					<label for="id_body" class="control-label">Body:</label>
-					<div class="controls">
-						<textarea class="input-xxlarge" id="id_body" name="body" cols="40" rows="10">321</textarea>
+                        {{ form.title }}
 					</div>
 				</div>
-				<h4>Фото</h4>
+				<div class="control-group">
+					<label for="id_body" class="control-label">Письмо:</label>
+					<div class="controls">
+                        {{ form.body }}
+					</div>
+				</div>
+				<h4>Приложенный файл</h4>
 				<hr>
-				<div class="control-group">
-					<label class="control-label">Текущий:</label>
-					<div class="controls">
-						<p class="help-block"><a href="/media/mail_files/logo.jpg">mail_files/logo.jpg</a></p>
-					</div>
-				</div>
-				<div class="control-group">
-					<div class="controls">
-						<label class="checkbox">
-							<input id="attach-clear_id" type="checkbox" name="attach-clear">Очистить
-						</label>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label">Изменить:</label>
-					<div class="controls">
-						<input id="id_attach" type="file" name="attach">
-					</div>
-				</div>
-				<!---->
-				
+                {{ form.attach }}
 				<div class="form-actions">
 				    <button class="btn btn-success" type="submit" name="ready"><i class="icon-ok icon-white"></i> Готово</button>
 				</div>
