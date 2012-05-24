@@ -16,6 +16,7 @@ from myadmin.models import STATUS_CHOICES
 import datetime
 from myadmin.models import CategoryTarget, Target
 from django.shortcuts import redirect
+from tasks import *
 
 def auth(request):
     if request.method == 'POST':
@@ -266,6 +267,7 @@ def cold_choose_cat(request):
     categorys = CategoryTarget.objects.all()
     return render_to_response("myadmin/cold/index.html", locals(), context_instance=RequestContext(request))
 
+import re
 @login_required
 def cold_start(request, category_id):
     user = User.objects.get(username=request.user)
@@ -299,6 +301,8 @@ def cold_start(request, category_id):
         target.is_busy = True
         target.is_busy_at = datetime.datetime.today()
         target.save()
+        email_template.title = re.sub('\{\{name\}\}', target.name, email_template.title)
+        email_template.body = re.sub('\{\{name\}\}', target.name, email_template.body)
         form = TargetForm(instance=target)
         request.session['last_target'] = target.id
         calls_today = Target.objects.filter(user=user, is_done=True, done_at=datetime.date.today()).count()
@@ -505,5 +509,6 @@ def edit_ajx_target(request):
 @login_required
 def send_ajx_mail(request):
     if request.method == 'POST':
-        print request.POST
+        user = User.objects.get(username=request.user)
+        send_mail.delay(user, request.POST.get('title'), request.POST.get('body'), request.POST.get('email'), request.POST.get('attach-clear'), request.POST.get('attach'))
         return HttpResponse(status=200)

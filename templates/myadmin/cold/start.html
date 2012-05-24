@@ -79,25 +79,21 @@
 							<textarea class="input-xxlarge" id="id_body" name="body" cols="40" rows="10">{{ email_template.body }}</textarea>
 						</div>
 					</div>
-					<h4>Фото</h4>
+					<h4>Приложенный файл</h4>
 					<hr>
 					<div class="control-group">
 						<label class="control-label">Текущий:</label>
 						<div class="controls">
 							<p class="help-block"><a href="{{ email_template.attach.url }}">{{ email_template.attach.name|slice:"11:"|truncatechars:13 }}</a></p>
+                            <input id="attach" type="hidden" name="attach" value="{{ email_template.attach }}">
+                            <input id="target" type="hidden" name="target" value="{{ target.id }}">
 						</div>
 					</div>
 					<div class="control-group">
 						<div class="controls">
 							<label class="checkbox">
-								<input id="attach-clear_id" type="checkbox" name="attach-clear">Очистить
+								<input id="attach-clear_id" type="checkbox" name="attach-clear">Не отправлять
 							</label>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label">Изменить:</label>
-						<div class="controls">
-							<input id="id_attach" type="file" name="attach">
 						</div>
 					</div>
 				</div>

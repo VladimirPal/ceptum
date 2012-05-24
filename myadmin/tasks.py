@@ -2,6 +2,8 @@
 from celery.task import task
 from myadmin.models import Target
 import datetime
+from django.conf import settings
+from django.core.mail.message import EmailMessage
 
 @task(name="check_busy_target")
 def check_busy_target():
@@ -11,3 +13,12 @@ def check_busy_target():
         target.is_busy = False
         target.is_busy_at = None
         target.save()
+
+@task(name="send_mail")
+def send_mail(user, title, body, to, is_attach, attach):
+    settings.EMAIL_HOST_USER = user.email
+    settings.EMAIL_HOST_PASSWORD = settings.EMAIL_HOST_PASSWORD[user.email]
+    msg = EmailMessage(title, body, user.email, [to,])
+    if not is_attach:
+        msg.attach_file('./media/'+ attach)
+    msg.send()
