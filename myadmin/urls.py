@@ -24,4 +24,3 @@ urlpatterns = patterns('',
                       url(r'^cold/unavailable/(?P<target_id>[-\w]+)/$', 'myadmin.views.cold_unavailable', name="cold-unavailable"),
                       url(r'^cold/(?P<category_id>[-\w]+)/$', 'myadmin.views.cold_start', name="cold-start"),
                       url(r'^cold/(?P<category_id>[-\w]+)/editmail/$', 'myadmin.views.cold_edit_mail', name="cold-edit-mail"),)
-
