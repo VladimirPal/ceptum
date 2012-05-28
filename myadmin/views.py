@@ -101,7 +101,7 @@ def user_clients(request, username):
     except :
         clients = False
     expired_count = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).count()
-    today_count = Client.objects.filter(user=user, status_date=datetime.date.today()).count()
+    today_count = Client.objects.filter(user=user, status_date=datetime.date.today()).exclude(status='DONE').count()
     status_statistic = {}
     for status, y in STATUS_CHOICES:
         status_statistic[y] = Client.objects.filter(user=user, status=status).count()
@@ -133,7 +133,7 @@ def clients_all(request):
     except :
         clients = False
     expired_count = Client.objects.exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).count()
-    today_count = Client.objects.filter(status_date=datetime.date.today()).count()
+    today_count = Client.objects.filter(status_date=datetime.date.today()).exclude(status='DONE').count()
     status_statistic = {}
     for status, y in STATUS_CHOICES:
         status_statistic[y] = Client.objects.filter(status=status).count()
