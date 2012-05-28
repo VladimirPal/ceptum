@@ -473,8 +473,11 @@ def cold_stats(request):
         profit_targets = Target.objects.filter(is_positive=True)
         profit_clients = 0
         for client in profit_targets:
-            if client.client.status == 'DONE':
-                profit_clients +=1
+            try:
+                if client.client.status == 'DONE':
+                    profit_clients +=1
+            except :
+                pass
     users = User.objects.filter(groups__name='Менеджеры')
     return render_to_response("myadmin/cold/stats.html", locals(), context_instance=RequestContext(request))
 
