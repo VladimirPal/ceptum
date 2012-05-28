@@ -183,6 +183,9 @@ def edit_client(request, id):
 @login_required
 def delete_client(request, id):
     client = Client.objects.get(id=id)
+    for target in client.target_set.all():
+        target.client_id = None
+        target.save()
     client.delete()
     return HttpResponseRedirect(urlresolvers.reverse('clients'))
 
