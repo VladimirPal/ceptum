@@ -112,7 +112,6 @@
 				<div class="pull-right">
 					<a href="/myadmin/cold/" class="btn btn-info {% if '/myadmin/cold/' == request.path %}active disabled{% endif %}"><i class="icon-bell icon-white"></i> Холодные звонки</a>
 					<a href="/myadmin/clients/" class="btn btn-warning {% if '/myadmin/clients/' == request.path %}active disabled{% endif %}"><i class="icon-user icon-white"></i> Мои клиенты</a>
-                    <a href="/myadmin/cold/recalls-today/" class="btn btn-success"><i class="icon-fire icon-white"></i> Перезвоны на сегодня</a>
                     {% if is_recalls %}
                     <a href="/myadmin/cold/recalls-today/" class="btn btn-success {% if '/myadmin/cold/recalls-today/' == request.path %}active disabled{% endif %}"><i class="icon-fire icon-white"></i> Перезвоны на сегодня</a>
                     {% endif %}
