@@ -323,8 +323,11 @@ def cold_start(request, category_id):
         profit_targets = Target.objects.filter(user=user, is_positive=True)
         profit_clients = 0
         for client in profit_targets:
-            if client.client.status == 'DONE':
-                profit_clients +=1
+            try:
+                if client.client.status == 'DONE':
+                    profit_clients +=1
+            except :
+                pass
         try:
             is_recalls = Target.objects.filter(user=user, callback=True, callback_at=datetime.date.today()).order_by('?')[0]
         except :
@@ -381,8 +384,11 @@ def recalls_today(request):
             profit_targets = Target.objects.filter(user=user, is_positive=True)
             profit_clients = 0
             for client in profit_targets:
-                if client.client.status == 'DONE':
-                        profit_clients +=1
+                try:
+                    if client.client.status == 'DONE':
+                            profit_clients +=1
+                except :
+                    pass
         except :
             pass
     return render_to_response("myadmin/cold/start.html", locals(), context_instance=RequestContext(request))
