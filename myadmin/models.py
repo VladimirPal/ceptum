@@ -82,7 +82,7 @@ class Target(models.Model):
     is_busy_at = models.DateTimeField(null=True, blank=True)
     is_done = models.BooleanField(default=False)
     is_positive = models.BooleanField(default=False)
-    client = models.ForeignKey(Client)
+    client = models.ForeignKey(Client, null=True, blank=True)
     callback = models.BooleanField(default=False)
     callback_at = models.DateField(null=True, blank=True)
     notavailable_count = models.IntegerField(default=0, max_length=1)
