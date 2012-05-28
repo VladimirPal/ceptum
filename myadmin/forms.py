@@ -58,6 +58,10 @@ class TargetForm(ModelForm):
             if not cleaned_data.get('callback_at'):
                 msg = u"Укажите причину отказа"
                 self._errors["fail_reason"] = self.error_class([msg])
+        else:
+            if cleaned_data.get('callback_at'):
+                msg = u"Что то одно, либо перезвон либо отказ"
+                self._errors["fail_reason"] = self.error_class([msg])
         return cleaned_data
 
 class MailForm(ModelForm):
