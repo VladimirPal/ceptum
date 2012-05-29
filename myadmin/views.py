@@ -268,6 +268,11 @@ def change_product_field(request):
 @login_required
 def cold_choose_cat(request):
     categorys = CategoryTarget.objects.all()
+    user = User.objects.get(username=request.user)
+    try:
+        is_recalls = Target.objects.filter(user=user, callback=True, callback_at=datetime.date.today()).order_by('?')[0]
+    except :
+        is_recalls = False
     return render_to_response("myadmin/cold/index.html", locals(), context_instance=RequestContext(request))
 
 import re
