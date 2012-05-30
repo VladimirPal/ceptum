@@ -17,8 +17,11 @@ def index(request):
      лист стоимость услуги в квартира офис школа помещение"""
     meta_description = """Все для Видеонаблюдения - установка и монтаж систем видеонаблюдени.
      Продажа видеокамер, видеорегистраторов и аксессуаров по доступным ценам"""
-    sections = Section.objects.filter(is_active=True)
+    #sections = Section.objects.filter(is_active=True)
     return render_to_response("main/index.html", locals(), context_instance=RequestContext(request))
+
+def video_solutions(request):
+    return render_to_response('main/solutions/index.html', locals(), context_instance=RequestContext(request))
 
 def cats(request):
     cats = Category.objects.all()
@@ -118,9 +121,13 @@ def about(request):
     page_title = u'О нас - Цептум'
     return render_to_response('main/about.html', locals(), context_instance=RequestContext(request))
 
-def delivery(request):
+def install(request):
     page_title = u'Оплата и Монтаж - Цептум'
     return render_to_response('main/delivery.html', locals(), context_instance=RequestContext(request))
+
+def service(request):
+    page_title = u'Оплата и Монтаж - Цептум'
+    return render_to_response('main/service.html', locals(), context_instance=RequestContext(request))
 
 def internal_error(request):
     return render_to_response('500.html', locals(), context_instance=RequestContext(request))
@@ -165,7 +172,7 @@ def office(request):
             t.setDaemon(True)
             t.start()
         return HttpResponse()
-    return render_to_response('main/office.html', locals(), context_instance=RequestContext(request))
+    return render_to_response('main/solutions/office.html', locals(), context_instance=RequestContext(request))
 
 def store(request):
     page_title = u'Видеонаблюдение в магазин - Цептум'
@@ -183,7 +190,7 @@ def store(request):
             t.setDaemon(True)
             t.start()
         return HttpResponse()
-    return render_to_response('main/store.html', locals(), context_instance=RequestContext(request))
+    return render_to_response('main/solutions/store.html', locals(), context_instance=RequestContext(request))
 
 def house(request):
     page_title = u'Видеонаблюдение в дом - Цептум'
@@ -201,7 +208,7 @@ def house(request):
             t.setDaemon(True)
             t.start()
         return HttpResponse()
-    return render_to_response('main/house.html', locals(), context_instance=RequestContext(request))
+    return render_to_response('main/solutions/house.html', locals(), context_instance=RequestContext(request))
 
 def podezd(request):
     page_title = u'Видеонаблюдение в подъезд - Цептум'
@@ -219,7 +226,7 @@ def podezd(request):
             t.setDaemon(True)
             t.start()
         return HttpResponse()
-    return render_to_response('main/podezd.html', locals(), context_instance=RequestContext(request))
+    return render_to_response('main/solutions/podezd.html', locals(), context_instance=RequestContext(request))
 
 def autoservice(request):
     page_title = u'Видеонаблюдение в автосервис/автомойка - Цептум'
@@ -237,4 +244,4 @@ def autoservice(request):
             t.setDaemon(True)
             t.start()
         return HttpResponse()
-    return render_to_response('main/autoservice.html', locals(), context_instance=RequestContext(request))
+    return render_to_response('main/solutions/autoservice.html', locals(), context_instance=RequestContext(request))

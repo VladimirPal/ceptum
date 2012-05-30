@@ -214,7 +214,7 @@
 					<img src="{{ STATIC_URL }}res/img/logo_title.png"/>
 				</a>
 				<div id="logo_dscr">
-                    Монтаж и установка систем видеонаблюдения.
+                    Монтаж и установка систем видеонаблюдения, контроль доступа.
 				</div>
 			</div>
 		</header>
@@ -228,34 +228,34 @@
 							<a href="/">Главная</a>
 						{% endif %}
 					</li>
-					<li class="menu_right menu_left">
-						{% if request.path == '/delivery' %}
-							<span>Оплата и монтаж</span>
+                    <li class="menu_right menu_left">
+						{% if request.path == '/video-solutions' %}
+							<span>Типовые решения</span>
 						{% else %}
-							<a href="/delivery">Оплата и монтаж</a>
+							<a href="/video-solutions">Типовые решения</a>
+						{% endif %}
+					</li>
+					<li class="menu_right menu_left">
+						{% if request.path == '/install' %}
+							<span>Услуги по установке</span>
+						{% else %}
+							<a href="/install">Услуги по установке</a>
+						{% endif %}
+					</li>
+                    <li class="menu_right menu_left">
+						{% if request.path == '/service' %}
+							<span>Обслуживание</span>
+						{% else %}
+							<a href="/service">Обслуживание</a>
 						{% endif %}
 					</li>
 					<li class="menu_right menu_left">
 						{% if request.path == '/about' %}
-							<span>О нас</span>
+							<span>Контакты</span>
 						{% else %}
-							<a href="/about">О нас</a>
+							<a href="/about">Контакты</a>
 						{% endif %}
 					</li>
-                    <li class="menu_right menu_left">
-                    	{% if request.path == '/projects/' %}
-							<span>Наши работы</span>
-						{% else %}
-							<a href="/projects">Наши работы</a>
-						{% endif %}
-                    </li>
-                    <li class="menu_left">
-                    	{% if request.path == '/blog/' %}
-							<span>Блог</span>
-						{% else %}
-							<a href="/blog">Блог</a>
-						{% endif %}
-                    </li>
 				</ul>
 			</div>
 			<div id="main_block" class="clearfix">
