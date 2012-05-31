@@ -123,7 +123,7 @@ def about(request):
 
 def install(request):
     page_title = u'Оплата и Монтаж - Цептум'
-    return render_to_response('main/delivery.html', locals(), context_instance=RequestContext(request))
+    return render_to_response('main/install.html', locals(), context_instance=RequestContext(request))
 
 def service(request):
     page_title = u'Оплата и Монтаж - Цептум'

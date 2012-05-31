@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+{% block site_wrapper %}
+<div id="content_block" class="alignleft clearfix">
+        <div id="content">
+<div id="page" class="fix">
+
+<script type="text/javascript">
+$(function(){
+  if (window.location.hash == '#doorphone') {
+  console.log(window.location.hash);
+    $('#case').addClass('select_block');
+  }
+});
+</script>
+
+<center><h1>Установка систем видеонаблюдения</h1></center>
+Наша команда монтажников имеет большой опыт установки систем видеонаблюдения от малых аналоговых решений до распределенных систем с множеством ip камер и
+   централизованным сервером.<br>
+<strong>Совершенно бесплатно</strong> мы составим для вас проект с указанием необходимого оборудования и конечной стоимости с монтажом.<br>
+Для того чтобы вызвать специалиста на осмотр, позвоните +7(495) 565-37-70 или <a href="mailto:info@ceptum.ru">напишите</a> нам.<br><br>
+
+<center><h1>Система контроля управления доступом(СКУД)</h1></center>
+Произведем установку любой системы СКУД - локальные, сетевые, исполнительные устройства(шлагбаумы и турникеты).
+
+<a name="doorphone"></a>
+<div id="case" style="margin-bottom:1em">
+<center><h1>Домофоны</h1></center>
+<p>
+  Также мы производим монтаж видеодомофонов. У нас имеется большой выбор оборудования.
+  <br>Наши специалисты подберут для вас видеодомофон, сделают качественный монтаж и все это по доступным ценам.
+</p>
+</div>
+<center><h1>Интеллектуальные модули и интегрируемые системы безопасности</h1></center>
+Интеллектуальные модули - аналитика с помощью которой система видеонаблюдения и СКУД приобретают иной смысл, например вы сможете
+регистрировать все номера автомобилей въезжающих на территорию, автоматически запрещать/разрешать доступ, подсчитать количество
+посетителей в вашем баре, контролировать кассовые операции и многое другое, для более детального ознакомления перейдите в раздел
+<a href="/video-solutions">типовых решений</a> и выберите интересующую вас отрасль или просто позвоните нам.<br><br>
+<center><h1>Стоимость монтажных услуг</h1></center>
+<p>
+    Ниже представлен прайс на монтажные работы, к сожалению мы не можем заранее определить стоимость сложных работ, таких как
+    прокладка и варка оптоволокна, штрабление асфальта, прокладка канализационных труб под провода и тд. Подобные работы обсуждаются
+    отдельно в рамках проекта.
+</p><br>
+<a href="{{ STATIC_URL }}res/цептум_монтаж.xls">Скачать в формате Excel</a>
+<style>
+#pricelist { margin: 0 auto 1em }
+#pricelist .descr {
+	padding: 10px;
+	background: #eee;
+	color: #000;
+	border-bottom: #fff 5px solid;
+	width: 390px;
+	vertical-align: middle;
+}
+#pricelist .price {
+	padding: 5px;
+	background: #dadada;
+	color: #000;
+	font-size: 30px;
+	font-family: Arial, sans-serif;
+	border-bottom: #fff 5px solid;
+}
+img.ruble-img { height: 1.5ex; }
+span.dot { position:absolute; text-indent: -1000em; }
+#pricelist-descr { margin:0 auto 2em; color: #333; width: 525px; }
+#pricelist-descr li { list-style: none }
+</style>
+<table id="pricelist">
+    <center><h2>Кабельные работы (без стоимости оборудования)</h2></center>
+	<tr>
+	  <td class="descr">Прокладка кабеля(за 1 метр)</td>
+	  <td class="price">80 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span>*</td>
+	</tr>
+	<tr>
+	  <td class="descr">Проход межэтажного перекрытия по готовому стояку (за 1 метр)</td>
+        <td class="price">70 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+	</tr>
+	<tr>
+	  <td class="descr">Наружное горизонтальное каблирование (за 1 метр)</td>
+        <td class="price">150 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+	</tr>
+	<tr>
+	  <td class="descr">Крепление гофры (за 1 метр)</td>
+        <td class="price">40 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+	</tr>
+	<tr>
+	  <td class="descr">Протяжка кабеля в гофру (за 1 метр)</td>
+        <td class="price">20 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+	</tr>
+	<tr>
+	  <td class="descr">Разборка с последующей сборкой установленных коробов (за 1 метр)</td>
+        <td class="price">70 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+	</tr>
+    <tr>
+	  <td class="descr">Укладка кабеля за фальшпотолком (за 1 метр)</td>
+        <td class="price">50 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+	</tr>
+    <tr>
+        <td class="descr">Укладка кабеля в короб (лоток) (за 1 метр)</td>
+        <td class="price">40 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Прокладка кабеля за мебелью, крепеж кабеля гвоздями (за 1 метр)</td>
+        <td class="price">40 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Подключение всепогодным кабелем по внешней стене</td>
+        <td class="price">3750 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span>**</td>
+    </tr>
+    <tr>
+        <td class="descr">Укладка кабеля под съемный плинтус (за 1 метр)</td>
+        <td class="price">120 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Установка электрич. автомата (переключателя), подключение электрической группы</td>
+        <td class="price">690 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Установка/крепеж электрической розетки (внешней)</td>
+        <td class="price">570 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+</table>
+    <ul id="pricelist-descr">
+    <li>
+        <table><tr>
+            <td width="15" align="right" style="font-size:1.3em;padding-right:.3em">*</td>
+            <td><small>Любой кабель кроме оптоволокна</small></td>
+        </tr></table>
+    <li>
+        <table><tr>
+            <td width="15" align="right" style="font-size:1.3em;padding-right:.3em">** </td>
+            <td><small>Включен вызов альпиниста</small></td>
+        </tr></table>
+        </ul>
+<table id="pricelist">
+    <center><h2>Установка короба (без стоимости оборудования)</h2></center>
+    <tr>
+        <td class="descr">Толстый короб от 60мм / кирпич бетон (за 1 метр)</td>
+        <td class="price">190 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Толстый короб от 60мм / легкие материалы (за 1 метр)</td>
+        <td class="price">140 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Тонкий короб до 60мм / кирпич бетон (за 1 метр)</td>
+        <td class="price">150 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Тонкий короб до 60мм / легкие материалы (за 1 метр)</td>
+        <td class="price">80 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+</table>
+<table id="pricelist">
+    <center><h2>Установка ящика (без стоимости оборудования)</h2></center>
+        <tr>
+        <td class="descr">ШМП-06</td>
+        <td class="price">500 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Е-1</td>
+        <td class="price">500 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">ШНК-1</td>
+        <td class="price">500 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+</table>
+<table id="pricelist">
+    <center><h2>Сверление стен</h2></center>
+    <tr>
+        <td class="descr">Межэтажное перекрытие за 10 см</td>
+        <td class="price">750 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Кирпич, бетон за 10 см стены</td>
+        <td class="price">190 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Легкая стена</td>
+        <td class="price">130 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+</table>
+<table id="pricelist">
+    <center><h2>Монтаж оборудования</h2></center>
+    <tr>
+        <td class="descr">Монтаж внутренней камеры на высоте до 3-х метров</td>
+        <td class="price">700 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Монтаж уличной камеры на высоте до 3-х метров</td>
+        <td class="price">1500 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Базовая настройка видеорегистратора</td>
+        <td class="price">1500 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Расширенная настройка видеорегистратора (+ подключение к сети Интернет)</td>
+        <td class="price">2500 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Монтаж монитора домофона</td>
+        <td class="price">400 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Монтаж накладной панели видеодомофона</td>
+        <td class="price">700 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Монтаж ИК-прожектора</td>
+        <td class="price">400 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Монтаж блока питания</td>
+        <td class="price">700 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Монтаж электромеханического замка</td>
+        <td class="price">1500 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Монтаж магнитного замка</td>
+        <td class="price">1700 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Монтаж управляемой поворотной камеры</td>
+        <td class="price">2200 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Монтаж сирены</td>
+        <td class="price">200 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Монтаж магнитного датчика</td>
+        <td class="price">300 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Обжим НЧ-кабеля</td>
+        <td class="price">50 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Обжим аудио-кабеля</td>
+        <td class="price">50 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+    <tr>
+        <td class="descr">Обжим RJ-45</td>
+        <td class="price">50 <img src="{{ STATIC_URL }}res/img/ruble.gif" class="ruble-img" /><span class="dot">руб.</span></td>
+    </tr>
+</table>
+{% endblock %}
