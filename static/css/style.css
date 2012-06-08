@@ -1011,6 +1011,17 @@ h2, h3{page-break-after:avoid}
 .office .intro .n3 { background: url('../res/img/b_tp_home.jpg') no-repeat 0 28px; }
 .office .intro .n4 { background: url('../res/img/b_tp_porch.jpg') no-repeat 0 28px; }
 .office .intro .n5 { background: url('../res/img/b_tp_autoserv.jpg') no-repeat 0 28px; }
+.office .intro .n6 { background: url('../res/img/b_tp_business.jpg') no-repeat 0 28px; }
+.office .intro .n7 { background: url('../res/img/b_tp_Market.jpg') no-repeat 0 28px; }
+.office .intro .n8 { background: url('../res/img/b_tp_sklad.jpg') no-repeat 0 28px; }
+.office .intro .n9 { background: url('../res/img/b_tp_kafe.jpg') no-repeat 0 28px; }
+.office .intro .n10 { background: url('../res/img/b_tp_cotedg.jpg') no-repeat 0 28px; }
+.office .intro .n11 { background: url('../res/img/b_tp_hotel.jpg') no-repeat 0 28px; }
+.office .intro .n12 { background: url('../res/img/b_tp_Buety.jpg') no-repeat 0 28px; }
+.office .intro .n13 { background: url('../res/img/b_tp_fitness.jpg') no-repeat 0 28px; }
+.office .intro .n14 { background: url('../res/img/b_tp_st.jpg') no-repeat 0 28px; }
+.office .intro .n15 { background: url('../res/img/b_tp_proizv.jpg') no-repeat 0 28px; }
+.office .intro .n16 { background: url('../res/img/b_tp_social.jpg') no-repeat 0 28px; }
 .office .intro .order h1 {
 	position: absolute;
 	font: 25px "Arial Narrow",Arial,sans-serif;

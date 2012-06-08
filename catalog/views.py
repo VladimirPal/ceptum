@@ -174,6 +174,24 @@ def office(request):
         return HttpResponse()
     return render_to_response('main/solutions/office.html', locals(), context_instance=RequestContext(request))
 
+def business_center(request):
+    page_title = u'Видеонаблюдение в офис - Цептум'
+    if request.method == 'POST':
+        postdata = request.POST
+        if not postdata.get('product_slug', ''):
+            product_slug = u'Видеонаблюдение в офис'
+        else:
+            product_slug = postdata.get('product_slug','')
+        if settings.SEND_ADMIN_EMAIL:
+            t = threading.Thread(target= send_mail, args=[
+                u'Заказ на %s' % product_slug,
+                u'Имя: %s \nТелефон: %s\nЗаказ: %s\nСообщение: %s\nАдрес: %s\nEmail: %s\n' % (postdata['name'], postdata['phone'], product_slug, postdata['comment'], postdata['address'], postdata['email']),
+                settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
+            t.setDaemon(True)
+            t.start()
+        return HttpResponse()
+    return render_to_response('main/solutions/business-center.html', locals(), context_instance=RequestContext(request))
+
 def store(request):
     page_title = u'Видеонаблюдение в магазин - Цептум'
     if request.method == 'POST':
@@ -191,6 +209,60 @@ def store(request):
             t.start()
         return HttpResponse()
     return render_to_response('main/solutions/store.html', locals(), context_instance=RequestContext(request))
+
+def market(request):
+    page_title = u'Видеонаблюдение в магазин - Цептум'
+    if request.method == 'POST':
+        postdata = request.POST
+        if not postdata.get('product_slug', ''):
+            product_slug = u'Видеонаблюдение в магазин'
+        else:
+            product_slug = postdata.get('product_slug','')
+        if settings.SEND_ADMIN_EMAIL:
+            t = threading.Thread(target= send_mail, args=[
+                u'Заказ на %s' % product_slug,
+                u'Имя: %s \nТелефон: %s\nЗаказ: %s\nСообщение: %s\nАдрес: %s\nEmail: %s\n' % (postdata['name'], postdata['phone'], product_slug, postdata['comment'], postdata['address'], postdata['email']),
+                settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
+            t.setDaemon(True)
+            t.start()
+        return HttpResponse()
+    return render_to_response('main/solutions/market.html', locals(), context_instance=RequestContext(request))
+
+def sklad(request):
+    page_title = u'Видеонаблюдение в магазин - Цептум'
+    if request.method == 'POST':
+        postdata = request.POST
+        if not postdata.get('product_slug', ''):
+            product_slug = u'Видеонаблюдение в магазин'
+        else:
+            product_slug = postdata.get('product_slug','')
+        if settings.SEND_ADMIN_EMAIL:
+            t = threading.Thread(target= send_mail, args=[
+                u'Заказ на %s' % product_slug,
+                u'Имя: %s \nТелефон: %s\nЗаказ: %s\nСообщение: %s\nАдрес: %s\nEmail: %s\n' % (postdata['name'], postdata['phone'], product_slug, postdata['comment'], postdata['address'], postdata['email']),
+                settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
+            t.setDaemon(True)
+            t.start()
+        return HttpResponse()
+    return render_to_response('main/solutions/sklad.html', locals(), context_instance=RequestContext(request))
+
+def cafe(request):
+    page_title = u'Видеонаблюдение в магазин - Цептум'
+    if request.method == 'POST':
+        postdata = request.POST
+        if not postdata.get('product_slug', ''):
+            product_slug = u'Видеонаблюдение в магазин'
+        else:
+            product_slug = postdata.get('product_slug','')
+        if settings.SEND_ADMIN_EMAIL:
+            t = threading.Thread(target= send_mail, args=[
+                u'Заказ на %s' % product_slug,
+                u'Имя: %s \nТелефон: %s\nЗаказ: %s\nСообщение: %s\nАдрес: %s\nEmail: %s\n' % (postdata['name'], postdata['phone'], product_slug, postdata['comment'], postdata['address'], postdata['email']),
+                settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
+            t.setDaemon(True)
+            t.start()
+        return HttpResponse()
+    return render_to_response('main/solutions/cafe.html', locals(), context_instance=RequestContext(request))
 
 def house(request):
     page_title = u'Видеонаблюдение в дом - Цептум'
@@ -228,6 +300,78 @@ def podezd(request):
         return HttpResponse()
     return render_to_response('main/solutions/podezd.html', locals(), context_instance=RequestContext(request))
 
+def cotedge(request):
+    page_title = u'Видеонаблюдение в магазин - Цептум'
+    if request.method == 'POST':
+        postdata = request.POST
+        if not postdata.get('product_slug', ''):
+            product_slug = u'Видеонаблюдение в магазин'
+        else:
+            product_slug = postdata.get('product_slug','')
+        if settings.SEND_ADMIN_EMAIL:
+            t = threading.Thread(target= send_mail, args=[
+                u'Заказ на %s' % product_slug,
+                u'Имя: %s \nТелефон: %s\nЗаказ: %s\nСообщение: %s\nАдрес: %s\nEmail: %s\n' % (postdata['name'], postdata['phone'], product_slug, postdata['comment'], postdata['address'], postdata['email']),
+                settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
+            t.setDaemon(True)
+            t.start()
+        return HttpResponse()
+    return render_to_response('main/solutions/cotedge.html', locals(), context_instance=RequestContext(request))
+
+def otel(request):
+    page_title = u'Видеонаблюдение в магазин - Цептум'
+    if request.method == 'POST':
+        postdata = request.POST
+        if not postdata.get('product_slug', ''):
+            product_slug = u'Видеонаблюдение в магазин'
+        else:
+            product_slug = postdata.get('product_slug','')
+        if settings.SEND_ADMIN_EMAIL:
+            t = threading.Thread(target= send_mail, args=[
+                u'Заказ на %s' % product_slug,
+                u'Имя: %s \nТелефон: %s\nЗаказ: %s\nСообщение: %s\nАдрес: %s\nEmail: %s\n' % (postdata['name'], postdata['phone'], product_slug, postdata['comment'], postdata['address'], postdata['email']),
+                settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
+            t.setDaemon(True)
+            t.start()
+        return HttpResponse()
+    return render_to_response('main/solutions/otel.html', locals(), context_instance=RequestContext(request))
+
+def beauty(request):
+    page_title = u'Видеонаблюдение в магазин - Цептум'
+    if request.method == 'POST':
+        postdata = request.POST
+        if not postdata.get('product_slug', ''):
+            product_slug = u'Видеонаблюдение в магазин'
+        else:
+            product_slug = postdata.get('product_slug','')
+        if settings.SEND_ADMIN_EMAIL:
+            t = threading.Thread(target= send_mail, args=[
+                u'Заказ на %s' % product_slug,
+                u'Имя: %s \nТелефон: %s\nЗаказ: %s\nСообщение: %s\nАдрес: %s\nEmail: %s\n' % (postdata['name'], postdata['phone'], product_slug, postdata['comment'], postdata['address'], postdata['email']),
+                settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
+            t.setDaemon(True)
+            t.start()
+        return HttpResponse()
+    return render_to_response('main/solutions/beauty.html', locals(), context_instance=RequestContext(request))
+
+def fitness(request):
+    page_title = u'Видеонаблюдение в магазин - Цептум'
+    if request.method == 'POST':
+        postdata = request.POST
+        if not postdata.get('product_slug', ''):
+            product_slug = u'Видеонаблюдение в магазин'
+        else:
+            product_slug = postdata.get('product_slug','')
+        if settings.SEND_ADMIN_EMAIL:
+            t = threading.Thread(target= send_mail, args=[
+                u'Заказ на %s' % product_slug,
+                u'Имя: %s \nТелефон: %s\nЗаказ: %s\nСообщение: %s\nАдрес: %s\nEmail: %s\n' % (postdata['name'], postdata['phone'], product_slug, postdata['comment'], postdata['address'], postdata['email']),
+                settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
+            t.setDaemon(True)
+            t.start()
+        return HttpResponse()
+    return render_to_response('main/solutions/fitness.html', locals(), context_instance=RequestContext(request))
+
 def autoservice(request):
     page_title = u'Видеонаблюдение в автосервис/автомойка - Цептум'
     if request.method == 'POST':
@@ -264,12 +408,12 @@ def autostore(request):
         return HttpResponse()
     return render_to_response('main/solutions/autostore.html', locals(), context_instance=RequestContext(request))
 
-def hotel(request):
-    page_title = u'Видеонаблюдение в автосалон - Цептум'
+def parking(request):
+    page_title = u'Видеонаблюдение в магазин - Цептум'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
-            product_slug = u'Видеонаблюдение в автосалон'
+            product_slug = u'Видеонаблюдение в магазин'
         else:
             product_slug = postdata.get('product_slug','')
         if settings.SEND_ADMIN_EMAIL:
@@ -280,4 +424,40 @@ def hotel(request):
             t.setDaemon(True)
             t.start()
         return HttpResponse()
-    return render_to_response('main/solutions/hotel.html', locals(), context_instance=RequestContext(request))
+    return render_to_response('main/solutions/parking.html', locals(), context_instance=RequestContext(request))
+
+def proizvodstvo(request):
+    page_title = u'Видеонаблюдение в магазин - Цептум'
+    if request.method == 'POST':
+        postdata = request.POST
+        if not postdata.get('product_slug', ''):
+            product_slug = u'Видеонаблюдение в магазин'
+        else:
+            product_slug = postdata.get('product_slug','')
+        if settings.SEND_ADMIN_EMAIL:
+            t = threading.Thread(target= send_mail, args=[
+                u'Заказ на %s' % product_slug,
+                u'Имя: %s \nТелефон: %s\nЗаказ: %s\nСообщение: %s\nАдрес: %s\nEmail: %s\n' % (postdata['name'], postdata['phone'], product_slug, postdata['comment'], postdata['address'], postdata['email']),
+                settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
+            t.setDaemon(True)
+            t.start()
+        return HttpResponse()
+    return render_to_response('main/solutions/proizvodstvo.html', locals(), context_instance=RequestContext(request))
+
+def social(request):
+    page_title = u'Видеонаблюдение в магазин - Цептум'
+    if request.method == 'POST':
+        postdata = request.POST
+        if not postdata.get('product_slug', ''):
+            product_slug = u'Видеонаблюдение в магазин'
+        else:
+            product_slug = postdata.get('product_slug','')
+        if settings.SEND_ADMIN_EMAIL:
+            t = threading.Thread(target= send_mail, args=[
+                u'Заказ на %s' % product_slug,
+                u'Имя: %s \nТелефон: %s\nЗаказ: %s\nСообщение: %s\nАдрес: %s\nEmail: %s\n' % (postdata['name'], postdata['phone'], product_slug, postdata['comment'], postdata['address'], postdata['email']),
+                settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
+            t.setDaemon(True)
+            t.start()
+        return HttpResponse()
+    return render_to_response('main/solutions/social.html', locals(), context_instance=RequestContext(request))
