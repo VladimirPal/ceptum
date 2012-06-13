@@ -21,6 +21,7 @@ def index(request):
     return render_to_response("main/index.html", locals(), context_instance=RequestContext(request))
 
 def video_solutions(request):
+    page_title = u'Типовые решения - Цептум. Москва'
     return render_to_response('main/solutions/index.html', locals(), context_instance=RequestContext(request))
 
 def cats(request):
@@ -118,15 +119,15 @@ def all_goods(request):
     return render_to_response("main/catalog.html", locals(), context_instance=RequestContext(request))
 
 def about(request):
-    page_title = u'О нас - Цептум'
+    page_title = u'Контакты - Цептум. Москва'
     return render_to_response('main/about.html', locals(), context_instance=RequestContext(request))
 
 def install(request):
-    page_title = u'Оплата и Монтаж - Цептум'
+    page_title = u'Услуги по установке видеонаблюдения - Цептум. Москва'
     return render_to_response('main/install.html', locals(), context_instance=RequestContext(request))
 
 def service(request):
-    page_title = u'Оплата и Монтаж - Цептум'
+    page_title = u'Обслуживание систем видеонаблюдения - Цептум. Москва'
     return render_to_response('main/service.html', locals(), context_instance=RequestContext(request))
 
 def internal_error(request):
@@ -157,7 +158,7 @@ def take_vk_comment(request):
     return HttpResponse()
 
 def office(request):
-    page_title = u'Видеонаблюдение в офис - Цептум'
+    page_title = u'Видеонаблюдение в офис - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -175,7 +176,7 @@ def office(request):
     return render_to_response('main/solutions/office.html', locals(), context_instance=RequestContext(request))
 
 def business_center(request):
-    page_title = u'Видеонаблюдение в офис - Цептум'
+    page_title = u'Видеонаблюдение в бизнес-центр - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -193,7 +194,7 @@ def business_center(request):
     return render_to_response('main/solutions/business-center.html', locals(), context_instance=RequestContext(request))
 
 def store(request):
-    page_title = u'Видеонаблюдение в магазин - Цептум'
+    page_title = u'Видеонаблюдение в магазин - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -211,7 +212,7 @@ def store(request):
     return render_to_response('main/solutions/store.html', locals(), context_instance=RequestContext(request))
 
 def market(request):
-    page_title = u'Видеонаблюдение в магазин - Цептум'
+    page_title = u'Видеонаблюдение в торговый центр - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -229,7 +230,7 @@ def market(request):
     return render_to_response('main/solutions/market.html', locals(), context_instance=RequestContext(request))
 
 def sklad(request):
-    page_title = u'Видеонаблюдение в магазин - Цептум'
+    page_title = u'Видеонаблюдение на склад - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -247,7 +248,7 @@ def sklad(request):
     return render_to_response('main/solutions/sklad.html', locals(), context_instance=RequestContext(request))
 
 def cafe(request):
-    page_title = u'Видеонаблюдение в магазин - Цептум'
+    page_title = u'Видеонаблюдение в Кафе/Бар/Ресторан - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -265,7 +266,7 @@ def cafe(request):
     return render_to_response('main/solutions/cafe.html', locals(), context_instance=RequestContext(request))
 
 def podezd(request):
-    page_title = u'Видеонаблюдение в подъезд - Цептум'
+    page_title = u'Видеонаблюдение в подъезд - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -283,7 +284,7 @@ def podezd(request):
     return render_to_response('main/solutions/podezd.html', locals(), context_instance=RequestContext(request))
 
 def cotedge(request):
-    page_title = u'Видеонаблюдение в магазин - Цептум'
+    page_title = u'Видеонаблюдение в Дом/Коттеджный поселок - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -301,7 +302,7 @@ def cotedge(request):
     return render_to_response('main/solutions/cotedge.html', locals(), context_instance=RequestContext(request))
 
 def otel(request):
-    page_title = u'Видеонаблюдение в магазин - Цептум'
+    page_title = u'Видеонаблюдение в Отель - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -319,7 +320,7 @@ def otel(request):
     return render_to_response('main/solutions/otel.html', locals(), context_instance=RequestContext(request))
 
 def beauty(request):
-    page_title = u'Видеонаблюдение в магазин - Цептум'
+    page_title = u'Видеонаблюдение в Салон красоты - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -337,7 +338,7 @@ def beauty(request):
     return render_to_response('main/solutions/beauty.html', locals(), context_instance=RequestContext(request))
 
 def fitness(request):
-    page_title = u'Видеонаблюдение в магазин - Цептум'
+    page_title = u'Видеонаблюдение в Фитнес центр - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -355,7 +356,7 @@ def fitness(request):
     return render_to_response('main/solutions/fitness.html', locals(), context_instance=RequestContext(request))
 
 def autoservice(request):
-    page_title = u'Видеонаблюдение в автосервис/автомойка - Цептум'
+    page_title = u'Видеонаблюдение в автосервис/автомойка - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -373,7 +374,7 @@ def autoservice(request):
     return render_to_response('main/solutions/autoservice.html', locals(), context_instance=RequestContext(request))
 
 def autostore(request):
-    page_title = u'Видеонаблюдение в автосалон - Цептум'
+    page_title = u'Видеонаблюдение в автосалон - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -391,7 +392,7 @@ def autostore(request):
     return render_to_response('main/solutions/autostore.html', locals(), context_instance=RequestContext(request))
 
 def parking(request):
-    page_title = u'Видеонаблюдение в магазин - Цептум'
+    page_title = u'Видеонаблюдение на парковку - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -409,7 +410,7 @@ def parking(request):
     return render_to_response('main/solutions/parking.html', locals(), context_instance=RequestContext(request))
 
 def proizvodstvo(request):
-    page_title = u'Видеонаблюдение в магазин - Цептум'
+    page_title = u'Видеонаблюдение на Производство - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
@@ -427,7 +428,7 @@ def proizvodstvo(request):
     return render_to_response('main/solutions/proizvodstvo.html', locals(), context_instance=RequestContext(request))
 
 def social(request):
-    page_title = u'Видеонаблюдение в магазин - Цептум'
+    page_title = u'Видеонаблюдение в социальное учреждение - Цептум. Москва'
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
