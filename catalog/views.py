@@ -180,7 +180,7 @@ def business_center(request):
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
-            product_slug = u'Видеонаблюдение в офис'
+            product_slug = u'Видеонаблюдение в бизнес-центр'
         else:
             product_slug = postdata.get('product_slug','')
         if settings.SEND_ADMIN_EMAIL:
@@ -216,7 +216,7 @@ def market(request):
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
-            product_slug = u'Видеонаблюдение в магазин'
+            product_slug = u'Видеонаблюдение в торговый центр'
         else:
             product_slug = postdata.get('product_slug','')
         if settings.SEND_ADMIN_EMAIL:
@@ -234,7 +234,7 @@ def sklad(request):
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
-            product_slug = u'Видеонаблюдение в магазин'
+            product_slug = u'Видеонаблюдение на склад'
         else:
             product_slug = postdata.get('product_slug','')
         if settings.SEND_ADMIN_EMAIL:
@@ -252,7 +252,7 @@ def cafe(request):
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
-            product_slug = u'Видеонаблюдение в магазин'
+            product_slug = u'Видеонаблюдение в кафе'
         else:
             product_slug = postdata.get('product_slug','')
         if settings.SEND_ADMIN_EMAIL:
@@ -288,7 +288,7 @@ def cotedge(request):
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
-            product_slug = u'Видеонаблюдение в магазин'
+            product_slug = u'Видеонаблюдение в коттедж'
         else:
             product_slug = postdata.get('product_slug','')
         if settings.SEND_ADMIN_EMAIL:
@@ -306,7 +306,7 @@ def otel(request):
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
-            product_slug = u'Видеонаблюдение в магазин'
+            product_slug = u'Видеонаблюдение в отель'
         else:
             product_slug = postdata.get('product_slug','')
         if settings.SEND_ADMIN_EMAIL:
@@ -324,7 +324,7 @@ def beauty(request):
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
-            product_slug = u'Видеонаблюдение в магазин'
+            product_slug = u'Видеонаблюдение в салон красоты'
         else:
             product_slug = postdata.get('product_slug','')
         if settings.SEND_ADMIN_EMAIL:
@@ -342,7 +342,7 @@ def fitness(request):
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
-            product_slug = u'Видеонаблюдение в магазин'
+            product_slug = u'Видеонаблюдение в фитнес-центр'
         else:
             product_slug = postdata.get('product_slug','')
         if settings.SEND_ADMIN_EMAIL:
@@ -396,7 +396,7 @@ def parking(request):
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
-            product_slug = u'Видеонаблюдение в магазин'
+            product_slug = u'Видеонаблюдение на парковку'
         else:
             product_slug = postdata.get('product_slug','')
         if settings.SEND_ADMIN_EMAIL:
@@ -414,7 +414,7 @@ def proizvodstvo(request):
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
-            product_slug = u'Видеонаблюдение в магазин'
+            product_slug = u'Видеонаблюдение на производство'
         else:
             product_slug = postdata.get('product_slug','')
         if settings.SEND_ADMIN_EMAIL:
@@ -432,7 +432,7 @@ def social(request):
     if request.method == 'POST':
         postdata = request.POST
         if not postdata.get('product_slug', ''):
-            product_slug = u'Видеонаблюдение в магазин'
+            product_slug = u'Видеонаблюдение в социальное учреждение'
         else:
             product_slug = postdata.get('product_slug','')
         if settings.SEND_ADMIN_EMAIL:
