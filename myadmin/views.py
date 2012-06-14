@@ -100,7 +100,7 @@ def user_clients(request, username):
                 clients = clients.filter(status_date__month=month)
     except :
         clients = False
-    expired_count = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today(), status='DONE').exclude(status_date__isnull=True).count()
+    expired_count = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).exclude(status='DONE').count()
     today_count = Client.objects.filter(user=user, status_date=datetime.date.today()).exclude(status='DONE').count()
     status_statistic = {}
     for status, y in STATUS_CHOICES:
