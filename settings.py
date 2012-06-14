@@ -101,10 +101,10 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'ceptum.catalog',
-    'ceptum.cart',
+#    'ceptum.cart',
     'ceptum.myadmin',
-    'ceptum.blog',
-    'ceptum.projects',
+#    'ceptum.blog',
+#    'ceptum.projects',
     'filebrowser',
     'south',
     'raven.contrib.django',
