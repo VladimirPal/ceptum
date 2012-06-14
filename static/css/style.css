@@ -277,7 +277,7 @@ header #contacts p.skype{
 	float: left;
 }
 #content_block{
-	padding-left: 150px;
+	padding-left: 50px;
 	min-height: 450px;
 }
 #content{
@@ -305,7 +305,8 @@ header #contacts p.skype{
 	color: #222222;
 }
 #items{
-	width: 100%;
+	width: 700px;
+	margin: 0 auto;
 	display: block;
 	text-align: center;
 }
