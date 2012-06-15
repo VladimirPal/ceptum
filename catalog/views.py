@@ -265,6 +265,24 @@ def cafe(request):
         return HttpResponse()
     return render_to_response('main/solutions/cafe.html', locals(), context_instance=RequestContext(request))
 
+def club(request):
+    page_title = u'Видеонаблюдение в Ночной клуб - Цептум. Москва'
+    if request.method == 'POST':
+        postdata = request.POST
+        if not postdata.get('product_slug', ''):
+            product_slug = u'Видеонаблюдение в ночной клуб'
+        else:
+            product_slug = postdata.get('product_slug','')
+        if settings.SEND_ADMIN_EMAIL:
+            t = threading.Thread(target= send_mail, args=[
+                u'Заказ на %s' % product_slug,
+                u'Имя: %s \nТелефон: %s\nЗаказ: %s\nСообщение: %s\nАдрес: %s\nEmail: %s\n' % (postdata['name'], postdata['phone'], product_slug, postdata['comment'], postdata['address'], postdata['email']),
+                settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], 'fail_silently=False'])
+            t.setDaemon(True)
+            t.start()
+        return HttpResponse()
+    return render_to_response('main/solutions/club.html', locals(), context_instance=RequestContext(request))
+
 def podezd(request):
     page_title = u'Видеонаблюдение в подъезд - Цептум. Москва'
     if request.method == 'POST':
