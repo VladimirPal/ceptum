@@ -150,6 +150,7 @@ input.error{
 .failur_block label{
 	min-height: 18px;
     padding-left: 18px;
+    display: block;
 }
 .failur_block label input{
 	float: left;
