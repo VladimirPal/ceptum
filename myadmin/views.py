@@ -406,7 +406,7 @@ def cold_to_client(request):
     for phone in target.phone_set.all():
         contact_name += phone.phone + '\n'
     form = myClientForm(exclude_list=(),initial={'user': request.user.id, 'referrer': 'COLD', 'name': target.name,\
-                         'contact_name':contact_name, 'email':target.email, 'address':target.address})
+                         'contact_name':contact_name, 'email':target.email, 'address':target.address, 'data': target.comment})
     FileFormset = inlineformset_factory(Client, ClientFile, extra=2)
     client = Client()
     formset = FileFormset()
