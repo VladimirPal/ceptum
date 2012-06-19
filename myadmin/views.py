@@ -467,8 +467,11 @@ def cold_stats(request):
         profit_targets = Target.objects.filter(user=manager, is_positive=True)
         profit_clients = 0
         for client in profit_targets:
-            if client.client.status == 'DONE':
-                profit_clients +=1
+            try:
+                if client.client.status == 'DONE':
+                    profit_clients +=1
+            except :
+                pass
     else:
         calls_today = Target.objects.filter(is_done=True, done_at=datetime.date.today()).count()
         all_calls = Target.objects.filter(is_done=True).count()
