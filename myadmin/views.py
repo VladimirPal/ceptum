@@ -280,7 +280,6 @@ import re
 def cold_start(request, category_id):
     user = User.objects.get(username=request.user)
     if request.session.get('last_target'):
-        print request.session.get('last_target')
         last_target = Target.objects.get(id=request.session.get('last_target'))
         if not last_target.is_done:
             if not last_target.callback:
