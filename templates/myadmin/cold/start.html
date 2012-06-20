@@ -79,13 +79,13 @@
 							<textarea class="input-xxlarge" id="id_body" name="body" cols="40" rows="10">{{ email_template.body }}</textarea>
 						</div>
 					</div>
-                    {% if email_template.attach %}
 					<h4>Приложенные файлы</h4>
 					<hr>
+                    {% if email_template.attach %}
 					<div class="control-group">
 						<label class="control-label">Текущий:</label>
 						<div class="controls">
-							<p class="help-block"><a href="{{ email_template.attach.url }}">{{ email_template.attach.name|slice:"11:"|truncatechars:13 }}</a></p>
+							<p class="help-block"><a href="{{ email_template.attach.url }}">{{ email_template.attachname }}</a></p>
                             <input id="attach" type="hidden" name="attach" value="{{ email_template.attach }}">
 						</div>
                         <div class="controls">
@@ -94,10 +94,12 @@
 							</label>
 						</div>
 					</div>
+                    {% endif %}
+                    {% if email_template.attach2 %}
                     <div class="control-group">
 						<label class="control-label">Текущий:</label>
 						<div class="controls">
-							<p class="help-block"><a href="{{ email_template.attach2.url }}">{{ email_template.attach2.name|slice:"11:"|truncatechars:13 }}</a></p>
+							<p class="help-block"><a href="{{ email_template.attach2.url }}">{{ email_template.attachname2 }}</a></p>
                             <input id="attach2" type="hidden" name="attach2" value="{{ email_template.attach2 }}">
 						</div>
                         <div class="controls">
@@ -107,7 +109,6 @@
 						</div>
 					</div>
 					<div class="control-group">
-
 					</div>
                     {% endif %}
 				</div>

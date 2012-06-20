@@ -110,15 +110,25 @@ class Mail(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None):
         try:
-            attach = Mail.objects.get(id=self.id).attach
-            if attach:
-                os.remove(os.path.join(settings.MEDIA_ROOT, attach.name))
+            if not self.attach._committed:
+                attach = Mail.objects.get(id=self.id).attach
+                if attach:
+                    os.remove(os.path.join(settings.MEDIA_ROOT, attach.name))
         except :
             pass
         try:
-            attach2 = Mail.objects.get(id=self.id).attach2
-            if attach2:
-                os.remove(os.path.join(settings.MEDIA_ROOT, attach2.name))
+            if not self.attach2._committed:
+                print self.attach2._committed
+                print self.attach2.path
+                attach2 = Mail.objects.get(id=self.id).attach2
+                if attach2:
+                    os.remove(os.path.join(settings.MEDIA_ROOT, attach2.name))
         except :
             pass
         super(Mail, self).save()
+
+    def attachname(self):
+        return os.path.basename(self.attach.name)
+
+    def attachname2(self):
+        return os.path.basename(self.attach2.name)
