@@ -558,6 +558,8 @@ from django.conf import settings
 def send_ajx_mail(request):
     if request.method == 'POST':
         user = User.objects.get(username=request.user)
+        settings.EMAIL_HOST_USER = user.email
+        settings.EMAIL_HOST_PASSWORD = settings.USER_EMAIL_PASSWORDS[user.email]
         title = request.POST.get('title')
         body = request.POST.get('body')
         to = request.POST.get('email')
