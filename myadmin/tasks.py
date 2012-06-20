@@ -20,6 +20,8 @@ def send_mail(user, title, body, to, is_attach, attach):
     settings.EMAIL_HOST_USER = user.email
     settings.EMAIL_HOST_PASSWORD = settings.USER_EMAIL_PASSWORDS[user.email]
     msg = EmailMessage(title, body, user.email, [to,])
+    print attach
+    print is_attach
     if attach:
         if not is_attach:
             msg.attach_file(os.path.join(settings.MEDIA_ROOT, attach))
