@@ -22,8 +22,8 @@ def send_mail(user, title, body, to, is_attach, attach, is_attach2, attach2):
     msg = EmailMessage(title, body, user.email, [to,])
     if attach:
         if not is_attach:
-            msg.attach_file(unicode(os.path.join(settings.MEDIA_ROOT, attach)))
+            msg.attach_file(unicode(os.path.join(settings.MEDIA_ROOT, attach).encode('utf8')))
     if attach2:
         if not is_attach2:
-            msg.attach_file(unicode(os.path.join(settings.MEDIA_ROOT, attach2)))
+            msg.attach_file(unicode(os.path.join(settings.MEDIA_ROOT, attach2).encode('utf8')))
     msg.send()
