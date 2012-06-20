@@ -2,6 +2,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
+import os
+from django.conf import settings
+from storage import OverwriteStorage
 
 STATUS_CHOICES = (
     ('CALL', 'Созвон'),
@@ -94,9 +97,21 @@ class Phone(models.Model):
     phone = models.CharField(max_length=20, unique=True)
     target = models.ForeignKey(Target)
 
+def get_file_path( instance, filename ):
+    return "mail_files/%s/%s" % ( instance.user, filename )
+
 class Mail(models.Model):
     category = models.ForeignKey(CategoryTarget, null=True, blank=True)
     user = models.ForeignKey(User, null=True, blank=True)
     title = models.CharField(max_length=200)
     body = models.TextField()
-    attach = models.FileField(null=True, blank=True, upload_to='./mail_files')
+    attach = models.FileField(null=True, blank=True, upload_to=get_file_path)
+
+    def save(self, force_insert=False, force_update=False, using=None):
+        try:
+            attach = Mail.objects.get(id=self.id).attach
+            if attach:
+                os.remove(os.path.join(settings.MEDIA_ROOT, attach.name))
+        except :
+            pass
+        super(Mail, self).save()

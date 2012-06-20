@@ -79,6 +79,7 @@
 							<textarea class="input-xxlarge" id="id_body" name="body" cols="40" rows="10">{{ email_template.body }}</textarea>
 						</div>
 					</div>
+                    {% if email_template.attach %}
 					<h4>Приложенный файл</h4>
 					<hr>
 					<div class="control-group">
@@ -96,6 +97,7 @@
 							</label>
 						</div>
 					</div>
+                    {% endif %}
 				</div>
 				<!---->
 				

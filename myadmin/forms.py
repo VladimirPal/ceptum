@@ -66,7 +66,8 @@ class TargetForm(ModelForm):
 
 class MailForm(ModelForm):
     title = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'input-xxlarge'}))
-    body = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows':'10','cols':'40', 'class':'input-xxlarge'}))
+    body = forms.CharField(required=True, widget=forms.Textarea(attrs={'rows':'10','cols':'40', 'class':'input-xxlarge'}))
+
     class Meta:
         model = Mail
         exclude = ('category', 'user')
