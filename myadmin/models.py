@@ -98,7 +98,7 @@ class Phone(models.Model):
     target = models.ForeignKey(Target)
 
 def get_file_path( instance, filename ):
-    return "mail_files/%s/%s" % ( instance.user, filename )
+    return "mail_files/%s/%s/%s" % ( instance.user, instance.category.id, filename )
 
 class Mail(models.Model):
     category = models.ForeignKey(CategoryTarget, null=True, blank=True)
