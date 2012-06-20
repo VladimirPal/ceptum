@@ -106,12 +106,19 @@ class Mail(models.Model):
     title = models.CharField(max_length=200)
     body = models.TextField()
     attach = models.FileField(null=True, blank=True, upload_to=get_file_path)
+    attach2 = models.FileField(null=True, blank=True, upload_to=get_file_path)
 
     def save(self, force_insert=False, force_update=False, using=None):
         try:
             attach = Mail.objects.get(id=self.id).attach
             if attach:
                 os.remove(os.path.join(settings.MEDIA_ROOT, attach.name))
+        except :
+            pass
+        try:
+            attach2 = Mail.objects.get(id=self.id).attach2
+            if attach2:
+                os.remove(os.path.join(settings.MEDIA_ROOT, attach2.name))
         except :
             pass
         super(Mail, self).save()

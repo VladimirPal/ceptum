@@ -80,22 +80,34 @@
 						</div>
 					</div>
                     {% if email_template.attach %}
-					<h4>Приложенный файл</h4>
+					<h4>Приложенные файлы</h4>
 					<hr>
 					<div class="control-group">
 						<label class="control-label">Текущий:</label>
 						<div class="controls">
 							<p class="help-block"><a href="{{ email_template.attach.url }}">{{ email_template.attach.name|slice:"11:"|truncatechars:13 }}</a></p>
                             <input id="attach" type="hidden" name="attach" value="{{ email_template.attach }}">
-                            <input id="target" type="hidden" name="target" value="{{ target.id }}">
 						</div>
-					</div>
-					<div class="control-group">
-						<div class="controls">
+                        <div class="controls">
 							<label class="checkbox">
 								<input id="attach-clear_id" type="checkbox" name="attach-clear">Не отправлять
 							</label>
 						</div>
+					</div>
+                    <div class="control-group">
+						<label class="control-label">Текущий:</label>
+						<div class="controls">
+							<p class="help-block"><a href="{{ email_template.attach2.url }}">{{ email_template.attach2.name|slice:"11:"|truncatechars:13 }}</a></p>
+                            <input id="attach2" type="hidden" name="attach2" value="{{ email_template.attach2 }}">
+						</div>
+                        <div class="controls">
+							<label class="checkbox">
+								<input id="attach2-clear_id" type="checkbox" name="attach2-clear">Не отправлять
+							</label>
+						</div>
+					</div>
+					<div class="control-group">
+
 					</div>
                     {% endif %}
 				</div>

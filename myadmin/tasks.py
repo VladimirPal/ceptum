@@ -16,13 +16,14 @@ def check_busy_target():
         target.save()
 
 @task(name="send_mail")
-def send_mail(user, title, body, to, is_attach, attach):
+def send_mail(user, title, body, to, is_attach, attach, is_attach2, attach2):
     settings.EMAIL_HOST_USER = user.email
     settings.EMAIL_HOST_PASSWORD = settings.USER_EMAIL_PASSWORDS[user.email]
     msg = EmailMessage(title, body, user.email, [to,])
-    print attach
-    print is_attach
     if attach:
         if not is_attach:
             msg.attach_file(os.path.join(settings.MEDIA_ROOT, attach))
+    if attach2:
+        if not is_attach2:
+            msg.attach_file(os.path.join(settings.MEDIA_ROOT, attach2))
     msg.send()
