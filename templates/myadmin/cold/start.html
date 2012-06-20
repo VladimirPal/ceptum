@@ -124,8 +124,8 @@
 	<div class="container">
 		
 		<div class="row">
-			
-		
+
+        {% if target %}
 			<div class="span8">
 				<h2 class="pull-left">{{ target.name }}</h2> {% if target.callback_at %}Перезвон на {{ target.callback_at }} {% endif %}
 				<a href="/myadmin/cold/toclient/?target={{ target.id }}" class="pull-right btn btn-primary"><i class="icon-flag icon-white"></i> Перевести в клиенты</a>
@@ -249,7 +249,9 @@
 					 <a href="/myadmin/cold/unavailable/{{ target.id }}/" class="btn pull-right btn-danger"><i class="icon-repeat icon-white"></i> Недозвон</a>
 				</form>
 			</div>
-			
+        {% else %}
+            <h1>База кончилась!</h1>
+        {% endif %}
 			<div class="span4 cold_stat_block">
 				<div class="well">
 				 	<div>
@@ -274,7 +276,7 @@
 			</div>
 			
 		</div>
-	
+
 	</div>
 </body>
 </html>
