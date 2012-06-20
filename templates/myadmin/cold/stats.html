@@ -79,6 +79,7 @@
 			            <h3>Звонков</h3>
 			            <p>сегодня: <strong>{{ calls_today }}</strong></p>
 			            <p>всего: <strong>{{ all_calls }}</strong></p>
+                        <p>Всего в базе: <strong>{{ all_targets_count }}</strong></p>
 			        </div>
 			        <div>
 			            <h3>Переведено в клиенты</h3>
@@ -104,3 +105,10 @@
 	</div>
 </body>
 </html>
+
+{% for cat in cat_list %}
+    {% for key, value in cat.items %}
+        {{ key }} {{ value }}<br>
+    {% endfor %}<br><br>
+    ---------------------<br>
+{% endfor %}

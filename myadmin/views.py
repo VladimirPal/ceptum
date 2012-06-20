@@ -455,6 +455,7 @@ def cold_unavailable(request, target_id):
 
 @login_required
 def cold_stats(request):
+    categories = CategoryTarget.objects.all()
     if request.GET.get('user',''):
         manager = User.objects.get(username=request.GET.get('user',''))
         calls_today = Target.objects.filter(user=manager, is_done=True, done_at=datetime.date.today()).count()
@@ -498,7 +499,19 @@ def cold_stats(request):
                     profit_clients +=1
             except :
                 pass
+        cat_list = []
+        for cat in categories:
+            all_cat_count = Target.objects.filter(category=cat).count()
+            cat_done_count = Target.objects.filter(category=cat, is_done=True).count()
+            clients_cat_from_calls = Target.objects.filter(category=cat, is_positive=True).count()
+            if cat_done_count and clients_cat_from_calls:
+                succeess_cat = "{0:.0f}%".format(float(clients_cat_from_calls)/cat_done_count * 100)
+            else:
+                succeess_cat = "0%"
+            cat_list.append({'Категория': cat.name, 'Всего в базе:': all_cat_count, 'Готово:': cat_done_count,\
+                             'Переведено в клиенты:': clients_cat_from_calls, 'Процент успеха:': succeess_cat})
     users = User.objects.filter(groups__name='Менеджеры')
+    all_targets_count = Target.objects.all().count()
     return render_to_response("myadmin/cold/stats.html", locals(), context_instance=RequestContext(request))
 
 @login_required
