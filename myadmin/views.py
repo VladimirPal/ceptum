@@ -379,14 +379,7 @@ def recalls_today(request):
             target.is_busy_at = datetime.datetime.today()
             target.save()
             form = TargetForm(instance=target, initial={'callback_at':''})
-            try:
-                email_template = Mail.objects.get(category=target.category, user=user)
-                email_template.title = re.sub('\{\{name\}\}', target.name, email_template.title)
-                email_template.body = re.sub('\{\{name\}\}', target.name, email_template.body)
-                form = TargetForm(instance=target)
-                request.session['last_target'] = target.id
-            except :
-                email_template = False
+
             request.session['last_target'] = target.id
             calls_today = Target.objects.filter(user=user, is_done=True, done_at=datetime.date.today()).count()
             all_calls = Target.objects.filter(user=user, is_done=True).count()
@@ -410,6 +403,12 @@ def recalls_today(request):
                     pass
         except :
             pass
+    try:
+        email_template = Mail.objects.get(category=target.category, user=user)
+        email_template.title = re.sub('\{\{name\}\}', target.name, email_template.title)
+        email_template.body = re.sub('\{\{name\}\}', target.name, email_template.body)
+    except :
+        email_template = False
     return render_to_response("myadmin/cold/start.html", locals(), context_instance=RequestContext(request))
 
 @login_required
