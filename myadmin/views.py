@@ -557,5 +557,5 @@ def edit_ajx_target(request):
 def send_ajx_mail(request):
     if request.method == 'POST':
         user = User.objects.get(username=request.user)
-        send_mail.delay(user, request.POST.get('title'), request.POST.get('body'), request.POST.get('email'), request.POST.get('attach-clear'), request.POST.get('attach'))
+        send_mail.delay(user, request.POST.get('title'), request.POST.get('body'), request.POST.get('email'), request.POST.get('attach-clear', False), request.POST.get('attach', False))
         return HttpResponse(status=200)
