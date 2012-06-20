@@ -558,4 +558,5 @@ def send_ajx_mail(request):
     if request.method == 'POST':
         user = User.objects.get(username=request.user)
         send_mail.delay(user, request.POST.get('title'), request.POST.get('body'), request.POST.get('email'), request.POST.get('attach-clear', False), request.POST.get('attach', False). request.POST.get('attach2-clear', False), request.POST('attach2', False))
+        print HttpResponse(status=200)
         return HttpResponse(status=200)
