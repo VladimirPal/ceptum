@@ -553,9 +553,24 @@ def edit_ajx_target(request):
         target.save()
         return HttpResponse(status=200)
 
+from django.conf import settings
 @login_required
 def send_ajx_mail(request):
     if request.method == 'POST':
         user = User.objects.get(username=request.user)
-        send_mail.delay(user, request.POST.get('title'), request.POST.get('body'), request.POST.get('email'), request.POST.get('attach-clear', False), request.POST.get('attach', False), request.POST.get('attach2-clear', False), request.POST.get('attach2', False))
+        title = request.POST.get('title')
+        body = request.POST.get('body')
+        to = request.POST.get('email')
+        is_attach = request.POST.get('attach-clear', False)
+        attach = request.POST.get('attach', False)
+        is_attach2 = request.POST.get('attach2-clear', False)
+        attach2 = request.POST.get('attach2', False)
+        msg = EmailMessage(title, body, user.email, [to,])
+        if attach:
+            if not is_attach:
+                msg.attach_file(os.path.join(settings.MEDIA_ROOT, attach))
+        if attach2:
+            if not is_attach2:
+                msg.attach_file(os.path.join(settings.MEDIA_ROOT, attach2))
+        msg.send()
         return HttpResponse(status=200)
