@@ -305,6 +305,8 @@ def cold_start(request, category_id):
     else:
         category = CategoryTarget.objects.get(id=category_id)
         target = Target.objects.filter(category=category, is_busy=False, is_done=False).exclude(notavailable_date = datetime.date.today()).order_by('?')[0]
+        print "-----"
+        print target
         target.is_busy = True
         target.is_busy_at = datetime.datetime.today()
         target.save()
