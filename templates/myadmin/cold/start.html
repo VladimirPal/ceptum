@@ -291,6 +291,13 @@
                     <div>
                     	<h3>Доведено до конца: {{ profit_clients }}</h3>
                     </div>
+                    {% if not 'recalls' in request.path %}
+                    <div>
+                    	<h3>Всего в категории: {{ targets_cat_count }}</h3>
+                        <p>Из них сделано: <strong>{{ done_cat_count }}</strong></p>
+                        <p>Из них сделано вами: <strong>{{ done_user_cat_count }}</strong></p>
+                    </div>
+                    {% endif %}
             	</div>
 			</div>
 			

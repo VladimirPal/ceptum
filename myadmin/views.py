@@ -323,6 +323,9 @@ def cold_start(request, category_id):
         all_calls = Target.objects.filter(user=user, is_done=True).count()
         clients_from_calls_today = Target.objects.filter(user=user, is_positive=True, done_at=datetime.date.today()).count()
         clients_from_calls = Target.objects.filter(user=user, is_positive=True).count()
+        targets_cat_count = Target.objects.filter(category=category).count()
+        done_cat_count = Target.objects.filter(category=category, is_done=True).count()
+        done_user_cat_count = Target.objects.filter(category=category, is_done=True, user=user).count()
         if calls_today and clients_from_calls_today:
             succeess_today = "{0:.0f}%".format(float(clients_from_calls_today)/calls_today * 100)
         else:
