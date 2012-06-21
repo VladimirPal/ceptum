@@ -279,6 +279,7 @@ import re
 @login_required
 def cold_start(request, category_id):
     user = User.objects.get(username=request.user)
+    category = CategoryTarget.objects.get(id=category_id)
     if request.session.get('last_target'):
         last_target = Target.objects.get(id=request.session.get('last_target'))
         if not last_target.is_done:
@@ -303,20 +304,12 @@ def cold_start(request, category_id):
             target.save()
             return HttpResponseRedirect(request.path)
     else:
-        category = CategoryTarget.objects.get(id=category_id)
         try:
             target = Target.objects.filter(category=category, is_busy=False, is_done=False).exclude(notavailable_date = datetime.date.today()).order_by('?')[0]
             target.is_busy = True
             target.is_busy_at = datetime.datetime.today()
             target.save()
-            try:
-                email_template = Mail.objects.get(category=category, user=user)
-                email_template.title = re.sub('\{\{name\}\}', target.name, email_template.title)
-                email_template.body = re.sub('\{\{name\}\}', target.name, email_template.body)
-                form = TargetForm(instance=target)
-                request.session['last_target'] = target.id
-            except :
-                email_template = False
+            form = TargetForm(instance=target)
         except :
             target = False
         calls_today = Target.objects.filter(user=user, is_done=True, done_at=datetime.date.today()).count()
@@ -346,6 +339,13 @@ def cold_start(request, category_id):
             is_recalls = Target.objects.filter(user=user, callback=True, callback_at=datetime.date.today()).order_by('?')[0]
         except :
             is_recalls = False
+    try:
+        email_template = Mail.objects.get(category=category, user=user)
+        email_template.title = re.sub('\{\{name\}\}', target.name, email_template.title)
+        email_template.body = re.sub('\{\{name\}\}', target.name, email_template.body)
+        request.session['last_target'] = target.id
+    except :
+        email_template = False
     return render_to_response("myadmin/cold/start.html", locals(), context_instance=RequestContext(request))
 
 @login_required
