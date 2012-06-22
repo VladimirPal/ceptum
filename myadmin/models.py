@@ -12,6 +12,7 @@ STATUS_CHOICES = (
     ('INSPECTION', 'Осмотр'),
     ('PROJECT', 'Проект'),
     ('DONE', ' Готово'),
+    ('CANCEL', 'Отказ'),
  )
 
 REFERRER_CHOICES = (

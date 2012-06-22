@@ -48,6 +48,7 @@ def clients(request):
     else:
         current_statuses = dict((x) for x in STATUS_CHOICES)
         del current_statuses['DONE']
+        del current_statuses['CANCEL']
     statuses = STATUS_CHOICES
     user = User.objects.get(username=request.user)
     try:
@@ -57,7 +58,7 @@ def clients(request):
                 clients = Client.objects.filter(user=user, status__in=current_statuses, status_date=datetime.date.today()).exclude(status_date__isnull=True).order_by('status_date')
         elif request.GET.get('expired', ''):
             expired = request.GET.get('expired')
-            clients = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).exclude(status='DONE').order_by('status_date')
+            clients = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).exclude(status='DONE').exclude(status='CANCEL').order_by('status_date')
         else:
             clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
         if request.GET.get('filter_month', ''):
@@ -66,8 +67,8 @@ def clients(request):
                 clients = clients.filter(status_date__month=month)
     except :
         clients = False
-    expired_count = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status='DONE').exclude(status_date__isnull=True).count()
-    today_count = Client.objects.filter(user=user, status_date=datetime.date.today()).exclude(status='DONE').count()
+    expired_count = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status='DONE').exclude(status='CANCEL').exclude(status_date__isnull=True).count()
+    today_count = Client.objects.filter(user=user, status_date=datetime.date.today()).exclude(status='DONE').exclude(status='CANCEL').count()
     status_statistic = {}
     for status, y in STATUS_CHOICES:
         status_statistic[y] = Client.objects.filter(user=user, status=status).count()
@@ -82,6 +83,7 @@ def user_clients(request, username):
     else:
         current_statuses = dict((x) for x in STATUS_CHOICES)
         del current_statuses['DONE']
+        del current_statuses['CANCEL']
     statuses = STATUS_CHOICES
     user = User.objects.get(username=username)
     clientsuser = user.get_full_name()
@@ -91,7 +93,7 @@ def user_clients(request, username):
             if time == 'today':
                 clients = Client.objects.filter(user=user, status__in=current_statuses, status_date=datetime.date.today()).exclude(status_date__isnull=True).order_by('status_date')
         elif request.GET.get('expired', ''):
-            clients = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).exclude(status='DONE').order_by('status_date')
+            clients = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).exclude(status='DONE').exclude(status='CANCEL').order_by('status_date')
         else:
             clients = Client.objects.filter(user=user, status__in=current_statuses).order_by('status_date')
         if request.GET.get('filter_month', ''):
@@ -100,8 +102,8 @@ def user_clients(request, username):
                 clients = clients.filter(status_date__month=month)
     except :
         clients = False
-    expired_count = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).exclude(status='DONE').count()
-    today_count = Client.objects.filter(user=user, status_date=datetime.date.today()).exclude(status='DONE').count()
+    expired_count = Client.objects.filter(user=user).exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).exclude(status='DONE').exclude(status='CANCEL').count()
+    today_count = Client.objects.filter(user=user, status_date=datetime.date.today()).exclude(status='DONE').exclude(status='CANCEL').count()
     status_statistic = {}
     for status, y in STATUS_CHOICES:
         status_statistic[y] = Client.objects.filter(user=user, status=status).count()
@@ -116,6 +118,7 @@ def clients_all(request):
     else:
         current_statuses = dict((x) for x in STATUS_CHOICES)
         del current_statuses['DONE']
+        del current_statuses['CANCEL']
     statuses = STATUS_CHOICES
     try:
         if request.GET.get('time',''):
@@ -123,7 +126,7 @@ def clients_all(request):
             if time == 'today':
                 clients = Client.objects.filter(status__in=current_statuses, status_date=datetime.date.today()).order_by('status_date')
         elif request.GET.get('expired', ''):
-            clients = Client.objects.exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).exclude(status='DONE').order_by('status_date')
+            clients = Client.objects.exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).exclude(status='DONE').exclude(status='CANCEL').order_by('status_date')
         else:
             clients = Client.objects.filter(status__in=current_statuses).order_by('status_date')
         if request.GET.get('filter_month', ''):
@@ -132,8 +135,8 @@ def clients_all(request):
                 clients = clients.filter(status_date__month=month)
     except :
         clients = False
-    expired_count = Client.objects.exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).exclude(status='DONE').count()
-    today_count = Client.objects.filter(status_date=datetime.date.today()).exclude(status='DONE').count()
+    expired_count = Client.objects.exclude(status_date__gte=datetime.date.today()).exclude(status_date__isnull=True).exclude(status='DONE').exclude(status='CANCEL').count()
+    today_count = Client.objects.filter(status_date=datetime.date.today()).exclude(status='DONE').exclude(status='CANCEL').count()
     status_statistic = {}
     for status, y in STATUS_CHOICES:
         status_statistic[y] = Client.objects.filter(status=status).count()
