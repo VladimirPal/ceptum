@@ -94,6 +94,11 @@ class Target(models.Model):
     created_at = models.DateField(auto_now_add=True)
     done_at = models.DateField(null=True, blank=True)
 
+class CompanyToTarget(models.Model):
+    company_name = models.ForeignKey(User)
+    target = models.ForeignKey(Target)
+    is_busy = models.BooleanField()
+
 class Phone(models.Model):
     phone = models.CharField(max_length=20, unique=True)
     target = models.ForeignKey(Target)

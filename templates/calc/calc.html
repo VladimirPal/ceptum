@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block site_wrapper %}
+
+<style type="text/css">
+    .content {
+        margin-left: 100px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+    .hide {
+        display: none;
+    }
+</style>
+
+<div class="content">
+    <div class="menu">
+        <a href="">IP/Аналог</a><br>
+        <a href="">Тип системы</a><br>
+        <a href="">Камеры/Регистратор</a><br>
+        <a href="">Монтаж</a><br>
+        <a href="">Результат</a><br>
+    </div>
+</div>
+    <div class='first-step'><b>Выберите IP или Аналог:</b><Br>
+        <input type="radio" name="standart" value="ip"> IP<Br>
+        <input type="radio" name="standart" value="analog"> Analog<Br>
+    <a href="#" id="next1">Далее</a>
+    </div>
+    <div class='second-step hide'><b>Выберите тип системы:</b><Br>
+        <input type="radio" name="type" value="cheap">Бюджетное решение<Br>
+        <input type="radio" name="type" value="middle">Системы среднего уровня<Br>
+        <input type="radio" name="type" value="pro">Профессиональная система<Br>
+    <a href="#" id="next2">Далее</a>
+    </div>
+    <div class='third-step hide'><b>Выберите камеры:</b><Br>
+        Срок хранения архива
+        <input type="radio" name="archive" value="cheap">До 2х недель<Br>
+        <input type="radio" name="archive" value="midle">До 4х недель<Br>
+        <div class="ip-cheap">
+            Тип
+            <select>
+                <option>Внешняя</option>
+                <option>Внутренняя</option>
+            </select>
+            <span class='resolition'>Разрешение</span>
+            Количество
+            <input type="text" name="count">
+        </div>
+        <a href="#" id="add">Добавить камеру</a>
+        <a href="#" id="next3">Далее</a>
+    </div>
+
+<script>
+$(document).ready(function() {
+    var $STANDART;
+    var $TYPE;
+    $('a#next1').click(function() {
+        $('.first-step').hide();
+        $('.second-step').show();
+        $STANDART = $('input[name=standart]:checked').val();
+    });
+
+    $('a#next2').click(function() {
+        var option;
+        $('.second-step').hide();
+        $TYPE = $('input[name=type]:checked').val();
+        if ($STANDART == 'ip') {
+            var select = $('<select name="cam"></select>');
+            if ($TYPE == 'cheap') {
+                option = $('<option value="640x480">640x480</option>' +
+                        '<option value="1280x1020">1280x1020</option>');
+            } else if ($TYPE == 'middle') {
+                option = $('<option value="640x480">640x480</option>' +
+                        '<option value="702x576">702x576</option>' +
+                        '<option value="1024x756">1024x756</option>' +
+                        '<option value="1280x1020">1280x1020</option>' +
+                        '<option value="">1920x1080</option>');
+            }
+            select.append(option);
+            select.insertAfter($('.third-step span.resolition'));
+            $('.third-step').show();
+        }
+    });
+
+    $('a#add').click(function() {
+        var newcam = $('.ip-cheap:first').clone();
+        newcam.insertBefore($('.third-step a#add'))
+    });
+});
+
+</script>
+{% endblock %}

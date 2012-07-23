@@ -97,6 +97,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.messages',
+    'django.contrib.formtools',
     'grappelli',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
@@ -105,6 +106,7 @@ INSTALLED_APPS = (
     'ceptum.myadmin',
 #    'ceptum.blog',
 #    'ceptum.projects',
+    'ceptum.cctvcalc',
     'filebrowser',
     'south',
     'raven.contrib.django',

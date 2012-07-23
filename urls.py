@@ -10,6 +10,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^', include('catalog.urls')),
     (r'^admin/filebrowser/', include(site.urls)),
+    (r'^calc/', include('cctvcalc.urls')),
 #    (r'^cart/', include('cart.urls')),
 #    (r'^blog/', include('blog.urls')),
 #    (r'^projects/', include('projects.urls')),

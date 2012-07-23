@@ -1,0 +1,13 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<form autocomplete="off" class="form-horizontal" id="client_add_form" enctype="multipart/form-data" method="post" action="">{% csrf_token %}
+    {{ formset }}
+    <button type="submit" class="btn btn-primary">Далее</button>
+</form>
+</body>
+</html>
