@@ -17,6 +17,9 @@ class CalcWizard(SessionWizardView):
 def calc(request):
     return render_to_response("calc/calc.html", locals(), context_instance=RequestContext(request))
 
+def ajx_api(request):
+    return render_to_response("calc/calc.html", locals(), context_instance=RequestContext(request))
+
 def type(request):
     form = TypeForm()
     calc_id = _cart_id(request)
