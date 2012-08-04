@@ -1,7 +1,7 @@
         # -*- coding: utf-8 -*-
 from cctvcalc.forms import TypeForm, IpForm, RecorderForm, MicForm, InstallForm, IpCamForm
 from django.core import urlresolvers
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from cart.cart import _cart_id
@@ -18,7 +18,10 @@ def calc(request):
     return render_to_response("calc/calc.html", locals(), context_instance=RequestContext(request))
 
 def ajx_api(request):
-    return render_to_response("calc/calc.html", locals(), context_instance=RequestContext(request))
+    message = {
+        "resolution": "640x480, 1280x1020, 1920x1080",
+        }
+    return HttpResponse(message,mimetype='application/json')
 
 def type(request):
     form = TypeForm()
