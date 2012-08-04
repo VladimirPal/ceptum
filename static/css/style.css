@@ -1020,6 +1020,22 @@ span.current{ text-align:center; display:block;margin:20px 200px 5px 0;}
  		width: 20%;
  		float: left;
  	}
+ 	
+.table-striped tbody tr:nth-child(odd) td, .table-striped tbody tr:nth-child(odd) th {
+	background-color: #F9F9F9;
+}
+.base_table td{
+	padding: 8px;
+	line-height: 18px;
+	text-align: left;
+	vertical-align: top;
+	border-top: 1px solid #DDD;
+}
+.base_table td.onload{
+	background-image: url(../res/img/preloader_s.gif);
+	background-position: center center;
+	background-repeat: no-repeat;
+}
 /*COMMENTS*/
 #vk_comments{
 	float: left;

@@ -3,6 +3,8 @@
 
 <script type="text/javascript">
 	
+	var current_type;
+	
 	var moveto_step	= function(current_index){
 	
 		$('#calc_block').find('.progressbar').find('li').eq(current_index+1).addClass('current').prev().addClass('success').removeClass('current');
@@ -21,27 +23,7 @@
 		
 			var current_index	= $(event).parent().index();
 			
-			if(current_index >= 2){
-				
-				var	data_send	= $('#calc_steps_form').formSerialize(); 
-				var url			= 'ajx-api';
-				
-				$.ajax({
-					type:	"POST",
-					url:	url,
-					data:	data_send,
-					success:	function(responce){
-					
-						moveto_step(current_index);
-						
-					}
-				});
-			
-			}else{
-			
-				moveto_step(current_index);
-				
-			}
+			moveto_step(current_index);	
 			
 		}
 	};
@@ -87,6 +69,105 @@
 			
 		});
 		
+		$('#calc_step_1').find('input[type="radio"]').live('change',function(){
+			
+			current_type	=	$(this).val();
+			
+		});
+		
+		var current_in_out;
+		
+		$('.in_out_select').live('change', function(){
+		
+			var $this	= $(this);
+			
+			if(current_type === '1'){
+				
+				$this.parent().next().children().hide().end().next().addClass('onload');
+						
+				var	data_send	= {type: current_type, in_out: $this.val()}; 
+				var url			= 'ajx-api';
+				
+				$.ajax({
+					type:	"POST",
+					url:	url,
+					data:	data_send,
+					complete:	function(data){
+						
+						$this.parent().next().next().removeClass('onload').html('Разрешение: <select class="resolution_select" name="resolution[]"><option disabled="disabled" selected="selected"></option><option value="1">640x480</option><option value="2">1024x768</option><option value="3">1280x1020</option></select>');
+						
+					}
+				});
+				
+			}else{
+			
+				$this.parent().next().children().show();
+				
+			}
+		});	
+		
+		$('.color_select').live('change', function(){
+		
+			var $this	= $(this);
+			
+			$this.parent().next().addClass('onload');
+			
+			var	data_send	= {type: current_type, in_out: $this.parent().prev().find('.in_out_select').val(), color: $this.val()}; 
+			
+			var url			= 'ajx-api';
+			
+			$.ajax({
+				type:	"POST",
+				url:	url,
+				data:	data_send,
+				complete:	function(data){
+					
+					$this.parent().next().removeClass('onload').html('Разрешение: <select class="resolution_select" name="resolution[]"><option disabled="disabled" selected="selected"></option><option value="1">640x480</option><option value="2">1024x768</option><option value="3">1280x1020</option></select>');
+					
+				}
+			});
+			
+		});
+		
+		$('.resolution_select').live('change', function(){
+		
+			var $this	= $(this);
+			
+			$this.parent().next().children().show();
+					
+			
+		});
+		
+		var $cams_select_table	= $('#cams_select_table');
+		
+		$('#add_cam_link').live('click', function(e){
+			
+			e.preventDefault();
+			
+			var col_num = $('#cams_select_table').find('tr').size()+1;
+			$cams_select_table.append('<tr><td class="num">'+col_num+'</td><td><select class="in_out_select" name="in_out[]"><option disabled selected="selected">Тип камеры</option><option value="1">Внутренняя</option><option value="2">Внешняя</option></select></td><td class="color_block"><select class="color_select" name="color[]" style="display:none;"><option disabled selected="selected">Цвет</option><option value="1">Цветная</option><option value="2">Черно-белая</option></select></td><td class="resolution_block"></td><td class="count_block"><label style="display:none;">Количество: <input type="text" value="1"></label></td><td><a href="#" class="remove_cam_link">Удалить</a></td></tr>');
+		});
+		
+		$('.remove_cam_link').live('click', function(e){
+			
+			e.preventDefault();
+			
+			$(this).parent().parent().remove();
+			
+			$cams_select_table.find('tr').each(function(index){
+				$(this).children('.num').text(index+1);
+			});
+			
+		});
+		
+		$('.mounting_block').find('input').live('change',function(){
+			if($(this).attr('checked')){
+				$(this).parent().parent().next().show().removeAttr('disabled');
+			}else{
+				$(this).parent().parent().next().hide().attr('disabled','disabled');
+			}
+		});
+		
 	});
 
 </script>
@@ -107,7 +188,7 @@
 			<form id="calc_steps_form" action="" method="post" class="clearfix" autocomplete="off">
 				<article id="calc_step_1" class="calc_step clearfix">
 					<hr>
-					<h2>Тип камеры</h2>
+					<h2>Тип системы</h2>
 					<p><label><input type="radio" name="type" value="1"> IP</label></p>
 					<p><label><input type="radio" name="type" value="2"> Аналог</label></p>
 					<hr>
@@ -125,18 +206,41 @@
 				</article>
 				<article id="calc_step_3" class="calc_step clearfix">
 					<hr>
-					<h2>Внешние/внутренние</h2>
-					<p><label><input type="radio" name="in_out" value="1"> Внешние</label></p>
-					<p><label><input type="radio" name="in_out" value="2"> Внутренние</label></p>
+					<h2>Срок хранения архива</h2>
+						<div>
+							<p><label><input type="radio" name="archive" value="1"> До 2х недель</label></p>
+							<p><label><input type="radio" name="archive" value="2"> До 4х недель</label></p>
+						</div>
 					<hr>
-					<button class="alignleft" onclick="prev_step(this); return false;">Назад</button>
-					<button class="alignright" onclick="next_step(this); return false;">Дальше</button>
-				</article>
-				<article id="calc_step_4" class="calc_step clearfix">
+					<h2>Выберите камеры</h2>
+					<table id="cams_select_table" class="base_table table-striped">
+						<tr>
+							<td class="num">1</td>
+							<td>
+								<select class="in_out_select" name="in_out[]">
+									<option disabled selected="selected">Тип камеры</option>
+									<option value="1">Внутренняя</option>
+									<option value="2">Внешняя</option>
+								</select>
+							</td>
+							<td class="color_block">
+								<select class="color_select" name="color[]" style="display:none;">
+									<option disabled selected="selected">Цвет</option>
+									<option value="1">Цветная</option>
+									<option value="2">Черно-белая</option>
+								</select>
+							</td>
+							<td class="resolution_block">
+								
+							</td>
+							<td class="count_block"><label style="display:none;">Количество: <input type="text" value="1"></label></td>
+							<td></td>
+						</tr>
+					</table>
+					<a href="#" id="add_cam_link">+ Добавить камеру</a>
 					<hr>
-					<h2>Разрешение</h2>
-					<p><label><input type="radio" name="in_out" value="1"> Внешние</label></p>
-					<p><label><input type="radio" name="in_out" value="2"> Внутренние</label></p>
+						<div class="mounting_block"><label><input type="checkbox" name="mounting"> Заказать монтаж</label></div>
+						<div class="mounting_size" style="display:none;"><label>Укажите метраж: <input type="text" name="m_size" value="10"></label></div>
 					<hr>
 					<button class="alignleft" onclick="prev_step(this); return false;">Назад</button>
 					<button class="alignright" onclick="next_step(this); return false;">Дальше</button>
