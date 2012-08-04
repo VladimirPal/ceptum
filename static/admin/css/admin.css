@@ -182,3 +182,13 @@ label{
 	margin-left: 60px;
 	clear: both;
 }
+
+#client_form_fields .controls label{
+	display: block;
+	padding-top: 5px;
+	vertical-align: middle;
+}
+#client_form_fields .controls label input{
+	margin-top: 0;
+	margin-right: 5px;
+}
