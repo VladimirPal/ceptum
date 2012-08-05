@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from cctvcalc.models import Camera
+import simplejson as json
 
 def calc(request):
     return render_to_response("calc/calc.html", locals(), context_instance=RequestContext(request))
@@ -23,4 +24,4 @@ def ajx_api(request):
         "resolution": res,
         }
     print message
-    return HttpResponse(message,mimetype='application/json')
+    return HttpResponse(json.dumps(message),mimetype='application/json')
