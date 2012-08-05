@@ -3,7 +3,7 @@
 
 <script type="text/javascript">
 	
-	var current_type;
+	var current_type, current_class;
 	
 	var moveto_step	= function(current_index){
 	
@@ -75,6 +75,12 @@
 			
 		});
 		
+		$('#calc_step_2').find('input[type="radio"]').live('change',function(){
+			
+			current_class	=	$(this).val();
+			
+		});
+		
 		var current_location;
 		
 		$('.location_select').live('change', function(){
@@ -85,7 +91,7 @@
 				
 				$this.parent().next().children().hide().end().next().addClass('onload');
 						
-				var	data_send	= {type: current_type, location: $this.val()};
+				var	data_send	= {type: current_type, class: current_class, location: $this.val()};
 				var url			= 'ajx-api';
 				
 				$.ajax({
@@ -112,7 +118,7 @@
 			
 			$this.parent().next().addClass('onload');
 			
-			var	data_send	= {type: current_type, location: $this.parent().prev().find('.location_select').val(), color: $this.val()};
+			var	data_send	= {type: current_type, class: current_class, location: $this.parent().prev().find('.location_select').val(), color: $this.val()};
 			
 			var url			= 'ajx-api';
 			
