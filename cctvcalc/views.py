@@ -9,7 +9,7 @@ def calc(request):
 
 def ajx_api(request):
     print request.POST
-    cams = Camera.objects.filter(type=request.POST['type'], location=request.POST['location'])
+    cams = Camera.objects.filter(type=request.POST['type'], location=request.POST['location'], color=request.POST['color'])
     count_all = len(cams)
     count = 0
     res = str()
@@ -24,4 +24,3 @@ def ajx_api(request):
         "resolution": res,
         }
     return HttpResponse(message,mimetype='application/json')
-

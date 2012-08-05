@@ -20,8 +20,8 @@ RECORDER_TIME_CHOICES = (
 )
 
 COLOR_CHOICES = (
-    ('0', u'Черно-белая'),
-    ('1', u'Цветная'),
+    ('1', u'Черно-белая'),
+    ('2', u'Цветная'),
 )
 
 LOCATION_CHOICES = (
