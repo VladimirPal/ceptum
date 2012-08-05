@@ -19,8 +19,8 @@ def ajx_api(request):
             res += cam.resolution
         else:
             res += cam.resolution + ','
-    print res
     message = {
         "resolution": res,
         }
+    print message
     return HttpResponse(message,mimetype='application/json')
