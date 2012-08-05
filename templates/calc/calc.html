@@ -75,17 +75,17 @@
 			
 		});
 		
-		var current_in_out;
+		var current_location;
 		
-		$('.in_out_select').live('change', function(){
+		$('.location_select').live('change', function(){
 		
 			var $this	= $(this);
 			
-			if(current_type === '1'){
+			if(current_type === 'IP'){
 				
 				$this.parent().next().children().hide().end().next().addClass('onload');
 						
-				var	data_send	= {type: current_type, in_out: $this.val()}; 
+				var	data_send	= {type: current_type, location: $this.val()};
 				var url			= 'ajx-api';
 				
 				$.ajax({
@@ -112,7 +112,7 @@
 			
 			$this.parent().next().addClass('onload');
 			
-			var	data_send	= {type: current_type, in_out: $this.parent().prev().find('.in_out_select').val(), color: $this.val()}; 
+			var	data_send	= {type: current_type, location: $this.parent().prev().find('.location_select').val(), color: $this.val()};
 			
 			var url			= 'ajx-api';
 			
@@ -145,7 +145,7 @@
 			e.preventDefault();
 			
 			var col_num = $('#cams_select_table').find('tr').size()+1;
-			$cams_select_table.append('<tr><td class="num">'+col_num+'</td><td><select class="in_out_select" name="in_out[]"><option disabled selected="selected">Тип камеры</option><option value="1">Внутренняя</option><option value="2">Внешняя</option></select></td><td class="color_block"><select class="color_select" name="color[]" style="display:none;"><option disabled selected="selected">Цвет</option><option value="1">Цветная</option><option value="2">Черно-белая</option></select></td><td class="resolution_block"></td><td class="count_block"><label style="display:none;">Количество: <input type="text" value="1"></label></td><td><a href="#" class="remove_cam_link">Удалить</a></td></tr>');
+			$cams_select_table.append('<tr><td class="num">'+col_num+'</td><td><select class="location_select" name="location[]"><option disabled selected="selected">Тип камеры</option><option value="1">Внутренняя</option><option value="2">Внешняя</option></select></td><td class="color_block"><select class="color_select" name="color[]" style="display:none;"><option disabled selected="selected">Цвет</option><option value="1">Цветная</option><option value="2">Черно-белая</option></select></td><td class="resolution_block"></td><td class="count_block"><label style="display:none;">Количество: <input type="text" value="1"></label></td><td><a href="#" class="remove_cam_link">Удалить</a></td></tr>');
 		});
 		
 		$('.remove_cam_link').live('click', function(e){
@@ -189,8 +189,8 @@
 				<article id="calc_step_1" class="calc_step clearfix">
 					<hr>
 					<h2>Тип системы</h2>
-					<p><label><input type="radio" name="type" value="1"> IP</label></p>
-					<p><label><input type="radio" name="type" value="2"> Аналог</label></p>
+					<p><label><input type="radio" name="type" value="IP"> IP</label></p>
+					<p><label><input type="radio" name="type" value="ANALOG"> Аналог</label></p>
 					<hr>
 					<button class="alignright" onclick="next_step(this); return false;">Дальше</button>
 				</article>
@@ -217,7 +217,7 @@
 						<tr>
 							<td class="num">1</td>
 							<td>
-								<select class="in_out_select" name="in_out[]">
+								<select class="location_select" name="location[]">
 									<option disabled selected="selected">Тип камеры</option>
 									<option value="1">Внутренняя</option>
 									<option value="2">Внешняя</option>
@@ -262,8 +262,8 @@
     </div>
 </div>
     <div class='first-step'><b>Выберите IP или Аналог:</b><Br>
-        <input type="radio" name="standart" value="ip"> IP<Br>
-        <input type="radio" name="standart" value="analog"> Analog<Br>
+        <input type="radio" name="standart" value="IP"> IP<Br>
+        <input type="radio" name="standart" value="ANALOG"> Analog<Br>
     <a href="#" id="next1">Далее</a>
     </div>
     <div class='second-step hide'><b>Выберите тип системы:</b><Br>
