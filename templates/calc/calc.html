@@ -91,15 +91,15 @@
 				
 				$this.parent().next().children().hide().end().next().addClass('onload');
 						
-				var	data_send	= {type: current_type, class: current_class, location: $this.val()};
+				var	data_send	= {type: current_type, class: current_class, location: $this.val(), color: 2};
 				var url			= 'ajx-api';
 				
 				$.ajax({
 					type:	"POST",
 					url:	url,
 					data:	data_send,
-					complete:	function(data){
-						
+					complete:	function(response){
+						console.log(response.data.resolution);
 						$this.parent().next().next().removeClass('onload').html('Разрешение: <select class="resolution_select" name="resolution[]"><option disabled="disabled" selected="selected"></option><option value="1">640x480</option><option value="2">1024x768</option><option value="3">1280x1020</option></select>');
 						
 					}
@@ -203,9 +203,9 @@
 				<article id="calc_step_2" class="calc_step clearfix">
 					<hr>
 					<h2>Класс системы</h2>
-					<p><label><input type="radio" name="class" value="1"> Бюджетное решение</label></p>
-					<p><label><input type="radio" name="class" value="2"> Система среднего уровня</label></p>
-					<p><label><input type="radio" name="class" value="3"> Профессиональные системы</label></p>
+					<p><label><input type="radio" name="class" value="BEGIN"> Бюджетное решение</label></p>
+					<p><label><input type="radio" name="class" value="MIDDLE"> Система среднего уровня</label></p>
+					<p><label><input type="radio" name="class" value="PRO"> Профессиональные системы</label></p>
 					<hr>
 					<button class="alignleft" onclick="prev_step(this); return false;">Назад</button>
 					<button class="alignright" onclick="next_step(this); return false;">Дальше</button>
