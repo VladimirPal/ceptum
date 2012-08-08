@@ -6,10 +6,11 @@
 	var current_type, current_class;
 	
 	var moveto_step	= function(current_index){
-	
+        $('.current').find('.chose').text($('#calc_step_' + $('.current').find('.num').text()).find('input[type="radio"]:checked').parent().text());
+
 		$('#calc_block').find('.progressbar').find('li').eq(current_index+1).addClass('current').prev().addClass('success').removeClass('current');
 				
-		var	step_width	= $('#calc_steps_form').width()	
+		var	step_width	= $('#calc_steps_form').width();
 		
 		var left_slide	= -100*(current_index+1);
 
@@ -248,9 +249,9 @@
 			<h1 class="title">Калькулятор</h1>
 			<nav class="">
 				<ul class="progressbar clearfix">
-					<li class="current" onclick="goto_step(this); return false;"><span class="num">1</span>Тип системы</li>
-					<li onclick="goto_step(this); return false;"><span class="num">2</span>Класс системы</li>
-			        <li onclick="goto_step(this); return false;"><span class="num">3</span>Выбор камер</li>
+					<li class="current" onclick="goto_step(this); return false;"><span class="num">1</span>Тип системы<span class="chose"></span></li>
+					<li onclick="goto_step(this); return false;"><span class="num">2</span>Класс системы<span class="chose"></span></li>
+			        <li onclick="goto_step(this); return false;"><span class="num">3</span>Выбор камер<span class="chose"></span></li>
 				</ul>
 			</nav>
 			<div class="calc_block">

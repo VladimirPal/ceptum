@@ -1057,6 +1057,11 @@ span.current{ text-align:center; display:block;margin:20px 200px 5px 0;}
 				-moz-transition: all linear 300ms;
 				color: #F1F1F1;
 			}
+            #calc_block .progressbar li .chose{
+                display: block;
+                position: relative;
+                bottom: 10px;
+            }
 			#calc_block .progressbar li.success .num{
 				background-color: #3D9400;
 				background-image: -webkit-linear-gradient(top,#3D9400,#398A00);
