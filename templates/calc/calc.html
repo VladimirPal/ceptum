@@ -11,9 +11,9 @@
 				
 		var	step_width	= $('#calc_steps_form').width()	
 		
-		var left_slide	= -$('.calc_step').width()*(current_index+1);
+		var left_slide	= -100*(current_index+1);
 
-		$('#calc_steps_form').animate( { marginLeft : left_slide+'px' } );
+		$('#calc_steps_form').animate( { marginLeft : left_slide+'%' } );
 		
 	};
 	
@@ -36,9 +36,9 @@
 		
 		var	step_width	= $('#calc_steps_form').width()	
 		
-		var left_slide	= -$('.calc_step').width()*(current_index-1);
+		var left_slide	= -100*(current_index-1);
 
-		$('#calc_steps_form').animate( { marginLeft : left_slide+'px' } );
+		$('#calc_steps_form').animate( { marginLeft : left_slide+'%' } );
 	};
 	
 	var goto_step	= function(event){
@@ -59,19 +59,33 @@
 			
 		}
 		
-	}
+	};
+	
+	var get_result	= function(){
+		
+	};
 	
 	$(function(){
 		
+		//$('#calc_steps_form').clearForm();
+		
+		$('#calc_block').find('.btn_next, .btn_send').attr('disabled','disabled');
+		
 		$('#calc_block').find('.calc_step').find('input[type="radio"]').live('change',function(){
 			
-			$(this).parents('.calc_step').addClass('ready');
+			$(this).parents('.calc_step').addClass('ready').find('.btn_next').removeAttr('disabled');
 			
 		});
 		
 		$('#calc_step_1').find('input[type="radio"]').live('change',function(){
 			
 			current_type	=	$(this).val();
+			
+			if( current_type === 'IP' ){
+				$('#cams_select_table').find('.color_block').hide();
+			}else{
+				$('#cams_select_table').find('.color_block').show();
+			}
 			
 		});
 		
@@ -81,6 +95,15 @@
 			
 		});
 		
+		$('#calc_step_3').find('.btn_prev').click(function(){
+			$('#cams_select_table').find('tbody').find('tr').not('.first_row').remove()
+			$('#calc_step_3').find('.btn_send').attr('disabled','disabled');
+			$('#cams_select_table').find('.first_row').removeAttr('compleeted').find('.info_block').children().hide().end().end()
+			.find('select').find('option').removeAttr('selected').end().each(function(){
+				$(this).find('option').eq(0).attr('selected','selected');
+			});
+			$('#add_cam_link').hide();
+		});		
 		var current_location;
 		
 		$('.location_select').live('change', function(){
@@ -89,9 +112,11 @@
 			
 			if(current_type === 'IP'){
 				
-				$this.parent().next().children().hide().end().next().addClass('onload');
+				$this.parent().parent().parent().find('.info_block').children().hide();
+				
+				$this.parent().parent().next().children().hide().end().next().addClass('onload');
 						
-				var	data_send	= {type: current_type, class: current_class, location: $this.val(), color: 2};
+				var	data_send	= {'type': current_type, 'class': current_class, 'location': $this.val(), 'color': 2};
 				var url			= 'ajx-api';
 				
 				$.ajax({
@@ -99,15 +124,25 @@
 					url:	url,
 					data:	data_send,
 					complete:	function(response){
-						console.log(response.data.resolution);
-						$this.parent().next().next().removeClass('onload').html('Разрешение: <select class="resolution_select" name="resolution[]"><option disabled="disabled" selected="selected"></option><option value="1">640x480</option><option value="2">1024x768</option><option value="3">1280x1020</option></select>');
+					
+						var resp = jQuery.parseJSON(response.responseText);
+						
+						var resolutions = resp.resolution.split(',');
+						
+						var selects	= '';
+						
+						$.each(resolutions,function(i, val){
+							selects	+= '<option value="'+val+'">'+val+'</option>';
+						});
+						
+						$this.parent().parent().next().next().removeClass('onload').html('<div class="field"><select class="resolution_select" name="resolution[]"><option disabled="disabled" selected="selected">Выберите разрешение</option>'+selects+'</select></div>');
 						
 					}
 				});
 				
 			}else{
-			
-				$this.parent().next().children().show();
+				
+				$this.parent().parent().next().children().show();
 				
 			}
 		});	
@@ -116,9 +151,10 @@
 		
 			var $this	= $(this);
 			
-			$this.parent().next().addClass('onload');
+			$this.parent().parent().next().addClass('onload');
+			$this.parent().parent().siblings('.info_block').children().hide();
 			
-			var	data_send	= {type: current_type, class: current_class, location: $this.parent().prev().find('.location_select').val(), color: $this.val()};
+			var	data_send	= {type: current_type, class: current_class, location: $this.parent().parent().prev().find('.location_select').val(), color: $this.val()};
 			
 			var url			= 'ajx-api';
 			
@@ -126,9 +162,19 @@
 				type:	"POST",
 				url:	url,
 				data:	data_send,
-				complete:	function(data){
+				complete:	function(response){
 					
-					$this.parent().next().removeClass('onload').html('Разрешение: <select class="resolution_select" name="resolution[]"><option disabled="disabled" selected="selected"></option><option value="1">640x480</option><option value="2">1024x768</option><option value="3">1280x1020</option></select>');
+					var resp = jQuery.parseJSON(response.responseText);
+						
+					var resolutions = resp.resolution.split(',');
+					
+					var selects	= '';
+					
+					$.each(resolutions,function(i, val){
+						selects	+= '<option value="'+val+'">'+val+'</option>';
+					});
+					
+					$this.parent().parent().next().removeClass('onload').html('<div class="field"><select class="resolution_select" name="resolution[]"><option disabled="disabled" selected="selected">Выберите разрешение</option>'+selects+'</select></div>');
 					
 				}
 			});
@@ -139,7 +185,11 @@
 		
 			var $this	= $(this);
 			
-			$this.parent().next().children().show();
+			$this.parent().parent().next().children().show().parent().parent().addClass('compleeted');
+			
+			$('#calc_step_3').find('.btn_send').removeAttr('disabled');
+			
+			$('#add_cam_link').show();
 					
 			
 		});
@@ -150,8 +200,16 @@
 			
 			e.preventDefault();
 			
-			var col_num = $('#cams_select_table').find('tr').size()+1;
-			$cams_select_table.append('<tr><td class="num">'+col_num+'</td><td><select class="location_select" name="location[]"><option disabled selected="selected">Тип камеры</option><option value="1">Внутренняя</option><option value="2">Внешняя</option></select></td><td class="color_block"><select class="color_select" name="color[]" style="display:none;"><option disabled selected="selected">Цвет</option><option value="1">Цветная</option><option value="2">Черно-белая</option></select></td><td class="resolution_block"></td><td class="count_block"><label style="display:none;">Количество: <input type="text" value="1"></label></td><td><a href="#" class="remove_cam_link">Удалить</a></td></tr>');
+			$(this).hide();
+			
+			if(current_type === 'IP'){
+				var col_hide	= 'style="display:none;"';
+			}else{
+				var col_hide	= '';
+			}
+			
+			var col_num = $('#cams_select_table').find('tr').size();
+			$cams_select_table.append('<tr><td class="num">'+col_num+'</td><td><div class="field"><select class="location_select" name="location[]"><option disabled selected="selected">Выберите тип</option><option value="1">Внутренняя</option><option value="2">Внешняя</option></select></div></td><td class="color_block" '+col_hide+'><div class="field" style="display:none;"><select class="color_select" name="color[]"><option disabled selected="selected">Выберите цвет</option><option value="1">Цветная</option><option value="2">Черно-белая</option></select></div></td><td class="resolution_block"></td><td class="count_block"><div class="field" style="display:none;"><input type="text" value="1" size="3" maxlength="3" onkeyup="this.value = this.value.replace (/\D/, \'\')"></div></td><td><a href="#" class="remove_cam_link">Удалить</a></td></tr>');
 		});
 		
 		$('.remove_cam_link').live('click', function(e){
@@ -160,8 +218,13 @@
 			
 			$(this).parent().parent().remove();
 			
-			$cams_select_table.find('tr').each(function(index){
+			$('#add_cam_link').show();
+			
+			$cams_select_table.find('tbody').find('tr').each(function(index){
 				$(this).children('.num').text(index+1);
+				if(!$(this).hasClass('compleeted')){
+					$('#add_cam_link').hide();
+				}
 			});
 			
 		});
@@ -182,118 +245,96 @@
 	<div id="content">
 	
 		<section id="calc_block">
+			<h1 class="title">Калькулятор</h1>
 			<nav class="">
 				<ul class="progressbar clearfix">
-					<li class="current" onclick="goto_step(this); return false;"><span class="num">1</span>IP/Аналог</li>
-					<li onclick="goto_step(this); return false;"><span class="num">2</span>Тип системы</li>
-			        <li onclick="goto_step(this); return false;"><span class="num">3</span>Камеры/Регистратор</li>
-			        <li onclick="goto_step(this); return false;"><span class="num">4</span>Монтаж</li>
-			        <li onclick="goto_step(this); return false;"><span class="num">5</span>Результат</li>
+					<li class="current" onclick="goto_step(this); return false;"><span class="num">1</span>Тип системы</li>
+					<li onclick="goto_step(this); return false;"><span class="num">2</span>Класс системы</li>
+			        <li onclick="goto_step(this); return false;"><span class="num">3</span>Выбор камер</li>
 				</ul>
 			</nav>
-			<form id="calc_steps_form" action="" method="post" class="clearfix" autocomplete="off">
-				<article id="calc_step_1" class="calc_step clearfix">
-					<hr>
-					<h2>Тип системы</h2>
-					<p><label><input type="radio" name="type" value="IP"> IP</label></p>
-					<p><label><input type="radio" name="type" value="ANALOG"> Аналог</label></p>
-					<hr>
-					<button class="alignright" onclick="next_step(this); return false;">Дальше</button>
-				</article>
-				<article id="calc_step_2" class="calc_step clearfix">
-					<hr>
-					<h2>Класс системы</h2>
-					<p><label><input type="radio" name="class" value="BEGIN"> Бюджетное решение</label></p>
-					<p><label><input type="radio" name="class" value="MIDDLE"> Система среднего уровня</label></p>
-					<p><label><input type="radio" name="class" value="PRO"> Профессиональные системы</label></p>
-					<hr>
-					<button class="alignleft" onclick="prev_step(this); return false;">Назад</button>
-					<button class="alignright" onclick="next_step(this); return false;">Дальше</button>
-				</article>
-				<article id="calc_step_3" class="calc_step clearfix">
-					<hr>
-					<h2>Срок хранения архива</h2>
-						<div>
-							<p><label><input type="radio" name="archive" value="1"> До 2х недель</label></p>
-							<p><label><input type="radio" name="archive" value="2"> До 4х недель</label></p>
-						</div>
-					<hr>
-					<h2>Выберите камеры</h2>
-					<table id="cams_select_table" class="base_table table-striped">
-						<tr>
-							<td class="num">1</td>
-							<td>
-								<select class="location_select" name="location[]">
-									<option disabled selected="selected">Тип камеры</option>
-									<option value="1">Внутренняя</option>
-									<option value="2">Внешняя</option>
-								</select>
-							</td>
-							<td class="color_block">
-								<select class="color_select" name="color[]" style="display:none;">
-									<option disabled selected="selected">Цвет</option>
-									<option value="1">Цветная</option>
-									<option value="2">Черно-белая</option>
-								</select>
-							</td>
-							<td class="resolution_block">
-								
-							</td>
-							<td class="count_block"><label style="display:none;">Количество: <input type="text" value="1"></label></td>
-							<td></td>
-						</tr>
-					</table>
-					<a href="#" id="add_cam_link">+ Добавить камеру</a>
-					<hr>
-						<div class="mounting_block"><label><input type="checkbox" name="mounting"> Заказать монтаж</label></div>
-						<div class="mounting_size" style="display:none;"><label>Укажите метраж: <input type="text" name="m_size" value="10"></label></div>
-					<hr>
-					<button class="alignleft" onclick="prev_step(this); return false;">Назад</button>
-					<button class="alignright" onclick="next_step(this); return false;">Дальше</button>
-				</article>
-			</form>
+			<div class="calc_block">
+				<form id="calc_steps_form" action="" method="post" class="clearfix" autocomplete="off">
+					<article id="calc_step_1" class="calc_step clearfix">
+						<h2>Тип системы</h2>
+						<p><label><input type="radio" name="type" value="IP"> IP</label></p>
+						<p><label><input type="radio" name="type" value="ANALOG"> Аналог</label></p>
+						<hr>
+						<button class="alignright btn_next" onclick="next_step(this); return false;">Дальше</button>
+					</article>
+					<article id="calc_step_2" class="calc_step clearfix">
+						<h2>Класс системы</h2>
+						<p><label><input type="radio" name="class" value="BEGIN"> Бюджетное решение</label></p>
+						<p><label><input type="radio" name="class" value="MIDDLE"> Система среднего уровня</label></p>
+						<p><label><input type="radio" name="class" value="PRO"> Профессиональные системы</label></p>
+						<hr>
+						<button class="alignleft btn_prev" onclick="prev_step(this); return false;">Назад</button>
+						<button class="alignright btn_next" onclick="next_step(this); return false;">Дальше</button>
+					</article>
+					<article id="calc_step_3" class="calc_step clearfix">
+						<h2>Выберите камеры</h2>
+						<table id="cams_select_table" class="base_table table-striped">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Тип камеры</th>
+									<th class="color_block">Цвет</th>
+									<th>Разрешение</th>
+									<th>Количество</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="first_row">
+									<td class="num">1</td>
+									<td>
+										<div class="field">
+											<select class="location_select" name="location[]">
+												<option disabled selected="selected">Выберите тип</option>
+												<option value="1">Внутренняя</option>
+												<option value="2">Внешняя</option>
+											</select>
+										</div>
+									</td>
+									<td class="color_block info_block">
+										<div class="field" style="display:none;">
+											<select class="color_select" name="color[]">
+												<option disabled selected="selected">Выберите цвет</option>
+												<option value="1">Цветная</option>
+												<option value="2">Черно-белая</option>
+											</select>
+										</div>
+									</td>
+									<td class="resolution_block info_block">
+										
+									</td>
+									<td class="count_block info_block">
+										<div class="field" style="display:none;">
+											<input type="text" value="1" size="3" maxlength="3" onkeyup="this.value = this.value.replace (/\D/, '')">
+										</div>
+									</td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+						<a style="display:none;" href="#" id="add_cam_link">+ Добавить камеру</a>
+						<hr>
+						<h2>Срок хранения архива</h2>
+							<div>
+								<p><label><input type="radio" name="archive" value="1"> До 2х недель</label></p>
+								<p><label><input type="radio" name="archive" value="2"> До 4х недель</label></p>
+							</div>
+						<hr>
+							<div class="mounting_block"><label><input type="checkbox" name="mounting"> Заказать монтаж</label></div>
+							<div class="mounting_size" style="display:none;">Укажите метраж: <input type="text" name="m_size" value="10"></div>
+						<hr>
+						<button class="alignleft btn_prev" onclick="prev_step(this); return false;">Назад</button>
+						<button class="alignright btn_send" onclick="get_result(this); return false;">Посчитать</button>
+					</article>
+				</form>
+			</div>
 		</section>
 	
 	</div>
 </div>
-
-<hr/>
-<div class="content">
-    <div class="menu">
-        <a href="">IP/Аналог</a><br>
-        <a href="">Тип системы</a><br>
-        <a href="">Камеры/Регистратор</a><br>
-        <a href="">Монтаж</a><br>
-        <a href="">Результат</a><br>
-    </div>
-</div>
-    <div class='first-step'><b>Выберите IP или Аналог:</b><Br>
-        <input type="radio" name="standart" value="IP"> IP<Br>
-        <input type="radio" name="standart" value="ANALOG"> Analog<Br>
-    <a href="#" id="next1">Далее</a>
-    </div>
-    <div class='second-step hide'><b>Выберите тип системы:</b><Br>
-        <input type="radio" name="type" value="cheap">Бюджетное решение<Br>
-        <input type="radio" name="type" value="middle">Системы среднего уровня<Br>
-        <input type="radio" name="type" value="pro">Профессиональная система<Br>
-    <a href="#" id="next2">Далее</a>
-    </div>
-    <div class='third-step hide'><b>Выберите камеры:</b><Br>
-        Срок хранения архива
-        <input type="radio" name="archive" value="cheap">До 2х недель<Br>
-        <input type="radio" name="archive" value="midle">До 4х недель<Br>
-        <div class="ip-cheap">
-            Тип
-            <select>
-                <option>Внешняя</option>
-                <option>Внутренняя</option>
-            </select>
-            <span class='resolition'>Разрешение</span>
-            Количество
-            <input type="text" name="count">
-        </div>
-        <a href="#" id="add">Добавить камеру</a>
-        <a href="#" id="next3">Далее</a>
-    </div>
 
 {% endblock %}
