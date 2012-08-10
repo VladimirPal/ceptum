@@ -27,7 +27,25 @@ def ajx_api(request):
     return HttpResponse(json.dumps(message),mimetype='application/json')
 
 def ajx_result(request):
-    cams = Camera.objects.filter(type=request.POST['type'], camera_class=request.POST['class'], location=request.POST.getlist['location[]'], color=request.POST['color'])
-    print request.POST.getlist('resolution[]')
-    print request.POST.getlist('color[]')
-    print request.POST.getlist('location[]')
+    result = Result(price=0)
+    result.save()
+    price = 0
+    for index, param in enumerate(request.POST.getlist('resolution[]')):
+        cam = Camera.objects.get(type=request.POST['type'], camera_class=request.POST['class'],
+            location=request.POST.getlist('location[]')[index], resolution=request.POST.getlist('resolution[]')[index],
+             color=request.POST.getlist('color[]')[index])
+        result.camera.add(cam)
+        price += cam.price
+    if request.POST.get('m_size', False):
+        result.installation = request.POST['m_size']
+    result.price = price
+    result.save()
+    message = {
+        "resolution": '/result/%i' % result.id,
+        }
+    return HttpResponse(json.dumps(message),mimetype='application/json')
+
+def result(request, result_id):
+    print result_id
+    return render_to_response("calc/calc.html", locals(), context_instance=RequestContext(request))
+

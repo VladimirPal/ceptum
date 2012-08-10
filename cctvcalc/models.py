@@ -15,8 +15,7 @@ CLASS_CHOICES = (
 
 RECORDER_TIME_CHOICES = (
     ('1', u'До 2х недель'),
-    ('2', u'2-4 недели'),
-    ('3', u'От 4х недель'),
+    ('3', u'До 4х недель'),
 )
 
 COLOR_CHOICES = (
@@ -37,9 +36,13 @@ class Camera(models.Model):
     resolution = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=9, decimal_places=2)
 
+    def __unicode__(self):
+        return "%s, %s, %s, %s, %s, %s," % (self.type, self.get_camera_class_display(), self.get_location_display(), self.get_color_display(), self.resolution, self.price)
+
 class Result(models.Model):
     camera = models.ManyToManyField(Camera)
     date = models.DateField(auto_now_add=True)
     installation = models.CharField(max_length=255, blank=True)
+    arhive = models.CharField(choices=RECORDER_TIME_CHOICES, max_length=255)
     price = models.DecimalField(max_digits=9, decimal_places=2)
 
