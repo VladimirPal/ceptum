@@ -36,3 +36,10 @@ class Camera(models.Model):
     color = models.CharField(choices=COLOR_CHOICES, max_length=100)
     resolution = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=9, decimal_places=2)
+
+class Result(models.Model):
+    camera = models.ManyToManyField(Camera)
+    date = models.DateField(auto_now_add=True)
+    installation = models.CharField(max_length=255, blank=True)
+    price = models.DecimalField(max_digits=9, decimal_places=2)
+
