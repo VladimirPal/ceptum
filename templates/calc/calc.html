@@ -66,6 +66,25 @@
 	
 	var get_result	= function(){
 		
+		var url	= '#';
+		
+		var	data_send	= $('#calc_steps_form').formSerialize();
+		
+		$.ajax({
+			type:	"POST",
+			url:	url,
+			data:	data_send,
+			complete:	function(response){
+			
+				var resp = jQuery.parseJSON(response.responseText);
+				
+			},
+			error: function(){
+				console.log('smthng wrong! =(')
+			}
+		});
+		
+		
 	};
 	
 	$(function(){
