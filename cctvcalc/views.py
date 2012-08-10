@@ -47,5 +47,5 @@ def ajx_result(request):
 
 def result(request, result_id):
     print result_id
-    return render_to_response("calc/calc.html", locals(), context_instance=RequestContext(request))
+    return render_to_response("calc/result.html", locals(), context_instance=RequestContext(request))
 
