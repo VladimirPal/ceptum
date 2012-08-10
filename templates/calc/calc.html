@@ -6,7 +6,9 @@
 	var current_type, current_class;
 	
 	var moveto_step	= function(current_index){
-        $('.current').find('.chose').text($('#calc_step_' + $('.current').find('.num').text()).find('input[type="radio"]:checked').parent().text());
+	
+        $('.progressbar').find('.current').find('.chose')
+        .text($('#calc_step_' + $('.current').find('.num').text()).find('input[type="radio"]:checked').parent().find('.title').text());
 
 		$('#calc_block').find('.progressbar').find('li').eq(current_index+1).addClass('current').prev().addClass('success').removeClass('current');
 				
@@ -82,6 +84,9 @@
 			
 			current_type	=	$(this).val();
 			
+			
+			$(this).parents('label').addClass('current').siblings().removeClass('current');
+			
 			if( current_type === 'IP' ){
 				$('#cams_select_table').find('.color_block').hide();
 			}else{
@@ -91,7 +96,7 @@
 		});
 		
 		$('#calc_step_2').find('input[type="radio"]').live('change',function(){
-			
+			$(this).parents('label').addClass('current').siblings().removeClass('current');
 			current_class	=	$(this).val();
 			
 		});
@@ -104,7 +109,12 @@
 				$(this).find('option').eq(0).attr('selected','selected');
 			});
 			$('#add_cam_link').hide();
-		});		
+		});
+		
+		$('.archive_item').find('input').live('change',function(){
+			$(this).parents('label').addClass('current').siblings().removeClass('current');
+		});
+				
 		var current_location;
 		
 		$('.location_select').live('change', function(){
@@ -210,7 +220,7 @@
 			}
 			
 			var col_num = $('#cams_select_table').find('tr').size();
-			$cams_select_table.append('<tr><td class="num">'+col_num+'</td><td><div class="field"><select class="location_select" name="location[]"><option disabled selected="selected">Выберите тип</option><option value="1">Внутренняя</option><option value="2">Внешняя</option></select></div></td><td class="color_block" '+col_hide+'><div class="field" style="display:none;"><select class="color_select" name="color[]"><option disabled selected="selected">Выберите цвет</option><option value="1">Цветная</option><option value="2">Черно-белая</option></select></div></td><td class="resolution_block"></td><td class="count_block"><div class="field" style="display:none;"><input type="text" value="1" size="3" maxlength="3" onkeyup="this.value = this.value.replace (/\D/, \'\')"></div></td><td><a href="#" class="remove_cam_link">Удалить</a></td></tr>');
+			$cams_select_table.append('<tr><td class="num">'+col_num+'</td><td><div class="field"><select class="location_select" name="location[]"><option disabled selected="selected">Выберите тип</option><option value="1">Внутренняя</option><option value="2">Внешняя</option></select></div></td><td class="color_block" '+col_hide+'><div class="field" style="display:none;"><select class="color_select" name="color[]"><option disabled selected="selected">Выберите цвет</option><option value="1">Цветная</option><option value="2">Черно-белая</option></select></div></td><td class="resolution_block"></td><td class="count_block"><div class="field" style="display:none;"><input type="text" value="1" size="3" maxlength="3"></div></td><td><a href="#" class="remove_cam_link">Удалить</a></td></tr>');
 		});
 		
 		$('.remove_cam_link').live('click', function(e){
@@ -238,95 +248,186 @@
 			}
 		});
 		
+		$('#calc_steps_form').find('.count_block').find('input').live('keyup',function(){
+			this.value = this.value.replace (/\D/, '');
+		});
+		
+		$('#mount_size').live('keyup',function(){
+			this.value = this.value.replace (/\D/, '');
+		});
+		
+		$('#calc_start').bind('click',function(e){
+			e.preventDefault();
+			$('#calc_dscr').hide();
+			$('#calc_block').show();
+		});
+		
 	});
 
 </script>
 
 <div id="content_block">
 	<div id="content">
+		
+		<div id="calc_dscr" style="display:none;">
+			<h1 class="title">Калькулятор</h1>
+			<div class="content">
+				<p>Предлагаем вашему вниманию инструмент для расчета приблизительной стоимости системы видеонаблюдения.</p>
+				<p>Представленный на нашем сайте калькулятор, по объективным причинам, не предназначен для составления смет с точностью  «до копейки» - его цель в получении ПРИБЛИЗИТЕЛЬНОЙ  стоимости проекта. Для уточнения точной стоимости вы всегда сможете обратиться к нашим специалистам – мы в кратчайшее время предоставим Вам окончательный расчет.</p>
+				<div class="btn_block">
+					<span id="calc_start" class="btn btn_start">ЗАПУСТИТЬ КАЛЬКУЛЯТОР</span>
+				</div>
+			</div>
+		</div>
 	
 		<section id="calc_block">
-			<h1 class="title">Калькулятор</h1>
 			<nav class="">
 				<ul class="progressbar clearfix">
-					<li class="current" onclick="goto_step(this); return false;"><span class="num">1</span>Тип системы<span class="chose"></span></li>
-					<li onclick="goto_step(this); return false;"><span class="num">2</span>Класс системы<span class="chose"></span></li>
-			        <li onclick="goto_step(this); return false;"><span class="num">3</span>Выбор камер<span class="chose"></span></li>
+					<li class="current"><span class="num">1</span><span class="chose">Тип системы</span></li>
+					<li><span class="num">2</span><span class="chose">Класс системы</span></li>
+			        <li><span class="num">3</span><span class="chose">Выбор камер</span></li>
 				</ul>
 			</nav>
 			<div class="calc_block">
 				<form id="calc_steps_form" action="" method="post" class="clearfix" autocomplete="off">
 					<article id="calc_step_1" class="calc_step clearfix">
-						<h2>Тип системы</h2>
-						<p><label><input type="radio" name="type" value="IP"> IP</label></p>
-						<p><label><input type="radio" name="type" value="ANALOG"> Аналог</label></p>
+						<h2>Выбор типа системы</h2>
+						<div class="type_item">
+							<label style="margin-right: 2%;">
+								<div class="item">
+									<input type="radio" name="type" value="IP"><h1 class="title">«Сетевое» (IP) видеонаблюдение</h1>
+									<div>
+										<h2>Плюсы:</h2>
+										<ul>
+											<li>Качество изображения у большинства  сетевых камер выше (часто даже по сравнению с «аналоговыми» камерами той же ценовой категории); </li>
+											<li>Более высокое разрешение,  недоступное для  «аналоговых»  систем;</li>
+											<li>В большинстве случаев для установки IP  видеосистемы можно воспользоваться  уже существующей  IP-инфраструктурой, что  позволяет избежать  затраты на прокладку кабельных линий для передачи аналогового сигнала. Также большинство камер поддерживают формат PoE (питание и передача сигнала по одному проводу) ,что  даже при монтаже системы «с нуля» , упрощает прокладку кабельных трасс;</li>
+											<li>Во многих случаях небольшую и среднюю IP-видеосистему может обслуживать штатный  системный администратор  компании (во многих случаях удаленно)</li>
+											<li>Возможность передачи сигнала без потерь на большие расстояния позволяет развертывать IP-системы на территориально-распределенных объектах .  </li>
+											<li>Более низкая «стоимость владения» системой. На рынке уже появились IP-системы, которые по первоначальным затратам  незначительно дороже аналоговых, однако уже через несколько месяцев эксплуатации оправдывают себя, экономя ресурсы;</li>
+											<li>Возможность использовать «беспроводные каналы передачи данных» (например WI-FI, 3G,4G) , что невозможно при использовании «аналоговой» видеосистемы.</li>
+											<li>Возможность совместной передачи видео- и аудиосигнала.</li>
+										</ul>
+										<h2>Минусы:</h2>
+										<ul>
+											<li>Основным минусом Сетевой системы видеонаблюдения  является  большая стоимость оборудования , а как следствие больший объем первоначальных денежных вложений.</li> 
+										</ul>
+									</div>
+								</div>	
+							</label>
+							<label style="margin-left: 2%;">
+								<div class="item">
+									<input type="radio" name="type" value="ANALOG"><h1 class="title">«Аналоговая видеосистема» </h1>
+									<div>
+										<h2>Плюсы:</h2>
+										<ul>
+											<li>Основным плюсом аналоговой системы видеонаблюдения является более дешевая стоимость оборудования, а как следствие и меньшее вложение средств на этапе приобретения;</li>
+											<li>Сравнительная простота первоначальной  настройки;</li>
+											<li>Отсутствие вопроса «поддерживаемости формата» - любая аналоговая видеокамера может работать с любым аналоговым видеорегистратором.</li>
+										</ul>
+										
+										<h2>Минусы:</h2>
+										<ul>
+											<li>Ограничение разрешения - даже самая «топовая» аналоговая видеокамера не позволит получить «мегапиксельное» разрешение;</li>
+											<li>Ограниченность в максимальном расстоянии передачи аналогового видеосигнала без «затухания» видеосигнала;</li>
+											<li>Большие трудозатраты при расширении системы.</li>
+										</ul>
+
+									</div>
+								</div>
+							</label>
+						</div>
 						<hr>
 						<button class="alignright btn_next" onclick="next_step(this); return false;">Дальше</button>
 					</article>
 					<article id="calc_step_2" class="calc_step clearfix">
-						<h2>Класс системы</h2>
-						<p><label><input type="radio" name="class" value="BEGIN"> Бюджетное решение</label></p>
-						<p><label><input type="radio" name="class" value="MIDDLE"> Система среднего уровня</label></p>
-						<p><label><input type="radio" name="class" value="PRO"> Профессиональные системы</label></p>
+						<h2>Выбор класса видеосистемы:</h2>
+						<div class="class_item">							
+							<label>
+								<div class="item">
+									<input type="radio" name="class" value="BEGIN"> <h1 class="title">Бюджетное оборудование</h1> - оборудование с низким или средним качеством изображения и разрешения. Подходят для установки в небольших помещениях (например квартире) или для фиксации ситуаций,   где достаточно фиксации факта наступления события, но   не требуется визуальной идентификации человека на средних и больших расстояниях.  Обычно оборудование данного уровня ставится в небольших системах (обычно до 16 видеокамер), к которым не предъявляют высокие требования по качеству изображения, времени хранения архива, дублированию всех компонентов Системы.
+								</div>
+							</label>
+							<label>
+								<div class="item">
+									<input type="radio" name="class" value="MIDDLE"> <h1 class="title">Оборудование среднего уровня</h1> - являются наиболее распространенным типом оборудования видеонаблюдения. К данному оборудованию предъявляются  высокие требования по разрешению. качеству видеосигнала, возможности масштабирования  системы, времени хранения видеоархива.
+								</div>
+							</label>
+							<label>
+								<div class="item">
+									<input type="radio" name="class" value="PRO"> <h1 class="title">Профессиональное оборудование</h1> - оборудование с лучшими характеристиками,  максимальным функционалом и отказоустойчивостью, что сказывается на его стоимости. 
+								</div>
+							</label>
+						</div>
 						<hr>
 						<button class="alignleft btn_prev" onclick="prev_step(this); return false;">Назад</button>
 						<button class="alignright btn_next" onclick="next_step(this); return false;">Дальше</button>
 					</article>
 					<article id="calc_step_3" class="calc_step clearfix">
-						<h2>Выберите камеры</h2>
-						<table id="cams_select_table" class="base_table table-striped">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>Тип камеры</th>
-									<th class="color_block">Цвет</th>
-									<th>Разрешение</th>
-									<th>Количество</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="first_row">
-									<td class="num">1</td>
-									<td>
-										<div class="field">
-											<select class="location_select" name="location[]">
-												<option disabled selected="selected">Выберите тип</option>
-												<option value="1">Внутренняя</option>
-												<option value="2">Внешняя</option>
-											</select>
-										</div>
-									</td>
-									<td class="color_block info_block">
-										<div class="field" style="display:none;">
-											<select class="color_select" name="color[]">
-												<option disabled selected="selected">Выберите цвет</option>
-												<option value="1">Цветная</option>
-												<option value="2">Черно-белая</option>
-											</select>
-										</div>
-									</td>
-									<td class="resolution_block info_block">
-										
-									</td>
-									<td class="count_block info_block">
-										<div class="field" style="display:none;">
-											<input type="text" value="1" size="3" maxlength="3" onkeyup="this.value = this.value.replace (/\D/, '')">
-										</div>
-									</td>
-									<td></td>
-								</tr>
-							</tbody>
-						</table>
-						<a style="display:none;" href="#" id="add_cam_link">+ Добавить камеру</a>
-						<hr>
-						<h2>Срок хранения архива</h2>
-							<div>
-								<p><label><input type="radio" name="archive" value="1"> До 2х недель</label></p>
-								<p><label><input type="radio" name="archive" value="2"> До 4х недель</label></p>
+						<h2>Выберите камеры:</h2>
+						<div class="cam_item">
+							<table id="cams_select_table" class="base_table table-striped">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Тип камеры</th>
+										<th class="color_block">Цвет</th>
+										<th>Разрешение</th>
+										<th>Количество</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="first_row">
+										<td class="num">1</td>
+										<td>
+											<div class="field">
+												<select class="location_select" name="location[]">
+													<option disabled selected="selected">Выберите тип</option>
+													<option value="1">Внутренняя</option>
+													<option value="2">Внешняя</option>
+												</select>
+											</div>
+										</td>
+										<td class="color_block info_block">
+											<div class="field" style="display:none;">
+												<select class="color_select" name="color[]">
+													<option disabled selected="selected">Выберите цвет</option>
+													<option value="1">Цветная</option>
+													<option value="2">Черно-белая</option>
+												</select>
+											</div>
+										</td>
+										<td class="resolution_block info_block">
+											
+										</td>
+										<td class="count_block info_block">
+											<div class="field" style="display:none;">
+												<input type="text" value="1" size="3" maxlength="3">
+											</div>
+										</td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+							<a style="display:none;" href="#" id="add_cam_link">+ Добавить камеру</a>
+						</div>
+						<h2>Срок хранения архива:</h2>
+							<div class="archive_item">
+								<label>
+									<div class="item">
+										<input type="radio" name="archive" value="1"> <h2>До 2х недель</h2>
+									</div>
+								</label>
+								<label>
+									<div class="item">
+										<input type="radio" name="archive" value="2"> <h2>До 4х недель</h2>
+									</div>
+								</label>
 							</div>
-						<hr>
-							<div class="mounting_block"><label><input type="checkbox" name="mounting"> Заказать монтаж</label></div>
-							<div class="mounting_size" style="display:none;">Укажите метраж: <input type="text" name="m_size" value="10"></div>
+						<div class="mount_item">	
+							<div class="mounting_block"><label><input type="checkbox" name="mounting"> <h2>Заказать монтаж</label></h2></div>
+							<div class="mounting_size" style="display:none;">Укажите метраж: <input id="mount_size" type="text" name="m_size" value="10"></div>
+						</div>
 						<hr>
 						<button class="alignleft btn_prev" onclick="prev_step(this); return false;">Назад</button>
 						<button class="alignright btn_send" onclick="get_result(this); return false;">Посчитать</button>

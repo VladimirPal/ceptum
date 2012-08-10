@@ -954,13 +954,42 @@ p.date{
 span.current{ text-align:center; display:block;margin:20px 200px 5px 0;}
 
 /*calculator*/
+#calc_dscr{
+	margin: 40px 0 20px;
+}
+	#calc_dscr .title{
+		border: 1px solid #D7D7D7;
+		-webkit-border-radius: 4px 4px 0 0;
+		-moz-border-radius: 4px 4px 0 0;
+		border-radius: 4px 4px 0 0;
+		background: none repeat scroll 0 0 #F1F1F1;
+		font-size: 24px;
+		display: block;
+		padding: 20px;
+	}
+	#calc_dscr .content{
+		border: 1px solid #D7D7D7;
+		-webkit-border-radius: 0 0 4px 4px;
+		-moz-border-radius: 0 0 4px 4px;
+		border-radius: 0 0 4px 4px;
+		border-top: 0;
+		padding: 40px 20px;
+		font-size: 18px;
+	}
+		#calc_dscr .content p{
+			margin-bottom: 20px;
+		}
+		.btn_block{
+			text-align: center;
+			margin-top: 40px;
+		}
 #calc_block{
 	margin-top: 40px;
 	overflow-x: hidden;
 	width: 100%;
 	margin-bottom: 20px;
 }
-	#calc_block button{
+	#calc_block button ,#calc_dscr .content .btn{
 		background-color: whiteSmoke;
 		background-image: -webkit-linear-gradient(top,whiteSmoke,#F1F1F1);
 		background-image: -moz-linear-gradient(top,whiteSmoke,#F1F1F1);
@@ -982,6 +1011,50 @@ span.current{ text-align:center; display:block;margin:20px 200px 5px 0;}
 		min-width: 54px;
 		outline: 0;
 		padding: 0 12px;
+		text-decoration: none;
+	}
+	#calc_dscr .content .btn{
+		display: inline-block;
+	}
+	#calc_dscr .content .btn_start{
+		background-color: #D14836;
+		background-image: -webkit-gradient(linear,left top,left bottom,from(#DD4B39),to(#D14836));
+		background-image: -webkit-linear-gradient(top,#DD4B39,#D14836);
+		background-image: -moz-linear-gradient(top,#DD4B39,#D14836);
+		background-image: -ms-linear-gradient(top,#DD4B39,#D14836);
+		background-image: -o-linear-gradient(top,#DD4B39,#D14836);
+		background-image: linear-gradient(top,#DD4B39,#D14836);
+		border: 1px solid transparent;
+	}
+	#calc_dscr .content .btn_start:hover{
+		border: 1px solid #B0281A;
+		color: white;
+		text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+		background-color: #C53727;
+		background-image: -webkit-gradient(linear,left top,left bottom,from(#DD4B39),to(#C53727));
+		background-image: -webkit-linear-gradient(top,#DD4B39,#C53727);
+		background-image: -moz-linear-gradient(top,#DD4B39,#C53727);
+		background-image: -ms-linear-gradient(top,#DD4B39,#C53727);
+		background-image: -o-linear-gradient(top,#DD4B39,#C53727);
+		background-image: linear-gradient(top,#DD4B39,#C53727);
+		-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+		-moz-box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+		-ms-box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+		-o-box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	}
+	#calc_dscr .content .btn_start:active{
+		border: 1px solid #992A1B;
+		background-color: #B0281A;
+		background-image: -webkit-gradient(linear,left top,left bottom,from(#DD4B39),to(#B0281A));
+		background-image: -webkit-linear-gradient(top,#DD4B39,#B0281A);
+		background-image: -moz-linear-gradient(top,#DD4B39,#B0281A);
+		background-image: -ms-linear-gradient(top,#DD4B39,#B0281A);
+		background-image: -o-linear-gradient(top,#DD4B39,#B0281A);
+		background-image: linear-gradient(top,#DD4B39,#B0281A);
+		-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+		-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+		box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
 	}
 	#calc_block button.btn_prev{
 		color: #444;
@@ -1058,9 +1131,7 @@ span.current{ text-align:center; display:block;margin:20px 200px 5px 0;}
 				color: #F1F1F1;
 			}
             #calc_block .progressbar li .chose{
-                display: block;
-                position: relative;
-                bottom: 10px;
+                display: inline-block;
             }
 			#calc_block .progressbar li.success .num{
 				background-color: #3D9400;
@@ -1097,8 +1168,14 @@ span.current{ text-align:center; display:block;margin:20px 200px 5px 0;}
 		}
 			#calc_block .calc_block label input{
 				float: left;
-				margin-left: -24px;
-				margin-top: 3px;
+				margin-left: -29px;
+    			margin-top: 3px;
+			}
+			#calc_block .calc_block .archive_item label input{
+				margin-top: 5px;
+			}
+			#calc_block .calc_block .type_item label input, #calc_block .calc_block .class_item label input{
+				margin-top: 7px;
 			}
  #calc_steps_form{
  	width: 400%;
@@ -1108,7 +1185,82 @@ span.current{ text-align:center; display:block;margin:20px 200px 5px 0;}
 	    padding: 20px 0.5%;
 	    width: 24%;
  	}
- 	
+#calc_block #calc_step_1 .type_item{
+	font-size: 0;
+	letter-spacing: -1px;
+}
+	#calc_block #calc_step_1 .type_item label{
+		display: inline-block;
+		width: 48%;
+		font-size: 16px;
+		padding: 0;
+		letter-spacing: normal;
+		vertical-align: top;
+	}
+		#calc_block #calc_step_1 .type_item .item{
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			padding: 40px 40px;
+			padding: 40px 40px 40px 60px;
+			padding: 7% 7% 7% 11%;
+		}
+		#calc_block #calc_step_1 .type_item label:hover .item{
+			box-shadow: 0px 0px 3px 1px rgba(0,0,0,.3);
+		}
+		#calc_block #calc_step_1 .type_item label.current .item{
+			box-shadow: 0px 0px 3px 1px rgb(77, 144, 254);
+		}
+			#calc_block #calc_step_1 .type_item .item h2{
+				font-size: 16px;
+			}
+			#calc_block #calc_step_1 .type_item .item ul{
+				margin-bottom: 20px;
+			}
+				#calc_block #calc_step_1 .type_item .item ul li{
+					margin-bottom: 4px;
+					font-size: 14px;
+				}
+#calc_block #calc_step_2 .class_item{
+
+}
+	#calc_block #calc_step_2 .class_item label{
+		padding: 0;
+	}
+		#calc_block #calc_step_2 .class_item .item{
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			padding:20px 20px 20px 40px;
+		}
+		#calc_block #calc_step_2 .class_item label:hover .item{
+			box-shadow: 0px 0px 3px 1px rgba(0,0,0,.3);
+		}
+		#calc_block #calc_step_2 .class_item label.current .item{
+			box-shadow: 0px 0px 3px 1px rgb(77, 144, 254);
+		}
+		
+	#calc_block #calc_step_3 .archive_item label{
+		padding: 0;
+	}
+		#calc_block #calc_step_3 .archive_item .item{
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			padding:20px 20px 10px 40px;
+		}
+		#calc_block #calc_step_3 .archive_item label:hover .item{
+			box-shadow: 0px 0px 3px 1px rgba(0,0,0,.3);
+		}
+		#calc_block #calc_step_3 .archive_item label.current .item{
+			box-shadow: 0px 0px 3px 1px rgb(77, 144, 254);
+		}
+	
+	#calc_block #calc_step_3 .cam_item, #calc_block #calc_step_3 .archive_item{
+		border-bottom: 1px dashed #D7D7D7;
+	    margin-bottom: 30px;
+	    padding-bottom: 40px;
+	}
 .table-striped tbody tr:nth-child(odd) td, .table-striped tbody tr:nth-child(odd) th {
 	background-color: #F9F9F9;
 }
