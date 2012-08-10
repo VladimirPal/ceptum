@@ -173,13 +173,14 @@
 			}else{
 				
 				$this.parent().parent().parent().find('.info_block').children().hide().end().end().end().next().children()
-				.children().removeAttr('selected').first().attr('selected','selected').end().end().show();
+				.replaceWith('<div class="field"><select class="color_select" name="color[]" selected="selected"><option disabled="disabled" selected="selected">Выберите цвет</option><option value="1">Цветная</option><option value="2">Черно-белая</option></select></div>');
+				
+				$('#add_cam_link').hide();
 				
 			}
 		});	
 		
 		$('.color_select').live('change', function(){
-		
 			var $this	= $(this);
 			
 			$this.parent().parent().next().addClass('onload');
