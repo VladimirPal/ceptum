@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from cctvcalc.models import Camera
+from cctvcalc.models import Camera, Result
 import simplejson as json
 
 def calc(request):
@@ -25,3 +25,9 @@ def ajx_api(request):
         }
     print message
     return HttpResponse(json.dumps(message),mimetype='application/json')
+
+def ajx_result(request):
+    cams = Camera.objects.filter(type=request.POST['type'], camera_class=request.POST['class'], location=request.POST.getlist['location[]'], color=request.POST['color'])
+    print request.POST.getlist('resolution[]')
+    print request.POST.getlist('color[]')
+    print request.POST.getlist('location[]')
