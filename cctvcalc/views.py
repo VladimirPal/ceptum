@@ -41,7 +41,7 @@ def ajx_result(request):
     result.price = price
     result.save()
     message = {
-        "resolution": '/result/%i' % result.id,
+        "url": '/calc/result/%i' % result.id,
         }
     return HttpResponse(json.dumps(message),mimetype='application/json')
 
