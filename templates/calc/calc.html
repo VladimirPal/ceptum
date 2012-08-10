@@ -172,7 +172,8 @@
 				
 			}else{
 				
-				$this.parent().parent().next().children().show();
+				$this.parent().parent().parent().find('.info_block').children().hide().end().end().end().next().children()
+				.children().removeAttr('selected').first().attr('selected','selected').end().end().show();
 				
 			}
 		});	
