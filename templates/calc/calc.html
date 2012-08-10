@@ -263,9 +263,9 @@
 		
 		$('.mounting_block').find('input').live('change',function(){
 			if($(this).attr('checked')){
-				$(this).parent().parent().next().show().removeAttr('disabled');
+				$(this).parent().parent().next().show().find('input').removeAttr('disabled');
 			}else{
-				$(this).parent().parent().next().hide().attr('disabled','disabled');
+				$(this).parent().parent().next().hide().find('input').attr('disabled','disabled');
 			}
 		});
 		
@@ -447,7 +447,7 @@
 							</div>
 						<div class="mount_item">	
 							<div class="mounting_block"><label><input type="checkbox" name="mounting"> <h2>Заказать монтаж</label></h2></div>
-							<div class="mounting_size" style="display:none;">Укажите метраж: <input id="mount_size" type="text" name="m_size" value="10"></div>
+							<div class="mounting_size" style="display:none;">Укажите метраж: <input id="mount_size" disabled="disabled" type="text" name="m_size" value="10"></div>
 						</div>
 						<hr>
 						<button class="alignleft btn_prev" onclick="prev_step(this); return false;">Назад</button>
